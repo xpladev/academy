@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkxpla_academy=self.webpackChunkxpla_academy||[]).push([[5300],{8630:a=>{a.exports=JSON.parse('{"label":"hello","permalink":"/xpla-academy-dev/blog/tags/hello","allTagsPath":"/xpla-academy-dev/blog/tags","count":2}')}}]);
