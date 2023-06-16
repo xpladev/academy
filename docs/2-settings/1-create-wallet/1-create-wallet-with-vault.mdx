@@ -1,0 +1,123 @@
+---
+sidebar_position: 1
+---
+
+# Vault로 지갑 만들기 (5분)
+
+import Card from "../../../src/components/Card";
+import VaultImgCard from "../../../src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+import GrayCard from '@site/src/components/GrayCard';
+
+블록체인에서 지갑(wallet)은 유저의 토큰을 관리하는 소프트웨어를 의미하기도 하고, 유저의 계정(account) 자체를 의미하기도 합니다.
+
+## Vault 설치 {#install-vault}
+
+아래는 대표적인 지갑 앱들입니다. 앞으로 우리가 사용할 [Vault Chrome Extension](https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb)을 설치해봅시다.
+
+```mdx-code-block
+<div className="grid sm:grid-cols-2 gap-4 grid-cols-1">
+    <Card
+    imgLink={
+        "https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb"
+    }
+    imgSrc={"/xpla-academy-dev/img/2-settings/1-create-wallet/vault.jpg"}
+    title={"Vault"}
+    description={`XPLA 블록체인 네트워크에서 사용합니다.`}
+    />
+    <Card
+    imgLink={
+        "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
+    }
+    imgSrc={"/xpla-academy-dev/img/2-settings/1-create-wallet/metamask.jpg"}
+    title={"Metamask"}
+    description={`Ethereum 블록체인 네트워크에서 사용합니다.`}
+    />
+ </div>
+```
+
+<br />
+
+Vault를 Chrome Extension으로 실행해보면 아래와 같은 화면을 볼 수 있습니다.
+
+
+<BrowserWindow bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-end">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/install-vault.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+## 지갑 생성하기 {#createwallet}
+
+Vault를 이용하면 다음과 같은 절차로, 지갑을 빠르게 만들 수 있습니다.
+
+1. [New wallet 선택](/docs/settings/create-wallet/create-wallet-with-xpla-games#clicknewwallet)
+
+2. [지갑 정보 설정 및 니모닉(Mnemonic) 저장](/docs/settings/create-wallet/create-wallet-with-xpla-games#savemnemonic)
+
+3. [니모닉 검증](/docs/settings/create-wallet/create-wallet-with-xpla-games#verifymnemonic)
+
+4. [생성한 지갑을 Vault에 연결](/docs/settings/create-wallet/create-wallet-with-xpla-games#connectwallet)
+
+### New Wallet 선택 {#clicknewwallet}
+
+Vault를 실행하고, `New wallet`을 선택하세요.
+
+<BrowserWindow bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-end">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/select-newwallet.png" />
+</div>
+</BrowserWindow>
+
+### 지갑 정보 설정 및 니모닉(Mnemonic) 저장 {#savemnemonic}
+
+지갑에서 사용할 이름과 비밀번호를 기입하시고, 니모닉 단어들을 안전한 곳에 저장해주세요.
+
+:::caution
+
+니모닉은 지갑을 복구하기 위한 단어들입니다. 따라서 다른 사람에게 알려지거나, 도난되면 지갑의 모든 자금을 탈취당할 수 있습니다. 그러니 꼭 안전한 곳에 보관하시고, 어느 누구에게도 알려주면 안됩니다.
+
+:::
+
+이후 `Submit` 버튼을 클릭합니다.
+
+<BrowserWindow bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '58px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/save-mnemonic.png" />
+</div>
+</BrowserWindow>
+
+### 니모닉 검증 {#verifymnemonic}
+
+저장한 니모닉을 참고하여 화면에 나온 순서의 단어를 선택해주세요.
+
+<BrowserWindow bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '55px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/verify-mnemonic.png" />
+</div>
+</BrowserWindow>
+
+### 생성한 지갑을 Vault에 연결 {#connectwallet}
+
+지갑 생성이 완료되었습니다. `Connect`를 선택하여 생성한 지갑을 Vault에 연결하면 끝입니다.
+
+이제 Vault Chrome Extension을 실행하면 생성한 지갑 정보를 바로 확인할 수 있습니다.
+
+<BrowserWindow bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '53px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/connect-wallet.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-end">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/create-success.png" />
+</div>
+</BrowserWindow>
+
+horse daughter melt napkin stem south bullet service path margin runway approve autumn badge exhaust apology enough stove dirt spring race napkin over age
