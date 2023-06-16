@@ -36,12 +36,15 @@ const sidebars = {
       },
       items: ['settings/create-wallet/create-wallet-with-vault', 'settings/create-wallet/create-wallet-with-js'],
     },
-    'settings/connect-testnet',
+    'settings/get-testnet-xpla',
     {
       type: 'category',
       label: 'Create testnet transaction',
       link: {
         type: 'generated-index',
+        title: 'Create Testnet Transaction',
+        description: 'XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다.'
+
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
     },
