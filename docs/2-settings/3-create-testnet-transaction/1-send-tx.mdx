@@ -2,4 +2,186 @@
 sidebar_position: 1
 ---
 
-# Send Tx
+# XPLA 전송 트랜잭션 만들기
+
+import Details from '@theme/Details';
+import Ex02 from "@site/src/components/Sandpack/Ex02";
+import Ex01_react from "@site/src/components/Sandpack/Ex01_react";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+블록체인에 기록된 데이터들을 트랜잭션(Transaction)이라고 부릅니다. 예를 들어 `Alice가 Bob에게 1 XPLA를 보냄`이라는 트랜잭션을 만들어 블록체인에 기록할 수 있겠군요. 
+
+XPLA 블록체인에 트랜잭션을 생성하려면 XPLA 토큰으로 수수료를 지불해야 합니다. [이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 테스트넷 XPLA 토큰을 받았으니, 수수료 걱정 없이 테스트넷에서 트랜잭션을 생성해봅시다. 
+
+<Details summary="트랜잭션을 생성하려면 왜 수수료를 지불해야 하나요?">
+
+블록체인에 트랜잭션은 어떻게 생성되는 걸까요? 블록체인의 시작부터 현재까지 기록된 모든 데이터를 저장하고 있는 사람들이 있습니다. 그들을 검증자(Validator)라고 부르죠. 검증자들은 새로 기록될 데이터를 네트워크에서 받아 검증하고, 문제가 없으면 블록체인에 추가하는 역할을 맡고 있습니다.
+
+검증자들의 활동에는 많은 컴퓨팅 자원이 필요합니다. 우리는 컴퓨팅 자원을 사용하지 않는 대신에, 수수료를 지불하여 검증자들에게 데이터를 블록체인에 추가해달라고 요청하게 되는 것이죠. 이를 PoS(Proof of Stake) 방식이라고 합니다.
+
+검증자에 관해 더 자세히 알고 싶다면 [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/)를 참고해보세요.
+
+</Details>
+
+## Quickstart {#quickstart}
+
+[이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 Faucet 지갑에게 XPLA 토큰을 전송받았습니다. 이번엔 우리 지갑에서 Faucet 지갑으로 XPLA 토큰을 전송하는 트랜잭션을 만들어보겠습니다. 전송하는 금액은 25aXPLA (0.000000000000000025XPLA)입니다.
+
+:::tip
+
+10<sup>18</sup> `aXPLA`는 1 `XPLA`입니다.
+
+:::
+
+Javascript로 전송 트랜잭션을 만드는 코드는 아래와 같습니다. 여러분의 니모닉 단어를 넣어 코드를 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex02 />
+
+<br/>
+
+
+Quickstart Code를 이해하셨다면, [아래 내용](/docs/settings/create-testnet-transaction/send-tx#runjs)을 읽지 않고 바로 [다음 단계](/docs/settings/create-testnet-transaction/check-tx-in-explorer)로 넘어가셔도 좋습니다.
+
+
+## Javascript로 Transaction 생성하기 {#runjs}
+
+[이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 Faucet 지갑에게 XPLA 토큰을 전송받았습니다. 이번엔 우리 지갑에서 Faucet 지갑으로 XPLA 토큰을 전송하는 트랜잭션을 만들어보겠습니다. 전송하는 금액은 25aXPLA (0.000000000000000025XPLA)입니다.
+
+### 코드 실행 {#runcode}
+
+1. [앞서](/docs/settings/create-wallet/create-wallet-with-js#runjs) example-1.js 파일을 생성한 것처럼, example-2.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-2.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient, MsgSend, MnemonicKey } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    async function main() {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+        })
+
+        const from = lcd.wallet(mk).key.accAddress;
+        const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+        const token = { axpla: 25 };
+
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+            msgs: [new MsgSend(from, to, token)]
+        });
+
+        const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+        console.log("Your Transaction Hash: " + txResult.txhash);
+    }
+    main()
+    ```
+
+3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-2.js
+  ```
+
+4. Terminal에서 결과를 확인합니다. 트랜잭션의 해시값을 확인할 수 있을 것입니다.
+
+<Details summary="해시값이란 무엇인가요?">
+
+해시값이란 `다양한 길이의 데이터를 일정한 길이의 데이터로 변환한 값`입니다. 어떻게 변환하는지는 적용하는 알고리즘에 따라 달라집니다.
+
+대표적인 `SHA256` 알고리즘을 이용하여 예시를 살펴봅시다. 두 입력값의 데이터 길이는 다르지만, 해시값 길이는 모두 64개로 동일한 것을 알 수 있습니다.
+
+- 입력값 : `helloworld`
+
+  해시값 : `936A185CAAA266BB9CBE981E9E05CB78CD732B0B3280EB944412BB6F8F8F07AF`
+
+- 입력값 : `xpla`
+
+  해시값 : `2AA54B6285BB3FCF0A69452991C15DB65B76313950C4D6EF74E584AA5F0E3286`
+
+해시값의 특징으로는, 입력값이 조금만 달라져도 해시값이 바뀐다는 점, 해시값을 통해 입력값이 무엇인지는 알아내기 어렵다는 점 등이 있습니다.
+
+우리가 생성한 트랜잭션은 `트랜잭션이 포함된 블록의 높이(Height)`, `트랜잭션이 발생한 시간`, `트랜잭션 수수료` 등 다양한 데이터를 가지고 있습니다. 이러한 데이터를 입력값으로 트랜잭션의 해시값이 결정됩니다.
+
+</Details>
+
+## 지갑 확인 {#checkvault}
+
+트랜잭션을 잘 생성했다면, 여러분의 지갑을 Vault에서 확인해보세요. 아래와 같이 기존 Faucet에서 받았던 100 XPLA가 아닌, 더 낮은 금액을 보유하고 계실겁니다.
+
+25aXPLA를 다른 지갑에 전송했고, 트랜잭션 생성을 위해 수수료도 지불했기 때문입니다.
+
+XPLA 토큰이 소모되었다는 것을 통해, 우리는 트랜잭션이 잘 생성되었다고 간접적으로 알 수 있습니다.
+
+<BrowserWindow url="https://xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-end">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/sendtx-checkfee.png" />
+</div>
+</BrowserWindow>
+
+## 설명 {#explaination}
+
+먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+})
+```
+
+<br/>
+
+보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 우리가 소유한 지갑에서 Faucet 지갑으로 25aXPLA만큼 보내겠군요. 
+
+```js
+const from = lcd.wallet(mk).key.accAddress;
+const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+const token = { axpla: 25 };
+```
+
+<br/>
+
+`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 서명은 니모닉 단어를 알고 있으면 이렇게 코드로 진행할 수 있습니다.
+
+```js
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+    msgs: [new MsgSend(from, to, token)]
+});
+```
+<Details summary="서명이란 무엇인가요?">
+
+서명은 `지갑의 주인이 트랜잭션을 만듦`을 증명하는 수단입니다.
+
+우리는 이번 단계에서 트랜잭션을 만들어 우리 지갑에서 다른 지갑으로 XPLA를 전송해보았습니다. 그러나 악의적인 사람이 내 지갑의 XPLA를 다른 지갑으로 전송할 수 있으면 안되겠죠.
+
+이것을 방지하는 것이 바로 서명입니다. 서명은 지갑의 니모닉 단어나 개인키를 알아야만 진행할 수 있습니다. 따라서 여러 번 언급드렸지만 니모닉 단어를 잘 보관해야 합니다. 니모닉 단어를 알고 있으면 다른 사람이 서명을 진행할 수 있고, 이를 통해 자금을 탈취할 수 있게 되니까요.
+
+
+뿐만 아니라 서명은 더 다양한 의미를 지니고 있습니다. 서명은 트랜잭션의 데이터를 이용하여 만들어지는데, 트랜잭션 내 데이터를 수정하면 기존 서명은 효력이 사라집니다. 다시 서명을 진행해야 하죠. 이를 통해 다른 사람이 몰래 트랜잭션 데이터를 수정하는 것을 방지할 수 있습니다. 
+
+참고로 트랜잭션의 서명이 타당한지를 검증하는 사람들이 앞서 언급했던 검증자(Validator)들입니다.
+
+</Details>
+
+<br/>
+
+`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신하면, 검증자(Validator)들이 트랜잭션을 검증할 것입니다. 검증 이후 블록체인에 트랜잭션이 추가되면 결과값을 받을 수 있습니다. 
+
+결과값은 `txResult` 변수에 저장되고 이를 통해 해시값을 알아냅니다.
+
+```js
+const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+console.log("Your Transaction Hash: " + txResult.txhash);
+```
+
+## 마무리
+
+그런데 트랜잭션을 보낸 기록을 더 자세히 살펴보려면 어떻게 해야할까요? 하나는 XPLA의 모든 트랜잭션 기록을 살펴볼 수 있는 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 또 다른 방법으로는 직접 코드로 트랜잭션 데이터 값을 받아오는 것입니다.
+
+[다음 단계](/docs/settings/create-testnet-transaction/check-tx-in-explorer)에서 하나씩 살펴보겠습니다.
