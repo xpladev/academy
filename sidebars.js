@@ -43,9 +43,50 @@ const sidebars = {
         type: 'generated-index',
         title: 'Create Testnet Transaction',
         description: 'XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다.'
-
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
+    },
+    {
+      type: 'html',
+      value: '<span class="sidebar-divider" />',
+    },
+
+    // Section title
+    {
+      type: 'html',
+      className: 'sidebar-title',
+      value: 'Code Along Tutorial',
+      defaultStyle: true,
+    },
+    {
+      type: 'category',
+      label: 'Web 3.0 게임 구축하기 : 벽돌깨기',
+      link: {
+        type: 'generated-index',
+        title: 'Web 3.0 게임 구축하기 : 벽돌깨기',
+        // description: ''
+      },
+      items: ['tutorial/make-web3-game/download-code', 'tutorial/make-web3-game/make-cw20', 'tutorial/make-web3-game/implement-in-game'],
+    },
+    {
+      type: 'category',
+      label: '게임에 Web 3.0 기능 더하기 1',
+      link: {
+        type: 'generated-index',
+        title: '게임에 Web 3.0 기능 더하기 1',
+        // description: ''
+      },
+      items: ['tutorial/add-func-to-game-1/overview', 'tutorial/add-func-to-game-1/make-nft', 'tutorial/add-func-to-game-1/write-contract'],
+    },
+    {
+      type: 'category',
+      label: '게임에 Web 3.0 기능 더하기 2',
+      link: {
+        type: 'generated-index',
+        title: '게임에 Web 3.0 기능 더하기 2',
+        // description: ''
+      },
+      items: ['tutorial/add-func-to-game-2/overview', 'tutorial/add-func-to-game-2/login', 'tutorial/add-func-to-game-2/walletconnect'],
     },
   ],
 };
