@@ -4,8 +4,8 @@ sidebar_position: 2
 
 # Javascript로 지갑 만들기
 
-import Ex01 from "../../../src/components/Sandpack/Ex01";
-import Ex01_react from "../../../src/components/Sandpack/Ex01_react";
+import Ex01 from "@site/src/components/Sandpack/Ex01";
+import Ex01_react from "@site/src/components/Sandpack/Ex01_react";
 
 여러분이 개발자라면, 코드를 통해 지갑을 생성하고 싶을 것입니다. 개발자가 아니더라도 상관없습니다. 개발 환경만 갖추면 10줄짜리 코드로 쉽게 지갑을 생성할 수 있습니다.
 
@@ -21,7 +21,7 @@ Javascript로 지갑을 만드는 코드는 아래와 같습니다. 조금만 �
 
 [@xpla/xpla.js](https://www.npmjs.com/package/@xpla/xpla.js) 모듈에서 `new MnemonicKey()`로 새 니모닉 단어들을 만들 수 있습니다. 이후 LCDClient를 이용하여 지갑의 주소를 추출해낼 수 있습니다. 
 
-Quickstart Code를 이해하셨다면, [아래 내용](/docs/settings/create-wallet/create-wallet-with-js#setting)을 읽지 않고 바로 [다음 단계](/docs/settings/get-testnet-xpla)로 넘어가셔도 좋습니다.
+Quickstart Code를 이해하셨다면, [아래 내용](/docs/settings/create-wallet/create-wallet-with-js#setting)을 읽지 않고 바로 [다음 단계](/docs/settings/create-wallet/get-testnet-xpla)로 넘어가셔도 좋습니다.
 
 import Details from '@theme/Details';
 
@@ -66,7 +66,7 @@ Node.js가 잘 설치되었는지 확인하기 위해, Terminal을 열어 `node 
 node -v
 ```
 
-설치한 Node.js의 버전이 출력되면 설치가 완료된 것입니다.
+설치한 Node.js의 버전이 출력되면 설치가 완료된 것입니다. 예를 들어 `v16.16.0`이라고 출력되면 됩니다.
 
 <details>
   <summary>Terminal이란 무엇인가요?</summary>
