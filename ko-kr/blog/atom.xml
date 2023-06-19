@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nglsena0722c.github.io/xpla-academy-dev/ko-kr/blog</id>
-    <title>My Site Blog</title>
+    <title>XPLA Academy Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nglsena0722c.github.io/xpla-academy-dev/ko-kr/blog"/>
-    <subtitle>My Site Blog</subtitle>
-    <icon>https://nglsena0722c.github.io/xpla-academy-dev/ko-kr/img/favicon.ico</icon>
+    <subtitle>XPLA Academy Blog</subtitle>
+    <icon>https://nglsena0722c.github.io/xpla-academy-dev/ko-kr/img/favicon.png</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>https://nglsena0722c.github.io/xpla-academy-dev/ko-kr/blog/welcome</id>
