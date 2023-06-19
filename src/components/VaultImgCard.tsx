@@ -7,7 +7,7 @@ const VaultImgCard = ({
   imgSrc: string;
   style?: React.CSSProperties;
 }) => {
-  return <img style={style} className="max-w-sm" src={imgSrc} alt="" />;
+  return <img className="max-w-sm" style={style} src={imgSrc} alt="" />;
 };
 
 export default VaultImgCard;
