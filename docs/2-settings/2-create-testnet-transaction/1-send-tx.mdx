@@ -11,7 +11,7 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 블록체인에 기록된 데이터들을 트랜잭션(Transaction)이라고 부릅니다. 예를 들어 `Alice가 Bob에게 1 XPLA를 보냄`이라는 트랜잭션을 만들어 블록체인에 기록할 수 있겠군요. 
 
-XPLA 블록체인에 트랜잭션을 생성하려면 XPLA 토큰으로 수수료를 지불해야 합니다. [이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 테스트넷 XPLA 토큰을 받았으니, 수수료 걱정 없이 테스트넷에서 트랜잭션을 생성해봅시다. 
+XPLA 블록체인에 트랜잭션을 생성하려면 XPLA 코인으로 수수료를 지불해야 합니다. [이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 테스트넷 XPLA 코인을 받았으니, 수수료 걱정 없이 테스트넷에서 트랜잭션을 생성해봅시다. 
 
 <Details summary="블록체인에 트랜잭션을 생성하려면 왜 수수료를 지불해야 하나요?">
 
@@ -38,7 +38,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
 
 ## Javascript로 Transaction 생성하기 {#runjs}
 
-[이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 Faucet 지갑에게 XPLA 토큰을 전송받았습니다. 이번엔 우리 지갑에서 Faucet 지갑으로 XPLA 토큰을 전송하는 트랜잭션을 만들어보겠습니다. 전송하는 금액은 25aXPLA (0.000000000000000025XPLA)입니다.
+[이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 Faucet 지갑에게 XPLA 코인을 전송받았습니다. 이번엔 우리 지갑에서 Faucet 지갑으로 XPLA 코인을 전송하는 트랜잭션을 만들어보겠습니다. 전송하는 금액은 25aXPLA (0.000000000000000025XPLA)입니다.
 
 :::tip
 
@@ -115,7 +115,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
 
 25aXPLA를 다른 지갑에 전송했고, 트랜잭션 생성을 위해 수수료도 지불했기 때문입니다.
 
-XPLA 토큰이 소모되었다는 것을 통해, 우리는 트랜잭션이 잘 생성되었다고 간접적으로 알 수 있습니다.
+XPLA 코인이 소모되었다는 것을 통해, 우리는 트랜잭션이 잘 생성되었다고 간접적으로 알 수 있습니다.
 
 <BrowserWindow url="https://xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
 <div className="flex justify-end">
