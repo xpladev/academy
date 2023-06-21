@@ -66,7 +66,7 @@ const sidebars = {
         title: 'Web 3.0 게임 구축하기 : 벽돌깨기',
         // description: ''
       },
-      items: ['tutorial/make-web3-game/download-code', 'tutorial/make-web3-game/make-cw20', 'tutorial/make-web3-game/implement-in-game'],
+      items: ['tutorial/make-web3-game/download-code', 'tutorial/make-web3-game/make-cw20', 'tutorial/make-web3-game/send-cw20'],
     },
     {
       type: 'category',
