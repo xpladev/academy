@@ -3,7 +3,7 @@ import {
 } from "@codesandbox/sandpack-react";
 import React from "react";
 
-const Ex01 = () => {
+const Ex02 = () => {
   return (
     <Sandpack
       customSetup={{
@@ -44,4 +44,4 @@ main()`,
   );
 };
 
-export default Ex01;
+export default Ex02;
