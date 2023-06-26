@@ -1,0 +1,81 @@
+---
+sidebar_position: 4
+---
+
+# 심화 - xplad로 트랜잭션 생성 및 데이터 가져오기
+
+import Details from '@theme/Details';
+
+xplad로 cli에서 트랜잭션을 생성하고, query를 보낼 수도 있습니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서 xplad를 설치하지 않으셨다면, [다음 단계](/docs/tutorial/make-web3-game/download-code)로 넘어가셔도 좋습니다. 
+
+## xplad로 트랜잭션 생성하기 {#maketx}
+
+[이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서 xplad를 설치하셨고, 지갑도 잘 생성하셨다면 아래 단계를 진행해봅시다. 
+
+1. 트랜잭션을 생성하려면 지갑에 [테스트넷 XPLA](/docs/settings/create-wallet/get-testnet-xpla)가 있어야 합니다. [Faucet](https://faucet.xpla.io/)에서 지갑 주소를 기입하고, 테스트넷 XPLA를 받읍시다.
+
+2. 아래 명령어로 XPLA를 전송하는 트랜잭션을 생성할 수 있습니다. 
+```bash
+xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node tcp://34.64.250.213:26657
+```
+
+예제에서 지갑 이름은 `test1`이었습니다. 따라서 Faucet 주소 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`에 1axpla를 전송하는 명령어는 아래와 같습니다.
+
+```bash
+xplad tx bank send test1 xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv 1axpla --chain-id=cube_47-5 --fees=170000000000000000axpla --node tcp://34.64.250.213:26657
+```
+
+<Details summary="34.64.250.213:26657 주소는 어떤 주소인가요?">
+
+해당 주소는 테스트넷 rpc 주소입니다. 위 주소를 통해 XPLA 블록체인 테스트넷과 통신할 수 있습니다.
+
+메인넷에 연결할 경우 `--node tcp://104.197.217.143:26657`로 입력하시면 됩니다.
+
+</Details>
+
+3. 2번에서 명령어를 입력하면, 아래와 같이 passphrase를 입력할 수 있게 cli에 출력됩니다. 지갑을 생성할 때 정했던 passphrase를 입력합시다.
+```bash
+Enter keyring passphrase:
+```
+
+4. 아래와 같이 트랜잭션 정보가 cli에 출력되면 `y`를 입력하여 트랜잭션 생성을 확정합니다.
+```
+{"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"xpla1z92x0yghmyz4k755d8f3vcm478se5rl5zl7sqr","to_address":"xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv","amount":[{"denom":"axpla","amount":"1"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"axpla","amount":"170000000000000000"}],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]:
+```
+
+5. 생성된 트랜잭션 해시값을 확인할 수 있습니다.
+```bash
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: '[]'
+timestamp: ""
+tx: null
+txhash: A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373
+```
+
+트랜잭션 해시값이 잘 나왔나요? [XPLA Explorer](https://explorer.xpla.io/)를 이용하여 트랜잭션 데이터를 확인해보세요.
+
+## xplad로 query 보내기 {#sendquery}
+
+xplad로 query를 보내서 트랜잭션 데이터를 가져오는 방법은 간단합니다. 아래 명령어만 입력하면 끝입니다.
+
+```bash
+xplad query tx <txhash> --node tcp://34.64.250.213:26657
+```
+
+예제에서 만든 트랜잭션 해시값은 `A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373`이었습니다. 따라서 예제에선 아래와 같은 명령어로 트랜잭션 데이터를 얻을 수 있습니다.
+
+```bash
+xplad query tx A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373 --node tcp://34.64.250.213:26657
+```
+
+이렇게 xplad를 활용하여 트랜잭션을 생성해보고, 트랜잭션 데이터도 구해보았습니다. xplad에 관해 더 자세하게 알고 싶다면 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/about-xplad/)를 참고해보세요.
