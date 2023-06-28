@@ -8,9 +8,10 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import styles from "./index.module.css";
 import useMoveScrool from "../hooks/useMoveScroll";
 import XPLACoin3D from "../components/ThreeJS/XPLACoin3D";
-import Brain3D from "../components/ThreeJS/Brain3D";
 import PlayGame from "../components/Homepage/PlayGame";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
+import DevResource from "../components/Homepage/DevResource";
+import JoinCommunity from "../components/Homepage/JoinCommunity";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
@@ -56,7 +57,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const { element, onMoveToElement } = useMoveScrool();
+  const { element : moveToElement, onMoveToElement } = useMoveScrool();
 
   return (
     <Layout
@@ -68,6 +69,8 @@ export default function Home(): JSX.Element {
         <HomepageFeatures />
         <PlayGame />
         <IntroduceTutorial />
+        <DevResource moveToElement={moveToElement}/>
+        <JoinCommunity />
       </main>
     </Layout>
   );
