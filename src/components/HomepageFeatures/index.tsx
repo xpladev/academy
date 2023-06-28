@@ -58,7 +58,10 @@ function Feature({title, Svg, description}: FeatureItem) {
 export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
-      <div className="container">
+      <div className="container py-20">
+        <div className='flex flex-1 justify-center text-3xl min-[996px]:text-4xl font-bold py-12'>
+          Why XPLA Academy?
+        </div>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
