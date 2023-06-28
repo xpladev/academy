@@ -9,7 +9,7 @@ const katex = require('rehype-katex');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'XPLA Academy',
-  tagline: 'XPLA is cool',
+  tagline: 'The EASIEST tutorials for know about XPLA ecosystem and onboard your dApps.',
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
