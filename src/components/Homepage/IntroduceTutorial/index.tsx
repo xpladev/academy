@@ -1,9 +1,58 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Slider from "../../Slider";
-import Button from "../../Button";
+import Link from "@docusaurus/Link";
+
+interface SliderItemType {
+  url: string;
+  contents: string;
+  link: string;
+}
 
 export default function PlayGame(): JSX.Element {
+  const items :SliderItemType[] = [{
+    url : '/xpla-academy-dev/img/homepage/web3build-1.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/make-web3-game/make-cw20'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/web3build-2.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/make-web3-game/send-cw20'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/p2obase-1.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-1/make-nft'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/p2obase-2.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-1/write-contract'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/xplaonboard-1.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-2/login'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/xplaonboard-2.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-2/walletconnect'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/xplaonboard-3.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-2/convert'
+  },
+  {
+    url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
+    contents : 'Learn More',
+    link : '/docs/tutorial/add-func-to-game-2/db-contract'
+  },
+
+]
+
   return (
     <section className={styles.features}>
       <div className="container mb-20">
@@ -12,7 +61,7 @@ export default function PlayGame(): JSX.Element {
         </div>
         <div className="flex justify-center">
           <Slider
-            elements={[<First />, <Second />, <Third />, <Fourth />, <Fifth />]}
+            elements={items.map((item) => <SliderItem url={item.url} contents={item.contents} link={item.link}/>)}
           />
         </div>
       </div>
@@ -20,56 +69,25 @@ export default function PlayGame(): JSX.Element {
   );
 }
 
-const First = () => {
+const SliderItem = ({
+  url,
+  contents,
+  link,
+}: SliderItemType) => {
   return (
-    <div className="flex justify-center py-40 border-solid border-2 border-gray-600 my-12 mx-60">
-      <Button
-        contents={"Learn More : Create Wallet"}
-        link={"/docs/category/create-wallet"}
-      />
-    </div>
-  );
-};
-
-const Second = () => {
-  return (
-    <div className="flex justify-center py-40 border-solid border-2 border-gray-600 my-12 mx-60">
-      <Button
-        contents={"Learn More : Create Testnet Tx"}
-        link={"/docs/category/create-testnet-transaction"}
-      />
-    </div>
-  );
-};
-const Third = () => {
-  return (
-    <div className="flex justify-center py-40 border-solid border-2 border-gray-600 my-12 mx-60">
-      <Button
-        contents={"Learn More : CW20 Send"}
-        link={"/docs/category/web-30-게임-구축하기--벽돌깨기"}
-      />
-    </div>
-  );
-};
-
-const Fourth = () => {
-  return (
-    <div className="flex justify-center py-40 border-solid border-2 border-gray-600 my-12 mx-60">
-      <Button
-        contents={"Learn More : NFT&Contract"}
-        link={"/docs/category/게임에-web-30-기능-더하기-1"}
-      />
-    </div>
-  );
-};
-
-const Fifth = () => {
-  return (
-    <div className="flex justify-center py-40 border-solid border-2 border-gray-600 my-12 mx-60">
-      <Button
-        contents={"Learn More : Wallet Connect"}
-        link={"/docs/category/게임에-web-30-기능-더하기-2"}
-      />
+    <div
+      className="flex justify-center mt-12 w-[928px] h-[525px]"
+      style={{
+        backgroundImage: `url(${url})`,
+        backgroundSize: "cover",
+      }}
+    >
+      <Link
+        className="button button--secondary button--lg mt-[420px] mb-[60px] bg-[#666666]"
+        to={link}
+      >
+        <span className="text-white">{contents}</span>
+      </Link>
     </div>
   );
 };

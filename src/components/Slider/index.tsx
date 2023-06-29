@@ -13,7 +13,7 @@ const Carousel = ({ elements }: { elements: JSX.Element[] }) => {
     slidesToScroll: 1,
   };
   return (
-    <div className="w-full">
+    <div className="w-full slick-center dots-up">
       <Slider {...settings}>{elements.map((e) => e)}</Slider>
     </div>
   );

@@ -79,3 +79,12 @@ html[data-theme='dark'] .sidebar-divider {
     margin-left: 1rem;
   }
 }
+
+.slick-center > div > div > div > div > div {
+  display : flex;
+  justify-content: center;
+}
+
+.dots-up > div > ul {
+  bottom : 10px;
+}
