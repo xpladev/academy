@@ -38,7 +38,7 @@ export default function JoinCommunity(): JSX.Element {
         </div>
 
         <div
-          className="p-20 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
+          className="mb-10 p-20 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
           style={{
             backgroundColor: "#ebedf0",
           }}
@@ -50,7 +50,7 @@ export default function JoinCommunity(): JSX.Element {
         <Banner  />
 
         <div
-          className="p-20 mb-10 flex flex-1 w-full justify-between items-center rounded-lg break-words whitespace-normal"
+          className="p-20 flex flex-1 w-full justify-between items-center rounded-lg break-words whitespace-normal"
           style={{
             backgroundColor: "#ebedf0",
           }}
