@@ -1,0 +1,47 @@
+/* .slide {
+    transform: translate3d(-1720px, 0px, 0px);
+    transition: -webkit-transform 3000ms linear 0s;
+} */
+
+.pause>div>div>div {
+    transition: none !important;
+}
+
+.slide-left {
+    animation: slidein 12s linear infinite;
+
+}
+
+.slide-right {
+    animation: slidein-right 12s linear infinite;
+
+}
+
+@keyframes slidein {
+    from {
+        transform: translateX(0%);
+        width: 1440px /* 8 * 180px */
+    }
+
+    to {
+        transform: translateX(-100%);
+        width: 1440px;
+    }
+}
+
+@keyframes slidein-right {
+    from {
+        transform: translateX(100%);
+        width: 1440px
+    }
+
+    to {
+        transform: translateX(0%);
+        width: 1440px;
+    }
+}
+
+.pause {
+    /* 멈추기 */
+    animation-play-state: paused;
+}

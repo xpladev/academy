@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import SquareButton from "../../SquareButton";
 import Button from "../../Button";
+import Banner from "../../Slider/Banner";
 
 export default function JoinCommunity(): JSX.Element {
   return (
@@ -17,8 +18,8 @@ export default function JoinCommunity(): JSX.Element {
             backgroundColor: "#ebedf0",
           }}
         >
-            <h1>XPLA Trailblazer</h1>
-            <Button contents={"Register Now"} />
+          <h1>XPLA Trailblazer</h1>
+          <Button contents={"Register Now"} />
         </div>
 
         <div className="flex flex-1 pb-10 grid grid-cols-3 gap-4">
@@ -37,6 +38,18 @@ export default function JoinCommunity(): JSX.Element {
         </div>
 
         <div
+          className="p-20 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
+          style={{
+            backgroundColor: "#ebedf0",
+          }}
+        >
+          <h1>DEV Events</h1>
+          <Button contents={"Enter Now"} />
+        </div>
+
+        <Banner  />
+
+        <div
           className="p-20 mb-10 flex flex-1 w-full justify-between items-center rounded-lg break-words whitespace-normal"
           style={{
             backgroundColor: "#ebedf0",
@@ -46,15 +59,7 @@ export default function JoinCommunity(): JSX.Element {
           <Button contents={"Contract us"} />
         </div>
 
-        <div
-          className="p-20 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
-          style={{
-            backgroundColor: "#ebedf0",
-          }}
-        >
-            <h1>DEV Events</h1>
-            <Button contents={"Enter Now"} />
-        </div>
+
       </div>
     </section>
   );
