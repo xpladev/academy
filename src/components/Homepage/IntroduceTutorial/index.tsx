@@ -10,7 +10,18 @@ interface SliderItemType {
 }
 
 export default function PlayGame(): JSX.Element {
-  const items :SliderItemType[] = [{
+  const items :SliderItemType[] = [
+    {
+      url : '/xpla-academy-dev/img/homepage/overview.svg',
+      contents : 'Learn More',
+      link : '/docs/overview/gameArchitecture'
+    },
+    {
+      url : '/xpla-academy-dev/img/homepage/settings.svg',
+      contents : 'Learn More',
+      link : '/docs/category/create-wallet'
+    },
+    {
     url : '/xpla-academy-dev/img/homepage/web3build-1.svg',
     contents : 'Learn More',
     link : '/docs/tutorial/make-web3-game/make-cw20'
