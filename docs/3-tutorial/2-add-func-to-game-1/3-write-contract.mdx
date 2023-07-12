@@ -2,4 +2,205 @@
 sidebar_position: 3
 ---
 
-# 컨트랙트 작성 및 적용하기
+# 트랜잭션에서 AccountNumber와 Sequence 항목 이해하기
+
+import Details from '@theme/Details';
+import Ex08 from "@site/src/components/Sandpack/Ex08-sequence";
+
+[게임 토큰(CW20) 발행 단계](/docs/tutorial/make-web3-game/make-cw20)에서 트랜잭션 서명을 진행할 때 아래처럼 **accountNumber**와 **sequence** 정보를 기입했습니다.
+
+```js
+const userSignOption = { // 서명 정보 
+    chainID: 'cube_47-5',
+    accountNumber: acc.account_number,
+    sequence: acc.sequence,
+    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+}
+```
+
+이번 단계에서는 **accountNumber**와 **sequence**가 각각 무엇이고, 어떤 역할을 하는지 알아보겠습니다.
+
+## 정의 {#definition}
+
+### Account Number {#accountnumber}
+
+각 지갑은 XPLA 블록체인과 처음 상호작용할 때 accountNumber를 부여받습니다. 예를 들어 [코드로 트랜잭션 데이터 가져오기 단계](/docs/settings/create-testnet-transaction/send-query)에서 사용한 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소는 테스트넷에서 accountNumber가 [28367](https://cube-lcd.xpla.dev/cosmos/auth/v1beta1/accounts/xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk)이므로 28368번째로 XPLA 블록체인에 접근한 것입니다. 테스트넷 블록체인에 가장 먼저 접근한 지갑 주소는 `xpla1psv57747avcnkwfx9z6q2l396z22uqafu8gewg`으로, accoutNumber가 [0](https://cube-lcd.xpla.dev/cosmos/auth/v1beta1/accounts/xpla1psv57747avcnkwfx9z6q2l396z22uqafu8gewg)임을 확인할 수 있습니다.
+
+단순히 지갑을 생성한 것으로는 accountNumber를 부여받을 수 없습니다. 토큰을 전송 받는 트랜잭션을 통해, XPLA 블록체인에 지갑 주소 정보를 기록해야 accountNumber를 가질 수 있게 됩니다.
+
+### Sequence {#sequence}
+
+Sequence란 각 지갑이 생성한 트랜잭션의 번호입니다. 지갑이 처음으로 트랜잭션을 생성했다면 sequence 값은 0이 되고, 이후에 만든 각 트랜잭션의 sequence 값은 1씩 증가하게 됩니다. Ethereum 블록체인에서 `Nonce` 개념과 유사합니다.
+
+마찬가지로 [코드로 트랜잭션 데이터 가져오기 단계](/docs/settings/create-testnet-transaction/send-query)에서 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소가 만든 해시값이 `ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353`인 트랜잭션은 sequence 값이 [0](https://cube-lcd.xpla.dev/cosmos/tx/v1beta1/txs/ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353)입니다. 즉, 해당 주소가 처음 만든 트랜잭션이라는 뜻이죠.
+
+한번만 더 살펴봅시다. 해시값이 `FBD6E043781992215A53B285403628D3D4734AF4FC0003875775AB673F2D2737`인 트랜잭션은 sequence 값이 [466](https://cube-lcd.xpla.dev/cosmos/tx/v1beta1/txs/FBD6E043781992215A53B285403628D3D4734AF4FC0003875775AB673F2D2737)이므로, `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소가 467번째로 만든 트랜잭션임을 알 수 있습니다.
+
+Sequence 항목이 있기 때문에 각 트랜잭션은 고유성을 지닙니다. 즉, 트랜잭션을 복제해서 사용할 수 없습니다. Alice가 Bob에게 1 XPLA를 전송하는 트랜잭션을 생각해봅시다. 만약 Sequence 값이 없다면, Bob이 똑같은 트랜잭션을 복제해서 네트워크에 전파할 수 있습니다. 그러나 트랜잭션에 sequence 항목이 존재하기 때문에, Bob이 똑같은 내용의 트랜잭션을 만들려면 sequence 값을 바꾸면서 서명도 다시 진행해야 합니다. 따라서 XPLA 블록체인에서 각 트랜잭션은 고유성을 지닐 수 있게 됩니다. 
+
+
+## 코드로 이해하기 {#understandwithcode}
+
+예제 코드를 통해 Sequence가 어떤 역할을 하는지 이해해봅시다. 예제에서는 여러 지갑들에게 1 axpla를 한 번에 전송하는 코드를 살펴보겠습니다.
+
+### Preview {#preview}
+
+여러분의 니모닉 단어를 넣어 코드를 수정해주세요. 원하신다면 `receivers` 변수에 다른 지갑 주소들을 대입하셔도 좋습니다. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex08 />
+
+<br/>
+
+결과를 보시면 첫 전송 트랜잭션만 해시값이 잘 출력되고, 나머지는 에러가 발생한 것을 알 수 있습니다.
+
+현재 예제 코드에는 모든 트랜잭션의 sequence 값이 동일하게 입력되어 있기 때문에 에러가 발생한 것입니다. 39번째 줄에서 `sequence` 대신 `sequence : sequence + i`로 수정하고 다시 실행해보세요. 에러 없이 5개의 전송 트랜잭션이 잘 생성될 것입니다.
+
+Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/add-func-to-game-1/write-contract#runcode)을 읽지 않고 바로 [다음 단계](/docs/tutorial/add-func-to-game-2/overview)로 넘어가셔도 좋습니다.
+
+### 코드 실행 {#runcode}
+
+1. example-8.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-8.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient, MnemonicKey, MsgSend } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+        });
+
+        const distributor = lcd.wallet(mk);
+
+        const distributorInfo = await lcd.auth.accountInfo(distributor.key.accAddress);
+        const accountNumber = distributorInfo.account_number;
+        const sequence = distributorInfo.sequence;
+
+        const receivers = [
+            "xpla13hpy8pq6799d66qlnfql6jr7vfudq8rhqt66ma",
+            "xpla15msreuqde07m5070qsxvflqq3xy5tx2p4anhqu",
+            "xpla1lgx8hzlpytrvz0g9s24gspzfl6zh68srj7gwu8",
+            "xpla1uh30ekv9ll3e05nzl75euuy7qkjrlcreh5zmju",
+            "xpla1znpv2y0mm2wce79wvpces0yakmep42nj4xhpky",
+        ]
+
+        for (let i = 0; i < receivers.length; i++) {
+            try {
+                const send = new MsgSend(
+                    distributor.key.accAddress,
+                    receivers[i],
+                    { axpla: 1 }
+                );
+            
+                const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+                    msgs: [send],
+                    memo: 'Air Drop Test',
+                    accountNumber,
+                    sequence
+                    // sequence : sequence + i
+                });
+            
+                const result = await lcd.tx.broadcastSync(signedTx);
+                console.log(result);
+
+            } catch (error) {
+                console.log(error.response.data.message);
+            }
+        }
+    }
+
+    main();
+    ```
+
+3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요. 또, 원하신다면 `receivers` 변수에 다른 지갑 주소들을 대입하셔도 좋습니다. 
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-8.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. 첫번째 트랜잭션만 해시값이 출력되고, 나머지는 에러가 출력될 것입니다.
+
+## 설명 {#explaination}
+
+먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+});
+
+const distributor = lcd.wallet(mk);
+```
+
+<br/>
+
+현재 XPLA를 전송할 지갑의 `accountNumber` 값과 `sequence` 값을 LCD api를 통해 받아옵니다.
+
+
+```js
+const distributorInfo = await lcd.auth.accountInfo(distributor.key.accAddress);
+const accountNumber = distributorInfo.account_number;
+const sequence = distributorInfo.sequence;
+```
+
+<br/>
+
+XPLA를 받을 지갑들의 주소를 기입합니다.
+
+```js
+const receivers = [
+    "xpla13hpy8pq6799d66qlnfql6jr7vfudq8rhqt66ma",
+    "xpla15msreuqde07m5070qsxvflqq3xy5tx2p4anhqu",
+    "xpla1lgx8hzlpytrvz0g9s24gspzfl6zh68srj7gwu8",
+    "xpla1uh30ekv9ll3e05nzl75euuy7qkjrlcreh5zmju",
+    "xpla1znpv2y0mm2wce79wvpces0yakmep42nj4xhpky",
+]
+```
+
+<br/>
+
+각 지갑에게 1 axpla씩 전송하는 트랜잭션을 만들어 전파합니다.
+
+```js
+for (let i = 0; i < receivers.length; i++) {
+    try {
+        const send = new MsgSend(
+            distributor.key.accAddress,
+            receivers[i],
+            { axpla: 1 }
+        );
+    
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+            msgs: [send],
+            memo: 'Air Drop Test',
+            accountNumber,
+            sequence
+            // sequence : sequence + i
+        });
+    
+        const result = await lcd.tx.broadcastSync(signedTx);
+        console.log(result);
+
+    } catch (error) {
+        console.log(error.response.data.message);
+    }
+}
+```
+
+이때 에러를 발생시키는 부분은 39번째 줄인 `sequence` 부분입니다. 위 코드대로라면, 모든 트랜잭션이 생성될 때 똑같은 sequence 값을 입력하게 됩니다. 따라서 첫번째 트랜잭션만 잘 생성되는 것이고, 이후 트랜잭션은 첫번째 트랜잭션과 sequence값이 동일하므로 블록체인에 기록되지 않는 것입니다. 
+
+만약 에러 없이 트랜잭션 모두 잘 생성하고 싶다면, `sequence` 코드 대신 `sequence : sequence + i` 코드를 입력하고 실행해보세요. 이렇게 각 트랜잭션마다 sequence 값을 다르게 한다면, 트랜잭션이 잘 생성될 것입니다.
+
+트랜잭션 해시값이 모두 잘 나왔나요? [XPLA Explorer](https://explorer.xpla.io/)를 이용하여 트랜잭션 데이터를 확인해보세요.
+
+## 마무리
+
+이렇게 Account Number와 Sequence 개념을 알아보았습니다. 이제 [다음 단계](/docs/tutorial/add-func-to-game-2/overview)로 넘어가 Web3 기능을 더 자세하게 알아봅시다.
