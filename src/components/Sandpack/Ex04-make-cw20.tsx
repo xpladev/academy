@@ -45,7 +45,7 @@ const main = async () => {
     1, // MAINNET, TESTNET CW20 code id
     init_msg,
     {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+    'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
   );
 
   const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
