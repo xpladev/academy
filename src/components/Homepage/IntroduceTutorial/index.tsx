@@ -24,12 +24,12 @@ export default function PlayGame(): JSX.Element {
     {
     url : '/xpla-academy-dev/img/homepage/web3build-1.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/make-web3-game/make-cw20'
+    link : '/docs/tutorial/make-web3-game/make-cw20-with-js'
   },
   {
     url : '/xpla-academy-dev/img/homepage/web3build-2.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/make-web3-game/send-cw20'
+    link : '/docs/tutorial/make-web3-game/make-cw20-with-js'
   },
   {
     url : '/xpla-academy-dev/img/homepage/p2obase-1.svg',
