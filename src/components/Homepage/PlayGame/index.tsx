@@ -9,7 +9,7 @@ export default function PlayGame(): JSX.Element {
         <div className="flex flex-1 justify-center text-3xl min-[996px]:text-4xl font-bold py-20">
           Tryout a demo and start building your own game.
         </div>
-        <div className="flex justify-center max-h-[700px]">
+        <div className="flex justify-center max-h-[1400px]">
           <Cocosgame />
         </div>
       </div>
