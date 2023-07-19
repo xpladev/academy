@@ -8,6 +8,7 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import styles from "./index.module.css";
 import useMoveScrool from "../hooks/useMoveScroll";
 import XPLACoin3D from "../components/ThreeJS/XPLACoin3D";
+import Pilot from "../components/ThreeJS/Pilot";
 import PlayGame from "../components/Homepage/PlayGame";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import DevResource from "../components/Homepage/DevResource";
@@ -47,7 +48,8 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
           </div>
 
           <div className="flex-1 h-[500px]">
-            <XPLACoin3D />
+            <Pilot />
+            {/* <XPLACoin3D /> */}
           </div>
         </div>
       </div>
