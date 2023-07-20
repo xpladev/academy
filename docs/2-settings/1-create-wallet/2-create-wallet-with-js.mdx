@@ -6,13 +6,14 @@ sidebar_position: 2
 
 import Ex01 from "@site/src/components/Sandpack/Ex01-make-wallet";
 import Ex01_react from "@site/src/components/Sandpack/Ex01-react-make-wallet";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
 
 여러분이 개발자라면, 코드를 통해 지갑을 생성하고 싶을 것입니다. 개발자가 아니더라도 상관없습니다. 개발 환경만 갖추면 10줄짜리 코드로 쉽게 지갑을 생성할 수 있습니다.
 
 ## Quickstart {#quickstart}
 
 Javascript로 지갑을 만드는 코드는 아래와 같습니다. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
-
 
 <Ex01 />
 
@@ -32,6 +33,16 @@ import Details from '@theme/Details';
 :::tip
 
 코드로 만든 니모닉으로 Vault에서 지갑을 불러올 수 있습니다. Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '60px', width : '100%', top : 17, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/recover-wallet.png" />
+</div>
+</BrowserWindow>
+
+Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index는 Vault에서 몇번째 순서로 표시할 지갑인지 정합니다. 
 
 :::
 
@@ -167,6 +178,16 @@ console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
 
 코드로 만든 니모닉으로 Vault에서 지갑을 불러올 수 있습니다. Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
 
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '60px', width : '100%', top : 17, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/recover-wallet.png" />
+</div>
+</BrowserWindow>
+
+Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index는 Vault에서 몇번째 순서로 표시할 지갑인지 정합니다. 
+
 :::
 
 :::caution
@@ -180,7 +201,5 @@ LCDClient는 XPLA 블록체인 내 데이터를 가져오는 도구입니다. �
 
 지금 이것에 대해 명확하게 이해하지 않으셔도 괜찮습니다. 코드로 지갑을 생성할 수 있다는 것만 알아두시면 됩니다. 
 </Details>
-
-
 
 
