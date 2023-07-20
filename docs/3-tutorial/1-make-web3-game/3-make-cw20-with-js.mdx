@@ -75,7 +75,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
         const myWalletAddress = wallet.key.accAddress;
 
         const init_msg = {
-            name: "MCT", // My Cw20 Token
+            name: "My CW20 Token", // My Cw20 Token
             symbol: "MCT", // My Cw20 Token
             decimals: 6,
             initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
@@ -151,7 +151,7 @@ CW20 컨트랙트 생성을 위해 초기값을 미리 지정해줬습니다. �
 
 ```js
 const init_msg = {
-    name: "MCT", // My Cw20 Token
+    name: "My CW20 Token", // My Cw20 Token
     symbol: "MCT", // My Cw20 Token
     decimals: 6,
     initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
@@ -163,13 +163,9 @@ const init_msg = {
 
 :::info
 
-<div>
-{/* // TODO : 확인 필요 */}
-</div>
+예제처럼 초기값을 설정하면, 발행한 CW20 토큰의 기본 단위는 **MCT**입니다. 그런데 때로는 더 작은 단위가 필요할 수도 있습니다. CW20의 최소 단위는 기본 단위에 접두사로 **u**를 추가합니다. 예제 컨트랙트는 **uMCT**가 되겠군요.
 
-예제처럼 초기값을 설정하면, 발행한 CW20 토큰의 기본 단위는 **MCT**가 되겠습니다. 그런데 때로는 더 작은 단위가 필요할 수도 있습니다. CW20의 최소 단위는 기본 단위에 접두사로 **u**를 추가합니다. 예제 컨트랙트는 **uMCT**가 되겠군요.
-
-위 코드에서 `decimals` 항목을 **6**으로 지정했기 때문에 10<sup>6</sup> **uMCT** = 1 **MCT** 가 됩니다. 참고로 **XPLA**는 decimals는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
+예제 초기값에서 `decimals` 항목을 **6**으로 지정했기 때문에 10<sup>6</sup> **uMCT** = 1 **MCT** 가 됩니다. 참고로 **XPLA**는 decimals는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
 
 :::
 

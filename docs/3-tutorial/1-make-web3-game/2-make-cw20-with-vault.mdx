@@ -28,45 +28,29 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 ### Vault 접속 {#make-accessvault}
 
-먼저 Chrome Extension 앱인 Vault를 실행하고, CW20을 발행할 지갑을 선택해주세요. 
+먼저 Chrome Extension 앱인 Vault에서 CW20을 발행할 지갑을 선택하고, 네트워크를 `testnet`으로 설정합니다.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
-    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/select-wallet.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-네트워크를 `testnet`으로 설정합니다.
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/select-testnet.png" />
 </div>
 </BrowserWindow>
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-testnet.png" />
 </div>
 </BrowserWindow>
 
 <br />
 
-[Vault 웹사이트](https://vault.xpla.io/)에 접속합니다. 접속하시면 아래와 같은 화면을 보실 수 있습니다. 잘 접속이 안된다면, 새로고침(F5)을 진행해주세요.
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '35px', width : '100%', top : 40, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/access-vault.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-Vault 웹에서 우측 상단 `Connect` 버튼을 클릭하여 지갑을 연결합니다.
+[Vault 웹사이트](https://vault.xpla.io/)에 접속하고, 우측 상단 `Connect` 버튼을 클릭하여 지갑을 연결합니다.
 
 <BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -96,18 +80,6 @@ Vault 웹에서 우측 상단 `Connect` 버튼을 클릭하여 지갑을 연결�
 
 ### CW20 컨트랙트 생성 {#instantiate}
 
-먼저 XPLA 블록체인에서 Cosmwasm 컨트랙트가 어떻게 생성되는지부터 살펴봅시다.
-
-1. Rust 언어로 컨트랙트 코드를 작성합니다. 예를 들어 CW20 컨트랙트의 코드는 [해당 Github](https://github.com/xpladev/cw-plus)에서 확인하실 수 있습니다.
-
-2. 작성한 컨트랙트 코드를 빌드하여 **.wasm** 파일을 생성합니다.
-
-3. 생성한 .wasm 파일을 XPLA 블록체인에 배포합니다. 배포는 `StoreCode` Method 트랜잭션으로 진행할 수 있습니다. [Vault](https://vault.xpla.io/contract/store)를 이용하면 쉽게 **.wasm** 파일을 배포할 수 있습니다.
-
-4. **.wasm** 파일을 배포하면 Code ID가 부여됩니다. 해당 Code ID를 이용하여 `Instantiate` Method 트랜잭션으로 컨트랙트를 만들 수 있습니다. 같은 Code ID로 `Instantiate` 된 컨트랙트들은 모두 같은 코드로 이루어져 있어, 기능이 비슷합니다. 다만 `Instantiate`할 때 입력한 초기값에 따라 세부사항이 달라집니다. 
-
-CW20 컨트랙트는 표준 컨트랙트이므로, 이미 XPLA 블록체인에 배포(StoreCode)되어 있습니다. 따라서 이미 배포되어 있는 CW20 컨트랙트 코드를 `Instantiate`하면 컨트랙트가 생성되는 것입니다. Vault에서 CW20 컨트랙트를 `Instantiate` 해봅시다.
-
 Vault 웹에서 Contract 항목을 클릭합니다.
 
 <BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
@@ -116,15 +88,6 @@ Vault 웹에서 Contract 항목을 클릭합니다.
     <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
     <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 59, zIndex : 0}} />
     <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-contract.png" />
-</div>
-</BrowserWindow>
-
-<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 59, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-contract.png" />
 </div>
 </BrowserWindow>
 
@@ -138,15 +101,6 @@ Vault 웹에서 Contract 항목을 클릭합니다.
     <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
     <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 59, zIndex : 0}} />
     <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-instantiate.png" />
-</div>
-</BrowserWindow>
-
-<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 58.5, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate.png" />
 </div>
 </BrowserWindow>
 
@@ -184,7 +138,7 @@ CW20 컨트랙트의 `Code ID`는 `1`이므로, `Code ID`에는 `1`을 입력해
 
 ```json
 {
-  "name": "MCT",
+  "name": "My CW20 Token",
   "symbol": "MCT",
   "decimals": 6,
   "initial_balances": [
@@ -201,16 +155,16 @@ CW20 컨트랙트의 `Code ID`는 `1`이므로, `Code ID`에는 `1`을 입력해
 
 <BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 58.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '33px', width : '100%', top : 58.5, zIndex : 0}} />
     <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate-initmsg.png" />
 </div>
 </BrowserWindow>
 
 :::info
 
-예제처럼 초기값을 설정하면, 발행한 CW20 토큰의 기본 단위는 **MCT**가 되겠습니다. 그런데 때로는 더 작은 단위가 필요할 수도 있습니다. CW20의 최소 단위는 기본 단위에 접두사로 **u**를 추가합니다. 예제 컨트랙트는 **uMCT**가 되겠군요.
+예제처럼 초기값을 설정하면, 발행한 CW20 토큰의 기본 단위는 **MCT**입니다. 그런데 때로는 더 작은 단위가 필요할 수도 있습니다. CW20의 최소 단위는 기본 단위에 접두사로 **u**를 추가합니다. 예제 컨트랙트는 **uMCT**가 되겠군요.
 
 예제 초기값에서 `decimals` 항목을 **6**으로 지정했기 때문에 10<sup>6</sup> **uMCT** = 1 **MCT** 가 됩니다. 참고로 **XPLA**는 decimals는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
 
@@ -220,29 +174,18 @@ CW20 컨트랙트의 `Code ID`는 `1`이므로, `Code ID`에는 `1`을 입력해
 
 `Amount`는 컨트랙트 `Instantiate`를 진행할 때, 컨트랙트에 전송하고 싶은 XPLA 수량을 의미합니다. CW20 컨트랙트는 XPLA 코인을 보유할 이유가 없으므로, 이 부분은 생략하셔도 좋습니다.
 
-`Label`은 컨트랙트의 기능을 나타내도록 작성하는 것이 좋습니다. 예제에서는 `My CW20 Token`으로 기입하겠습니다. 
+`Label`은 컨트랙트의 기능을 나타내도록 작성하는 것이 좋습니다. 예제에서는 `My CW20 Token`으로 기입하겠습니다. 이후 Submit 버튼을 눌러주세요.
 
 <BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '14.5px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '38px', width : '100%', top : 14.5, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '32px', width : '100%', top : 52.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '16.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '38.5px', width : '100%', top : 16.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '33.5px', width : '100%', top : 55, zIndex : 0}} />
     <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate-label.png" />
 </div>
 </BrowserWindow>
 
 <br />
-
-이제 Submit 버튼을 누르면 컨트랙트를 `Instantiate` 할 수 있습니다. Submit 버튼을 눌러주세요.
-
-<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '14.5px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '38px', width : '100%', top : 14.5, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '32px', width : '100%', top : 52.5, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate-click-submit.png" />
-</div>
-</BrowserWindow>
 
 :::tip
 
@@ -262,25 +205,7 @@ Submit 버튼을 누르면 Chrome Extension Vault 앱에서 팝업이 하나 뜨
 
 <br />
 
-서명이 완료되면 트랜잭션이 XPLA 블록체인에 기록될 때까지 기다려야 합니다. XPLA 블록체인에서 블록 하나가 만들어지는 시간은 약 6초이므로, 대략 6초 이내로 트랜잭션이 생성될 것입니다.
-
-<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/broadcasting-tx.png" />
-</div>
-</BrowserWindow>
-
-<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/success-tx.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-트랜잭션이 생성되었다면 [XPLA Explorer](https://explorer.xpla.io/)에서 트랜잭션 정보를 확인할 수 있습니다. Tx hash 값을 클릭해보세요.
+서명이 완료되면 트랜잭션이 XPLA 블록체인에 기록될 때까지 기다려야 합니다. 트랜잭션이 생성되었다면 [XPLA Explorer](https://explorer.xpla.io/)에서 트랜잭션 정보를 확인할 수 있습니다. Tx hash 값을 클릭해보세요.
 
 <BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -299,17 +224,7 @@ Submit 버튼을 누르면 Chrome Extension Vault 앱에서 팝업이 하나 뜨
 
 ### 컨트랙트 생성 확인 {#make-confirm}
 
-트랜잭션이 잘 나왔다면 EventLogs에서 생성된 컨트랙트의 주소를 알 수 있습니다. 
-
-<BrowserWindow url="https://explorer.xpla.io/testnet/tx/E3D5F9E105E5E8729A357BB6B44E54372FF46B1C6D97C6542D8617694E2D2AD5" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/explorer-tx-click-eventlogs.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-이 주소가 여러분이 발행한 CW20 토큰의 컨트랙트 주소입니다. 
+트랜잭션이 잘 나왔다면 EventLogs에서 여러분이 발행한 CW20 토큰의 컨트랙트 주소를 알 수 있습니다. 
 
 <BrowserWindow url="https://explorer.xpla.io/testnet/tx/E3D5F9E105E5E8729A357BB6B44E54372FF46B1C6D97C6542D8617694E2D2AD5#EventLogs" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -323,8 +238,11 @@ Submit 버튼을 누르면 Chrome Extension Vault 앱에서 팝업이 하나 뜨
 
 Chrome Extension 앱 Vault에서 `Add tokens`를 클릭해주세요. 
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-addtokens.png" />
 </div>
 </BrowserWindow>
@@ -333,34 +251,33 @@ Chrome Extension 앱 Vault에서 `Add tokens`를 클릭해주세요.
 
 검색창에 여러분의 CW20 토큰 컨트랙트 주소를 입력해주세요.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-search.png" />
 </div>
 </BrowserWindow>
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-search-token.png" />
 </div>
 </BrowserWindow>
 
 <br />
 
-`+` 버튼을 눌러주세요. 
+이처럼 Vault에서 MCT 토큰이 잘 발행되었는지 확인할 수 있습니다! 
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
-    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-click-plus.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-창을 닫으면 MCT 토큰이 잘 발행되었는지 확인할 수 있습니다! 
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-add-cw20.png" />
 </div>
 </BrowserWindow>
@@ -377,28 +294,24 @@ initial_balances에서 amount값의 단위가 uMCT였기 때문입니다. decima
 
 발행한 CW20을 다른 지갑으로 전송해봅시다. Chrome Extension 앱 Vault에서 전송하고 싶은 CW20 토큰의 `Send` 버튼을 클릭합니다.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-click-send.png" />
 </div>
 </BrowserWindow>
 
 <br />
 
-보내고 싶은 지갑 주소를 Recipient에 입력합니다. 예제에서는 `xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8` 지갑으로 전송하겠습니다.
+보내고 싶은 지갑 주소를 Recipient에, 보내고 싶은 수량만큼 Amount에  입력합니다. 예제에서는 `xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8` 지갑으로 10 MCT만큼 전송하겠습니다.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
-    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-input-recipient.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-보내고 싶은 수량만큼 Amount에 입력합니다. 이때 단위는 MCT입니다. 예제에서는 10 MCT만큼 전송하겠습니다. 
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-input-amount.png" />
 </div>
 </BrowserWindow>
@@ -407,34 +320,24 @@ initial_balances에서 amount값의 단위가 uMCT였기 때문입니다. decima
 
 Memo 항목은 생략하고, 바로 Password를 입력 후 `Submit` 버튼을 눌렀습니다.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-submit.png" />
 </div>
 </BrowserWindow>
 
 <br />
 
-트랜잭션이 전파되었습니다. 팝업을 기다리면 트랜잭션이 잘 생성되었다는 결과를 확인할 수 있습니다.
+트랜잭션이 전파되었습니다. 팝업을 기다리면 트랜잭션이 잘 생성되었다는 결과를 확인할 수 있습니다. 이때 트랜잭션 해시값을 클릭하면 CW20 전송 트랜잭션을 [XPLA Explorer](https://explorer.xpla.io/)에서 확인할 수 있습니다.
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
-    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-popup.png" />
-</div>
-</BrowserWindow>
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
-    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-success-popup.png" />
-</div>
-</BrowserWindow>
-
-<br />
-
-이때 트랜잭션 해시값을 클릭하면 CW20 전송 트랜잭션을 [XPLA Explorer](https://explorer.xpla.io/)에서 확인할 수 있습니다.
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-click-txhash.png" />
 </div>
 </BrowserWindow>
@@ -449,8 +352,11 @@ Memo 항목은 생략하고, 바로 Password를 입력 후 `Submit` 버튼을 �
 
 다시 지갑을 살펴보면 기존 2000000000개 있었던 MCT가 10개 만큼 줄어들었습니다. CW20 전송이 잘 진행되었군요!
 
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/send-result.png" />
 </div>
 </BrowserWindow>

@@ -30,7 +30,7 @@ const main = async () => {
   const myWalletAddress = wallet.key.accAddress;
 
   const init_msg = {
-    name: "MCT", // My Cw20 Token
+    name: "My CW20 Token", // My Cw20 Token
     symbol: "MCT", // My Cw20 Token
     decimals: 6,
     initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
