@@ -296,14 +296,13 @@ node query-tx.js
         const myWalletAddress = wallet.key.accAddress;
         
         const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
-        const recipient = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
 
         const transferMsg = new MsgExecuteContract(
             myWalletAddress,
             cw20_contract,
             {
                 transfer: {
-                    recipient,
+                    recipient : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
                     amount: "100000"
                 }
             }
@@ -352,7 +351,7 @@ node query-tx.js
 
   </Details>
 
-  마지막으로 CW20 토큰을 받게 될 지갑 주소를 17번째 줄의 `recipient` 변수에 대입해주세요. 예제에서 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`를 받게 될 지갑 주소로 대체하시면 됩니다.
+  마지막으로 CW20 토큰을 받게 될 지갑 주소를 23번째 줄의 `recipient` 항목에 작성해주세요. 예제의 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소 대신에, CW20을 받게 될 여러분의 지갑 주소로 적으시면 됩니다.
 
   :::tip
   
@@ -385,24 +384,19 @@ const myWalletAddress = wallet.key.accAddress;
 
 <br/>
 
-토큰의 컨트랙트 주소와, 토큰을 받게 될 지갑 주소를 지정해주었습니다. 여러분들도 직접 만든 토큰의 컨트랙트 주소와 지갑 주소를 대입하셨을 것입니다.
+먼저 토큰의 컨트랙트 주소를 지정해주었습니다. 여러분들도 직접 만든 토큰의 컨트랙트 주소를 대입하셨을 것입니다.
+
+이후 누구에게 보낼 건지, CW20을 얼마만큼 보낼지도 지정하였습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
 
 ```js
 const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
-const recipient = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
-```
 
-<br/>
-
-실행할 컨트랙트 주소, 컨트랙트에서 사용할 함수, 함수의 매개변수값을 입력하여 컨트랙트 실행을 준비합니다. CW20을 얼만큼 보낼지도 지정할 수 있습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
-
-```js
 const transferMsg = new MsgExecuteContract(
     myWalletAddress,
     cw20_contract,
     {
         transfer: {
-            recipient,
+            recipient : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
             amount: "100000"
         }
     }

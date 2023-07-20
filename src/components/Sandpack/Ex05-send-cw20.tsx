@@ -30,14 +30,13 @@ const main = async () => {
   const myWalletAddress = wallet.key.accAddress;
   
   const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
-  const recipient = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
 
   const transferMsg = new MsgExecuteContract(
     myWalletAddress,
     cw20_contract,
     {
       transfer: {
-        recipient,
+        recipient : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
         amount: "100000"
       }
     }
