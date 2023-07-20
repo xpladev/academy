@@ -40,8 +40,11 @@ XPLA 블록체인에서 송금도 하고 컨트랙트도 만들려면, XPLA 코�
 
 3. Vault를 확인해보면 100 XPLA가 생겼다는 것을 확인할 수 있습니다. 만약 100 XPLA가 없다면, 우측 상단 톱니바퀴 아이콘을 눌러 네트워크를 testnet으로 바꿔보세요.
 
-<BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: "0px 0px 16px 0px"}}>
-<div className="flex justify-end">
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
     <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/get-token.png" />
 </div>
 </BrowserWindow>
