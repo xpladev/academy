@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 const Pilot = () => {
-    const [filenum, setFilenum] = useState<number>(0);
-    const pic =  [...Array(61).keys()].map((v) =>  <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${v < 10 ? '0' + v : v}.png`}/>)
-    
-    useEffect(() => {
-        let timer = setInterval(() => {
-            if (filenum == 60) {
-                setFilenum(0);
-            } else {
-                setFilenum(filenum + 1);
-            }
-        }, 30);
-        
-        return () => clearInterval(timer)
-      }, [filenum]);
+  const [filenum, setFilenum] = useState<number>(0);
+  const pic = [...Array(61).keys()].map((v) => (
+    <img
+      style={{ width: "500px", height: "500px" }}
+      src={`/xpla-academy-dev/img/pilot-game/00${v < 10 ? "0" + v : v}.png`}
+    />
+  ));
 
-    return <>
-{pic[filenum]}</>
-{/* <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${filenum < 10 ? '0' + filenum : filenum}.png`}/> */}
-}
+  // useEffect(() => {
+  //     let timer = setInterval(() => {
+  //         if (filenum == 60) {
+  //             setFilenum(0);
+  //         } else {
+  //             setFilenum(filenum + 1);
+  //         }
+  //     }, 30);
+
+  //     return () => clearInterval(timer)
+  //   }, [filenum]);
+
+  return <>{pic[0]}</>;
+  {
+    /* <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${filenum < 10 ? '0' + filenum : filenum}.png`}/> */
+  }
+};
 
 export default Pilot;
 
@@ -33,7 +39,6 @@ export default Pilot;
 //     const pic =  [...Array(61).keys()].map((v) =>  <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${v < 10 ? '0' + v : v}.png`}/>)
 //     const [num, setNum ] = useState<number>(0);
 
-
 //     useEffect(() => {
 //         let timer = setInterval(() => {
 //             if (num == 60) {
@@ -42,10 +47,9 @@ export default Pilot;
 //                 setNum(num + 1);
 //             }
 //         }, 100);
-        
+
 //         // return () => clearInterval(timer)
 //       }, [num]);
-
 
 //     return <>
 //     {
