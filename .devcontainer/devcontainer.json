@@ -1,0 +1,16 @@
+{
+    "name": "devenv",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder};",
+    "remoteUser": "vscode",
+    "mounts": [],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mhutchie.git-graph"
+            ]
+        }
+    }
+}
