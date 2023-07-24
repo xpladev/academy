@@ -60,7 +60,7 @@ const main = async () => {
   // 	chainID: 'cube_47-5',
   // 	accountNumber: acc.account_number,
   // 	sequence: acc.sequence,
-  // 	signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+  // 	signMode: SignMode.SIGN_MODE_DIRECT
   // }
   
   // const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정

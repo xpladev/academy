@@ -105,7 +105,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
         // 	chainID: 'cube_47-5',
         // 	accountNumber: acc.account_number,
         // 	sequence: acc.sequence,
-        // 	signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+        // 	signMode: SignMode.SIGN_MODE_DIRECT
         // }
         
         // const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
@@ -205,8 +205,8 @@ const acc = accInfo;
 const userSignOption = { // 서명 정보 
     chainID: 'cube_47-5',
     accountNumber: acc.account_number,
-    sequence: acc.sequence,
-    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+    sequence: acc.sequence, 
+    signMode: SignMode.SIGN_MODE_DIRECT
 }
 
 const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
