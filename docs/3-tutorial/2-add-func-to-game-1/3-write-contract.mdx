@@ -36,7 +36,9 @@ Sequence란 각 지갑이 생성한 트랜잭션의 번호입니다. 지갑이 �
 
 한번만 더 살펴봅시다. 해시값이 `FBD6E043781992215A53B285403628D3D4734AF4FC0003875775AB673F2D2737`인 트랜잭션은 sequence 값이 [466](https://cube-lcd.xpla.dev/cosmos/tx/v1beta1/txs/FBD6E043781992215A53B285403628D3D4734AF4FC0003875775AB673F2D2737)이므로, `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소가 467번째로 만든 트랜잭션임을 알 수 있습니다.
 
-Sequence 항목이 있기 때문에 각 트랜잭션은 고유성을 지닙니다. 즉, 트랜잭션을 복제해서 사용할 수 없습니다. Alice가 Bob에게 1 XPLA를 전송하는 트랜잭션을 생각해봅시다. 만약 Sequence 값이 없다면, Bob이 똑같은 트랜잭션을 복제해서 네트워크에 전파할 수 있습니다. 그러나 트랜잭션에 sequence 항목이 존재하기 때문에, Bob이 똑같은 내용의 트랜잭션을 만들려면 sequence 값을 바꾸면서 서명도 다시 진행해야 합니다. 따라서 XPLA 블록체인에서 각 트랜잭션은 고유성을 지닐 수 있게 됩니다. 
+Sequence 항목이 있기 때문에 각 트랜잭션은 고유성을 지닙니다. 즉, 트랜잭션을 복제해서 사용할 수 없습니다. 따라서 특정 지갑이 생성한 모든 트랜잭션은 각각 다른 sequence를 가지게 됩니다.
+
+Alice가 Bob에게 1 XPLA를 전송하는 트랜잭션을 생각해봅시다. Sequence 항목이 없다면, Alice가 생성한 트랜잭션을 Bob이 복제하여 네트워크에 전파할 수도 있습니다. Bob은 Alice 지갑 잔액이 없어질 때까지 트랜잭션을 계속 만들 것입니다. 그러나 이러한 행위는 Sequence 항목 때문에 불가능합니다. 같은 값의 Sequence를 가진 두 트랜잭션은 블록체인에 기록될 수 없기 때문이죠. 이미 블록체인에 기록된 트랜잭션과 똑같은 Sequence로 트랜잭션을 생성하려고 한다면, [`Account Sequence Mismatch` Error](https://github.com/cosmos/cosmos-sdk/blob/32ef6361db3b4ed6f10cc4421341eeb37e18d4f4/x/auth/ante/sigverify.go#L292)가 발생합니다. 따라서 새 트랜잭션을 생성하려면 sequence 값을 변경해주어야 하고, 서명도 다시 진행해야 합니다. 누구나 생성된 트랜잭션 내용은 볼 수 있지만, 서명은 오직 지갑 private key를 알아야 가능합니다. 따라서 트랜잭션을 계속 재실행하는 공격을 막을 수 있습니다.
 
 
 ## 코드로 이해하기 {#understandwithcode}
