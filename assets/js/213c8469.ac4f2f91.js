@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkxpla_academy=self.webpackChunkxpla_academy||[]).push([[9755],{7503:a=>{a.exports=JSON.parse('{"label":"docusaurus","permalink":"/xpla-academy-dev/blog/tags/docusaurus","allTagsPath":"/xpla-academy-dev/blog/tags","count":4}')}}]);
