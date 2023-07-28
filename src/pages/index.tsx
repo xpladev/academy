@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -13,9 +13,21 @@ import PlayGame from "../components/Homepage/PlayGame";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import DevResource from "../components/Homepage/DevResource";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
+import { WalletControllerChainOptions, getChainOptions } from "@xpla/wallet-provider";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
+
+  const [chainOptions, setChainoptions] =
+    useState<WalletControllerChainOptions>();
+
+  useEffect(() => {
+    getChainOptions()
+      .then((c) => setChainoptions(c))
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <header

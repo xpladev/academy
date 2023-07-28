@@ -1,0 +1,13 @@
+diff --git a/node_modules/@xpla/wallet-controller/controller.js b/node_modules/@xpla/wallet-controller/controller.js
+index 3e1390a..3912df1 100644
+--- a/node_modules/@xpla/wallet-controller/controller.js
++++ b/node_modules/@xpla/wallet-controller/controller.js
+@@ -517,7 +517,7 @@ export class WalletController {
+                             case WalletConnectSessionStatus.CONNECTED:
+                                 this.updateStates({
+                                     status: WalletStatus.WALLET_CONNECTED,
+-                                    network: (_a = this.options.walletConnectChainIds[status.chainId]) !== null && _a !== void 0 ? _a : this.options.defaultNetwork,
++                                    network: this.options.defaultNetwork,
+                                     wallets: [
+                                         {
+                                             connectType: ConnectType.WALLETCONNECT,
