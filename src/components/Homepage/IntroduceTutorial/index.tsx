@@ -32,21 +32,6 @@ export default function PlayGame(): JSX.Element {
     link : '/docs/tutorial/make-web3-game/make-cw20-with-js'
   },
   {
-    url : '/xpla-academy-dev/img/homepage/p2obase-1.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-1/make-nft'
-  },
-  {
-    url : '/xpla-academy-dev/img/homepage/p2obase-2.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-1/write-contract'
-  },
-  {
-    url : '/xpla-academy-dev/img/homepage/xplaonboard-1.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-2/login'
-  },
-  {
     url : '/xpla-academy-dev/img/homepage/xplaonboard-2.svg',
     contents : 'Learn More',
     link : '/docs/tutorial/add-func-to-game-2/walletprovider'
