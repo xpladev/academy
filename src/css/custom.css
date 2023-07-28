@@ -88,3 +88,15 @@ html[data-theme='dark'] .sidebar-divider {
 .dots-up > div > ul {
   bottom : 10px;
 }
+
+.buttonContainer {
+  background-color: white;
+  cursor : pointer;
+  border-radius: 24px;
+  border : 1px solid black;
+  padding : 8px;
+}
+
+.connectwallet {
+  color : black;
+}

@@ -76,7 +76,7 @@ const sidebars = {
         title: '게임에 Web 3.0 기능 더하기 1',
         // description: ''
       },
-      items: ['tutorial/add-func-to-game-1/overview', 'tutorial/add-func-to-game-1/make-nft', 'tutorial/add-func-to-game-1/write-contract'],
+      items: ['tutorial/add-func-to-game-1/overview', 'tutorial/add-func-to-game-1/make-nft-vault', 'tutorial/add-func-to-game-1/make-nft-js'],
     },
     {
       type: 'category',
@@ -86,7 +86,7 @@ const sidebars = {
         title: '게임에 Web 3.0 기능 더하기 2',
         // description: ''
       },
-      items: ['tutorial/add-func-to-game-2/overview', 'tutorial/add-func-to-game-2/login', 'tutorial/add-func-to-game-2/walletconnect', 'tutorial/add-func-to-game-2/convert', 'tutorial/add-func-to-game-2/db-contract'],
+      items: ['tutorial/add-func-to-game-2/overview', 'tutorial/add-func-to-game-2/account-sequence', 'tutorial/add-func-to-game-2/walletprovider', 'tutorial/add-func-to-game-2/convert', 'tutorial/add-func-to-game-2/db-contract'],
     },
   ],
 };

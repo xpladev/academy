@@ -1,0 +1,335 @@
+---
+sidebar_position: 2
+---
+
+# Vault로 NFT(CW721) 발행하기
+
+import Details from '@theme/Details';
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+CW721을 이용하면 XPLA 블록체인에서 쉽게 NFT를 발행할 수 있습니다. 직접 Vault로 NFT를 만들어보고, 게임에 적용해봅시다.
+
+<Details summary="NFT란 무엇인가요?">
+
+NFT란 `Non-Fungible Token`의 약자로, 대체 불가능한 토큰이란 뜻입니다. `대체 불가능`이라는 건 무슨 뜻일까요?
+
+1달러짜리 지폐 두 장의 가치는 서로 같습니다. 둘 다 1달러의 가치를 지니므로, 하나가 다른 하나를 대체할 수 있습니다. 그러나 Alice가 그린 모나지라 그림과 루브르 박물관에 있는 모나리자의 가치는 어떨까요? Alice가 모나리자 그림의 모든 부분을 똑같이 묘사해도, 진짜 모나리자를 대체할 수는 없습니다. 이처럼 서로 대체할 수 없는 고유한 토큰을 두고 NFT라고 부릅니다. 
+
+NFT로 무엇을 할 수 있을까요? Alice는 그림을 하나 그려 프로필 사진으로 사용하려고 합니다. 그런데 누군가가 Alice의 그림을 복사하여 사용하고, 자신이 그린 그림이라고 주장하면 어떡할까요? Alice가 그림의 주요 정보를 NFT에 담는다면 그림의 소유권을 증명할 수 있을 것입니다.
+
+</Details>
+
+<Details summary="CW721이란 무엇인가요?">
+
+XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합니다. 이더리움의 ERC721처럼, **CW721**은 `Cosmwasm`에서 대체 불가능한 토큰(Non-Fungible Tokens)에 대한 표준입니다. ERC721과 이름은 비슷할지 몰라도, 기능은 많이 다릅니다. 더 자세히 알고 싶다면 [공식 문서](https://github.com/xpladev/cw-nfts)를 참고해보세요.
+
+</Details>
+
+## CW721발행하기 {#make-cw721}
+
+다음과 같은 절차로 Vault를 통해 CW721 컨트랙트를 생성하고, NFT를 민팅할 수 있습니다.
+
+1. [Vault 접속](/docs/tutorial/add-func-to-game-1/make-nft-vault#accessvault)
+
+2. [CW721 컨트랙트 생성](/docs/tutorial/add-func-to-game-1/make-nft-vault#instantiate)
+
+3. [NFT 민팅하기](/docs/tutorial/add-func-to-game-1/make-nft-vault#mint-nft)
+
+### Vault 접속 {#accessvault}
+
+먼저 Chrome Extension 앱인 Vault에서 CW721 컨트랙트를 생성할 지갑을 선택하고, 네트워크를 `testnet`으로 설정합니다.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault/select-testnet.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault/vault-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+[Vault 웹사이트](https://vault.xpla.io/)에 접속하고, 우측 상단 `Connect` 버튼을 클릭하여 지갑을 연결합니다.
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 40, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/click-connect.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/web-vault-popup.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 59, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+### CW721 컨트랙트 생성 {#instantiate}
+
+Vault 웹에서 Contract 항목을 클릭합니다.
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 59, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-contract.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+`Instantiate` 버튼을 클릭합니다.
+
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 59, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-instantiate.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+`Admin`이란 컨트랙트의 주인이 될 지갑 주소입니다. 예제에서는 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 지갑 주소를 입력하겠습니다.
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 58.5, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate-admin.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+CW721 컨트랙트의 `Code ID`는 `3`이므로, `Code ID`에는 `3`을 입력해줍니다. 
+
+<Details summary="Code ID란 무엇인가요?">
+
+EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생성이 한번에 이뤄지지 않습니다. 먼저 코드를 블록체인에 배포(StoreCode)하면 해당 코드의 `Code ID`를 발급 받습니다. 이후 `Code ID`를 기반으로 컨트랙트를 생성(InstantiateContract)할 수 있습니다.
+
+똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id)를 참고해보세요.
+
+</Details>
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19.1px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '50px', width : '100%', top : 19.1, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '25px', width : '100%', top : 69, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/code_id.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+`Init msg`에는 컨트랙트의 초기값을 입력해주어야 합니다. 초기값은 발행할 NFT에 대한 정보입니다. 발행자가 누구인지(minter), NFT Collection의 이름(name) 등을 살펴볼 수 있습니다.
+
+예제에서는 아래 형식으로 입력하도록 하겠습니다. 여러분은 minter 항목에 본인 지갑 주소를 입력하시면 됩니다. name, symbol 값도 바꾸고 싶다면 다른 값으로 넣어주세요.
+
+```json
+{
+    "name": "YourNFTName",
+    "symbol": "YNN",
+    "minter": "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
+}
+```
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '16px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 16, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 56, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/init_msg.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+`Amount`는 컨트랙트 `Instantiate`를 진행할 때, 컨트랙트에 전송하고 싶은 XPLA 수량을 의미합니다. CW721 컨트랙트는 XPLA 코인을 보유할 이유가 없으므로, 이 부분은 생략하셔도 좋습니다.
+
+`Label`은 컨트랙트의 기능을 나타내도록 작성하는 것이 좋습니다. 예제에서는 `My NFT`로 기입하겠습니다. 이후 Submit 버튼을 눌러주세요.
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '35px', width : '100%', top : 58, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/label.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+:::tip
+
+컨트랙트를 `Instatinate`하고 싶은데, 각 항목에 어떤 값을 입력해야 할 지 모를 때가 있습니다. 그럴 때는 같은 `Code ID`로 `Instatinate`된 컨트랙트를 참고하면 됩니다. 예를 들어, `Code ID`가 3인 다른 CW721 컨트랙트를 [XPLA Explorer](https://explorer.xpla.io/testnet/address/xpla1cr3jrzjpagedzdxfx32hju0jr0g9prut3r3m3pg27zsdrecfwt7q3cfmkw#InitMsg)에서 살펴봅시다. `Init Msg` 값을 참고하여 여러분의 기호대로 내용을 수정하면, 쉽게 컨트랙트를 생성할 수 있습니다.  
+
+:::
+
+<br />
+
+Submit 버튼을 누르면 Chrome Extension Vault 앱에서 팝업이 하나 뜨게 됩니다. 이때 Password를 입력하면, `Instantatie` Method 트랜잭션에 서명하게 되는 것입니다. 지갑을 만들었을 때 설정했던 Password를 입력하고, Post 버튼을 눌러주세요.
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-center">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/input-password.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+서명이 완료되면 트랜잭션이 XPLA 블록체인에 기록될 때까지 기다려야 합니다. 트랜잭션이 생성되었다면 [XPLA Explorer](https://explorer.xpla.io/)에서 트랜잭션 정보를 확인할 수 있습니다. Tx hash 값을 클릭해보세요.
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/success.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/success-explorer.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+EventLogs에서 여러분이 발행한 CW721 컨트랙트 주소를 알 수 있습니다. 
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130#EventLogs" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/eventlogs.png" />
+</div>
+</BrowserWindow>
+
+예제에서 만든 CW721 컨트랙트의 주소는 `xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn` 입니다.
+
+<br />
+
+### NFT 민팅하기 {#mint-nft}
+
+이제 생성한 CW721 컨트랙트로 NFT를 민팅해봅시다. 다시 Vault 웹에서 [Contract 탭](https://vault.xpla.io/contract)에 접속해주세요.
+
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 58.5, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-contract.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+검색 항목에 직접 만든 CW721 컨트랙트 주소를 넣고, Execute 버튼을 클릭합니다.
+
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 19, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '35.5px', width : '100%', top : 60, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/contract-mynft.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+`Msg` 항목에는 발행할 NFT의 정보를 적어줍니다. 예제에서는 아래와 같이 작성하겠습니다. `token_id` 항목은 NFT의 고유한 번호입니다. 따라서 같은 CW721 컨트랙트에서 발행하는 NFT는 모두 `token_id`가 달라야 합니다.
+
+`attributes` 항목에는 NFT의 특성입니다. 예제에서는 체력(HP) 10, 전투능력(CP) 100인 Alice라는 이름의 캐릭터 NFT를 만든다고 가정하겠습니다.
+
+
+```json
+{
+  "mint": {
+    "owner": "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
+    "token_id": "token_id_myExampleNFT1",
+    "extension": {
+      "name": "My Test XPLA NFT",
+      "attributes": [
+        {
+          "value": "Alice",
+          "trait_type": "CharacterName"
+        },
+        {
+          "value": "100",
+          "trait_type": "CP"
+        },
+        {
+          "value": "10",
+          "trait_type": "HP"
+        }
+      ],
+      "description": "This is my First NFT in XPLA Blockchain!"
+    }
+  }
+}
+```
+
+<BrowserWindow url="https://vault.xpla.io/contract/xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 19, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '37px', width : '100%', top : 60, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/vault-execute.png" />
+</div>
+</BrowserWindow>
+
+
+이외에도 `image`나 `token_uri` 항목 등을 추가할 수 있습니다. 어떤 항목을 추가할 수 있는지는 [CW721 메타데이터](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)에 대해서 자세히 살펴보시거나, 혹은 [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다.
+
+<br/>
+
+이후 단계는 이전과 동일합니다. Submit 버튼을 누르고, Password를 입력하면 트랜잭션이 생성됩니다.
+
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/execute-success.png" />
+</div>
+</BrowserWindow>
+
+[XPLA Explorer Messages 탭](https://explorer.xpla.io/testnet/tx/048BCC8C53CA9F2ABC17E9706886D5E6F3AB15FD2EEDFC00790F4D7331D7FDC7#Messages)에서 발행한 NFT에 대한 정보를 자세히 볼 수 있습니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/nft-explorer.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130#Messages" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/nft-messages.png" />
+</div>
+</BrowserWindow>
+
+이렇게 CW721 컨트랙트로 NFT를 발행해보았습니다. NFT도 토큰이기 때문에, 컨트랙트로 발행하는 것임을 기억해주세요. 단지 토큰마다 고유한 메타데이터가 있기 때문에, 같은 컨트랙트에서 만들어진 다른 토큰들과 대체할 수 없다는 것이 큰 특징입니다.

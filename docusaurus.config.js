@@ -174,6 +174,7 @@ const config = {
         },
       };
     },
+    'docusaurus-node-polyfills'
   ],
   markdown: {
     mermaid: true,
