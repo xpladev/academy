@@ -28,17 +28,17 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 ## CW721발행하기 {#make-cw721}
 
-다음과 같은 절차로 Vault를 통해 CW721을 발행할 수 있습니다.
+다음과 같은 절차로 Vault를 통해 CW721 컨트랙트를 생성하고, NFT를 민팅할 수 있습니다.
 
-1. [Vault 접속](/docs/tutorial/make-web3-game/make-cw20-with-vault#accessvault)
+1. [Vault 접속](/docs/tutorial/add-func-to-game-1/make-nft-vault#accessvault)
 
-2. [CW721 컨트랙트 생성](/docs/tutorial/make-web3-game/make-cw20-with-vault#instantiate)
+2. [CW721 컨트랙트 생성](/docs/tutorial/add-func-to-game-1/make-nft-vault#instantiate)
 
-3. [컨트랙트 생성 확인](/docs/tutorial/make-web3-game/make-cw20-with-vault#make-confirm)
+3. [NFT 민팅하기](/docs/tutorial/add-func-to-game-1/make-nft-vault#mint-nft)
 
 ### Vault 접속 {#accessvault}
 
-먼저 Chrome Extension 앱인 Vault에서 CW721을 발행할 지갑을 선택하고, 네트워크를 `testnet`으로 설정합니다.
+먼저 Chrome Extension 앱인 Vault에서 CW721 컨트랙트를 생성할 지갑을 선택하고, 네트워크를 `testnet`으로 설정합니다.
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
@@ -88,51 +88,48 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 <br />
 
+### CW721 컨트랙트 생성 {#instantiate}
 
+Vault 웹에서 Contract 항목을 클릭합니다.
 
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 59, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-contract.png" />
+</div>
+</BrowserWindow>
 
+<br />
 
+`Instantiate` 버튼을 클릭합니다.
 
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 59, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-click-instantiate.png" />
+</div>
+</BrowserWindow>
 
+<br />
 
+`Admin`이란 컨트랙트의 주인이 될 지갑 주소입니다. 예제에서는 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 지갑 주소를 입력하겠습니다.
 
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '2.12em', width : '100%', top : 58.5, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-instantiate-admin.png" />
+</div>
+</BrowserWindow>
 
+<br />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-
-<br/>
-
-컨트랙트를 잘 생성하셨나요? 이제 컨트랙트를 이용하여 NFT를 발행해봅시다. 아래 코드에서 여러분의 니모닉 단어를 넣어주세요. 이후 위에서 만든 컨트랙트 주소를 `myContractAddress` 변수에 대입해주세요. 코드를 실행하면 잠시 후 NFT 발행 결과를 확인할 수 있습니다. 
-
-<Details summary="생성한 컨트랙트의 주소는 어디서 확인하나요?">
-
-가장 쉬운 방법은 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색해봅시다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.dev/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 확인할 수 있었습니다.
-
-</Details>
-
-
-<br/>
-
-Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/add-func-to-game-1/make-nft#runjs)을 읽지 않고 바로 [다음 단계](/docs/tutorial/add-func-to-game-1/write-contract)로 넘어가셔도 좋습니다.
-
-<br/>
-
-## Javascript로 CW721 컨트랙트 생성하기 {#instantiate-runjs}
-
-CW721 컨트랙트를 생성해봅시다. CW721 컨트랙트의 Code ID는 메인넷과 테스트넷 모두 `3`입니다.
+CW721 컨트랙트의 `Code ID`는 `3`이므로, `Code ID`에는 `3`을 입력해줍니다. 
 
 <Details summary="Code ID란 무엇인가요?">
 
@@ -142,273 +139,197 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
 </Details>
 
-<br/>
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19.1px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '50px', width : '100%', top : 19.1, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '25px', width : '100%', top : 69, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/code_id.png" />
+</div>
+</BrowserWindow>
 
-### 코드 실행 {#instantiate-runcode}
+<br />
 
-1. example-6.js 파일을 생성해주세요.
+`Init msg`에는 컨트랙트의 초기값을 입력해주어야 합니다. 초기값은 발행할 NFT에 대한 정보입니다. 발행자가 누구인지(minter), NFT Collection의 이름(name) 등을 살펴볼 수 있습니다.
 
-2. 아래 코드를 복사하여 example-6.js 파일에 붙여넣고 저장합니다.
+예제에서는 아래 형식으로 입력하도록 하겠습니다. 여러분은 minter 항목에 본인 지갑 주소를 입력하시면 됩니다. name, symbol 값도 바꾸고 싶다면 다른 값으로 넣어주세요.
 
-    ```js
-    const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
-
-    const lcd = new LCDClient({
-        chainID: 'cube_47-5',
-        URL: 'https://cube-lcd.xpla.dev'
-    });
-
-    const main = async () => {
-        const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
-        })
-
-        const wallet = lcd.wallet(mk);
-        const myWalletAddress = wallet.key.accAddress;
-
-        const init_msg = {
-            "name": "YourNFTName",
-            "symbol": "YNN",
-            "minter": myWalletAddress
-        }
-
-        const instantiate = new MsgInstantiateContract(
-            myWalletAddress, // sender
-            myWalletAddress, // admin
-            3, // MAINNET, TESTNET CW721 code id
-            init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-            'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
-        );
-
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
-            msgs: [instantiate]
-        });
-
-        const txResult = await lcd.tx.broadcastSync(signedTx);
-        console.log(txResult.txhash);
-    }
-    main()
-    ```
-
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
-
-4. VSCode Terminal에서 아래 명령어를 입력합니다.
-
-  ```bash
-  node example-6.js
-  ```
-
-5. Terminal에서 결과를 확인합니다. CW721 컨트랙트가 생성되고, 생성 트랜잭션의 해시값을 확인할 수 있을 것입니다.
-
-<br/>
-
-### 설명 {#instantiate-explaination}
-
-우리는 CW721에 관한 컨트랙트 코드를 작성하지 않았습니다. 코드는 이미 XPLA 블록체인에 배포되었고, 단지 배포된 코드로 컨트랙트를 생성했을 뿐입니다.
-
-먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
-
-```js
-const mk = new MnemonicKey({
-    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
-})
-
-const wallet = lcd.wallet(mk);
-const myWalletAddress = wallet.key.accAddress;
-```
-
-<br/>
-
-CW721 컨트랙트 생성을 위해 초기값을 미리 지정해줬습니다. 아래 값들은 여러분이 원하는대로 수정하셔서, 여러분만의 NFT를 만들어 보시는 것도 좋습니다.
-
-```js
-const init_msg = {
+```json
+{
     "name": "YourNFTName",
     "symbol": "YNN",
-    "minter": myWalletAddress
+    "minter": "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
 }
 ```
 
-<br/>
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '16px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 16, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 56, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/init_msg.png" />
+</div>
+</BrowserWindow>
 
-누가 컨트랙트를 생성하는지(sender), 컨트랙트의 주인은 누구인지(admin), Code ID, 초깃값, 라벨 등을 입력하여 컨트랙트 생성을 준비합니다.
+<br />
 
-```js
-const instantiate = new MsgInstantiateContract(
-    myWalletAddress, // sender
-    myWalletAddress, // admin
-    3, // MAINNET, TESTNET CW721 code id
-    init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
-);
-```
+`Amount`는 컨트랙트 `Instantiate`를 진행할 때, 컨트랙트에 전송하고 싶은 XPLA 수량을 의미합니다. CW721 컨트랙트는 XPLA 코인을 보유할 이유가 없으므로, 이 부분은 생략하셔도 좋습니다.
 
-<br/>
+`Label`은 컨트랙트의 기능을 나타내도록 작성하는 것이 좋습니다. 예제에서는 `My NFT`로 기입하겠습니다. 이후 Submit 버튼을 눌러주세요.
 
-`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '18px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '40px', width : '100%', top : 18, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '35px', width : '100%', top : 58, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/label.png" />
+</div>
+</BrowserWindow>
 
-```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
-    msgs: [instantiate]
-});
-```
+<br />
 
-<br/>
+:::tip
 
-`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신합니다. 트랜잭션이 XPLA 블록체인에 잘 생성되었다면, 트랜잭션 해시값을 결과로 확인할 수 있을 것입니다.
+컨트랙트를 `Instatinate`하고 싶은데, 각 항목에 어떤 값을 입력해야 할 지 모를 때가 있습니다. 그럴 때는 같은 `Code ID`로 `Instatinate`된 컨트랙트를 참고하면 됩니다. 예를 들어, `Code ID`가 3인 다른 CW721 컨트랙트를 [XPLA Explorer](https://explorer.xpla.io/testnet/address/xpla1cr3jrzjpagedzdxfx32hju0jr0g9prut3r3m3pg27zsdrecfwt7q3cfmkw#InitMsg)에서 살펴봅시다. `Init Msg` 값을 참고하여 여러분의 기호대로 내용을 수정하면, 쉽게 컨트랙트를 생성할 수 있습니다.  
 
-```js
-const txResult = await lcd.tx.broadcastSync(signedTx);
-console.log(txResult.txhash);
-```
+:::
 
-<br/>
+<br />
 
-생성한 컨트랙트 주소를 [XPLA Explorer](https://explorer.xpla.io/)에서 확인해봅시다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색합니다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.dev/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 `
-xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인할 수 있습니다.
+Submit 버튼을 누르면 Chrome Extension Vault 앱에서 팝업이 하나 뜨게 됩니다. 이때 Password를 입력하면, `Instantatie` Method 트랜잭션에 서명하게 되는 것입니다. 지갑을 만들었을 때 설정했던 Password를 입력하고, Post 버튼을 눌러주세요.
 
-<br/>
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: "0px 0px 16px 0px"}}>
+<div className="flex justify-center">
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/input-password.png" />
+</div>
+</BrowserWindow>
 
-## 생성한 CW721 컨트랙트로 NFT 발행하기 {#makenft-runjs}
+<br />
 
-지금까지 우리는 CW721 컨트랙트를 생성했습니다. 이제부터 생성한 컨트랙트로 NFT를 발행(Mint)해봅시다.
+서명이 완료되면 트랜잭션이 XPLA 블록체인에 기록될 때까지 기다려야 합니다. 트랜잭션이 생성되었다면 [XPLA Explorer](https://explorer.xpla.io/)에서 트랜잭션 정보를 확인할 수 있습니다. Tx hash 값을 클릭해보세요.
 
-<br/>
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/success.png" />
+</div>
+</BrowserWindow>
 
-### 코드 실행 {#makenft-runcode}
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/success-explorer.png" />
+</div>
+</BrowserWindow>
 
-1. example-7.js 파일을 생성해주세요.
+<br />
 
-2. 아래 코드를 복사하여 example-7.js 파일에 붙여넣고 저장합니다.
+EventLogs에서 여러분이 발행한 CW721 컨트랙트 주소를 알 수 있습니다. 
 
-    ```js
-    const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130#EventLogs" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/eventlogs.png" />
+</div>
+</BrowserWindow>
 
-    const lcd = new LCDClient({
-        chainID: 'cube_47-5',
-        URL: 'https://cube-lcd.xpla.dev'
-    });
+예제에서 만든 CW721 컨트랙트의 주소는 `xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn` 입니다.
 
-    const main = async () => {
-        const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
-        })
+<br />
 
-        const wallet = lcd.wallet(mk);
-        const myWalletAddress = wallet.key.accAddress;
-        const myContractAddress = "xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0"; // Input your Contract Address
+### NFT 민팅하기 {#mint-nft}
 
-        const time = new Date();
-        const mintJSON = {
-            mint: {
-                owner: myWalletAddress,
-                token_id: `token_id_${time.getTime()}`,
-                // token_uri: "https://your.token.uri.address", // input your token_uri
-                extension: {
-                    name : "My Test XPLA NFT",
-                    // image: "https://your.image.url", // input your nft image url
-                    attributes: [
-                        {
-                            value: 'Alice',
-                            trait_type: 'CharacterName',
-                        },
-                        {
-                            value: '100',
-                            trait_type: 'CP',
-                        },
-                        {
-                            value: '10',
-                            trait_type: 'HP',
-                        },
-                    ],
-                    description : "This is my First NFT in XPLA Blockchain!",
-                },
-            },
-        };
-        const mint = new MsgExecuteContract(
-            myWalletAddress,
-            myContractAddress,
-            mintJSON
-        );
+이제 생성한 CW721 컨트랙트로 NFT를 민팅해봅시다. 다시 Vault 웹에서 [Contract 탭](https://vault.xpla.io/contract)에 접속해주세요.
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
-            msgs: [mint]
-        });
-
-        const txResult = await lcd.tx.broadcastSync(signedTx);
-        console.log(txResult.txhash);
-    }
-    main()
-    ```
-
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
-
-4. 앞서 만든 컨트랙트 주소를 15번째 줄의 `myContractAddress` 변수에 대입해주세요.
-
-5. VSCode Terminal에서 아래 명령어를 입력합니다.
-
-  ```bash
-  node example-7.js
-  ```
-
-6. Terminal에서 결과를 확인합니다. 여러분의 NFT가 발행되었을 것입니다.
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17.5px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 17.5, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '34.5px', width : '100%', top : 58.5, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/vault-web-contract.png" />
+</div>
+</BrowserWindow>
 
 <br/>
 
-### 설명 {#makenft-explaination}
+검색 항목에 직접 만든 CW721 컨트랙트 주소를 넣고, Execute 버튼을 클릭합니다.
 
-지갑을 불러오는 부분까지는 이전과 동일하므로 생략하겠습니다.
+<BrowserWindow url="https://vault.xpla.io/contract" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 19, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '35.5px', width : '100%', top : 60, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/contract-mynft.png" />
+</div>
+</BrowserWindow>
 
-먼저 어떤 주요 정보(metadata)를 가진 NFT를 발행할 것인지 정해야 합니다. 예제에서는 Alice라는 이름의 캐릭터 NFT를 만드는 것으로 가정해보았습니다. 이 NFT 캐릭터는 CP가 100이고, HP가 10이겠군요.
+<br/>
 
-아래 값들을 변경하여 자신만의 NFT를 만들어보세요.
+`Msg` 항목에는 발행할 NFT의 정보를 적어줍니다. 예제에서는 아래와 같이 작성하겠습니다. `token_id` 항목은 NFT의 고유한 번호입니다. 따라서 같은 CW721 컨트랙트에서 발행하는 NFT는 모두 `token_id`가 달라야 합니다.
 
-```js
-const time = new Date();
-const mintJSON = {
-    mint: {
-        owner: myWalletAddress,
-        token_id: `token_id_${time.getTime()}`,
-        // token_uri: "https://your.token.uri.address", // input your token_uri
-        extension: {
-            name : "My Test XPLA NFT",
-            // image: "https://your.image.url", // input your nft image url
-            attributes: [
-                {
-                    value: 'Alice',
-                    trait_type: 'CharacterName',
-                },
-                {
-                    value: '100',
-                    trait_type: 'CP',
-                },
-                {
-                    value: '10',
-                    trait_type: 'HP',
-                },
-            ],
-            description : "This is my First NFT in XPLA Blockchain!",
+`attributes` 항목에는 NFT의 특성입니다. 예제에서는 체력(HP) 10, 전투능력(CP) 100인 Alice라는 이름의 캐릭터 NFT를 만든다고 가정하겠습니다.
+
+
+```json
+{
+  "mint": {
+    "owner": "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
+    "token_id": "token_id_myExampleNFT1",
+    "extension": {
+      "name": "My Test XPLA NFT",
+      "attributes": [
+        {
+          "value": "Alice",
+          "trait_type": "CharacterName"
         },
-    },
-};
+        {
+          "value": "100",
+          "trait_type": "CP"
+        },
+        {
+          "value": "10",
+          "trait_type": "HP"
+        }
+      ],
+      "description": "This is my First NFT in XPLA Blockchain!"
+    }
+  }
+}
 ```
+
+<BrowserWindow url="https://vault.xpla.io/contract/xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '19px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '41px', width : '100%', top : 19, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435F5', height : '37px', width : '100%', top : 60, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/vault-execute.png" />
+</div>
+</BrowserWindow>
+
+
+이외에도 `image`나 `token_uri` 항목 등을 추가할 수 있습니다. 어떤 항목을 추가할 수 있는지는 [CW721 메타데이터](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)에 대해서 자세히 살펴보시거나, 혹은 [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다.
 
 <br/>
 
-작성한 메타데이터를 이용하여 앞서 생성한 컨트랙트를 `Execute`합니다. 
+이후 단계는 이전과 동일합니다. Submit 버튼을 누르고, Password를 입력하면 트랜잭션이 생성됩니다.
 
-```js
-const mint = new MsgExecuteContract(
-    myWalletAddress,
-    myContractAddress,
-    mintJSON
-);
-```
+<BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#000000CC', height : '100%', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1, zoom: "200%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/execute-success.png" />
+</div>
+</BrowserWindow>
 
-이후 트랜잭션 생성, 서명, 네트워크 송신 등 작업을 거칩니다. 트랜잭션이 블록체인에 잘 생성되었다면, NFT 발행(Mint)이 성공적으로 진행된 것입니다.
+[XPLA Explorer Messages 탭](https://explorer.xpla.io/testnet/tx/048BCC8C53CA9F2ABC17E9706886D5E6F3AB15FD2EEDFC00790F4D7331D7FDC7#Messages)에서 발행한 NFT에 대한 정보를 자세히 볼 수 있습니다.
 
-## 마무리
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/nft-explorer.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/4B4656EBDCF401AEBC672C63ABAE5E510234C46EFB395C97764445C3A1B2B130#Messages" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-add-func-to-game-1/nft-messages.png" />
+</div>
+</BrowserWindow>
 
 이렇게 CW721 컨트랙트로 NFT를 발행해보았습니다. NFT도 토큰이기 때문에, 컨트랙트로 발행하는 것임을 기억해주세요. 단지 토큰마다 고유한 메타데이터가 있기 때문에, 같은 컨트랙트에서 만들어진 다른 토큰들과 대체할 수 없다는 것이 큰 특징입니다.
