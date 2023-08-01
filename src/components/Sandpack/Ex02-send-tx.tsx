@@ -39,7 +39,11 @@ async function main() {
 }
 main()`,
       }}
-      options={{ layout: "console" }}
+      options={{ 
+        layout: "console",
+        showLineNumbers : true,
+        editorHeight: 600,
+      }}
     />
   );
 };

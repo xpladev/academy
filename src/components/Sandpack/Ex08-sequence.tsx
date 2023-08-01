@@ -68,7 +68,11 @@ const main = async () => {
 main();
           `,
         }}
-        options={{ layout: "console" }}
+        options={{ 
+          layout: "console",
+          showLineNumbers : true,
+          editorHeight: 600,
+        }}
       />
     );
   };
