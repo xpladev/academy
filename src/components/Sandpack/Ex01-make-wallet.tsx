@@ -25,7 +25,10 @@ const lcd = new LCDClient({
 });
 console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);`,
       }}
-      options={{ layout: "console" }}
+      options={{ 
+        layout: "console",
+        showLineNumbers : true,
+      }}
     />
   );
 };
