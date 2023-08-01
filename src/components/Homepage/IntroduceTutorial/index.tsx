@@ -44,7 +44,7 @@ export default function PlayGame(): JSX.Element {
   {
     url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-2/db-contract'
+    link : '/docs/tutorial/add-func-to-game-2/write-contract'
   },
 
 ]
