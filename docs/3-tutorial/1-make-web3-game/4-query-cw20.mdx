@@ -1,0 +1,207 @@
+---
+sidebar_position: 3
+---
+
+# CW20 데이터 사용하기
+
+import Details from '@theme/Details';
+import Ex09 from "@site/src/components/Sandpack/Ex09-query-cw20";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+유저들은 게임 보상으로 CW20 토큰을 얻게 됩니다. 각 유저들이 CW20 토큰을 얼마나 보유하고 있는지 어떻게 알 수 있을까요? LCDClient를 이용하여 Query를 보내서 CW20 토큰 데이터를 가져올 수 있습니다. [이전 단계](/docs/tutorial/make-web3-game/make-cw20-with-js)에서 직접 만든 CW20 토큰의 정보를 가져와봅시다. 예제에서 사용한 MCT 토큰의 컨트랙트 주소는 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc` 입니다.
+
+## Preview {#preview}
+
+Javascript로 CW20 토큰 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 컨트랙트 주소를, 10번째 줄에 CW20 토큰을 보유하고 있는 지갑 주소로 수정하여 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex09 />
+
+<br />
+
+LCDClient로 Query를 보내서 특정 지갑 주소가 CW20 토큰을 얼마나 가져오는지 확인할 수 있었습니다. 따라서 게임 유저들이 CW20 토큰을 얼마나 가지고 있는지 알아낼 수 있습니다.
+
+
+[XPLA Explorer](https://explorer.xpla.io/)에서도 컨트랙트에 Query를 보낼 수 있습니다. XPLA Explorer에서 CW20 토큰 컨트랙트 주소를 검색하고, [Init Msg 탭](https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg)으로 접속해봅시다. 
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/query-cw20/explorer-initmsg.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+이후 우측에 Query 버튼을 눌러보면 Query 메시지를 작성하는 팝업이 생성됩니다. 이를 통해 컨트랙트에 Query를 쉽게 보낼 수 있습니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/query-cw20/query.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+:::danger JSON 형태로 작성해주세요.
+
+주의할 점은 Javascript 코드에서 메시지를 작성할 때와는 달리, 아래와 같이 JSON 형태로 작성해야 합니다. 
+
+```json
+{
+    "balance" : {
+        "address" : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
+    }
+}
+```
+
+:::
+
+<Details summary="컨트랙트 Query 메시지는 어떤 형식으로 작성해야 하나요?">
+
+[CW20 Github](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/src/query.rs#L12)에서 CW20 컨트랙트에 어떤 Query를 보낼 수 있는지 살펴볼 수 있습니다. 주의할 점은 QueryMsg에서 메시지 이름이 `Camel Case`로 적혀 있으나, 실제 Query를 보낼 때는 `Snake Case`로 보내야 합니다. parameter 항목은 코드 형식 그대로 입력합니다.
+
+예를 들어 [CW20 Github](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/src/query.rs#L12)에서 **Balance**와 **TokenInfo** 메시지를 살펴보겠습니다. 
+
+```rust {4,7}
+pub enum Cw20QueryMsg {
+    /// Returns the current balance of the given address, 0 if unset.
+    /// Return type: BalanceResponse.
+    Balance { address: String },
+    /// Returns metadata on the contract - name, decimals, supply, etc.
+    /// Return type: TokenInfoResponse.
+    TokenInfo {},
+```
+
+Balance Query를 보낼 때는 `Camel Case`로 적혀 있는 **Balance**를 `Snake Case`로 바꾸어 **balance**로 입력해야 합니다. parameter 항목은 **{ address: String }** 이므로, 잔액을 알고 싶은 지갑 주소를 String Type으로 입력하면 됩니다. 따라서 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    balance : {
+        address : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
+    }
+}
+```
+
+TokenInfo Query를 보낼 때도 마찬가지입니다. `Camel Case`로 적혀 있는 **TokenInfo**를 `Snake Case`로 바꾸어 **token_info**로 입력해야 합니다. 이때 parameter는 없으므로, 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    token_info : {}
+}
+```
+
+이를 참고하여 여러분의 컨트랙트에 다양한 Query를 보내보세요.
+ 
+</Details>
+
+<br/>
+
+이렇게 컨트랙트에 Query를 보내는 방법과 Query 메시지를 작성하는 방법에 대해 알아보았습니다. 이제 Preview Code를 분석해보겠습니다. Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-web3-game/query-cw20#runjs)을 읽지 않고 바로 [다음 단계](/docs/settings/create-testnet-transaction/use-xplad)로 넘어가셔도 좋습니다.
+
+## Javascript로 CW20 데이터 가져오기 {#runjs}
+
+Javascript 코드로 특정 지갑 주소가 CW20 토큰을 얼마나 보유하고 있는지 알아봅시다.
+
+### 코드 실행 {#runcode}
+
+1. example-query-cw20.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-query-cw20.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    async function main() {
+        const contractAddress = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc";
+        const userAddress = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
+        const msg = {
+            balance : {
+                address : userAddress
+            }
+        };
+
+        const balance = await lcd.wasm.contractQuery(contractAddress, msg);
+        console.log(balance);
+    }
+    main()
+    ```
+
+3. 9번째 줄의 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc` 대신 여러분이 만든 CW20 토큰의 컨트랙트 주소값을 입력해주세요. 또한, 10번째 줄에는 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 대신 CW20 토큰을 보유하고 있는 지갑 주소를 입력해주세요.
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-query-cw20.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. 트랜잭션 데이터와 여러분의 지갑 정보를 확인할 수 있습니다.
+
+## 설명 {#explaination}
+
+msg 변수에 보내고 싶은 Query 메시지를 담아주었습니다.
+
+```js
+const msg = {
+    balance : {
+        address : userAddress
+    }
+};
+```
+
+<Details summary="컨트랙트 Query 메시지는 어떤 형식으로 작성해야 하나요?">
+
+[CW20 Github](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/src/query.rs#L12)에서 CW20 컨트랙트에 어떤 Query를 보낼 수 있는지 살펴볼 수 있습니다. 주의할 점은 QueryMsg에서 메시지 이름이 `Camel Case`로 적혀 있으나, 실제 Query를 보낼 때는 `Snake Case`로 보내야 합니다. parameter 항목은 코드 형식 그대로 입력합니다.
+
+예를 들어 [CW20 Github](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/src/query.rs#L12)에서 **Balance**와 **TokenInfo** 메시지를 살펴보겠습니다. 
+
+```rust {4,7}
+pub enum Cw20QueryMsg {
+    /// Returns the current balance of the given address, 0 if unset.
+    /// Return type: BalanceResponse.
+    Balance { address: String },
+    /// Returns metadata on the contract - name, decimals, supply, etc.
+    /// Return type: TokenInfoResponse.
+    TokenInfo {},
+```
+
+Balance Query를 보낼 때는 `Camel Case`로 적혀 있는 **Balance**를 `Snake Case`로 바꾸어 **balance**로 입력해야 합니다. parameter 항목은 **{ address: String }** 이므로, 잔액을 알고 싶은 지갑 주소를 String Type으로 입력하면 됩니다. 따라서 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    balance : {
+        address : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
+    }
+}
+```
+
+TokenInfo Query를 보낼 때도 마찬가지입니다. `Camel Case`로 적혀 있는 **TokenInfo**를 `Snake Case`로 바꾸어 **token_info**로 입력해야 합니다. 이때 parameter는 없으므로, 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    token_info : {}
+}
+```
+
+이를 참고하여 여러분의 컨트랙트에 다양한 Query를 보내보세요.
+ 
+</Details>
+
+<br/>
+
+LCDClient의 `contractQuery` 함수를 이용하여 컨트랙트에 Query를 보냅니다. 입력한 Query 메시지에 맞게, 컨트랙트에게 데이터를 받을 수 있습니다. 유저의 잔액(balance)이 Log로 잘 나오는지 확인해봅시다.
+
+```js
+const balance = await lcd.wasm.contractQuery(contractAddress, msg);
+console.log(balance);
+```
+
+## 마무리
+
+지금까지 CW20 컨트랙트에 Query를 보내는 과정을 살펴보았습니다. 이를 통해 특정 지갑 주소가 CW20 토큰을 얼마나 보유하고 있는지를 알 수 있었습니다.
+
+[CW20 Github](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/src/query.rs#L12)을 참고하면 CW20 컨트랙트에 어떤 Query를 보낼 수 있는지 더 자세히 살펴볼 수 있습니다. 여러분의 게임에 맞게 컨트랙트에서 CW20 데이터를 가져오고, 유저들이 게임을 더 즐길 수 있게 만들어봅시다.
