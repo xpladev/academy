@@ -60,30 +60,30 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Web 3.0 게임 구축하기 : 벽돌깨기',
+      label: '게임 토큰(CW20) 다루기',
       link: {
         type: 'generated-index',
-        title: 'Web 3.0 게임 구축하기 : 벽돌깨기',
+        title: '게임 토큰(CW20) 다루기',
         // description: ''
       },
-      items: ['tutorial/make-web3-game/download-code', 'tutorial/make-web3-game/make-cw20-with-vault', 'tutorial/make-web3-game/make-cw20-with-js'],
+      items: ['tutorial/make-web3-game/download-code', 'tutorial/make-web3-game/make-cw20-with-vault', 'tutorial/make-web3-game/make-cw20-with-js', 'tutorial/make-web3-game/query-cw20'],
     },
     {
       type: 'category',
-      label: '게임에 Web 3.0 기능 더하기 1',
+      label: 'NFT(CW721) 다루기',
       link: {
         type: 'generated-index',
-        title: '게임에 Web 3.0 기능 더하기 1',
+        title: 'NFT(CW721) 다루기',
         // description: ''
       },
-      items: ['tutorial/add-func-to-game-1/overview', 'tutorial/add-func-to-game-1/make-nft-vault', 'tutorial/add-func-to-game-1/make-nft-js'],
+      items: ['tutorial/add-func-to-game-1/overview', 'tutorial/add-func-to-game-1/make-nft-vault', 'tutorial/add-func-to-game-1/make-nft-js', 'tutorial/add-func-to-game-1/query-cw721'],
     },
     {
       type: 'category',
-      label: '게임에 Web 3.0 기능 더하기 2',
+      label: '심화 - XPLA 블록체인 깊게 이해하기',
       link: {
         type: 'generated-index',
-        title: '게임에 Web 3.0 기능 더하기 2',
+        title: '심화 - XPLA 블록체인 깊게 이해하기',
         // description: ''
       },
       items: ['tutorial/add-func-to-game-2/overview', 'tutorial/add-func-to-game-2/account-sequence', 'tutorial/add-func-to-game-2/walletprovider', 'tutorial/add-func-to-game-2/convert', 'tutorial/add-func-to-game-2/write-contract'],
