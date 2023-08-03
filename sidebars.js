@@ -86,7 +86,7 @@ const sidebars = {
         title: '심화 - XPLA 블록체인 깊게 이해하기',
         // description: ''
       },
-      items: ['tutorial/add-func-to-game-2/overview', 'tutorial/add-func-to-game-2/account-sequence', 'tutorial/add-func-to-game-2/walletprovider', 'tutorial/add-func-to-game-2/convert', 'tutorial/add-func-to-game-2/write-contract'],
+      items: ['tutorial/add-func-to-game-2/local-network', 'tutorial/add-func-to-game-2/account-sequence', 'tutorial/add-func-to-game-2/walletprovider', 'tutorial/add-func-to-game-2/convert', 'tutorial/add-func-to-game-2/write-contract'],
     },
   ],
 };
