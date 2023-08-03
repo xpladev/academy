@@ -102,34 +102,37 @@ html[data-theme='dark'] .sidebar-divider {
 }
 
 .boxtest-1{
-  width : 120px;
-  height : 120px;
+  width : 190px;
+  height : 45px;
   display : flex;
   justify-content: center;
   align-items: center;
   background-color: #D1FFBD;
-  box-shadow: 10px 10px 0px black;
+  box-shadow: 5px 5px 0px black;
+  border: 1px solid black;
+  font-weight: 600;
 }
 
 .boxtest-1:hover {
   cursor: pointer;
   box-shadow: none;
-  transform: translate(10px, 10px);
+  transform: translate(5px, 5px);
 }
 
 .boxtest-2{
-  margin-left: 20px;
-  width : 120px;
-  height : 120px;
+  width : 190px;
+  height : 45px;
   display : flex;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
-  box-shadow: 10px 10px 0px black;
+  background-color: white;
+  box-shadow: 5px 5px 0px black;
+  border: 1px solid black;
+  font-weight: 600;
 }
 
 .boxtest-2:hover {
   cursor: pointer;
   box-shadow: none;
-  transform: translate(10px, 10px);
+  transform: translate(5px, 5px);
 }

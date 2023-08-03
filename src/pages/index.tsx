@@ -41,17 +41,13 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             <p className="hero__subtitle text-left">{siteConfig.tagline}</p>
             <div className="py-8 flex gap-[28px] justify-start">
               <div className={styles.buttons}>
-                <Link
-                  className="button button--secondary button--lg"
-                  to="/docs/overview/intro"
-                >
+                <div className="boxtest-1">
                   Learn Now
-                </Link>
+                </div>
               </div>
               <div className={styles.buttons}>
                 <div
-                  onClick={onMoveToElement}
-                  className="button button--secondary button--lg"
+                  className="boxtest-2"
                 >
                   Dev Resource
                 </div>
