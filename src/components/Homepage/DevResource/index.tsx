@@ -26,8 +26,14 @@ export default function DevResource({moveToElement} : {moveToElement : React.Mut
             <SquareButton contents="Faucet" link="https://faucet.xpla.io/"  />
             <SquareButton contents="Explorer" link="https://explorer.xpla.io/"  />
             <SquareButton contents="Finder" link="https://finder.xpla.io/"  />
-            <SquareButton contents="Swagger" link="https://dimension-lcd.xpla.dev/swagger/"  />
-            <SquareButton contents="Github" link="https://github.com/xpladev"  />
+            {/* <SquareButton contents="Swagger" link="https://dimension-lcd.xpla.dev/swagger/"  /> */}
+            {/* <SquareButton contents="Github" link="https://github.com/xpladev"  /> */}
+            <div className="boxtest-1">
+              Learn more
+            </div>
+            <div className="boxtest-2">
+              Let's go
+            </div>
           </div>
         </div>
       </div>
