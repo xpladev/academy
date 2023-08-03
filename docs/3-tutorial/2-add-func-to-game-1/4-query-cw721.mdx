@@ -13,7 +13,7 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 ## Preview {#preview}
 
-Javascript로 NFT 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 NFT의 `token_id` 값으로 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+Javascript로 NFT 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 여러분이 만든 NFT의 `token_id` 값으로 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
 
 <Ex10 />
 
@@ -75,16 +75,6 @@ NftInfo Query를 보낼 때는 `Camel Case`로 적혀 있는 **NftInfo**를 `Sna
 
 ```js
 {
-    balance : {
-        address : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
-    }
-}
-```
-
-TokenInfo Query를 보낼 때도 마찬가지입니다. `Camel Case`로 적혀 있는 **TokenInfo**를 `Snake Case`로 바꾸어 **token_info**로 입력해야 합니다. 이때 parameter는 없으므로, 최종 Query 메시지 형태는 다음과 같습니다.
-
-```js
-{
     nft_info : {
         token_id : "token_id_myExampleNFT1"
     }
@@ -141,7 +131,7 @@ Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는�
     main()
     ```
 
-3. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 NFT의 `token_id` 값으로 수정하고 실행해보세요. 
+3. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 여러분이 만든 NFT의 `token_id` 값으로 수정하고 실행해보세요. 
 
 4. VSCode Terminal에서 아래 명령어를 입력합니다.
 
@@ -180,16 +170,6 @@ pub enum QueryMsg<Q: JsonSchema> {
 ```
 
 NftInfo Query를 보낼 때는 `Camel Case`로 적혀 있는 **NftInfo**를 `Snake Case`로 바꾸어 **nft_info**로 입력해야 합니다. parameter 항목은 **{ token_id: String }** 이므로, 정보를 알고 싶은 NFT의 `token_id` 값을 String Type으로 입력하면 됩니다. 따라서 최종 Query 메시지 형태는 다음과 같습니다.
-
-```js
-{
-    balance : {
-        address : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
-    }
-}
-```
-
-TokenInfo Query를 보낼 때도 마찬가지입니다. `Camel Case`로 적혀 있는 **TokenInfo**를 `Snake Case`로 바꾸어 **token_info**로 입력해야 합니다. 이때 parameter는 없으므로, 최종 Query 메시지 형태는 다음과 같습니다.
 
 ```js
 {
