@@ -100,3 +100,36 @@ html[data-theme='dark'] .sidebar-divider {
 .connectwallet {
   color : black;
 }
+
+.boxtest-1{
+  width : 120px;
+  height : 120px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D1FFBD;
+  box-shadow: 10px 10px 0px black;
+}
+
+.boxtest-1:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: translate(10px, 10px);
+}
+
+.boxtest-2{
+  margin-left: 20px;
+  width : 120px;
+  height : 120px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow;
+  box-shadow: 10px 10px 0px black;
+}
+
+.boxtest-2:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: translate(10px, 10px);
+}
