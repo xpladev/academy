@@ -2,6 +2,460 @@
 sidebar_position: 1
 ---
 
-# XPLA 블록체인을 Local Network에서 실행하기
+# XPLA 블록체인을 Local(Private) Network에서 실행하기
+
+import Details from '@theme/Details';
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재합니다. 바로 [Mainnet(dimension_37-1)](https://explorer.xpla.io/)과 [Testnet(cube_47-5)](https://explorer.xpla.io/testnet/) 입니다. 그러나 Public Network에서만 개발을 진행하는 것은 한계가 있습니다. 트랜잭션 수수료로 사용할 XPLA를 많이 구하기 힘들뿐더러, 공개적으로 트랜잭션을 생성하고 싶지 않을 때도 있습니다. 
+
+따라서 XPLA 블록체인을 Local(Private) Network에서 실행하는 방법에 대해 살펴보겠습니다. 여러분이 직접 Single Validator가 되어 블록체인 노드를 운영하고, 네트워크의 전체 XPLA 공급량도 관리하게 됩니다. Local Network를 통해 XPLA 블록체인 내에서 여러분만의 Web3 게임을 개발해보세요.
+
+## 목차 {#index}
+
+다음과 같은 절차로 Local Network를 알아볼 것입니다.
+
+1. [Prerequisite](/docs/tutorial/add-func-to-game-2/local-network#prerequisite)
+
+2. [Local Network 실행](/docs/tutorial/add-func-to-game-2/local-network#run-local-network)
+
+3. [Local Network에서 xplad 사용하기](/docs/tutorial/add-func-to-game-2/local-network#use-xplad)
+
+4. [RPC 네트워크 이용하기](/docs/tutorial/add-func-to-game-2/local-network#use-rpc)
+
+5. [Swagger 이용하기](/docs/tutorial/add-func-to-game-2/local-network#use-swagger)
+
+6. [Javascript로 Local Network에 트랜잭션 생성하기](/docs/tutorial/add-func-to-game-2/local-network#use-js)
+
+## Prerequisite {#prerequisite}
+
+예제는 [Docker](https://www.docker.com/)를 이용하여 여러분의 개발 환경 설정을 간편화하고, 빠르게 개발할 수 있도록 도와드릴 것입니다. 여러분의 운영체제에 맞게 [Docker](https://www.docker.com/)를 설치해주세요.
+
+이번 단계에서 중요한 점은 Local Network를 다루는 것이기 때문에, [Docker](https://www.docker.com/)에 대해서 자세한 개념을 알 필요는 없습니다. 아래 절차대로 코드를 입력하면, 쉽게 Local Network를 구축할 수 있습니다.
+
+## Local Network 실행 {#run-local-network}
+
+1. **Dockerfile** 이라는 이름으로 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 **Dockerfile** 파일에 붙여넣고 저장합니다. [이전 단계에서 xplad를 설치하는 과정](/docs/settings/create-wallet/create-wallet-with-xplad#installxplad)을 아래 **Dockerfile**을 통해 간편화한 것입니다. xplad에 관한 자세한 정보는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/install-xplad/)나 [Github](https://github.com/xpladev/xpla)을 참고해보세요.
+
+    ```dockerfile
+    ########
+    FROM golang:1.19 as builder
+
+    RUN git clone https://github.com/xpladev/xpla.git ~/xpla 
+
+    RUN cd ~/xpla && \
+        git checkout v1.2.0 && \
+        make install && \
+        mv /go/bin/xplad /usr/local/bin/xplad
+
+    RUN cp /go/pkg/mod/github.com/!cosm!wasm/wasmvm@v1.0.0/api/libwasmvm.x86_64.so /usr/local/lib && \
+        ldconfig
+
+    ########
+    FROM ubuntu:22.10 AS runner
+
+    RUN apt-get update && \
+        apt-get install -y tzdata && \
+        ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+        dpkg-reconfigure --frontend noninteractive tzdata
+
+    RUN apt-get update && \
+        apt-get install -y vim bash-completion wget sysstat dstat net-tools curl tmux jq dnsutils liblz4-tool pv git
+
+    RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+        apt-get install -y nodejs
+
+    COPY --from=builder /usr/local/bin/xplad /usr/local/bin/
+    COPY --from=builder /usr/local/lib/libwasmvm.x86_64.so /usr/local/lib/
+    RUN ldconfig
+    ```
+
+3. **Dockerfile**을 Build하여 Docker Image를 생성합니다. Build 하는 데 시간이 걸릴 수 있습니다.
+
+    ```bash
+    docker build -t my-xpla-node:20220819 .
+    ```
+
+    생성한 Docker Image를 확인할 수 있는 스크립트는 `docker image ls` 입니다.
+
+4. 생성한 Docker Image로 Docker Container를 생성합니다.
+
+    ```bash
+    docker run -it -d --name myXPLANode -p 26657:26657 -p 1317:1317 my-xpla-node:20220819
+    ```
+
+    생성한 Docker Container를 확인할 수 있는 스크립트는 `docker ps -a` 입니다.
+
+5. Docker Container에 bash로 접속합니다. 
+
+    ```bash
+    docker exec -it myXPLANode bash
+    ```
+
+    :::tip
+
+    접속한 Container의 bash에서 나가려면, `exit`을 입력하면 됩니다. 다시 Container에 접속하려면 `docker exec -it myXPLANode bash`를 입력해주세요. 만약 Container 실행이 안된다면 `docker start myXPLANode && docker exec -it myXPLANode bash`를 입력해보세요.
+
+    혹시 예제 과정을 따라하다 놓친 부분이 있다면, Container를 삭제 후 다시 생성하는 방법이 있습니다. `docker stop myXPLANode && docker rm myXPLANode` 스크립트로 Container를 삭제 후, 4번 과정부터 다시 진행해보세요.
+
+    :::
+
+6. Docker Container의 bash 환경에서 아래 스크립트를 입력합니다. Mainnet의 chainId가 `dimension_37-1`인 것처럼, 예제의 Local Network에서는 chainId를 `localnet_1-1`로 설정하였습니다.  **yourMonikerName** 변수는 여러분이 운영하는 노드의 이름을 의미합니다. 여러분이 원하는 이름으로 입력해주세요. 
+
+    ```bash
+    xplad init --chain-id=localnet_1-1 yourMonikerName
+    ```
+
+    위 스크립트를 입력하게 되면 home 폴더(~)에 `.xpla` 폴더가 생성되고 Genesis 파일을 초기화하게 됩니다. 
+
+    `~/.xpla` 폴더의 구조는 아래와 같습니다.
+
+    ```
+    .                                           # ~/.xpla
+    |- data                                     # Contains the databases used by the node.
+    |- config/
+        │-- app.toml                            # xplad configuration file
+        │-- client.toml                         # configurations for the cli wallet (ex xplacli)
+        │-- config.toml                         # Tendermint configuration  file
+        │-- genesis.json                        # genesis transactions
+        │-- node_key.json                       # private key used for node authentication in the p2p protocol (its corresponding public key is the nodeid)
+        └-- priv_validator_key.json             # key used by the validator on the node to sign blocks
+    ```
+
+    <Details summary="Genesis 파일이란 무엇인가요?">
+
+    블록체인에서 첫번째로 만들어지는 블록을 Genesis 블록이라 부릅니다. Genesis 블록에 들어갈 데이터들을 저장한 파일이 Genesis 파일입니다. 같은 블록체인 네트워크에 참가하는 모든 노드들은 동일한 Genesis 파일을 가지고 블록 생성을 시작해야 합니다. 따라서 첫번째 블록부터 모두 똑같은 데이터를 가지게 되고, 각 노드들의 블록 해시값도 서로 일치하게 됩니다.
+
+    [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1)과 [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5)도 Genesis 파일이 있고, 모두 Github에서 확인하실 수 있습니다. 만약 Mainnet과 동일한 Genesis 파일을 사용한다면, 여러분도 Mainnet [Full Node(블록체인의 모든 정보를 저장하고 있는 노드)](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)를 운영할 수 있습니다. 예제에서는 Mainnet도, Testnet도 아닌, Local Network를 운영할 것이기 때문에 직접 Genesis 파일을 구성하여 사용하였습니다.
+
+    Mainnet과 Testnet의 Full Node를 운영하는 더 자세한 방법은 [Docs](https://docs.xpla.io/docs/full-node/run-a-full-node/join-a-network/#join-a-public-network)를 참고해보세요.
+
+    </Details>
+
+7. Local Network 블록체인에서 Validator로 사용할 지갑을 생성합니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서도 동일한 스크립트로 지갑을 생성하였습니다.
+
+    ```bash
+    xplad keys add yourAccount
+    ```
+
+    Passphrase 값을 잘 입력해주고, 니모닉과 함께 잘 저장해두어야 합니다. Passphrase는 지갑 정보를 사용할 때마다 입력해야 합니다.
+
+8. 생성한 지갑에 100000000000000000000axpla(100 XPLA)만큼 지급한다는 내용을 `~/.xpla/config/genesis.json` 파일에 기록합니다.
+
+    ```bash
+    xplad add-genesis-account $(xplad keys show yourAccount -a) 100000000000000000000axpla
+    ```
+
+    Genesis 블록에서 지갑 하나에 100 XPLA를 지급하므로, Local Network의 XPLA 총 발행량은 100 XPLA입니다.
+
+9. 생성한 지갑을 검증자(Validator)로 등록합니다. 10000000000000000000axpla(10 XPLA)는 검증자로 등록할 때, Self-Delegate할 초기 물량입니다.
+
+    ```bash
+    xplad gentx yourAccount 10000000000000000000axpla --chain-id=localnet_1-1
+    xplad collect-gentxs 
+    ```
+
+    첫번째 스크립트를 입력하면 `~/.xpla/config`에 `gentx` 폴더가 추가로 생성됩니다. 두번째 스크립트를 입력하면 `gentx` 폴더의 내용이 `genesis.json` 파일에 반영됩니다.
+
+    <Details summary="Delegate란 무엇인가요?">
+
+    검증자(Validator)에게 일정 물량의 XPLA를 맡기는 행위를 Delegate라고 부르고, 맡긴 사람을 Delegator라고 합니다. Proof of State(PoS) 형식의 XPLA 블록체인에서 검증자는 블록 생성을 통해 수수료를 얻습니다. Delegator들은 검증자들이 블록 생성으로 얻는 수수료를, 각자 Delegate한 XPLA의 비율만큼 얻을 수 있습니다.
+
+    검증자들은 자신에게 Delegate된 총 XPLA 물량(Weight)에 따라 얼마나 자주 블록을 생성할 것인지 결정됩니다. Weight가 높은 검증자일수록 블록 생성 비율이 높아지게 됩니다. 더 자세한 내용은 [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/#what-is-staking)를 참고해보세요.
+
+    </Details>
+
+10. 현재 `genesis.json` 파일에서 코인 단위가 stake로 설정되어 있습니다. XPLA 블록체인에서 사용하는 코인 단위는 `axpla`이므로 수정해줍니다.
+
+    ```bash
+    sed -i "s/"stake"/"axpla"/g" ~/.xpla/config/genesis.json
+    ```
+
+11. LCDClient 환경과 RPC 네트워크 연결을 위해 `app.toml` 파일과 `config.toml` 파일을 수정해줍니다. 
+
+    ```bash
+    sed -i "112s/.*/enable = true/g" ~/.xpla/config/app.toml
+    sed -i "115s/.*/swagger = true/g" ~/.xpla/config/app.toml
+    sed -i "91s/127.0.0.1/0.0.0.0/g" ~/.xpla/config/config.toml
+    ```
+
+    LCDClient 환경은 1317 Port를 사용하고, RPC 네트워크는 26657 Port를 사용합니다. 앞서 4번 절차에서 Docker Container를 생성할 때, 1317과 26657 Port를 열어주었기 때문에 로컬 환경에서 Docker Container에 접속할 수 있게 됩니다.
+
+12. 지금까지 설정한 Genesis 파일 상태대로 블록체인 데이터베이스를 세팅해줍니다.
+
+    ```bash
+    xplad tendermint unsafe-reset-all
+    ```
+
+13. 아래 스크립트로 XPLA 블록체인 Local Network를 Background Process로 실행합니다.
+
+    ```bash
+    xplad start &>/dev/null &
+    ```
+
+    Background Process로 잘 동작하고 있는지 확인하고 싶다면 `ps -A`를 입력해보세요.
+
+    만약 Background Process가 아니라, Process 진행 과정을 살펴보고 싶다면 `&>/dev/null &`를 제외하고 `xplad start`만 입력해주세요.
+
+14. Local Network 구축이 완료되었습니다! 아래 스크립트를 통해 실행되고 있는 Local Network의 정보를 확인할 수 있습니다.
+
+    ```bash
+    xplad status
+    ```
+
+    잘 실행되고 있다면 대략 아래와 같은 출력을 확인할 수 있습니다.
+
+    ```json {22}
+    {
+        "NodeInfo": {
+            "protocol_version": {
+                "p2p": "8",
+                "block": "11",
+                "app": "0"
+            },
+            "id": "a6c8fcd8951c4697c893976ebd9a456e1dbd4faa",
+            "listen_addr": "tcp://0.0.0.0:26656",
+            "network": "localnet_1-1",
+            "version": "v0.34.21",
+            "channels": "40202122233038606100",
+            "moniker": "yourMonikerName",
+            "other": {
+                "tx_index": "on",
+                "rpc_address": "tcp://0.0.0.0:26657"
+            }
+        },
+        "SyncInfo": {
+            "latest_block_hash": "92A29DB190CF19A193E7009CFFD2A97CF450A3304D87C85C916B895515113602",
+            "latest_app_hash": "D7E013D16B47901104F3DFFCE05861E291DB98C31617155C7BCBEB8F7E2D1D02",
+            "latest_block_height": "43441",
+            "latest_block_time": "2023-08-07T02:39:05.4921575Z",
+            "earliest_block_hash": "E3118D0BE4CD0D437843A03EB86B5B6A1B8BC0749392BB44ED32B113BAFE20F7",
+            "earliest_app_hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+            "earliest_block_height": "1",
+            "earliest_block_time": "2023-08-04T10:16:10.850891Z",
+            "catching_up": false
+        },
+        "ValidatorInfo": {
+            "Address": "BAE5CC7C2FB6467D0FA66BCEB01C6C8F470B0E8A",
+            "PubKey": {
+                "type": "tendermint/PubKeyEd25519",
+                "value": "LyDR9u73BNZ+338l5L02FLi40HZ6cvqHhf5skPWVfHo="
+            },
+            "VotingPower": "10"
+        }
+    }
+    ```
+
+    이때 **SyncInfo.latest_block_height** 값을 통해, 가장 최신 블록의 Height를 알 수 있습니다. `xplad status` 스크립트를 실행할 때마다, height 값이 상승할 것입니다. 블록체인에 블록이 잘 쌓이고 있다는 의미로 해석할 수 있습니다.
+
+## Local Network에서 xplad 사용하기 {#use-xplad}
+
+Container의 bash 환경에서 xplad를 사용해봅시다.
+
+1. 잔액 확인
+
+    Local Network로 XPLA 블록체인이 동작하고 있습니다. Validator로 만든 지갑의 잔액을 먼저 확인해보겠습니다.
+
+    ```bash
+    xplad query bank balances $(xplad keys show yourAccount -a)
+    ```
+
+    위 스크립트를 입력하면 아래와 같이 결과를 확인할 수 있습니다.
+
+    ```shell
+    Enter keyring passphrase:
+    balances:
+    - amount: "90000000000000000000"
+    denom: axpla
+    pagination:
+    next_key: null
+    total: "0"
+    ```
+    
+    Genesis 블록에서 초기 공급으로 100 XPLA를 지급하였고, Validator를 등록할 때 10 XPLA를 Self-delegate했습니다. 따라서 90 XPLA만 남아 있는 것이 정상입니다.
+
+2. Delegate 물량 확인
+
+    Validator를 등록할 때 10 XPLA를 Self-delegate했습니다. xplad로 확인해봅시다.
+
+    ```bash
+    xplad query staking delegations $(xplad keys show yourAccount -a)
+    ```
+
+    아래와 같은 결과를 확인할 수 있습니다. Self-delegate까지 되었군요.
+
+    ```shell
+    Enter keyring passphrase:
+    delegation_responses:
+    - balance:
+        amount: "10000000000000000000"
+        denom: axpla
+    delegation:
+        delegator_address: xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz
+        shares: "10000000000000000000.000000000000000000"
+        validator_address: xplavaloper1mcvhqcnjwry046rcys68hrvvefq7zvyvghggpl
+    pagination:
+    next_key: null
+    total: "0"
+    ```
+
+3. 전송 트랜잭션 생성하기
+
+    Local Network에서 첫 트랜잭션을 생성해봅시다. 예제에서는 Validator 지갑이 본인에게 1axpla를 전송하는 트랜잭션을 생성하겠습니다. 여러분은 지갑을 여러 개 만들어서 다른 지갑으로 전송하는 트랜잭션을 만들어보세요.
+
+    ```bash
+    xplad tx bank send $(xplad keys show yourAccount -a) $(xplad keys show yourAccount -a) 1axpla --chain-id=localnet_1-1
+    ```
+    
+    아래와 같은 결과를 얻을 수 있습니다. 트랜잭션 해시값은 `F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C` 이군요.
+
+    ```shell
+    Enter keyring passphrase:
+    Enter keyring passphrase:
+    Enter keyring passphrase:
+    {"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz","to_address":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz","amount":[{"denom":"axpla","amount":"1"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+    confirm transaction before signing and broadcasting [y/N]: y
+    code: 0
+    codespace: ""
+    data: ""
+    events: []
+    gas_used: "0"
+    gas_wanted: "0"
+    height: "0"
+    info: ""
+    logs: []
+    raw_log: '[]'
+    timestamp: ""
+    tx: null
+    txhash: F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C
+    ```
+
+4. 트랜잭션 Query 보내기
+
+    xplad로 블록체인에 query를 보내서 앞서 생성한 트랜잭션 데이터를 가져와봅시다. 앞서 생성한 트랜잭션 해시값을 대입하면, 예제 스크립트는 `xplad query tx F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C` 입니다. 여러분이 생성한 트랜잭션 해시값을 대입해주세요. 
+
+    ```bash
+    xplad query tx <txhash>
+    ```
+
+지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](/docs/develop/tools/xplad/commands/)를 참고해보세요.     
+
+## RPC 네트워크 이용하기 {#use-rpc}
+
+Local Network를 구축할 때, `~/.xpla/config/config.toml` 파일을 수정하여 RPC 네트워크를 이용할 수 있게 되었습니다. 먼저 [`http://localhost:26657/`](http://localhost:26657/) 주소에 접속해보면, RPC 네트워크로 응답받을 수 있는 API 목록을 확인할 수 있습니다. 그중 [`//localhost:26657/genesis?`](http://localhost:26657/genesis?)를 클릭하면, 예제에서 설정한 `~/.xpla/config/genesis.json` 파일과 똑같은 내용의 json 결과를 확인할 수 있습니다.
+
+이와 더불어 WebSocket을 활용하여 RPC 네트워크에 접근도 가능합니다. Javascript 파일(.js)을 만들어 아래 코드를 넣고, 실행해보세요.
+
+```js
+const { WebSocketClient } = require('@xpla/xpla.js');
+
+const wsclient = new WebSocketClient('ws://localhost:26657/websocket');
+
+wsclient.subscribe('Tx', {}, data => {
+  console.log('Send occured!');
+  console.log(data.value);
+  wsclient.destroy();
+});
+
+
+wsclient.start();
+```
+
+자바스크립트 파일 실행만으로는 아직 아무 결과를 얻을 수 없습니다. 다시 Docker Container의 bash 환경으로 돌아가, 전송 트랜잭션을 생성해보세요. 블록체인에 트랜잭션이 생성되면, 자바스크립트 파일을 실행한 콘솔에서 아래 로그를 얻을 수 있습니다.
+
+```shell
+Send occured!
+{
+  TxResult: {
+    height: '547',
+    tx: 'CokBCoYBChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEmYKK3hwbGExbWN2aHFjbmp3cnkwNDZyY3lzNjhocnZ2ZWZxN3p2eXZlMnRqd3oSK3hwbGExbWN2aHFjbmp3cnkwNDZyY3lzNjhocnZ2ZWZxN3p2eXZlMnRqd3oaCgoFYXhwbGESATESYQpZCk8KKC9ldGhlcm1pbnQuY3J5cHRvLnYxLmV0aHNlY3AyNTZrMS5QdWJLZXkSIwohA/hySCvp+biiZ4d7QMI0t9kyk46nCIMwjxGYk/OiIFA/EgQKAggBGAISBBDAmgwaQbdO3umo6oa0e4J3NKtNg+cZmzaC7ljFkxsER9/T7DB5NEsP1hj0pqQjbCy0fsQt/ej+N9Mu74uj2B7ggC2HX0wB',
+    result: {
+      data: 'Ch4KHC9jb3Ntb3MuYmFuay52MWJldGExLk1zZ1NlbmQ=',
+      log: '[{"events":[{"type":"coin_received","attributes":[{"key":"receiver","value":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz"},{"key":"amount","value":"1axpla"}]},{"type":"coin_spent","attributes":[{"key":"spender","value":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz"},{"key":"amount","value":"1axpla"}]},{"type":"message","attributes":[{"key":"action","value":"/cosmos.bank.v1beta1.MsgSend"},{"key":"sender","value":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz"},{"key":"sender","value":"xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz"},{"key":"amount","value":"1axpla"}]}]}]',
+      gas_wanted: '200000',
+      gas_used: '82168',
+      events: [Array]
+    }
+  }
+}
+```
+
+WebSocket을 활용하여 RPC 네트워크에 접근하고, 블록체인의 트랜잭션 생성을 감지하였습니다. [Docs](https://docs.xpla.io/docs/develop/tools/xpla-js/websockets/)와 [Github](https://github.com/xpladev/xpla.js/blob/main/src/client/WebSocketClient.ts)을 참고하여 WebSocket으로 더 다양한 작업을 진행해보세요.
+
+## Swagger 이용하기 {#use-swagger}
+
+Local Network를 구축할 때, `~/.xpla/config/app.toml` 파일을 수정하여 Swagger API를 이용할 수 있게 되었습니다.
+
+여러분의 브라우저에서 [`http://localhost:1317/swagger/#/Query/AllBalances`](http://localhost:1317/swagger/#/Query/AllBalances) 주소에 접속해주세요. 
+
+우측 상단 `Try it out` 버튼을 누르면, 직접 Query를 보내볼 수 있습니다. address 항목에 여러분이 만든 Validator 지갑 주소를 입력하고, Execute 버튼을 눌러보세요. 
+
+<BrowserWindow url="http://localhost:1317/swagger/#/Query/AllBalances" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/3-add-func-to-game-2/1-local-network/swagger.png" />
+</div>
+</BrowserWindow>
+
+예제에서 다음과 같이 결과 응답을 받았습니다.
+
+```
+{
+  "balances": [
+    {
+      "denom": "axpla",
+      "amount": "90000000000000000000"
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "1"
+  }
+}
+```
+
+xplad로도 확인했듯이, Validator 지갑에 90 XPLA가 있으므로 Swagger API도 잘 동작합니다.
+
+## Javascript로 Local Network에 트랜잭션 생성하기 {#use-js}
+
+마지막으로 Javascript로 Local Network에 트랜잭션을 생성해보겠습니다. Javascript 파일(.js)을 만들어 아래 코드를 넣고, 실행해보세요.
+
+```js
+const { LCDClient, MsgSend, MnemonicKey } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'localnet_1-1',
+	URL: 'http://localhost:1317'
+});
+
+async function main() {
+	const mk = new MnemonicKey({
+		mnemonic: 'sunny apology silly butter asset win own common margin festival write bullet coast envelope front affair depart struggle taste title liquid search deliver critic',
+	})
+
+	const from = lcd.wallet(mk).key.accAddress;
+	const to = "xpla1mcvhqcnjwry046rcys68hrvvefq7zvyve2tjwz";
+	const token = { axpla: 25 };
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({ 
+		msgs: [new MsgSend(from, to, token)], 
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx); 
+	console.log("Your Transaction Hash: " + txResult.txhash);
+}
+main()
+```
+
+결과로 나온 트랜잭션 해시값을 xplad를 이용하여 검색해보세요. 트랜잭션 데이터를 잘 가져올 수 있습니다.
+
+위 코드는 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 테스트넷에 전송 트랜잭션을 생성하는 코드와 크게 다르지 않습니다. 달라진 점은 LCDClient의 초기값입니다. chainID와 URL 값을 Local Network에 맞게 변경해주었을 뿐입니다. 따라서 지금까지 Javascript로 진행한 모든 코드들도 LCDClient 초기값만 수정하면 동일하게 Local Network에서 수행할 수 있습니다.
+
+## 마무리 {#conclusion}
+
+지금까지 XPLA 블록체인 Local Network를 구축하는 방법에 대해 알아보았습니다. Local Network를 활용하여 XPLA 블록체인 내에서 더 다양한 시도를 해보시고, 여러분만의 Web3 게임을 개발해보세요.
 
 
