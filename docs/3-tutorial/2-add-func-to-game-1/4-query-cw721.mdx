@@ -13,7 +13,7 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 ## Preview {#preview}
 
-Javascript로 NFT 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 여러분이 만든 NFT의 `token_id` 값으로 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+Javascript로 NFT 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
 
 <Ex10 />
 
@@ -91,7 +91,7 @@ NftInfo Query를 보낼 때는 `Camel Case`로 적혀 있는 **NftInfo**를 `Sna
 
 ## Javascript로 NFT 데이터 가져오기 {#runjs}
 
-Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는지를 알아보고, 특정 NFT의 `token_id` 값으로 NFT 정보까지 불러와 봅시다.
+Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는지를 알아보고, 각 NFT의 정보까지 불러와 봅시다.
 
 ### 코드 실행 {#runcode}
 
@@ -110,7 +110,6 @@ Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는�
     async function main() {
         const contractAddress = "xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn";
         const userAddress = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
-        const tokenId = "token_id_myExampleNFT1";
 
         const userNFTsMsg = {
             tokens : {
@@ -120,18 +119,21 @@ Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는�
         const userNFTs = await lcd.wasm.contractQuery(contractAddress, userNFTsMsg);
         console.log(userNFTs);
 
-        const nftInfoMsg = {
-            nft_info : {
-                token_id : tokenId
+        const tokenIds = userNFTs.tokens;
+        for (const tokenId of tokenIds) {
+            const nftInfoMsg = {
+                nft_info : {
+                    token_id : tokenId
+                }
             }
+            const nftInfo = await lcd.wasm.contractQuery(contractAddress, nftInfoMsg);
+            console.log(JSON.stringify(nftInfo, null, 2));
         }
-        const nftInfo = await lcd.wasm.contractQuery(contractAddress, nftInfoMsg);
-        console.log(JSON.stringify(nftInfo, null, 2));
     }
     main()
     ```
 
-3. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 마지막으로 11번째 줄을 여러분이 만든 NFT의 `token_id` 값으로 수정하고 실행해보세요. 
+3. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 
 
 4. VSCode Terminal에서 아래 명령어를 입력합니다.
 
@@ -143,7 +145,7 @@ Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는�
 
 ## 설명 {#explaination}
 
-먼저 특정 지갑이 어떤 NFT를 가지고 있는지를 알아내기 위해, userNFTsMsg 변수에 아래와 같이 Query 메시지를 담아주었습니다. Query 메시지 형식은 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L140)을 참고했습니다.
+먼저 특정 지갑이 어떤 NFT를 가지고 있는지를 알아내기 위해, **userNFTsMsg** 변수에 아래와 같이 Query 메시지를 담아주었습니다. Query 메시지 형식은 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L140)을 참고했습니다.
 
 ```js
 const userNFTsMsg = {
@@ -194,14 +196,17 @@ console.log(userNFTs);
 
 <br />
 
-다음으로 특정 **token_id**에 해당하는 NFT의 정보를 알아내기 위해, nftInfoMsg 변수에 아래와 같이 Query 메시지를 담아주었습니다. Query 메시지 형식은 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L126)을 참고했습니다.
+**userNFTs.tokens** 변수에는 유저가 가진 NFT의 `token_id` 값들이 배열로 담겨 있습니다. 각 NFT의 `token_id` 값을 **nftInfoMsg** 변수에 담아 아래와 같이 Query 메시지를 작성하였습니다.
 
-```js
-const nftInfoMsg = {
-    nft_info : {
-        token_id : tokenId
+```js {1,5}
+const tokenIds = userNFTs.tokens;
+for (const tokenId of tokenIds) {
+    const nftInfoMsg = {
+        nft_info : {
+            token_id : tokenId
+        }
     }
-}
+...
 ```
 
 <br />
