@@ -1,0 +1,141 @@
+---
+sidebar_position: 5
+---
+
+# Cosmwasm 컨트랙트 작성 및 빌드하기
+
+import RustContractCode from "@site/src/components/Sandpack/RustContractCode";
+
+이전 예제에서 [CW20](/docs/tutorial/make-web3-game/make-cw20-with-vault)과 [CW721](/docs/tutorial/add-func-to-game-1/make-nft-vault) 컨트랙트를 Instantiate하고, Execute까지 진행해보았습니다. 
+CW20과 CW721 컨트랙트는 모두 Cosmwasm 모듈을 이용하고, Rust 언어로 이루어져 있습니다. 
+각 컨트랙트의 코드는 Github에서 확인할 수 있습니다. 
+두 컨트랙트는 표준 컨트랙트이기 때문에 XPLA 블록체인에 이미 배포되어 있습니다.
+
+|Contract|Github|CodeId|
+|:---:|:---:|:---:|
+|CW20|[https://github.com/xpladev/cw-plus](https://github.com/xpladev/cw-plus)|1|
+|CW721|[https://github.com/xpladev/cw-nfts](https://github.com/xpladev/cw-nfts)|3|
+
+다양한 게임 기능을 개발하려면 직접 컨트랙트 코드를 작성할 필요가 있습니다. 이번 단계에서는 Cosmwasm 컨트랙트를 직접 Rust 언어로 작성해보고, XPLA 블록체인에 배포해보겠습니다. 
+
+## 목차 {#index}
+
+다음과 같은 절차로 Cosmwasm 컨트랙트 작성을 알아볼 것입니다.
+
+1. [Prerequisite](/docs/tutorial/add-func-to-game-2/write-contract#prerequisite)
+
+2. [컨트랙트 생성 순서](/docs/tutorial/add-func-to-game-2/write-contract#order-of-storecode)
+
+3. [코드 제공 및 빌드](/docs/tutorial/add-func-to-game-2/write-contract#build-contract)
+
+4. [컨트랙트 생성하고, 사용하기](/docs/tutorial/add-func-to-game-2/write-contract#use-contract)
+
+## Prerequisite {#prerequisite}
+
+Coswmasm 컨트랙트는 Rust 언어로 작성합니다. 여러분의 운영체제에 맞게 [Rust](https://doc.rust-lang.org/book/ch01-01-installation.html)를 설치해주세요. 또한 빌드를 위해 Docker를 사용하니, [Docker](https://www.docker.com/)도 설치해주세요.
+
+컨트랙트 코드를 직접 작성하려면 Rust 관련 지식이 필요합니다. Rust 학습에 도움이 될 만한 문서를 준비했습니다.
+
+|Guide|Link|
+|:---|:---|
+|The Rust Programming Language|[https://doc.rust-lang.org/book/ch00-00-introduction.html](https://doc.rust-lang.org/book/ch00-00-introduction.html)|
+|The Cargo Book|[https://doc.rust-lang.org/cargo/index.html](https://doc.rust-lang.org/cargo/index.html)|
+|Cosmwasm book|[https://book.cosmwasm.com/basics/entry-points.html](https://book.cosmwasm.com/basics/entry-points.html)|
+|Learn X in Y minutes|[https://learnxinyminutes.com/docs/rust/](https://learnxinyminutes.com/docs/rust/)|
+|CosmWasm Starter Pack|[https://github.com/CosmWasm/cw-template](https://github.com/CosmWasm/cw-template)|
+|XPLA Docs|[https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/)|
+
+Rust에 대해 완벽하게 알지 못해도 괜찮습니다. 일단 아래 내용을 읽고 따라해보는 것도 좋은 선택입니다. 여러분이 원하시는 대로 학습을 진행해주세요.
+
+## 컨트랙트 생성 순서 {#order-of-storecode}
+
+먼저 XPLA 블록체인에서 Cosmwasm 컨트랙트가 어떻게 생성되는지부터 살펴봅시다.
+
+1. Rust 언어로 컨트랙트 코드를 작성합니다. 예를 들어 CW20 컨트랙트의 코드는 [해당 Github](https://github.com/xpladev/cw-plus)에서 확인하실 수 있습니다.
+
+2. 작성한 컨트랙트 코드를 빌드하여 **.wasm** 파일을 생성합니다.
+
+3. 생성한 **.wasm** 파일을 XPLA 블록체인에 배포합니다. 배포는 `StoreCode` Method 트랜잭션으로 진행할 수 있습니다. [Vault](https://vault.xpla.io/contract/store)를 이용하면 쉽게 **.wasm** 파일을 배포할 수 있습니다.
+
+4. **.wasm** 파일을 배포하면 Code ID가 부여됩니다. 해당 Code ID를 이용하여 `Instantiate` Method 트랜잭션으로 컨트랙트를 생성할 수 있습니다. 같은 Code ID로 `Instantiate` 된 컨트랙트들은 모두 같은 코드로 이루어져 있어, 기능이 비슷합니다. 다만 `Instantiate`할 때 입력한 초기값에 따라 세부사항이 달라집니다. 
+
+위 순서대로 이번 예제에서 컨트랙트를 생성해 볼 것입니다.
+
+## 코드 제공 및 빌드 {#build-contract}
+
+Github()에서 컨트랙트 코드를 다운받아 주세요. 코드 구성은 아래와 동일합니다.
+
+<RustContractCode />
+
+<br/>
+
+빌드는 아래 스크립트로 진행할 수 있습니다.
+
+```bash
+cargo build
+cargo run-script optimize
+```
+
+빌드를 완료하면 `artifacts/game_data_save.wasm` 파일이 생성됩니다. 
+
+## 컨트랙트 생성하고, 사용하기 {#use-contract}
+
+### StoreCode {#storecode}
+
+wasm 파일로 만들어서 StoreCode 하기  (JS, Vault)
+
+### Instantiate {#instantiate}
+
+### Execute {#execute}
+
+### Query {#query}
+
+
+
+
+<!-- 
+주석내용 
+Initmsg	
+{
+  "owner": "xpla16e2s64q70w37vff5jkfy4vagf6znw480dn7fw7",
+  "description": "g"
+}
+
+query
+{
+    "config" : {}
+}
+결과
+{
+  "data": {
+    "owner": "xpla16e2s64q70w37vff5jkfy4vagf6znw480dn7fw7",
+    "owner_candidate": "xpla16e2s64q70w37vff5jkfy4vagf6znw480dn7fw7",
+    "description": "g"
+  }
+}
+
+query
+{
+    "game_data" : {
+        "user" : "xpla16e2s64q70w37vff5jkfy4vagf6znw480dn7fw7"
+    }
+}
+결과
+{
+  "data": {
+    "last_stage": 10,
+    "high_score": 100,
+    "game_gold": 10
+  }
+}
+
+
+{
+"save_data" : {
+"user" : "xpla16e2s64q70w37vff5jkfy4vagf6znw480dn7fw7",
+"last_stage" : 10,
+"high_score" : 100,
+"game_gold" : 10
+}
+}
+-->
