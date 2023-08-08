@@ -73,13 +73,17 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     RUN ldconfig
     ```
 
+<br/>
+
 3. **Dockerfile**을 Build하여 Docker Image를 생성합니다. Build 하는 데 시간이 걸릴 수 있습니다.
 
     ```bash
     docker build -t my-xpla-node:20220819 .
     ```
 
-    생성한 Docker Image를 확인할 수 있는 스크립트는 `docker image ls` 입니다.
+    `docker image ls` 스크립트를 입력하여 Docker Image가 잘 생성되었는지 확인해봅시다.
+
+<br/>
 
 4. 생성한 Docker Image로 Docker Container를 생성합니다.
 
@@ -87,7 +91,9 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     docker run -it -d --name myXPLANode -p 26657:26657 -p 1317:1317 my-xpla-node:20220819
     ```
 
-    생성한 Docker Container를 확인할 수 있는 스크립트는 `docker ps -a` 입니다.
+    `docker ps -a` 스크립트를 입력하여 Docker Container가 잘 생성되었는지 확인해봅시다.
+
+<br/>
 
 5. Docker Container에 bash로 접속합니다. 
 
@@ -102,6 +108,8 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     혹시 예제 과정을 따라하다 놓친 부분이 있다면, Container를 삭제 후 다시 생성하는 방법이 있습니다. `docker stop myXPLANode && docker rm myXPLANode` 스크립트로 Container를 삭제 후, 4번 과정부터 다시 진행해보세요.
 
     :::
+
+<br/>
 
 6. Docker Container의 bash 환경에서 아래 스크립트를 입력합니다. Mainnet의 chainId가 `dimension_37-1`인 것처럼, 예제의 Local Network에서는 chainId를 `localnet_1-1`로 설정하였습니다.  **yourMonikerName** 변수는 여러분이 운영하는 노드의 이름을 의미합니다. 여러분이 원하는 이름으로 입력해주세요. 
 
@@ -129,11 +137,13 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     블록체인에서 첫번째로 만들어지는 블록을 Genesis 블록이라 부릅니다. Genesis 블록에 들어갈 데이터들을 저장한 파일이 Genesis 파일입니다. 같은 블록체인 네트워크에 참가하는 모든 노드들은 동일한 Genesis 파일을 가지고 블록 생성을 시작해야 합니다. 따라서 첫번째 블록부터 모두 똑같은 데이터를 가지게 되고, 각 노드들의 블록 해시값도 서로 일치하게 됩니다.
 
-    [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1)과 [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5)도 Genesis 파일이 있고, 모두 Github에서 확인하실 수 있습니다. 만약 Mainnet과 동일한 Genesis 파일을 사용한다면, 여러분도 Mainnet [Full Node(블록체인의 모든 정보를 저장하고 있는 노드)](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)를 운영할 수 있습니다. 예제에서는 Mainnet도, Testnet도 아닌, Local Network를 운영할 것이기 때문에 직접 Genesis 파일을 구성하여 사용하였습니다.
+    [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1)과 [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5)도 Genesis 파일이 있고, 모두 Github에서 확인하실 수 있습니다. 만약 Mainnet과 동일한 Genesis 파일을 사용한다면, 여러분도 Mainnet [Full Node(블록체인의 모든 정보를 저장하고 있는 노드)](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)를 운영할 수 있습니다. Mainnet과 Testnet의 Full Node를 운영하는 더 자세한 방법은 [Docs](https://docs.xpla.io/docs/full-node/run-a-full-node/join-a-network/#join-a-public-network)를 참고해보세요.
 
-    Mainnet과 Testnet의 Full Node를 운영하는 더 자세한 방법은 [Docs](https://docs.xpla.io/docs/full-node/run-a-full-node/join-a-network/#join-a-public-network)를 참고해보세요.
+    예제에서는 Mainnet도, Testnet도 아닌, Local Network를 운영할 것이기 때문에 직접 Genesis 파일을 만들어 볼 것입니다.
 
     </Details>
+
+<br/>
 
 7. Local Network 블록체인에서 Validator로 사용할 지갑을 생성합니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서도 동일한 스크립트로 지갑을 생성하였습니다.
 
@@ -143,6 +153,8 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     Passphrase 값을 잘 입력해주고, 니모닉과 함께 잘 저장해두어야 합니다. Passphrase는 지갑 정보를 사용할 때마다 입력해야 합니다.
 
+<br/>
+
 8. 생성한 지갑에 100000000000000000000axpla(100 XPLA)만큼 지급한다는 내용을 `~/.xpla/config/genesis.json` 파일에 기록합니다.
 
     ```bash
@@ -150,6 +162,8 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     ```
 
     Genesis 블록에서 지갑 하나에 100 XPLA를 지급하므로, Local Network의 XPLA 총 발행량은 100 XPLA입니다.
+
+<br/>
 
 9. 생성한 지갑을 검증자(Validator)로 등록합니다. 10000000000000000000axpla(10 XPLA)는 검증자로 등록할 때, Self-Delegate할 초기 물량입니다.
 
@@ -168,11 +182,15 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     </Details>
 
+<br/>
+
 10. 현재 `genesis.json` 파일에서 코인 단위가 stake로 설정되어 있습니다. XPLA 블록체인에서 사용하는 코인 단위는 `axpla`이므로 수정해줍니다.
 
     ```bash
     sed -i "s/"stake"/"axpla"/g" ~/.xpla/config/genesis.json
     ```
+
+<br/>
 
 11. LCDClient 환경과 RPC 네트워크 연결을 위해 `app.toml` 파일과 `config.toml` 파일을 수정해줍니다. 
 
@@ -184,11 +202,15 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     LCDClient 환경은 1317 Port를 사용하고, RPC 네트워크는 26657 Port를 사용합니다. 앞서 4번 절차에서 Docker Container를 생성할 때, 1317과 26657 Port를 열어주었기 때문에 로컬 환경에서 Docker Container에 접속할 수 있게 됩니다.
 
-12. 지금까지 설정한 Genesis 파일 상태대로 블록체인 데이터베이스를 세팅해줍니다.
+<br/>
+
+12. 지금까지 설정한 Genesis 파일 상태대로 블록체인 데이터베이스를 초기화해줍니다.
 
     ```bash
     xplad tendermint unsafe-reset-all
     ```
+
+<br/>
 
 13. 아래 스크립트로 XPLA 블록체인 Local Network를 Background Process로 실행합니다.
 
@@ -199,6 +221,8 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     Background Process로 잘 동작하고 있는지 확인하고 싶다면 `ps -A`를 입력해보세요.
 
     만약 Background Process가 아니라, Process 진행 과정을 살펴보고 싶다면 `&>/dev/null &`를 제외하고 `xplad start`만 입력해주세요.
+
+<br/>
 
 14. Local Network 구축이 완료되었습니다! 아래 스크립트를 통해 실행되고 있는 Local Network의 정보를 확인할 수 있습니다.
 
@@ -277,6 +301,8 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     
     Genesis 블록에서 초기 공급으로 100 XPLA를 지급하였고, Validator를 등록할 때 10 XPLA를 Self-delegate했습니다. 따라서 90 XPLA만 남아 있는 것이 정상입니다.
 
+<br/>
+
 2. Delegate 물량 확인
 
     Validator를 등록할 때 10 XPLA를 Self-delegate했습니다. xplad로 확인해봅시다.
@@ -285,7 +311,7 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     xplad query staking delegations $(xplad keys show yourAccount -a)
     ```
 
-    아래와 같은 결과를 확인할 수 있습니다. Self-delegate까지 되었군요.
+    아래와 같은 결과를 확인할 수 있습니다. 10 XPLA만큼 Self-delegate되었습니다.
 
     ```shell
     Enter keyring passphrase:
@@ -301,6 +327,8 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     next_key: null
     total: "0"
     ```
+
+<br/>
 
 3. 전송 트랜잭션 생성하기
 
@@ -334,6 +362,8 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     txhash: F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C
     ```
 
+<br/>
+
 4. 트랜잭션 Query 보내기
 
     xplad로 블록체인에 query를 보내서 앞서 생성한 트랜잭션 데이터를 가져와봅시다. 앞서 생성한 트랜잭션 해시값을 대입하면, 예제 스크립트는 `xplad query tx F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C` 입니다. 여러분이 생성한 트랜잭션 해시값을 대입해주세요. 
@@ -342,7 +372,7 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     xplad query tx <txhash>
     ```
 
-지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/)를 참고해보세요.     
+지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/)를 참고해보시거나, `xplad -h` 스크립트를 입력해보세요.    
 
 ## RPC 네트워크 이용하기 {#use-rpc}
 
