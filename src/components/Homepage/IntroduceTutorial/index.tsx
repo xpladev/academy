@@ -37,11 +37,6 @@ export default function PlayGame(): JSX.Element {
     link : '/docs/tutorial/add-func-to-game-2/walletprovider'
   },
   {
-    url : '/xpla-academy-dev/img/homepage/xplaonboard-3.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-2/convert'
-  },
-  {
     url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
     contents : 'Learn More',
     link : '/docs/tutorial/add-func-to-game-2/write-contract'
