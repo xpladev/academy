@@ -184,7 +184,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 <br/>
 
-10. 현재 `genesis.json` 파일에서 `inflation` 값이 0이 아닙니다. 이를 0으로 수정하여 인플레이션 없이 총 발행량을 고정하도록 하겠습니다. 실제 XPLA 블록체인 Mainnet도 `inflation` 값이 0입니다. [genesis 파일](https://github.com/xpladev/mainnet/blob/main/dimension_37-1/genesis.json#L947)과 [Explorer](https://explorer.xpla.io/mainnet/chaininfo)에서 관련 정보를 확인하실 수 있습니다. genesis 파일 parameter에 관한 정보는 [Cosmos 문서](https://hub.cosmos.network/main/resources/genesis.html#mint)에서 확인하실 수 있습니다.
+10. 현재 `genesis.json` 파일에서 `inflation` 값이 0이 아닙니다. 0으로 수정하여 인플레이션 없이 총 발행량을 고정하도록 하겠습니다. 실제 XPLA 블록체인 Mainnet도 `inflation` 값이 0입니다. [genesis 파일](https://github.com/xpladev/mainnet/blob/main/dimension_37-1/genesis.json#L947)과 [Explorer](https://explorer.xpla.io/mainnet/chaininfo)에서 관련 정보를 확인하실 수 있습니다. genesis 파일 parameter에 관한 정보는 [Cosmos 문서](https://hub.cosmos.network/main/resources/genesis.html#mint)에서 확인하실 수 있습니다.
 
     ```bash
     sed -i "291s/0.130000000000000000/0.000000000000000000/g" ~/.xpla/config/genesis.json
