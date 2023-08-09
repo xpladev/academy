@@ -1,5 +1,3 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 // const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -47,10 +45,6 @@ const config = {
             math
           ],
           rehypePlugins: [katex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -60,10 +54,6 @@ const config = {
               { converters: ['pnpm'] },
             ],
           ],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -86,11 +76,6 @@ const config = {
       // Replace with your project's social card
       image: 'img/logo512.png',
       navbar: {
-        title: 'XPLA Academy',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo192.png',
-        },
         items: [
           {
             type: 'docSidebar',
@@ -99,7 +84,7 @@ const config = {
             label: 'Tutorial',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/xpladev',
             className: 'header-github-link',
             position: 'right',
             'aria-label': 'GitHub repository',
@@ -148,7 +133,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/xpladev',
               },
             ],
           },

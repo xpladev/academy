@@ -1,0 +1,11 @@
+.navbar__link-custom {
+    /* color: var(--ifm-navbar-link-color); */
+    color : white;
+}
+.navbar__link-custom:hover {
+    opacity: 0.6;
+}
+.navbar__link-custom > svg {
+    margin : 0px;
+}
+
