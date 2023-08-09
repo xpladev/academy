@@ -43,6 +43,11 @@ export default function NavbarLayout({children}) {
           'navbar--primary': style === 'primary',
           'navbar-sidebar--show': mobileSidebar.shown,
         },
+        'bg-black',
+        'text-white',
+        'flex justify-center items-center',
+        'py-6',
+        'h-[80px]'
       )}>
       {children}
       <NavbarBackdrop onClick={mobileSidebar.toggle} />

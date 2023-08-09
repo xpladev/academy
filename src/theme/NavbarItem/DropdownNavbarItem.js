@@ -8,6 +8,7 @@ import {
 import {isSamePath, useLocalPathname} from '@docusaurus/theme-common/internal';
 import NavbarNavLink from '@theme/NavbarItem/NavbarNavLink';
 import NavbarItem from '@theme/NavbarItem';
+import "./DropdownNavbarItem.css";
 function isItemActive(item, localPathname) {
   if (isSamePath(item.to, localPathname)) {
     return true;
@@ -28,6 +29,7 @@ function DropdownNavbarItemDesktop({
   position,
   className,
   onClick,
+  arrow,
   ...props
 }) {
   const dropdownRef = useRef(null);
@@ -51,7 +53,7 @@ function DropdownNavbarItemDesktop({
   return (
     <div
       ref={dropdownRef}
-      className={clsx('navbar__item', 'dropdown', 'dropdown--hoverable', {
+      className={clsx('navbar__item', 'dropdown', 'dropdown--hoverable', 'p-0', 'ml-2', {
         'dropdown--right': position === 'right',
         'dropdown--show': showDropdown,
       })}>
@@ -60,7 +62,7 @@ function DropdownNavbarItemDesktop({
         aria-expanded={showDropdown}
         role="button"
         href={props.to ? undefined : '#'}
-        className={clsx('navbar__link', className)}
+        className={clsx('navbar__link-custom', className)}
         {...props}
         onClick={props.to ? undefined : (e) => e.preventDefault()}
         onKeyDown={(e) => {
@@ -135,7 +137,10 @@ function DropdownNavbarItemMobile({
     </li>
   );
 }
-export default function DropdownNavbarItem({mobile = false, ...props}) {
+export default function DropdownNavbarItem({mobile = false, arrow=true, ...props}) {
   const Comp = mobile ? DropdownNavbarItemMobile : DropdownNavbarItemDesktop;
-  return <Comp {...props} />;
+  return <Comp 
+    arrow={arrow}
+    {...props}
+  />;
 }

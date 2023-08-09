@@ -3,9 +3,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useAlternatePageUtils} from '@docusaurus/theme-common/internal';
 import {translate} from '@docusaurus/Translate';
 import {useLocation} from '@docusaurus/router';
-import DropdownNavbarItem from '@theme/NavbarItem/DropdownNavbarItem';
-import IconLanguage from '@theme/Icon/Language';
+import DropdownNavbarItem from '../DropdownNavbarItem';
 import styles from './styles.module.css';
+import LanguageIcon from '@mui/icons-material/Language';
 export default function LocaleDropdownNavbarItem({
   mobile,
   dropdownItemsBefore,
@@ -54,12 +54,10 @@ export default function LocaleDropdownNavbarItem({
   return (
     <DropdownNavbarItem
       {...props}
+      arrow={false}
       mobile={mobile}
       label={
-        <>
-          <IconLanguage className={styles.iconLanguage} />
-          {dropdownLabel}
-        </>
+        <LanguageIcon className={styles.iconLanguage} sx={{fontSize: 28}}/>
       }
       items={items}
     />
