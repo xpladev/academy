@@ -38,7 +38,7 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 <br/>
 
-Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20)을 읽지 않고 바로 [다음 단계](/docs/tutorial/add-func-to-game-1/overview)로 넘어가셔도 좋습니다.
+Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20)을 읽지 않고 바로 [다음 단계](/docs/tutorial/make-cw20/query-cw20)로 넘어가셔도 좋습니다.
 
 ## Javascript로 CW20 발행하기 {#make-cw20}
 
@@ -339,7 +339,7 @@ node query-tx.js
 
 3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요. 
 
-  여러분이 [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20)에서 생성한 컨트랙트 주소를 16번째 줄의 `cw20_contract` 변수에 대입해주세요. 예제에서 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`를 여러분의 컨트랙트 주소로 대체하시면 됩니다.
+  여러분이 [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20)에서 생성한 컨트랙트 주소를 16번째 줄의 `cw20_contract` 변수에 대입해주세요. 예제에서 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`를 여러분의 컨트랙트 주소로 대체하시면 됩니다.
 
   <Details summary="생성한 컨트랙트의 주소는 어디서 확인하나요?">
 
@@ -382,7 +382,7 @@ const myWalletAddress = wallet.key.accAddress;
 
 먼저 토큰의 컨트랙트 주소를 지정해주었습니다. 여러분들도 직접 만든 토큰의 컨트랙트 주소를 대입하셨을 것입니다.
 
-이후 누구에게 보낼 건지, CW20을 얼마만큼 보낼지도 지정하였습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
+이후 누구에게 보낼 건지, CW20을 얼마만큼 보낼지도 지정하였습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
 
 ```js
 const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
@@ -411,7 +411,7 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 �
 
 :::info
 
-`createAndSignTx` 함수는 트랜잭션을 생성하고, 수수료 금액을 자동으로 설정해주고, 서명도 진행합니다. [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-web3-game/make-cw20-with-js#make-cw20-explaination)에서 이를 각각 분리한 코드도 함께 보여드렸습니다.
+`createAndSignTx` 함수는 트랜잭션을 생성하고, 수수료 금액을 자동으로 설정해주고, 서명도 진행합니다. [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination)에서 이를 각각 분리한 코드도 함께 보여드렸습니다.
 
 이번엔 트랜잭션 수수료를 추정해주는 `estimateFee` 함수를 이용해서 트랜잭션을 만드는 코드를 살펴보겠습니다. 마찬가지로 `createAndSignTx` 함수 대신 아래 코드로 대체하여 실행해보세요.
 
