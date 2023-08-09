@@ -75,27 +75,27 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 <br/>
 
-3. **Dockerfile**을 Build하여 Docker Image를 생성합니다. Build 하는 데 시간이 걸릴 수 있습니다.
+3. **Dockerfile**을 build하여 container image를 생성합니다. build하는 데 시간이 걸릴 수 있습니다.
 
     ```bash
-    docker build -t my-xpla-node:20220819 .
+    docker build -t my-xpla-node .
     ```
 
-    `docker image ls` 스크립트를 입력하여 Docker Image가 잘 생성되었는지 확인해봅시다.
+    `docker image ls` command를 입력하여 container image가 잘 생성되었는지 확인해봅시다.
 
 <br/>
 
-4. 생성한 Docker Image로 Docker Container를 생성합니다.
+4. 생성한 container image로 docker container를 생성합니다. 
 
     ```bash
-    docker run -it -d --name myXPLANode -p 26657:26657 -p 1317:1317 my-xpla-node:20220819
+    docker run -it -d --name myXPLANode -p 26657:26657 -p 1317:1317 my-xpla-node
     ```
 
-    `docker ps -a` 스크립트를 입력하여 Docker Container가 잘 생성되었는지 확인해봅시다.
+    Local Network를 구축하면서 LCDClient와 RPC 네트워크도 사용할 것입니다. LCDClient 환경은 1317 Port를 사용하고, RPC 네트워크는 26657 Port를 사용하기 때문에, 각 Port도 열어주었습니다. 이후 `docker ps -a` command를 입력하여 docker container가 잘 생성되었는지 확인해봅시다.
 
 <br/>
 
-5. Docker Container에 bash로 접속합니다. 
+5. docker container에 bash로 접속합니다. 
 
     ```bash
     docker exec -it myXPLANode bash
@@ -103,21 +103,21 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     :::tip
 
-    접속한 Container의 bash에서 나가려면, `exit`을 입력하면 됩니다. 다시 Container에 접속하려면 `docker exec -it myXPLANode bash`를 입력해주세요. 만약 Container 실행이 안된다면 `docker start myXPLANode && docker exec -it myXPLANode bash`를 입력해보세요.
+    접속한 container의 bash에서 나가려면, `exit`을 입력하면 됩니다. 다시 container에 접속하려면 `docker exec -it myXPLANode bash`를 입력해주세요. 만약 container 실행이 안된다면 `docker start myXPLANode && docker exec -it myXPLANode bash`를 입력해보세요.
 
-    혹시 예제 과정을 따라하다 놓친 부분이 있다면, Container를 삭제 후 다시 생성하는 방법이 있습니다. `docker stop myXPLANode && docker rm myXPLANode` 스크립트로 Container를 삭제 후, 4번 과정부터 다시 진행해보세요.
+    혹시 예제 과정을 따라하다 놓친 부분이 있다면, container를 삭제 후 다시 생성하는 방법이 있습니다. `docker stop myXPLANode && docker rm myXPLANode` command로 container를 삭제하고, 4번 과정부터 다시 진행해보세요.
 
     :::
 
 <br/>
 
-6. Docker Container의 bash 환경에서 아래 스크립트를 입력합니다. Mainnet의 chainId가 `dimension_37-1`인 것처럼, 예제의 Local Network에서는 chainId를 `localnet_1-1`로 설정하였습니다.  **yourMonikerName** 변수는 여러분이 운영하는 노드의 이름을 의미합니다. 여러분이 원하는 이름으로 입력해주세요. 
+6. docker container의 bash 환경에서 아래 commnad를 입력합니다. Mainnet의 chain-id가 `dimension_37-1`인 것처럼, 예제의 Local Network에서는 chain-id를 `localnet_1-1`로 설정하였습니다.  **yourMonikerName** 변수는 여러분이 운영하는 노드의 이름을 의미합니다. 여러분이 원하는 이름으로 입력해주세요. 
 
     ```bash
     xplad init --chain-id=localnet_1-1 yourMonikerName
     ```
 
-    위 스크립트를 입력하게 되면 home 폴더(~)에 `.xpla` 폴더가 생성되고 Genesis 파일을 초기화하게 됩니다. 
+    위 command를 입력하게 되면 home 폴더(~)에 `.xpla` 폴더가 생성되고 Genesis 파일을 초기화하게 됩니다. 
 
     `~/.xpla` 폴더의 구조는 아래와 같습니다.
 
@@ -145,7 +145,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 <br/>
 
-7. Local Network 블록체인에서 Validator로 사용할 지갑을 생성합니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서도 동일한 스크립트로 지갑을 생성하였습니다.
+7. Local Network 블록체인에서 Validator로 사용할 지갑을 생성합니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서도 동일한 command로 지갑을 생성하였습니다.
 
     ```bash
     xplad keys add yourAccount
@@ -161,7 +161,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     xplad add-genesis-account $(xplad keys show yourAccount -a) 100000000000000000000axpla
     ```
 
-    Genesis 블록에서 지갑 하나에 100 XPLA를 지급하므로, Local Network의 XPLA 총 발행량은 100 XPLA입니다.
+    Genesis 블록에서 지갑 하나에 100 XPLA를 지급하므로, Local Network의 XPLA 총 발행량은 100 XPLA입니다. 해당 값을 수정하여 Local Network에서 사용할 XPLA 발행량을 증가시켜도 좋습니다.
 
 <br/>
 
@@ -172,7 +172,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     xplad collect-gentxs 
     ```
 
-    첫번째 스크립트를 입력하면 `~/.xpla/config`에 `gentx` 폴더가 추가로 생성됩니다. 두번째 스크립트를 입력하면 `gentx` 폴더의 내용이 `genesis.json` 파일에 반영됩니다.
+    첫번째 command를 입력하면 `~/.xpla/config`에 `gentx` 폴더가 추가로 생성됩니다. 두번째 command를 입력하면 `gentx` 폴더의 내용이 `genesis.json` 파일에 반영됩니다.
 
     <Details summary="Delegate란 무엇인가요?">
 
@@ -200,7 +200,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     sed -i "91s/127.0.0.1/0.0.0.0/g" ~/.xpla/config/config.toml
     ```
 
-    LCDClient 환경은 1317 Port를 사용하고, RPC 네트워크는 26657 Port를 사용합니다. 앞서 4번 절차에서 Docker Container를 생성할 때, 1317과 26657 Port를 열어주었기 때문에 로컬 환경에서 Docker Container에 접속할 수 있게 됩니다.
+   앞서 4번 절차에서 docker container를 생성할 때, 1317과 26657 Port를 열어주었기 때문에 로컬 환경에서 docker container에 접속할 수 있게 됩니다.
 
 <br/>
 
@@ -212,7 +212,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 <br/>
 
-13. 아래 스크립트로 XPLA 블록체인 Local Network를 Background Process로 실행합니다.
+13. 아래 command로 XPLA 블록체인 Local Network를 Background Process로 실행합니다.
 
     ```bash
     xplad start &>/dev/null &
@@ -224,7 +224,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 <br/>
 
-14. Local Network 구축이 완료되었습니다! 아래 스크립트를 통해 실행되고 있는 Local Network의 정보를 확인할 수 있습니다.
+14. Local Network 구축이 완료되었습니다! 아래 command를 통해 실행되고 있는 Local Network의 정보를 확인할 수 있습니다.
 
     ```bash
     xplad status
@@ -273,11 +273,11 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
     }
     ```
 
-    이때 **SyncInfo.latest_block_height** 값을 통해, 가장 최신 블록의 Height를 알 수 있습니다. `xplad status` 스크립트를 실행할 때마다, height 값이 상승할 것입니다. 블록체인에 블록이 잘 쌓이고 있다는 의미로 해석할 수 있습니다.
+    이때 **SyncInfo.latest_block_height** 값을 통해, 가장 최신 블록의 Height를 알 수 있습니다. `xplad status` command를 실행할 때마다, height 값이 상승할 것입니다. 블록체인에 블록이 잘 쌓이고 있다는 의미로 해석할 수 있습니다.
 
 ## Local Network에서 xplad 사용하기 {#use-xplad}
 
-Container의 bash 환경에서 xplad를 사용해봅시다.
+container의 bash 환경에서 xplad를 사용해봅시다.
 
 1. 잔액 확인
 
@@ -287,7 +287,7 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
     xplad query bank balances $(xplad keys show yourAccount -a)
     ```
 
-    위 스크립트를 입력하면 아래와 같이 결과를 확인할 수 있습니다.
+    위 command를 입력하면 아래와 같이 결과를 확인할 수 있습니다.
 
     ```shell
     Enter keyring passphrase:
@@ -366,13 +366,13 @@ Container의 bash 환경에서 xplad를 사용해봅시다.
 
 4. 트랜잭션 Query 보내기
 
-    xplad로 블록체인에 query를 보내서 앞서 생성한 트랜잭션 데이터를 가져와봅시다. 앞서 생성한 트랜잭션 해시값을 대입하면, 예제 스크립트는 `xplad query tx F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C` 입니다. 여러분이 생성한 트랜잭션 해시값을 대입해주세요. 
+    xplad로 블록체인에 query를 보내서 앞서 생성한 트랜잭션 데이터를 가져와봅시다. 앞서 생성한 트랜잭션 해시값을 대입하면, 예제 command는 `xplad query tx F8B522E28918C6616136C1B1C70D3B5972F06CA8E80D9BD60B6B19704BC85E5C` 입니다. 여러분이 생성한 트랜잭션 해시값을 대입해주세요. 
 
     ```bash
     xplad query tx <txhash>
     ```
 
-지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/)를 참고해보시거나, `xplad -h` 스크립트를 입력해보세요.    
+지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/)를 참고해보시거나, `xplad -h` command를 입력해보세요.    
 
 ## RPC 네트워크 이용하기 {#use-rpc}
 
@@ -395,7 +395,7 @@ wsclient.subscribe('Tx', {}, data => {
 wsclient.start();
 ```
 
-자바스크립트 파일 실행만으로는 아직 아무 결과를 얻을 수 없습니다. 다시 Docker Container의 bash 환경으로 돌아가, 전송 트랜잭션을 생성해보세요. 블록체인에 트랜잭션이 생성되면, 자바스크립트 파일을 실행한 콘솔에서 아래 로그를 얻을 수 있습니다.
+Javascript 파일 실행만으로는 아직 아무 결과를 얻을 수 없습니다. 다시 docker container의 bash 환경으로 돌아가, 전송 트랜잭션을 생성해보세요. 블록체인에 트랜잭션이 생성되면, Javascript 파일을 실행한 콘솔에서 아래 로그를 얻을 수 있습니다.
 
 ```shell
 Send occured!
@@ -482,7 +482,7 @@ main()
 
 결과로 나온 트랜잭션 해시값을 xplad를 이용하여 검색해보세요. 트랜잭션 데이터를 잘 가져올 수 있습니다.
 
-위 코드는 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 테스트넷에 전송 트랜잭션을 생성하는 코드와 크게 다르지 않습니다. 달라진 점은 LCDClient의 초기값입니다. chainID와 URL 값을 Local Network에 맞게 변경해주었을 뿐입니다. 따라서 지금까지 Javascript로 진행한 모든 코드들도 LCDClient 초기값만 수정하면 동일하게 Local Network에서 수행할 수 있습니다.
+위 코드는 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 테스트넷에 전송 트랜잭션을 생성하는 코드와 크게 다르지 않습니다. 달라진 점은 LCDClient의 초깃값입니다. chainID와 URL 값을 Local Network에 맞게 변경해주었을 뿐입니다. 따라서 지금까지 Javascript로 진행한 모든 코드들도 LCDClient 초깃값만 수정하면 동일하게 Local Network에서 수행할 수 있습니다.
 
 ## 마무리 {#conclusion}
 
