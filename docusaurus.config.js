@@ -2,7 +2,7 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+// const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
@@ -20,7 +20,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'nglsena0722c', // Usually your GitHub org/user name.
+  organizationName: 'xpladev', // Usually your GitHub org/user name.
   projectName: 'xpla-academy-dev', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -98,11 +98,11 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            className: 'header-github-link',
             position: 'right',
+            'aria-label': 'GitHub repository',
           },
           {
             type: 'localeDropdown',
@@ -157,7 +157,7 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        // darkTheme: darkCodeTheme,
       },
     }),
 
