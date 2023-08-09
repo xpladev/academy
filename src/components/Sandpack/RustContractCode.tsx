@@ -194,7 +194,7 @@ impl<'a> GameDataSaveContract<'a> {
     user: String,
     last_stage: Option<u64>,
     high_score: Option<u64>,
-    game_gold: Option<u64>,
+    game_gold: Option<i64>,
   ) -> Result<Response, ContractError> {
     let config: Config = self.config.load(deps.storage)?;
     
@@ -301,7 +301,7 @@ pub enum ExecuteMsg {
     user: String,
     last_stage: Option<u64>,
     high_score: Option<u64>,
-    game_gold: Option<u64>,
+    game_gold: Option<i64>,
   },
   
   UpdateConfig {
@@ -383,7 +383,7 @@ pub struct Config {
 pub struct GameData {
   pub last_stage: u64,
   pub high_score: u64,
-  pub game_gold: u64,
+  pub game_gold: i64,
 }
 
 
