@@ -12,36 +12,25 @@ interface SliderItemType {
 export default function PlayGame(): JSX.Element {
   const items :SliderItemType[] = [
     {
-      url : '/xpla-academy-dev/img/homepage/overview.svg',
-      contents : 'Learn More',
-      link : '/docs/overview/gameArchitecture'
-    },
-    {
-      url : '/xpla-academy-dev/img/homepage/settings.svg',
-      contents : 'Learn More',
-      link : '/docs/category/create-wallet'
-    },
-    {
     url : '/xpla-academy-dev/img/homepage/web3build-1.svg',
     contents : 'Learn More',
     link : '/docs/tutorial/make-cw20/make-cw20-with-js'
-  },
-  {
-    url : '/xpla-academy-dev/img/homepage/web3build-2.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/make-cw20/make-cw20-with-js'
-  },
-  {
-    url : '/xpla-academy-dev/img/homepage/xplaonboard-2.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/deep-understand-xpla/walletprovider'
-  },
-  {
-    url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/deep-understand-xpla/write-contract'
-  },
-
+    },
+    {
+      url : '/xpla-academy-dev/img/homepage/web3build-2.svg',
+      contents : 'Learn More',
+      link : '/docs/tutorial/make-cw20/make-cw20-with-js'
+    },
+    {
+      url : '/xpla-academy-dev/img/homepage/xplaonboard-2.svg',
+      contents : 'Learn More',
+      link : '/docs/tutorial/deep-understand-xpla/walletprovider'
+    },
+    {
+      url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
+      contents : 'Learn More',
+      link : '/docs/tutorial/deep-understand-xpla/write-contract'
+    },
 ]
 
   return (
