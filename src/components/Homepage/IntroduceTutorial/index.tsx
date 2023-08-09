@@ -24,22 +24,22 @@ export default function PlayGame(): JSX.Element {
     {
     url : '/xpla-academy-dev/img/homepage/web3build-1.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/make-web3-game/make-cw20-with-js'
+    link : '/docs/tutorial/make-cw20/make-cw20-with-js'
   },
   {
     url : '/xpla-academy-dev/img/homepage/web3build-2.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/make-web3-game/make-cw20-with-js'
+    link : '/docs/tutorial/make-cw20/make-cw20-with-js'
   },
   {
     url : '/xpla-academy-dev/img/homepage/xplaonboard-2.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-2/walletprovider'
+    link : '/docs/tutorial/deep-understand-xpla/walletprovider'
   },
   {
     url : '/xpla-academy-dev/img/homepage/xplaonboard-4.svg',
     contents : 'Learn More',
-    link : '/docs/tutorial/add-func-to-game-2/write-contract'
+    link : '/docs/tutorial/deep-understand-xpla/write-contract'
   },
 
 ]

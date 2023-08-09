@@ -9,7 +9,7 @@ import Ex09 from "@site/src/components/Sandpack/Ex09-query-cw20";
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-유저들은 게임 보상으로 CW20 토큰을 얻게 됩니다. 각 유저들이 CW20 토큰을 얼마나 보유하고 있는지 어떻게 알 수 있을까요? LCDClient를 이용하여 Query를 보내서 CW20 토큰 데이터를 가져올 수 있습니다. [이전 단계](/docs/tutorial/make-web3-game/make-cw20-with-js)에서 직접 만든 CW20 토큰의 정보를 가져와봅시다. 예제에서 사용한 MCT 토큰의 컨트랙트 주소는 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc` 입니다.
+유저들은 게임 보상으로 CW20 토큰을 얻게 됩니다. 각 유저들이 CW20 토큰을 얼마나 보유하고 있는지 어떻게 알 수 있을까요? LCDClient를 이용하여 Query를 보내서 CW20 토큰 데이터를 가져올 수 있습니다. [이전 단계](/docs/tutorial/make-cw20/make-cw20-with-js)에서 직접 만든 CW20 토큰의 정보를 가져와봅시다. 예제에서 사용한 MCT 토큰의 컨트랙트 주소는 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc` 입니다.
 
 ## Preview {#preview}
 
@@ -26,7 +26,7 @@ LCDClient로 Query를 보내서 특정 지갑 주소가 CW20 토큰을 얼마나
 
 <BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/query-cw20/explorer-initmsg.png" />
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-cw20/query-cw20/explorer-initmsg.png" />
 </div>
 </BrowserWindow>
 
@@ -36,7 +36,7 @@ LCDClient로 Query를 보내서 특정 지갑 주소가 CW20 토큰을 얼마나
 
 <BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-web3-game/query-cw20/query.png" />
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/1-make-cw20/query-cw20/query.png" />
 </div>
 </BrowserWindow>
 
@@ -96,7 +96,7 @@ TokenInfo Query를 보낼 때도 마찬가지입니다. `Camel Case`로 적혀 �
 
 <br/>
 
-이렇게 컨트랙트에 Query를 보내는 방법과 Query 메시지를 작성하는 방법에 대해 알아보았습니다. 이제 Preview Code를 분석해보겠습니다. Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-web3-game/query-cw20#runjs)을 읽지 않고 바로 [다음 단계](/docs/settings/create-testnet-transaction/use-xplad)로 넘어가셔도 좋습니다.
+이렇게 컨트랙트에 Query를 보내는 방법과 Query 메시지를 작성하는 방법에 대해 알아보았습니다. 이제 Preview Code를 분석해보겠습니다. Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-cw20/query-cw20#runjs)을 읽지 않고 바로 [다음 단계](/docs/tutorial/make-cw721/make-nft-vault)로 넘어가셔도 좋습니다.
 
 ## Javascript로 CW20 데이터 가져오기 {#runjs}
 
