@@ -43,6 +43,10 @@ html[data-theme='dark'] .sidebar-divider {
   border-top: 1px solid var(--ifm-color-gray-800);
 }
 
+.sidebar-coming-soon {
+  color : #606770;
+}
+
 .sidebar-title {
   font-size: 0.8rem;
   letter-spacing: 0.05rem;
