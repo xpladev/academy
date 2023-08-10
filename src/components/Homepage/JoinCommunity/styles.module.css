@@ -1,6 +1,21 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+.registerNow {
+  border: 1px solid white;
+  padding: 10px 30px;
+  color : white;
+  font-weight: 400;
 }
+
+.registerNow:hover {
+  cursor: pointer;
+}
+
+.trailblazer {
+  background-image: url('/img/JoinCommunity/trailblazer.svg');
+  height: 230px;
+}
+
+.devEvents {
+  background-image: url('/img/JoinCommunity/devEvents.svg');
+  height: 230px;
+}
+

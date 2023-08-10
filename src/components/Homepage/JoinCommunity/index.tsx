@@ -3,63 +3,43 @@ import styles from "./styles.module.css";
 import SquareButton from "../../SquareButton";
 import Button from "../../Button";
 import Banner from "../../Slider/Banner";
+import clsx from "clsx";
+import Link from "@docusaurus/Link";
 
 export default function JoinCommunity(): JSX.Element {
   return (
-    <section className={styles.features}>
-      <div className="container pb-40 px-10 ">
-        <div className="flex flex-1 justify-center text-3xl min-[996px]:text-4xl font-bold py-20">
-          Join XPLA DEV Community
-        </div>
-
-        <div
-          className="p-20 mb-10 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
-          style={{
-            backgroundColor: "#ebedf0",
-          }}
-        >
-          <h1>XPLA Trailblazer</h1>
-          <Button contents={"Register Now"} />
-        </div>
-
-        <div className="flex flex-1 pb-10 grid grid-cols-3 gap-4">
-          <SquareButton
-            contents="XPLA DEV Discord"
-            link="https://github.com/nglsena0722c/xpla-academy-dev/discussions/categories/announcements"
-          />
-          <SquareButton
-            contents="XPLA Github Discussion"
-            link="https://github.com/nglsena0722c/xpla-academy-dev/discussions/categories/announcements"
-          />
-          <SquareButton
-            contents="XPLA Dev Co-Building"
-            link="https://github.com/nglsena0722c/xpla-academy-dev/discussions/categories/announcements"
-          />
-        </div>
-
-        <div
-          className="mb-10 p-20 flex flex-col w-full justify-center items-center rounded-lg break-words whitespace-normal"
-          style={{
-            backgroundColor: "#ebedf0",
-          }}
-        >
-          <h1>DEV Events</h1>
-          <Button contents={"Enter Now"} />
-        </div>
-
-        <Banner  />
-
-        <div
-          className="p-20 flex flex-1 w-full justify-between items-center rounded-lg break-words whitespace-normal"
-          style={{
-            backgroundColor: "#ebedf0",
-          }}
-        >
-          <h1>Techinal partnership</h1>
-          <Button contents={"Contract us"} />
-        </div>
-
-
+    <section className="h-[1008px] flex flex-col justify-center items-center px-[16px]">
+      <div className="font-bold text-[50px] mb-[53px]">
+        Join the XPLA DEV Network
+      </div>
+      <div
+        className={clsx(
+          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-8",
+          styles.trailblazer
+        )}
+      >
+        <span className="font-semibold text-[38px] text-[#ffffff]">
+          XPLA Trailblazer
+        </span>
+        <Link>
+          <span className={styles.registerNow}>Register Now</span>
+        </Link>
+      </div>
+      <div
+        className={clsx(
+          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-20",
+          styles.devEvents
+        )}
+      >
+        <span className="font-semibold text-[38px] text-[#ffffff]">
+          Dev Events
+        </span>
+        <Link>
+          <span className={styles.registerNow}>Enter Now</span>
+        </Link>
+      </div>
+      <div className="container max-w-[1180px] p-0">
+        <Banner />
       </div>
     </section>
   );
