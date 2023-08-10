@@ -38,7 +38,7 @@ export default function JoinCommunity(): JSX.Element {
           <span className={styles.registerNow}>Enter Now</span>
         </Link>
       </div>
-      <div className="container max-w-[1180px] p-0">
+      <div className={clsx("container p-0", styles.bannerMaxWidth)}>
         <Banner />
       </div>
     </section>

@@ -19,3 +19,6 @@
   height: 230px;
 }
 
+.bannerMaxWidth {
+  max-width: 1180px !important;
+}
