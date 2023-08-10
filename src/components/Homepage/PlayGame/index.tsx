@@ -12,7 +12,8 @@ export default function PlayGame(): JSX.Element {
           start building your own game.
         </div>
       </div>
-      <Cocosgame />
+      <img src="/xpla-academy-dev/img/PlayGame/comingsoon.svg" />
+      {/* <Cocosgame /> */}
     </section>
   );
 }
