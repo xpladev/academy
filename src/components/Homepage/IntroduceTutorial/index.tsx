@@ -10,28 +10,7 @@ interface SliderItemType {
 }
 
 export default function PlayGame(): JSX.Element {
-  const items :SliderItemType[] = [
-    {
-    url : '/xpla-academy-dev/img/homepage-depre/web3build-1.svg',
-    contents : 'Learn More',
-    link : '/docs/tutorial/make-cw20/make-cw20-with-js'
-    },
-    {
-      url : '/xpla-academy-dev/img/homepage-depre/web3build-2.svg',
-      contents : 'Learn More',
-      link : '/docs/tutorial/make-cw20/make-cw20-with-js'
-    },
-    {
-      url : '/xpla-academy-dev/img/homepage-depre/xplaonboard-2.svg',
-      contents : 'Learn More',
-      link : '/docs/tutorial/deep-understand-xpla/walletprovider'
-    },
-    {
-      url : '/xpla-academy-dev/img/homepage-depre/xplaonboard-4.svg',
-      contents : 'Learn More',
-      link : '/docs/tutorial/deep-understand-xpla/write-contract'
-    },
-]
+  const items: SliderItemType[] = [];
 
   return (
     <section className={styles.features}>
@@ -41,7 +20,13 @@ export default function PlayGame(): JSX.Element {
         </div>
         <div className="flex justify-center">
           <Slider
-            elements={items.map((item) => <SliderItem url={item.url} contents={item.contents} link={item.link}/>)}
+            elements={items.map((item) => (
+              <SliderItem
+                url={item.url}
+                contents={item.contents}
+                link={item.link}
+              />
+            ))}
           />
         </div>
       </div>
@@ -49,11 +34,7 @@ export default function PlayGame(): JSX.Element {
   );
 }
 
-const SliderItem = ({
-  url,
-  contents,
-  link,
-}: SliderItemType) => {
+const SliderItem = ({ url, contents, link }: SliderItemType) => {
   return (
     <div
       className="flex justify-center mt-12 w-[928px] h-[525px]"
