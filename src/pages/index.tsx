@@ -7,16 +7,55 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 
 import styles from "./index.module.css";
 import useMoveScrool from "../hooks/useMoveScroll";
-import XPLACoin3D from "../components/ThreeJS/XPLACoin3D";
-import Pilot from "../components/ThreeJS/Pilot";
 import PlayGame from "../components/Homepage/PlayGame";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import DevResource from "../components/Homepage/DevResource";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
-import { WalletControllerChainOptions, getChainOptions } from "@xpla/wallet-provider";
+import {
+  WalletControllerChainOptions,
+  getChainOptions,
+} from "@xpla/wallet-provider";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
+
+  return (
+    <header className="h-[800px] flex justify-center px-[16px]">
+      <div className="max-w-[1180px] flex flex-1 justify-start items-center relative">
+        <div className="flex flex-col max-w-[576px]">
+          <span className="text-[70px] font-bold">{siteConfig.title}</span>
+          <span className="text-[28px] font-medium leading-[36px]">
+            {siteConfig.tagline}
+          </span>
+          <div className="flex gap-[20px] mt-[72px]">
+            <Link
+              to="/docs/overview/intro"
+              className="bg-[#C9FF00] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
+            >
+              <span className="font-bold text-[20px] ">Learn Now</span>
+            </Link>
+            <div
+              className="bg-[#fff] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px]"
+              onClick={onMoveToElement}
+            >
+              <span className="font-bold text-[20px]">Dev Resources</span>
+            </div>
+          </div>
+        </div>
+        <img className="explorerPlay"
+            src={`/xpla-academy-dev/img/Homepage/explorer-play.svg`}
+          />
+        <img className="earth"
+          src={`/xpla-academy-dev/img/Homepage/earth.svg`}
+        />
+      </div>
+    </header>
+  );
+}
+
+export default function Home(): JSX.Element {
+  const { siteConfig } = useDocusaurusContext();
+  const { element: moveToElement, onMoveToElement } = useMoveScrool();
 
   const [chainOptions, setChainoptions] =
     useState<WalletControllerChainOptions>();
@@ -30,46 +69,6 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   }, []);
 
   return (
-    <header
-      className={clsx("hero", styles.heroBanner)}
-      style={{ boxShadow: "0 0.5px 1px 0 rgba(0, 0, 0, 0.1)" }}
-    >
-      <div className="container py-8">
-        <div className="flex justify-center items-center">
-          <div className="flex-1">
-            <h1 className="hero__title text-left">{siteConfig.title}</h1>
-            <p className="hero__subtitle text-left">{siteConfig.tagline}</p>
-            <div className="py-8 flex gap-[28px] justify-start">
-              <div className={styles.buttons}>
-                <div className="boxtest-1">
-                  Learn Now
-                </div>
-              </div>
-              <div className={styles.buttons}>
-                <div
-                  className="boxtest-2"
-                >
-                  Dev Resource
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 h-[500px]">
-            <Pilot />
-            {/* <XPLACoin3D /> */}
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-  const { element : moveToElement, onMoveToElement } = useMoveScrool();
-
-  return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
@@ -79,7 +78,7 @@ export default function Home(): JSX.Element {
         <HomepageFeatures />
         <PlayGame />
         <IntroduceTutorial />
-        <DevResource moveToElement={moveToElement}/>
+        <DevResource moveToElement={moveToElement} />
         <JoinCommunity />
       </main>
     </Layout>

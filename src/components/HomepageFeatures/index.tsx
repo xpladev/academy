@@ -11,7 +11,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Easy to follow',
-    Svg: '/xpla-academy-dev/img/homepage/follow.svg',
+    Svg: '/xpla-academy-dev/img/homepage-depre/follow.svg',
     description: (
       <>
         따라하기 쉬운 난이도 Docusaurus was designed from the ground up to be easily installed and
@@ -21,7 +21,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Freely moddable',
-    Svg: '/xpla-academy-dev/img/homepage/free.svg',
+    Svg: '/xpla-academy-dev/img/homepage-depre/free.svg',
     description: (
       <>
         코드 이용의 높은 자유도 Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
@@ -31,7 +31,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Game developer-friendly',
-    Svg: '/xpla-academy-dev/img/homepage/friend.svg',
+    Svg: '/xpla-academy-dev/img/homepage-depre/friend.svg',
     description: (
       <>
         게임 개발자 친화적 Extend or customize your website layout by reusing React. Docusaurus can
