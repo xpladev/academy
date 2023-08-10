@@ -23,11 +23,11 @@ export default function ContactUs() {
           <Link
             to="/docs/overview/intro"
             className={clsx(
-              "w-fit bg-[#00B2FC] flex items-center justify-center py-[12px] px-[36px] text-[#000000] hover:text-[#000000] hover:no-underline",
+              "w-fit bg-[#00B2FC] flex items-center justify-center py-[5px] px-[36px] text-[#000000] hover:text-[#000000] hover:no-underline",
               styles.contactButton
             )}
           >
-            <span className="font-medium text-[28px] ">Contact Us</span>
+            <span className="font-medium text-[28px]">Contact Us</span>
           </Link>
         </div>
         <img
