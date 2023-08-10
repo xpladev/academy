@@ -21,7 +21,7 @@ export default function JoinCommunity(): JSX.Element {
         <span className="font-semibold text-[38px] text-[#ffffff]">
           XPLA Trailblazer
         </span>
-        <Link>
+        <Link to="https://6tpnthyk0ch.typeform.com/XPLATrailBlazer" style={{textDecoration: 'none'}}>
           <span className={styles.registerNow}>Register Now</span>
         </Link>
       </div>
@@ -34,7 +34,7 @@ export default function JoinCommunity(): JSX.Element {
         <span className="font-semibold text-[38px] text-[#ffffff]">
           Dev Events
         </span>
-        <Link>
+        <Link style={{textDecoration: 'none'}}>
           <span className={styles.registerNow}>Enter Now</span>
         </Link>
       </div>
