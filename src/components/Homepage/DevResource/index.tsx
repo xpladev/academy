@@ -144,7 +144,7 @@ export default function DevResource({
 }: {
   moveToElement: React.MutableRefObject<HTMLDivElement>;
 }): JSX.Element {
-  const [openMainnet, setOpenMainnet] = useState<boolean>(true);
+  const [openMainnet, setOpenMainnet] = useState<boolean>(false);
   const [openTestnet, setOpenTestnet] = useState<boolean>(false);
   return (
     <section
