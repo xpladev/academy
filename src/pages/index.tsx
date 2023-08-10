@@ -20,7 +20,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className="h-[800px] flex justify-center px-[16px]">
+    <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
       <div className="max-w-[1180px] flex flex-1 justify-start items-center relative">
         <div className="flex flex-col max-w-[576px] pb-[100px]">
           <span className="text-[70px] font-bold">{siteConfig.title}</span>
