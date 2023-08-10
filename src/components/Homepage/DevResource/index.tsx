@@ -152,7 +152,7 @@ export default function DevResource({
       className="bg-[#F5F4F4] px-[16px] pt-[117px] pb-[147px] flex flex-col gap-[55px] items-center"
     >
       <div className="#333333 font-bold text-[50px]">
-        Go to the DEV Resources
+        Tap into the DEV Resources
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 max-w-[1180px] w-[100%]">

@@ -6,10 +6,10 @@ export default function PlayGame(): JSX.Element {
     <section className="h-[1272px] flex flex-col justify-center items-center gap-[78px]">
       <div className="flex flex-col items-center justify-center">
         <div className="font-bold text-[50px] leading-[60px]">
-          Tryout a demo and
+          Explore & Play the demo
         </div>
         <div className="font-bold text-[50px] leading-[60px]">
-          start building your own game.
+          Experience game building on XPLA
         </div>
       </div>
       <img src="/xpla-academy-dev/img/PlayGame/comingsoon.svg" />

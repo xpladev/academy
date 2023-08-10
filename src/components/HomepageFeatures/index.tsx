@@ -10,15 +10,15 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     Svg: "/xpla-academy-dev/img/HomepageFeatures/easy-to-follow.svg",
-    description: <>Easy to follow</>,
+    description: <>Easy to follow tutorials</>,
   },
   {
     Svg: "/xpla-academy-dev/img/HomepageFeatures/freely-moddable.svg",
-    description: <>Freely moddable</>,
+    description: <>Flexible Modularity</>,
   },
   {
     Svg: "/xpla-academy-dev/img/HomepageFeatures/game-developer-friendly.svg",
-    description: <>Game developer-friendly</>,
+    description: <>Game DEV-friendly</>,
   },
 ];
 
@@ -51,7 +51,7 @@ export default function HomepageFeatures(): JSX.Element {
       <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
         <div className="flex flex-col flex-1 gap-[77px]">
           <span className="text-[#ffffff] flex flex-1 justify-center font-semibold text-[50px]">
-            Why XPLA Academy?
+            Dive into XPLA Academy
           </span>
           <div className="flex flex-1 gap-[20px]">
             {FeatureList.map((props, idx) => (

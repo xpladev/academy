@@ -7,7 +7,7 @@ const katex = require('rehype-katex');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'XPLA Academy',
-  tagline: 'The EASIEST tutorials for know about XPLA ecosystem and onboard your dApps.',
+  tagline: 'Easily navigate the quick guides!',
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
@@ -165,6 +165,12 @@ const config = {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
+  scripts: [
+    {
+      src: './pretendardFont.js',
+      async: true,
+    },
+  ]
 };
 
 module.exports = config;
