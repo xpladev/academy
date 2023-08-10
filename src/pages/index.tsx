@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import clsx from "clsx";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 
 import styles from "./index.module.css";
-import useMoveScrool from "../hooks/useMoveScroll";
 import PlayGame from "../components/Homepage/PlayGame";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import DevResource from "../components/Homepage/DevResource";
@@ -55,7 +53,10 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const { element: moveToElement, onMoveToElement } = useMoveScrool();
+  const element = useRef<HTMLDivElement>(null);
+  const onMoveToElement = () => {
+    element.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const [chainOptions, setChainoptions] =
     useState<WalletControllerChainOptions>();
@@ -64,7 +65,7 @@ export default function Home(): JSX.Element {
     getChainOptions()
       .then((c) => setChainoptions(c))
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
   }, []);
 
@@ -77,8 +78,8 @@ export default function Home(): JSX.Element {
       <main>
         <HomepageFeatures />
         <PlayGame />
+        <DevResource moveToElement={element} />
         <IntroduceTutorial />
-        <DevResource moveToElement={moveToElement} />
         <JoinCommunity />
       </main>
     </Layout>
