@@ -22,7 +22,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   return (
     <header className="h-[800px] flex justify-center px-[16px]">
       <div className="max-w-[1180px] flex flex-1 justify-start items-center relative">
-        <div className="flex flex-col max-w-[576px]">
+        <div className="flex flex-col max-w-[576px] pb-[100px]">
           <span className="text-[70px] font-bold">{siteConfig.title}</span>
           <span className="text-[28px] font-medium leading-[36px]">
             {siteConfig.tagline}
@@ -42,10 +42,10 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             </div>
           </div>
         </div>
-        <img className="explorerPlay"
+        <img className={styles.explorerPlay}
             src={`/xpla-academy-dev/img/Homepage/explorer-play.svg`}
           />
-        <img className="earth"
+        <img className={styles.earth}
           src={`/xpla-academy-dev/img/Homepage/earth.svg`}
         />
       </div>
