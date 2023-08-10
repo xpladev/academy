@@ -9,3 +9,21 @@
   height: 200px;
   width: 200px;
 }
+
+.ellipsis {
+  position: absolute;
+  top: 39px;
+  left : 0;
+}
+
+.square {
+  position: absolute;
+  right: 0;
+  top: 145px;
+}
+
+.card {
+  background-color: white;
+  aspect-ratio : 1 / 1;
+  box-shadow: 10px 10px 0px black;
+}

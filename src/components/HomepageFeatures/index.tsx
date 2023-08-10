@@ -1,55 +1,37 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import React from "react";
+import styles from "./styles.module.css";
+import clsx from "clsx";
 
 type FeatureItem = {
-  title: string;
   Svg: string;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to follow',
-    Svg: '/xpla-academy-dev/img/homepage-depre/follow.svg',
-    description: (
-      <>
-        따라하기 쉬운 난이도 Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    Svg: "/xpla-academy-dev/img/HomepageFeatures/easy-to-follow.svg",
+    description: <>Easy to follow</>,
   },
   {
-    title: 'Freely moddable',
-    Svg: '/xpla-academy-dev/img/homepage-depre/free.svg',
-    description: (
-      <>
-        코드 이용의 높은 자유도 Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    Svg: "/xpla-academy-dev/img/HomepageFeatures/freely-moddable.svg",
+    description: <>Freely moddable</>,
   },
   {
-    title: 'Game developer-friendly',
-    Svg: '/xpla-academy-dev/img/homepage-depre/friend.svg',
-    description: (
-      <>
-        게임 개발자 친화적 Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    Svg: "/xpla-academy-dev/img/HomepageFeatures/game-developer-friendly.svg",
+    description: <>Game developer-friendly</>,
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ Svg, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <img src={Svg} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
+    <div
+      className={clsx("flex flex-1 justify-center items-center", styles.card)}
+    >
+      <div className="flex flex-col gap-[33px]">
+        <div className="flex flex-1 justify-center">
+          <img src={Svg} />
+        </div>
+        <span className="font-bold text-[26px] ">{description}</span>
       </div>
     </div>
   );
@@ -57,15 +39,25 @@ function Feature({title, Svg, description}: FeatureItem) {
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
-      <div className="container py-20">
-        <div className='flex flex-1 justify-center text-3xl min-[996px]:text-4xl font-bold py-12'>
-          Why XPLA Academy?
-        </div>
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+    <section className="h-[812px] bg-[#004FFF] relative flex justify-center items-center px-[16px]">
+      <img
+        className={styles.ellipsis}
+        src={`/xpla-academy-dev/img/HomepageFeatures/ellipsis.svg`}
+      />
+      <img
+        className={styles.square}
+        src={`/xpla-academy-dev/img/HomepageFeatures/square.svg`}
+      />
+      <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
+        <div className="flex flex-col flex-1 gap-[77px]">
+          <span className="text-[#ffffff] flex flex-1 justify-center font-semibold text-[50px]">
+            Why XPLA Academy?
+          </span>
+          <div className="flex flex-1 gap-[20px]">
+            {FeatureList.map((props, idx) => (
+              <Feature key={idx} {...props} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
