@@ -199,7 +199,10 @@ export default function DevResource({
           <span>
             ENDPOINT<span className="font-bold">(TESTNET)</span>
           </span>
-          <ArrowDropDownIcon sx={{ color: "white", fontSize: 60 }} />
+          <ArrowDropDownIcon
+            sx={{ color: "white", fontSize: 60 }}
+            className={clsx(openMainnet ? styles.dropdownRotate : "")}
+          />
         </div>
         {openTestnet && (
           <div className={styles.endpointURL}>
