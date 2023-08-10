@@ -6,8 +6,8 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 
 import styles from "./index.module.css";
 import PlayGame from "../components/Homepage/PlayGame";
-import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import DevResource from "../components/Homepage/DevResource";
+import ContactUs from "../components/Homepage/ContactUs";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
 import {
   WalletControllerChainOptions,
@@ -22,28 +22,36 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
       <div className="max-w-[1180px] flex flex-1 justify-start items-center relative">
         <div className="flex flex-col max-w-[576px] pb-[100px]">
           <span className="text-[70px] font-bold">{siteConfig.title}</span>
-          <span className="text-[28px] font-medium leading-[36px]">
+          <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
             {siteConfig.tagline}
           </span>
-          <div className="flex gap-[20px] mt-[72px]">
+          <span className="text-[24px] font-normal leading-[29px]">
+            Master the world of XPLA step by step.
+          </span>
+          <span className="text-[24px] font-normal leading-[29px]">
+            Your projects are just a click away!
+          </span>
+          <div className="flex gap-[20px] mt-[40px]">
             <Link
               to="/docs/overview/intro"
               className="bg-[#C9FF00] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
-              <span className="font-bold text-[20px] ">Learn Now</span>
+              <span className="font-medium text-[20px] ">Start Now</span>
             </Link>
             <div
               className="bg-[#fff] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px]"
               onClick={onMoveToElement}
             >
-              <span className="font-bold text-[20px]">Dev Resources</span>
+              <span className="font-medium text-[20px]">Dev Resources</span>
             </div>
           </div>
         </div>
-        <img className={styles.explorerPlay}
-            src={`/xpla-academy-dev/img/Homepage/explorer-play.svg`}
-          />
-        <img className={styles.earth}
+        <img
+          className={styles.explorerPlay}
+          src={`/xpla-academy-dev/img/Homepage/explorer-play.svg`}
+        />
+        <img
+          className={styles.earth}
           src={`/xpla-academy-dev/img/Homepage/earth.svg`}
         />
       </div>
@@ -55,7 +63,7 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const element = useRef<HTMLDivElement>(null);
   const onMoveToElement = () => {
-    element.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    element.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const [chainOptions, setChainoptions] =
@@ -79,8 +87,9 @@ export default function Home(): JSX.Element {
         <HomepageFeatures />
         <PlayGame />
         <DevResource moveToElement={element} />
-        <IntroduceTutorial />
+        {/* <IntroduceTutorial /> */}
         <JoinCommunity />
+        <ContactUs />
       </main>
     </Layout>
   );
