@@ -1,8 +1,5 @@
 import React from "react";
 import styles from "./styles.module.css";
-import SquareButton from "../../SquareButton";
-import Button from "../../Button";
-import Banner from "../../Slider/Banner";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 
