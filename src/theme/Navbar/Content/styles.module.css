@@ -16,5 +16,18 @@ Hide color mode toggle in small viewports
 
 .LogoAcademyLetter>div:hover {
   background-image: url('/img/Navbar/AcademyLogo-blue.svg');
-  transition : background-image 200ms cubic-bezier(0.08, 0.52, 0.52, 1)
+  transition : background-image 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
+}
+
+.tool::before {
+  content : 'Tool';
+  color : white;
+  transition : all 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
+
+}
+
+.tool:hover::before {
+  content : 'Tool (Coming Soon)';
+  color: #00b2fc;
+
 }
