@@ -201,7 +201,7 @@ export default function DevResource({
           </span>
           <ArrowDropDownIcon
             sx={{ color: "white", fontSize: 60 }}
-            className={clsx(openMainnet ? styles.dropdownRotate : "")}
+            className={clsx(openTestnet ? styles.dropdownRotate : "")}
           />
         </div>
         {openTestnet && (
