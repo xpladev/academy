@@ -1,0 +1,5 @@
+.bannerWord {
+    @media screen and (max-width : 1500px)  {
+        display : none;
+    }
+}
