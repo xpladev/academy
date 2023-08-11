@@ -83,8 +83,8 @@ export default function Home(): JSX.Element {
 
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`XPLA ACADEMY`}
+      description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
       <HomepageHeader onMoveToElement={onMoveToElement} />
       <main>

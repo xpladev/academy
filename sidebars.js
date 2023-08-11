@@ -13,12 +13,6 @@ const sidebars = {
     'overview/intro',
     {
       type: 'html',
-      className: 'sidebar-coming-soon',
-      value: 'Web3 Game Architecture (Coming Soon)',
-      defaultStyle: true,
-    },
-    {
-      type: 'html',
       value: '<span class="sidebar-divider" />',
     },
 
