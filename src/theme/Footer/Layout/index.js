@@ -127,7 +127,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
 
       <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between">
         <div className="flex gap-[80px] items-start">
-          <img src="/xpla-academy-dev/img/Footer/XPLALogo.svg" />
+          <Link href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
             <div className="leading-tight text-[#D9D9D9] font-medium text-[16px]">
               <div>Universal Content Powerhouse for a Sublime</div>
@@ -138,7 +138,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
 
           <div className="flex gap-[14px]">
             <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
-            <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
+            <Link href="https://linktr.ee/xpla_official" target="_blank" rel="noopener noreferrer" className={styles.footerLinktree} ></Link>
           </div>
         </div>
 
