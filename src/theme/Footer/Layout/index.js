@@ -102,7 +102,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
         <div className="flex justify-between">
           {
             LinkList.map((LinkSubject, subjectIdx) => (
-              <div key={subjectIdx} className="flex flex-col gap-9">
+              <div key={subjectIdx} className="flex flex-col gap-9 leading-tight">
                 <span className="text-[#D9D9D9] font-bold text-[18px]">{LinkSubject.title}</span>
                 <div className="flex flex-col gap-3">
                   {
@@ -123,12 +123,39 @@ export default function FooterLayout({ style, links, logo, copyright }) {
         </div>
 
       </div>
-      <div className={clsx(styles.footerBorder, "")} />
+      <div className={clsx(styles.footerBorder)} />
 
-      <div className="max-w-[1180px] w-[100%]">
+      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between">
+        <div className="flex gap-[80px] items-start">
+          <img src="/xpla-academy-dev/img/Footer/XPLALogo.svg" />
+          <div className="flex flex-col gap-[18px]">
+            <div className="leading-tight text-[#D9D9D9] font-medium text-[16px]">
+              <div>Universal Content Powerhouse for a Sublime</div>
+              <div>Creative Expreience.</div>
+            </div>
+            <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA Acadmey. All rignts reserverd.</div>
+          </div>
+
+          <div className="flex gap-[14px]">
+            <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
+            <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
+          </div>
+        </div>
 
 
-
+<div className="flex gap-[14px]">
+  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] ">
+    Privacy Policy
+  </Link> 
+  <span className="text-[#D9D9D9] text-[15px] ">|</span>
+  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
+    Cookie Policy
+  </Link> 
+  <span className="text-[#D9D9D9] text-[15px] ">|</span>
+  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
+    Terms of Use
+  </Link> 
+</div>
 
       </div>
     </footer>
