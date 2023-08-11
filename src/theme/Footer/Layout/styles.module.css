@@ -45,7 +45,6 @@
 }
 
 .xplalogo:hover {
-  opacity: 0.6;
   background: url('/img/Footer/XPLALogo-blue.svg');
   background-size: 121px 35px;
   transition: all 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
