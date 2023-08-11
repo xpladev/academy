@@ -1,54 +1,201 @@
 import React from "react";
 import styles from "./styles.module.css";
-import Slider from "../../Slider";
+import "./index.css";
 import Link from "@docusaurus/Link";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import clsx from "clsx";
+import { description } from "commander";
 interface SliderItemType {
-  url: string;
-  contents: string;
-  link: string;
+  title: string[];
+  contents: {
+    link?: string;
+    description: JSX.Element;
+  }[];
+  color: string;
 }
 
-export default function PlayGame(): JSX.Element {
-  const items: SliderItemType[] = [];
+export default function IntroduceTutorial(): JSX.Element {
+  const items: SliderItemType[] = [
+    {
+      title: ["Straightforward", "Steps to Integrate XPLA!"],
+      color: "#F93AC3",
+      contents: [
+        {
+          link: "/docs/category/지갑-생성하기",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Experience the<br/>
+              TESTNET!<br/>
+              Create a WALLET<br/>
+              Make your first<br/>
+              <span className="font-bold text-[24px]">TRANSACTIONS!</span>
+            </div>
+          ),
+        },
+        {
+          link: "/docs/category/게임-토큰cw20-다루기",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Play with your Creation!<br/>
+              Issue <span className="font-bold text-[24px]">TOKENS</span>
+            </div>
+          ),
+        },
+        {
+          link: "/docs/category/nftcw721-다루기",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Play with your<br/>
+              Creation!<br/>
+              Issue  <span className="font-bold text-[24px]">NFT</span>
+            </div>
+          ),
+        },
+      ],
+    },
+    {
+      title: ["Straightforward", "Steps to Integrate XPLA!"],
+      color: "#C9FF00",
+      contents: [
+        {
+          link: "/docs/category/심화---xpla-블록체인-깊게-이해하기",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Stand out with <br/>
+              <span className="font-bold text-[24px]">
+                ADVANCED <br/>
+                COURSES!
+              </span>
+            </div>
+          ),
+        },
+        {
+          link: "/docs/tutorial/deep-understand-xpla/local-network",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Make your own <br/>
+              space!<br/>
+              <span className="font-bold text-[24px]">XPLA </span>Local Network
+            </div>
+          ),
+        },
+        {
+          link: "/docs/tutorial/deep-understand-xpla/account-sequence",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Multi-Send<br/>
+              <span className="font-bold text-[24px]">$XPLA!</span>
+            </div>
+          ),
+        },
+      ],
+    },
+    {
+      title: ["Straightforward", "Steps to Integrate XPLA!"],
+      color: "#FFE200",
+      contents: [
+        {
+          link: "/docs/tutorial/deep-understand-xpla/walletprovider",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Integrate<br/>
+              <span className="font-bold text-[24px]">WALLET</span><br/>
+              <span className="font-bold text-[24px]">CONNECT!</span>
+            </div>
+          ),
+        },
+        {
+          link: "/docs/tutorial/deep-understand-xpla/write-contract",
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Deploy your own<br/>
+              <span className="font-bold text-[24px]">CONTRACT </span>on<br/>
+              <span className="font-bold text-[24px]">XPLA</span>
+            </div>
+          ),
+        },
+        {
+          description: (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Exchange<br/>
+              Tokens with<br/>
+              <span className="font-bold text-[24px]">CONVERT!</span><br />
+              (Coming Soon)
+            </div>
+          ),
+        },
+      ],
+    },
+  ];
 
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
-    <section className={styles.features}>
-      <div className="container mb-20">
-        <div className="flex flex-1 justify-center text-3xl min-[996px]:text-4xl font-bold py-8">
-          Tutorial 소개 문장
-        </div>
-        <div className="flex justify-center">
-          <Slider
-            elements={items.map((item) => (
-              <SliderItem
-                url={item.url}
-                contents={item.contents}
-                link={item.link}
-              />
-            ))}
-          />
-        </div>
+    <section className="h-[833px]">
+      <div
+        className={clsx("w-full h-full", styles.slickSet, styles.dotsCustom)}
+      >
+        <Slider
+          {...settings}
+          // dotsClass={styles.dotsCustom}
+        >
+          {items.map((props) => (
+            <SliderItem {...props} />
+          ))}
+        </Slider>
       </div>
     </section>
   );
 }
 
-const SliderItem = ({ url, contents, link }: SliderItemType) => {
+const SliderItem = ({ title, color, contents }: SliderItemType) => {
   return (
     <div
-      className="flex justify-center mt-12 w-[928px] h-[525px]"
+      className="flex justify-center items-center w-[100%] h-[100%] px-[16px]"
       style={{
-        backgroundImage: `url(${url})`,
-        backgroundSize: "cover",
+        backgroundColor: color,
       }}
     >
-      <Link
-        className="button button--secondary button--lg mt-[420px] mb-[60px] bg-[#666666]"
-        to={link}
-      >
-        <span className="text-white">{contents}</span>
-      </Link>
+      <div className="w-[1180px] flex flex-col items-center justify-center gap-[58px] mb-[60px]">
+        <div className="font-bold text-[50px] text-center leading-tight">
+          {title.map((t, titleIdx) => (
+            <div key={titleIdx}>{t}</div>
+          ))}
+        </div>
+        <div className="flex gap-5 w-[100%]">
+          {contents.map((content, contentIdx) => (
+            <Link
+              to={content.link}
+              key={contentIdx}
+              className={clsx(
+                "flex flex-col justify-between text-[#000000] hover:text-[#000000]",
+                styles.card
+              )}
+              style={{ textDecoration: "none" }}
+            >
+              <img
+                className="w-12"
+                src={`/xpla-academy-dev/img/IntroduceTutorial/quotationMark.svg`}
+              />
+              {content.description}
+              <div className="flex justify-end">
+                <img
+                  className="w-[51px]"
+                  src={`/xpla-academy-dev/img/IntroduceTutorial/right-arrow.svg`}
+                />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,3 +5,63 @@
   width: 100%;
 }
 
+.slickSet>div {
+  height: 100%;
+}
+
+.slickSet>div>div {
+  height: 100%;
+}
+
+.slickSet>div>div>div {
+  height: 100%;
+}
+
+.slickSet>div>div>div>div {
+  height: 100%;
+}
+
+
+.slickSet>div>div>div>div>div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dotsCustom>div>ul {
+  bottom: 86px;
+}
+
+.dotsCustom>div>ul>li {
+  margin: 0px 9px !important;
+}
+
+.dotsCustom>div>ul>li>button::before {
+  color: white !important;
+  border-radius: 50px;
+  border: 1px solid white;
+  content: '' !important;
+  opacity: 1 !important;
+}
+
+.dotsCustom>div>ul>li:hover {
+  background-color: white;
+  border-radius: 50px;
+}
+
+.card {
+  display: flex;
+  flex : 1;
+  padding : 42px;
+  background-color: white;
+  aspect-ratio: 1 / 1;
+  border: 1px solid black;
+  box-shadow: 10px 10px 0px black;
+  transition: all 200ms;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: translate(10px, 10px);
+}

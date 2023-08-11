@@ -7,6 +7,7 @@ import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import styles from "./index.module.css";
 import PlayGame from "../components/Homepage/PlayGame";
 import DevResource from "../components/Homepage/DevResource";
+import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import ContactUs from "../components/Homepage/ContactUs";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
 import {
@@ -19,9 +20,9 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
 
   return (
     <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
-      <div className="max-w-[1180px] flex flex-1 justify-start items-center relative">
+      <div className="max-w-[1180px] flex flex-1 justify-between items-center relative">
         <div className="flex flex-col max-w-[576px] pb-[100px]">
-          <span className="text-[70px] font-bold">{siteConfig.title}</span>
+          <img className="mb-[30px]" src={`/xpla-academy-dev/img/Homepage/xpla-academy.svg`} />
           <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
             {siteConfig.tagline}
           </span>
@@ -77,6 +78,9 @@ export default function Home(): JSX.Element {
       });
   }, []);
 
+
+  // window.open("https://xpla.io", "Comwus hackathon", "width=500, height=600, left=0, top=0");
+
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
@@ -86,8 +90,8 @@ export default function Home(): JSX.Element {
       <main>
         <HomepageFeatures />
         <PlayGame />
+        <IntroduceTutorial />
         <DevResource moveToElement={element} />
-        {/* <IntroduceTutorial /> */}
         <JoinCommunity />
         <ContactUs />
       </main>

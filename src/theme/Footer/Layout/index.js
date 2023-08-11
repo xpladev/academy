@@ -107,7 +107,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
                 <div className="flex flex-col gap-3">
                   {
                     LinkSubject.content.map((LinkInfo, infoIdx) => (
-                      <Link key={infoIdx} to={LinkInfo.link} className="hover:opacity-60" style={{ textDecoration: 'none' }}>
+                      <Link key={infoIdx} to={LinkInfo.link} className="hover:opacity-60 transition-all" style={{ textDecoration: 'none' }}>
                         <span className="text-[#D9D9D9] font-bold text-[16px]">{LinkInfo.description}</span>
                       </Link>
                     ))
@@ -117,7 +117,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
             ))
           }
           <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60">
+            className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
             <NorthIcon sx={{ fontSize: 50 }} />
           </div>
         </div>
@@ -143,19 +143,19 @@ export default function FooterLayout({ style, links, logo, copyright }) {
         </div>
 
 
-<div className="flex gap-[14px]">
-  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] ">
-    Privacy Policy
-  </Link> 
-  <span className="text-[#D9D9D9] text-[15px] ">|</span>
-  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
-    Cookie Policy
-  </Link> 
-  <span className="text-[#D9D9D9] text-[15px] ">|</span>
-  <Link style={{ textDecoration : 'none' }} className="text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
-    Terms of Use
-  </Link> 
-</div>
+        <div className="flex gap-[14px]">
+          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] ">
+            Privacy Policy
+          </Link>
+          <span className="text-[#D9D9D9] text-[15px] ">|</span>
+          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
+            Cookie Policy
+          </Link>
+          <span className="text-[#D9D9D9] text-[15px] ">|</span>
+          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
+            Terms of Use
+          </Link>
+        </div>
 
       </div>
     </footer>

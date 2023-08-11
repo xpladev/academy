@@ -28,6 +28,7 @@
 .contactButton {
   box-shadow: 5px 5px 0px black;
   border: 1px solid black;
+  transition: all 200ms;
 }
 
 .contactButton:hover {

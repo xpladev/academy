@@ -9,6 +9,8 @@
   background-color: white;
   box-shadow: 10px 10px 0px black;
   border: 1px solid black;
+  transition: all 200ms;
+
 }
 
 .devResourceButton:hover {
