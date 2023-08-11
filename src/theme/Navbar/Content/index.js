@@ -59,12 +59,12 @@ export default function NavbarContent() {
           <Link to="/" className={clsx("flex items-center", styles.LogoAcademyLetter)}>
             <div />
           </Link>
-          {/* <NavbarLogo /> */}
           {
             leftItems.map((leftItem) => {
               return <NavbarItem {...leftItem} className="text-white ml-[78px]" />
             })
           }
+          <div className={clsx("font-semibold ml-10", styles.tool)} />
         </>
       }
       right={
