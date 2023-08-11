@@ -20,15 +20,12 @@ export default function ContactUs() {
           <span className="text-[#000000] font-semibold text-[42px]">
             Interested in Collaborating?
           </span>
-          <Link
-            to="/docs/overview/intro"
-            className={clsx(
+            <a href="mailto:xpla_official@xpla.io" className={clsx(
               "w-fit bg-[#00B2FC] flex items-center justify-center py-[5px] px-[36px] text-[#000000] hover:text-[#000000] hover:no-underline",
               styles.contactButton
-            )}
-          >
+            )}>
             <span className="font-medium text-[28px]">Contact Us</span>
-          </Link>
+            </a>
         </div>
         <img
           className={styles.heart}
