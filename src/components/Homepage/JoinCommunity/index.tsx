@@ -5,7 +5,7 @@ import Link from "@docusaurus/Link";
 
 export default function JoinCommunity(): JSX.Element {
   return (
-    <section className="h-[1008px] flex flex-col justify-center items-center px-[16px]">
+    <section className="h-[832px] flex flex-col justify-center items-center px-[16px]">
       <div className="font-bold text-[50px] mb-[53px]">
         Join the XPLA DEV Network
       </div>
@@ -24,7 +24,7 @@ export default function JoinCommunity(): JSX.Element {
       </div>
       <div
         className={clsx(
-          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-20",
+          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px]",
           styles.devEvents
         )}
       >
@@ -38,3 +38,4 @@ export default function JoinCommunity(): JSX.Element {
     </section>
   );
 }
+
