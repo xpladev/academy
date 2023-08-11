@@ -18,7 +18,7 @@
 
 .explorerPlay {
   position: absolute;
-  left: 576px;
+  left: 618px;
   top: 71px;
   
   @media screen and (max-width : 1536px) {
