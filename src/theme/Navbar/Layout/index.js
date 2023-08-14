@@ -8,8 +8,6 @@ import {
 import { translate } from '@docusaurus/Translate';
 import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import styles from './styles.module.css';
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import Banner from "./Banner";
 
 function NavbarBackdrop(props) {
   return (
@@ -26,7 +24,6 @@ export default function NavbarLayout({ children }) {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
-  const [bannerClosed, setBannerClosed] = React.useState(true);
 
   return (
     <nav
@@ -52,20 +49,8 @@ export default function NavbarLayout({ children }) {
         'text-white',
         'flex justify-center items-center',
         'py-6',
-        {
-          'mt-[60px]': !bannerClosed,
-        },
         'h-[80px]',
-        {
-          'top-[60px]': !bannerClosed
-        }
       )}>
-      <BrowserOnly>
-        {() => <Banner
-          bannerClosed={bannerClosed}
-          setBannerClosed={setBannerClosed}
-        />}
-      </BrowserOnly>
       {children}
       <NavbarBackdrop onClick={mobileSidebar.toggle} />
       <NavbarMobileSidebar />
