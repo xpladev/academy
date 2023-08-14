@@ -18,9 +18,12 @@ jobs:
           node-version: 18
           cache: npm
           
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH-mm-ss
+          utcOffset: "+09:00"
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
