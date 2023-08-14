@@ -52,6 +52,9 @@ export default function NavbarLayout({ children }) {
         'text-white',
         'flex justify-center items-center',
         'py-6',
+        {
+          'mt-[60px]': !bannerClosed,
+        },
         'h-[80px]',
         {
           'top-[60px]': !bannerClosed
