@@ -38,12 +38,38 @@ export default function NavbarLayout({ children }) {
   const [bannerClosed, setBannerClosed] = React.useState(beforeBannerClosed);
 
   return (
-    <>
+    <nav
+      ref={navbarRef}
+      aria-label={translate({
+        id: 'theme.NavBar.navAriaLabel',
+        message: 'Main',
+        description: 'The ARIA label for the main navigation',
+      })}
+      className={clsx(
+        'navbar',
+        'navbar--fixed-top',
+        hideOnScroll && [
+          styles.navbarHideable,
+          !isNavbarVisible && styles.navbarHidden,
+        ],
+        {
+          'navbar--dark': style === 'dark',
+          'navbar--primary': style === 'primary',
+          'navbar-sidebar--show': mobileSidebar.shown,
+        },
+        'bg-black',
+        'text-white',
+        'flex justify-center items-center',
+        'py-6',
+        'h-[80px]',
+        {
+          'top-[60px]': !bannerClosed
+        }
+      )}>
       <BrowserOnly>
         {
           () => {
-            if (bannerClosed) <></>;
-            return <div className="fixed z-[200] top-0 h-[60px] w-full flex justify-center items-center px-[16px] bg-white text-black">
+            return bannerClosed ? <></> : <div className="fixed z-[200] top-0 h-[60px] w-full flex justify-center items-center px-[16px] bg-white text-black">
               <img className="absolute left-0 " src="/xpla-academy-dev/img/Banner/left.svg" />
               <img className="absolute right-[6px]" src="/xpla-academy-dev/img/Banner/right.svg" />
               <div onClick={() => {
@@ -68,39 +94,9 @@ export default function NavbarLayout({ children }) {
           }
         }
       </BrowserOnly>
-      <nav
-        ref={navbarRef}
-        aria-label={translate({
-          id: 'theme.NavBar.navAriaLabel',
-          message: 'Main',
-          description: 'The ARIA label for the main navigation',
-        })}
-        className={clsx(
-          'navbar',
-          'navbar--fixed-top',
-          hideOnScroll && [
-            styles.navbarHideable,
-            !isNavbarVisible && styles.navbarHidden,
-          ],
-          {
-            'navbar--dark': style === 'dark',
-            'navbar--primary': style === 'primary',
-            'navbar-sidebar--show': mobileSidebar.shown,
-          },
-          'bg-black',
-          'text-white',
-          'flex justify-center items-center',
-          'py-6',
-          'h-[80px]',
-          {
-            'top-[60px]' : !bannerClosed
-          }
-        )}>
-        {children}
-        <NavbarBackdrop onClick={mobileSidebar.toggle} />
-        <NavbarMobileSidebar />
-      </nav>
-    </>
-
+      {children}
+      <NavbarBackdrop onClick={mobileSidebar.toggle} />
+      <NavbarMobileSidebar />
+    </nav>
   );
 }
