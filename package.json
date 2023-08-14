@@ -15,7 +15,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
     "krstart": "docusaurus start --port 3100 --locale ko-kr",
-    "git-action" : "git switch main && git merge dev && git push origin main"
+    "git-action" : "git switch main && git merge dev && git push origin main && git switch dev"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.6.7",
