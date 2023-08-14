@@ -63,10 +63,16 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
   const element = useRef<HTMLDivElement>(null);
   const onMoveToElement = () => {
-    element.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    var headerOffset = 80;
+    var elementPosition = element.current.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top : offsetPosition,
+      behavior : "smooth"
+    })
   };
 
   const [chainOptions, setChainoptions] =
@@ -79,9 +85,6 @@ export default function Home(): JSX.Element {
         // console.log(e);
       });
   }, []);
-
-
-  // window.open("https://xpla.io", "Comwus hackathon", "width=500, height=600, left=0, top=0");
 
   return (
     <Layout
