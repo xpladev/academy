@@ -141,15 +141,15 @@ function Endpoint({ title, link }: EndpointItem) {
         <span className="text-[18px] font-bold w-[175px]">{title}</span>
         <span className="text-[18px] font-medium">{link}</span>
       </div>
-      <div className="relative">
+      <div className="relative w-[100px] flex justify-end">
         {isCopy && (
-          <span className={clsx("absolute -left-[10px] bottom-[50px] flex items-center border-solid border-black rounded-[50px] bg-[#FF5600] p-2 text-[10px] text-black font-medium", copyAnimation ? styles.fadeIn : styles.fadeOut)}>
-            Copied!
-            <div className={styles.copied}>
-              <div className={styles.copiedBackground}>
-            </div>
-            </div>
-          </span>
+          <img
+            src="/xpla-academy-dev/img/DevResource/copied.svg"
+            className={clsx(
+              "absolute left-[64px] bottom-[37px] w-[60px] ",
+              copyAnimation ? styles.fadeIn : styles.fadeOut
+            )}
+          />
         )}
         <img
           onClick={handleClickCopy}

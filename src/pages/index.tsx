@@ -10,6 +10,8 @@ import DevResource from "../components/Homepage/DevResource";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import ContactUs from "../components/Homepage/ContactUs";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
+import AdBanner from "../components/Homepage/AdBanner";
+
 import {
   WalletControllerChainOptions,
   getChainOptions,
@@ -86,6 +88,7 @@ export default function Home(): JSX.Element {
       title={`XPLA ACADEMY`}
       description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
+      <AdBanner />
       <HomepageHeader onMoveToElement={onMoveToElement} />
       <main>
         <HomepageFeatures />
