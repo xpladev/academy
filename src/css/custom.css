@@ -122,7 +122,6 @@ html[data-theme='dark'] .sidebar-divider {
 }
 
 .header-github-link:hover {
-  opacity: 0.6;
   background: url('/img/Navbar/GithubLogo-blue.svg');
   background-size: 24px 24px;
   transition: all 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
