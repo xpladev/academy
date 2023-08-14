@@ -319,7 +319,7 @@ Query는 [Explorer Contract Details의 InitMsg 탭](https://explorer.xpla.io/tes
 
 <br />
 
-앞서 last_stage, high_score, game_gold 값을 10으로 넣어 **save_data** Method를 Execute했습니다. Query 결과도 Execute 입력을 바탕으로 잘 나오는 것을 확인할 수 있습니다. 예제 코드의 Query 결과는 game_gold 값이 10보다 클텐데, 이것은 game_gold 값이 Execute를 실행할 때마다 축적되기 때문입니다. 앞서 [Execute](/docs/tutorial/deep-understand-xpla/write-contract#execute)에 관한 코드에서 game_gold 값을 어떻게 저장하는지 다시 한 번 살펴보세요. 
+앞서 high_score을 100으로, last_stage, game_gold 값을 10으로 넣어 **save_data** Method를 Execute했습니다. Query 결과도 Execute 입력을 바탕으로 잘 나오는 것을 확인할 수 있습니다. 예제 코드의 Query 결과는 game_gold 값이 10보다 클텐데, 이것은 game_gold 값이 Execute를 실행할 때마다 축적되기 때문입니다. 앞서 [Execute](/docs/tutorial/deep-understand-xpla/write-contract#execute)에 관한 코드에서 game_gold 값을 어떻게 저장하는지 다시 한 번 살펴보세요. 
 
 Cosmwasm 컨트랙트에 Query를 보낼 때, 컨트랙트 코드가 어떻게 동작하는지 살펴봅시다. 먼저 **queryMsg**는 아래와 같이 입력하였습니다.
 
