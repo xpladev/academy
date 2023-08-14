@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# NFT(CW20) 발행하기 (Vault)
+# NFT(CW721) 발행하기 (Vault)
 
 import Details from '@theme/Details';
 import VaultImgCard from "@site/src/components/VaultImgCard";
@@ -263,7 +263,7 @@ EventLogs에서 여러분이 발행한 CW721 컨트랙트 주소를 알 수 있�
 
 <br/>
 
-`Msg` 항목에는 발행할 NFT의 정보를 적어줍니다. 예제에서는 아래와 같이 작성하겠습니다. `token_id` 항목은 NFT의 고유한 번호입니다. 따라서 같은 CW721 컨트랙트에서 발행하는 NFT는 모두 `token_id`가 달라야 합니다.
+`Msg` 항목에는 발행할 NFT의 주요 정보(metadata)를 적어줍니다. 예제에서는 아래와 같이 작성하겠습니다. `token_id` 항목은 NFT의 고유한 번호입니다. 따라서 같은 CW721 컨트랙트에서 발행하는 NFT는 모두 `token_id`가 달라야 합니다.
 
 `attributes` 항목에는 NFT의 특성입니다. 예제에서는 체력(HP) 10, 전투능력(CP) 100인 Alice라는 이름의 캐릭터 NFT를 만든다고 가정하겠습니다.
 
@@ -305,7 +305,46 @@ EventLogs에서 여러분이 발행한 CW721 컨트랙트 주소를 알 수 있�
 </BrowserWindow>
 
 
-이외에도 `image`나 `token_uri` 항목 등을 추가할 수 있습니다. 어떤 항목을 추가할 수 있는지는 [CW721 메타데이터](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)에 대해서 자세히 살펴보시거나, 혹은 [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다.
+<Details summary="주요 정보(metadata)에는 어떤 값들이 들어가야 하나요?">
+
+주요 정보(metadata)에 들어갈 수 있는 항목들은 아래와 같습니다.
+
+```js
+{
+    mint: {
+        owner: "NFT Owner의 주소를 입력합니다.",
+        token_id: "개별 NFT 고유 식별자로 사용되는 Token ID입니다.",
+        token_uri: "아래 extension 정보를 JSON 형식으로 제공하는 URI입니다. OpenSea에서 사용하는 형식과 동일합니다.",
+        extension: { 
+            name : "NFT 이름입니다.",
+            description : "NFT에 대한 설명입니다.",
+            image : "NFT 이미지를 제공하는 URL입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.", 
+            animation_url : "NFT 영상을 제공하는 URL 입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.",
+            youtube_url : "Youtube 영상의 URL 로, 현재는 지원하지 않습니다."
+            attributes: [    // NFT의 특징을 나타냅니다.
+                {
+                    category : "NFT 아이템 카테고리를 나타냅니다.",
+                    collection : "NFT Collection을 나타냅니다.",
+                    creator : "NFT 창작자 혹은 저작권자를 나타냅니다.",
+                    provider : "NFT 판매 혹은 배포 권리를 가진 사람을 나타냅니다.",
+                    thumbnail_url : "NFT의 썸네일 이미지를 제공하는 URL 입니다.",
+                    extension_url : "NFT extension 정보를 JSON 형식으로 제공하는 URL 입니다.",
+                    
+                    // 아래와 같이 NFT의 특징을 추가할 수도 있습니다.
+                    trait_type: "CharacterName",
+                    value: "Alice", 
+                },
+            ],
+        },
+    },
+};
+```
+
+더 자세히 알고 싶으시다면 [CW721 Github](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)을 살펴보시거나, [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다. [OpenSea Metadata 기준](https://docs.opensea.io/docs/metadata-standards)을 읽어보시는 것도 좋습니다.
+
+</Details>
+
+<br />
 
 <br/>
 

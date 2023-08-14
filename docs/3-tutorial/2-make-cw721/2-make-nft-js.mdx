@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# NFT(CW20) 발행하기 (Javascript)
+# NFT(CW721) 발행하기 (Javascript)
 
 import Details from '@theme/Details';
 import Ex06CW721 from "@site/src/components/Sandpack/Ex06-instantiate-cw721";
@@ -317,9 +317,48 @@ const mintJSON = {
 };
 ```
 
+<Details summary="주요 정보(metadata)에는 어떤 값들이 들어가야 하나요?">
+
+주요 정보(metadata)에 들어갈 수 있는 항목들은 아래와 같습니다. 
+
+```js
+{
+    mint: {
+        owner: "NFT Owner의 주소를 입력합니다.",
+        token_id: "개별 NFT 고유 식별자로 사용되는 Token ID입니다.",
+        token_uri: "아래 extension 정보를 JSON 형식으로 제공하는 URI입니다. OpenSea에서 사용하는 형식과 동일합니다.",
+        extension: { 
+            name : "NFT 이름입니다.",
+            description : "NFT에 대한 설명입니다.",
+            image : "NFT 이미지를 제공하는 URL입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.", 
+            animation_url : "NFT 영상을 제공하는 URL 입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.",
+            youtube_url : "Youtube 영상의 URL 로, 현재는 지원하지 않습니다."
+            attributes: [    // NFT의 특징을 나타냅니다.
+                {
+                    category : "NFT 아이템 카테고리를 나타냅니다.",
+                    collection : "NFT Collection을 나타냅니다.",
+                    creator : "NFT 창작자 혹은 저작권자를 나타냅니다.",
+                    provider : "NFT 판매 혹은 배포 권리를 가진 사람을 나타냅니다.",
+                    thumbnail_url : "NFT의 썸네일 이미지를 제공하는 URL 입니다.",
+                    extension_url : "NFT extension 정보를 JSON 형식으로 제공하는 URL 입니다.",
+                    
+                    // 아래와 같이 NFT의 특징을 추가할 수도 있습니다.
+                    trait_type: "CharacterName",
+                    value: "Alice", 
+                },
+            ],
+        },
+    },
+};
+```
+
+더 자세히 알고 싶으시다면 [CW721 Github](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)을 살펴보시거나, [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다. [OpenSea Metadata 기준](https://docs.opensea.io/docs/metadata-standards)을 읽어보시는 것도 좋습니다.
+
+</Details>
+
 <br/>
 
-작성한 메타데이터를 이용하여 앞서 생성한 컨트랙트를 `Execute`합니다. 
+작성한 metadata를 이용하여 앞서 생성한 컨트랙트를 `Execute`합니다. 
 
 ```js
 const mint = new MsgExecuteContract(

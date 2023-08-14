@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import "./index.css";
 import Link from "@docusaurus/Link";
@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import clsx from "clsx";
-import { description } from "commander";
+
 interface SliderItemType {
   title: string[];
   contents: {
@@ -17,6 +17,33 @@ interface SliderItemType {
 }
 
 export default function IntroduceTutorial(): JSX.Element {
+  const ref = useRef(null);
+  const sliderRef = useRef();
+  const [slideIndex, setSlideIndex] = useState(0);
+  
+  // useEffect(() => {
+  //   if (!ref.current || !sliderRef) return;
+  //   window.addEventListener("mousewheel", e => {
+  //     const domPos = ref.current.getBoundingClientRect();
+  //     if (slideIndex < 2 && domPos.top < 0 && domPos.top > -833) {
+  //       e.preventDefault();
+  //       // if ( e.deltaY > 0 ) {
+  //       //   sliderRef.current.slickNext();
+  //       // } else {
+  //       //   sliderRef.current.slickPrev();
+  //       // }
+  //     }
+
+  //   });
+  //   // window.addEventListener("scroll", () => {
+  //   //   const domPos = ref.current.getBoundingClientRect();
+  //   //   if (domPos.top < 0 && domPos.top > -833) {
+  //   //     sliderRef.current.slickNext();
+  //   //   }
+  //   // });
+  // }, [ref, sliderRef]);
+
+    
   const items: SliderItemType[] = [
     {
       title: ["Straightforward", "Steps to Integrate XPLA!"],
@@ -132,18 +159,22 @@ export default function IntroduceTutorial(): JSX.Element {
 
   const settings = {
     dots: true,
+    autoplay : true,
+    autoplaySpeed: 3000,
     arrows: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    beforeChange: (current, next) => setSlideIndex(next)
   };
   return (
-    <section className="h-[833px]">
+    <section className="h-[833px]" ref={ref}>
       <div
         className={clsx("w-full h-full", styles.slickSet, styles.dotsCustom)}
       >
         <Slider
+        ref={sliderRef}
           {...settings}
           // dotsClass={styles.dotsCustom}
         >
