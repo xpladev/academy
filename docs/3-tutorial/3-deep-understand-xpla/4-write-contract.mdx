@@ -84,8 +84,14 @@ cargo run-script optimize
 
 
 <details>
-  <summary>빌드 과정에서 에러가 발생합니다. 어떻게 해야 할까요?</summary>
-    Cargo.toml 파일의 23번째 줄을 다음과 같이 수정하고, 다시 빌드해보세요.
+  <summary>
+
+  빌드 과정에서 아래와 같은 에러가 발생합니다. 어떻게 해야 하나요? 
+  
+  <CodeBlock>docker: Error response from daemon: create %cd%: "%cd%" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path.</CodeBlock>
+  
+  </summary>
+  Cargo.toml 파일의 23번째 줄을 다음과 같이 수정하고, 다시 빌드해보세요.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
