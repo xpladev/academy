@@ -120,7 +120,18 @@ const TestnetEndpointList: EndpointItem[] = [
 ];
 
 function Endpoint({ title, link }: EndpointItem) {
+  const [copyAnimation, setCopyAnimation] = useState<boolean>(true);
+  const [isCopy, setIsCopy] = useState<boolean>(false);
+
   const handleClickCopy = useCallback(() => {
+    setCopyAnimation(true);
+    setIsCopy(true);
+    setTimeout(() => {
+      setCopyAnimation(false);
+    }, 1000);
+    setTimeout(() => {
+      setIsCopy(false);
+    }, 1500);
     copyToClipboard(link);
   }, []);
 
@@ -130,11 +141,22 @@ function Endpoint({ title, link }: EndpointItem) {
         <span className="text-[18px] font-bold w-[175px]">{title}</span>
         <span className="text-[18px] font-medium">{link}</span>
       </div>
-      <img
-        onClick={handleClickCopy}
-        src="/xpla-academy-dev/img/DevResource/CopyButton.svg"
-        className="hover:cursor-pointer hover:opacity-60"
-      />
+      <div className="relative">
+        {isCopy && (
+          <span className={clsx("absolute -left-[10px] bottom-[50px] flex items-center border-solid border-black rounded-[50px] bg-[#FF5600] p-2 text-[10px] text-black font-medium", copyAnimation ? styles.fadeIn : styles.fadeOut)}>
+            Copied!
+            <div className={styles.copied}>
+              <div className={styles.copiedBackground}>
+            </div>
+            </div>
+          </span>
+        )}
+        <img
+          onClick={handleClickCopy}
+          src="/xpla-academy-dev/img/DevResource/CopyButton.svg"
+          className="hover:cursor-pointer hover:opacity-60"
+        />
+      </div>
     </div>
   );
 }
