@@ -5,9 +5,3 @@
 .navbarHidden {
   transform: translate3d(0, calc(-100% - 2px), 0);
 }
-
-.bannerWord {
-  @media screen and (max-width : 1500px)  {
-      display : none;
-  }
-}
