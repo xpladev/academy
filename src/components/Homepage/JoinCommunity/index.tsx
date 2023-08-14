@@ -27,7 +27,7 @@ export default function JoinCommunity(): JSX.Element {
         </Link>
       </div>
       <Link
-        to="/"
+        to="https://app.glitch-hack.com/"
         className={clsx(
           "hover:cursor-pointer px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px]",
           styles.hackathon
