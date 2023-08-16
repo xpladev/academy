@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
 import styles from './styles.module.css';
@@ -8,18 +8,9 @@ const AdBanner = () => {
     <div className="h-[60px] w-full">
       <Link
         to="https://app.glitch-hack.com/"
-        className="h-[60px] w-full flex justify-center items-center px-[16px] bg-black text-white hover:text-white"
+        className="h-[60px] w-full flex justify-center items-center px-[16px] bg-[#004FFF] text-white hover:text-white"
         style={{ textDecoration: "none" }}
       >
-        <img
-          className="absolute left-0 "
-          src="/xpla-academy-dev/img/Banner/left.svg"
-        />
-        <img
-          className="absolute right-[6px]"
-          src="/xpla-academy-dev/img/Banner/right.svg"
-        />
-
         <div className="relative flex items-center max-w-[1180px] w-[100%]">
           <img
             className="absolute left-0 mt-2"
