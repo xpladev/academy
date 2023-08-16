@@ -58,10 +58,10 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '게임 토큰(CW20) 다루기',
+      label: '토큰(CW20) 다루기',
       link: {
         type: 'generated-index',
-        title: '게임 토큰(CW20) 다루기',
+        title: '토큰(CW20) 다루기',
         // description: ''
       },
       items: ['tutorial/make-cw20/make-cw20-with-vault', 'tutorial/make-cw20/make-cw20-with-js', 'tutorial/make-cw20/query-cw20'],
