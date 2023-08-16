@@ -1,0 +1,121 @@
+---
+sidebar_position: 2
+---
+
+# 트랜잭션 확인하기 (Explorer)
+
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+[XPLA Explorer](https://explorer.xpla.io/)를 이용하면 트랜잭션 데이터를 자세히 살펴볼 수 있습니다. [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 만든 트랜잭션 데이터를 다음과 같은 절차로 확인해봅시다.
+
+1. [XPLA Explorer](https://explorer.xpla.io/)에 접속합니다.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/go-explorer.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+2. 네트워크를 `testnet`으로 바꿉니다.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/select-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+3. [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 예제 코드를 실행했을 때, 결과로 얻은 해시값을 검색합니다. 만약 해시값을 기록하지 못했다면 아래 [다른 방법](/docs/settings/create-testnet-transaction/check-tx-in-explorer#checkwallet)으로 확인하실 수 있습니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/search-tx.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+4. 트랜잭션 데이터를 결과로 확인합니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-tx.png" />
+</div>
+</BrowserWindow>
+
+## 지갑 정보 알아보기 {#checkwallet}
+
+1. Vault를 통해 여러분의 지갑 주소를 복사합니다.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/copy-address.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+2. [XPLA Explorer](https://explorer.xpla.io/)에 접속합니다.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/go-explorer.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+3. 네트워크를 `testnet`으로 바꿉니다.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/select-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+4. 복사한 지갑 주소를 검색합니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/search-account.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+5. 지갑 잔액, 지갑과 관련된 트랜잭션 내역 등 지갑에 관한 정보를 살펴볼 수 있습니다. Faucet에서 100 XPLA를 받은 트랜잭션과 다시 25aXPLA를 보낸 트랜잭션을 모두 볼 수 있군요.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-account.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+6. 트랜잭션 해시값을 클릭하면 트랜잭션 데이터를 확인할 수도 있습니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/click-tx.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-tx.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+이처럼 [XPLA Explorer](https://explorer.xpla.io/)를 이용하면 트랜잭션 데이터에 대해 자세히 살펴볼 수 있습니다. 또, 어떤 트랜잭션이 실시간으로 생성되었는지, 현재 컨트랙트가 만들어졌는지 등 XPLA 블록체인에 대한 정보도 한눈에 살펴볼 수 있습니다. 

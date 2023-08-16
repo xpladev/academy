@@ -1,0 +1,223 @@
+---
+sidebar_position: 3
+---
+
+# CW721 데이터 사용하기
+
+import Details from '@theme/Details';
+import Ex10 from "@site/src/components/Sandpack/Ex10-query-cw721";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+게임에서 유저들이 소유한 NFT를 어떻게 이용할 수 있을까요? LCDClient를 이용하여 Query를 보내서 NFT 데이터를 가져올 수 있습니다. [이전 단계](/docs/tutorial/make-cw721/make-nft-vault)에서 직접 만든 NFT 정보를 가져와봅시다. 예제에서 사용한 CW721 컨트랙트 주소는 `xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn` 입니다.
+
+## Preview {#preview}
+
+Javascript로 NFT 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex10 />
+
+<br />
+
+LCDClient로 Query를 보내서 특정 지갑 주소가 어떤 NFT를 가지고 있는지 확인할 수 있었습니다. 또한 NFT의 `token_id` 값으로 NFT 정보를 불러올 수도 있었습니다. 이를 통해 유저들이 가지고 있는 NFT 정보를 이용해 여러분의 게임에 적용할 수 있습니다.
+
+[XPLA Explorer](https://explorer.xpla.io/)에서도 컨트랙트에 Query를 보낼 수 있습니다. XPLA Explorer에서 CW20 토큰 컨트랙트 주소를 검색하고, [Init Msg 탭](https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg)으로 접속해봅시다. 
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-make-cw721/query-cw721/explorer-initmsg.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+이후 우측에 Query 버튼을 눌러보면 Query 메시지를 작성하는 팝업이 생성됩니다. 이를 통해 컨트랙트에 Query를 쉽게 보낼 수 있습니다.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc#InitMsg" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/xpla-academy-dev/img/3-tutorial/2-make-cw721/query-cw721/query.png" />
+</div>
+</BrowserWindow>
+
+<br />
+
+:::danger JSON 형태로 작성해주세요.
+
+주의할 점은 Javascript 코드에서 메시지를 작성할 때와는 달리, 아래와 같이 JSON 형태로 작성해야 합니다. 
+
+```json
+{
+    "tokens" : {
+        "owner" : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk"
+    }
+}
+```
+
+:::
+
+<Details summary="컨트랙트 Query 메시지는 어떤 형식으로 작성해야 하나요?">
+
+[CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L77)에서 CW721 컨트랙트에 어떤 Query를 보낼 수 있는지 살펴볼 수 있습니다. 주의할 점은 QueryMsg에서 메시지 이름이 `Camel Case`로 적혀 있으나, 실제 Query를 보낼 때는 `Snake Case`로 보내야 합니다. parameter 항목은 코드 형식 그대로 입력합니다.
+
+예를 들어 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L77)에서 **NftInfo**(line 126) 메시지를 살펴보겠습니다. 
+
+```rust {7,12}
+pub enum QueryMsg<Q: JsonSchema> {
+    ...
+    /// With MetaData Extension.
+    /// Returns metadata about one particular token, based on *ERC721 Metadata JSON Schema*
+    /// but directly from the contract
+    #[returns(cw721::NftInfoResponse<Q>)]
+    NftInfo { token_id: String },
+```
+
+NftInfo Query를 보낼 때는 `Camel Case`로 적혀 있는 **NftInfo**를 `Snake Case`로 바꾸어 **nft_info**로 입력해야 합니다. parameter 항목은 **{ token_id: String }** 이므로, 정보를 알고 싶은 NFT의 `token_id` 값을 String Type으로 입력하면 됩니다. 따라서 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    nft_info : {
+        token_id : "token_id_myExampleNFT1"
+    }
+}
+```
+
+이를 참고하여 여러분의 컨트랙트에 다양한 Query를 보내보세요.
+ 
+</Details>
+
+<br/>
+
+이렇게 컨트랙트에 Query를 보내는 방법과 Query 메시지를 작성하는 방법에 대해 알아보았습니다. 이제 Preview Code를 분석해보겠습니다. Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-cw721/query-cw721#runjs)을 읽지 않고 바로 [다음 단계](/docs/tutorial/deep-understand-xpla/local-network)로 넘어가셔도 좋습니다.
+
+## Javascript로 NFT 데이터 가져오기 {#runjs}
+
+Javascript 코드로 특정 지갑 주소가 어떤 NFT들을 가지고 있는지를 알아보고, 각 NFT의 정보까지 불러와 봅시다.
+
+### 코드 실행 {#runcode}
+
+1. example-query-cw721.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-query-cw721.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+    chainID: 'cube_47-5',
+    URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    async function main() {
+        const contractAddress = "xpla1wx3rm4qxf7l3tczj20mxz62wpnr74kme3f45tvk3muh78c432ucs2ceuqn";
+        const userAddress = "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk";
+
+        const userNFTsMsg = {
+            tokens : {
+                owner : userAddress
+            }
+        };
+        const userNFTs = await lcd.wasm.contractQuery(contractAddress, userNFTsMsg);
+        console.log(userNFTs);
+
+        const tokenIds = userNFTs.tokens;
+        for (const tokenId of tokenIds) {
+            const nftInfoMsg = {
+                nft_info : {
+                    token_id : tokenId
+                }
+            }
+            const nftInfo = await lcd.wasm.contractQuery(contractAddress, nftInfoMsg);
+            console.log(JSON.stringify(nftInfo, null, 2));
+        }
+    }
+    main()
+    ```
+
+3. 9번째 줄에 여러분이 만든 CW721 컨트랙트 주소를, 10번째 줄에 NFT를 보유하고 있는 지갑 주소로 수정해주세요. 
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-query-cw721.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. 첫번째 Log 값에는 특정 지갑이 가진 NFT 정보들이 나타나고, 두번째 Log 값에는 특정 NFT의 정보를 받아올 수 있었습니다.
+
+## 설명 {#explaination}
+
+먼저 특정 지갑이 어떤 NFT를 가지고 있는지를 알아내기 위해, **userNFTsMsg** 변수에 아래와 같이 Query 메시지를 담아주었습니다. Query 메시지 형식은 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L140)을 참고했습니다.
+
+```js
+const userNFTsMsg = {
+    tokens : {
+        owner : userAddress
+    }
+};
+```
+
+<Details summary="컨트랙트 Query 메시지는 어떤 형식으로 작성해야 하나요?">
+
+[CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L77)에서 CW721 컨트랙트에 어떤 Query를 보낼 수 있는지 살펴볼 수 있습니다. 주의할 점은 QueryMsg에서 메시지 이름이 `Camel Case`로 적혀 있으나, 실제 Query를 보낼 때는 `Snake Case`로 보내야 합니다. parameter 항목은 코드 형식 그대로 입력합니다.
+
+예를 들어 [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L77)에서 **NftInfo**(line 126) 메시지를 살펴보겠습니다. 
+
+```rust {7,12}
+pub enum QueryMsg<Q: JsonSchema> {
+    ...
+    /// With MetaData Extension.
+    /// Returns metadata about one particular token, based on *ERC721 Metadata JSON Schema*
+    /// but directly from the contract
+    #[returns(cw721::NftInfoResponse<Q>)]
+    NftInfo { token_id: String },
+```
+
+NftInfo Query를 보낼 때는 `Camel Case`로 적혀 있는 **NftInfo**를 `Snake Case`로 바꾸어 **nft_info**로 입력해야 합니다. parameter 항목은 **{ token_id: String }** 이므로, 정보를 알고 싶은 NFT의 `token_id` 값을 String Type으로 입력하면 됩니다. 따라서 최종 Query 메시지 형태는 다음과 같습니다.
+
+```js
+{
+    nft_info : {
+        token_id : "token_id_myExampleNFT1"
+    }
+}
+```
+
+이를 참고하여 여러분의 컨트랙트에 다양한 Query를 보내보세요.
+ 
+</Details>
+
+<br/>
+
+LCDClient의 `contractQuery` 함수를 이용하여 컨트랙트에 Query를 보냅니다. 입력한 Query 메시지에 맞게, 컨트랙트에게 데이터를 받을 수 있습니다. 
+
+```js
+const userNFTs = await lcd.wasm.contractQuery(contractAddress, userNFTsMsg);
+console.log(userNFTs);
+```
+
+<br />
+
+**userNFTs.tokens** 변수에는 유저가 가진 NFT의 `token_id` 값들이 배열로 담겨 있습니다. 각 NFT의 `token_id` 값을 **nftInfoMsg** 변수에 담아 아래와 같이 Query 메시지를 작성하였습니다.
+
+```js {1,5}
+const tokenIds = userNFTs.tokens;
+for (const tokenId of tokenIds) {
+    const nftInfoMsg = {
+        nft_info : {
+            token_id : tokenId
+        }
+    }
+...
+```
+
+<br />
+
+마찬가지로 LCDClient의 `contractQuery` 함수를 이용하여 컨트랙트에 Query를 보냅니다. 입력한 Query 메시지에 맞게, 컨트랙트에게 데이터를 받을 수 있습니다. 
+
+```js
+const nftInfo = await lcd.wasm.contractQuery(contractAddress, nftInfoMsg);
+console.log(JSON.stringify(nftInfo, null, 2));
+```
+
+## 마무리
+
+지금까지 CW721 컨트랙트에 Query를 보내는 과정을 살펴보았습니다. [CW721 Github](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs)을 참고하면 CW721 컨트랙트에 어떤 Query를 보낼 수 있는지 더 자세히 살펴볼 수 있습니다. 여러분의 게임에 맞게 컨트랙트에서 CW721 데이터를 가져오고, 유저들이 게임을 더 즐길 수 있게 만들어봅시다.

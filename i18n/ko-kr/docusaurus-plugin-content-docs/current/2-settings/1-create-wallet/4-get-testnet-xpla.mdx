@@ -1,0 +1,52 @@
+---
+sidebar_position: 2
+---
+
+# 테스트넷 XPLA 코인 받기
+
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+XPLA 블록체인에서 송금도 하고 컨트랙트도 만들려면, XPLA 코인으로 수수료를 지불해야 합니다. 그러나 개발이나 테스트를 위해 매번 수수료를 내기에는 비용 부담이 큽니다.
+
+위와 같은 이유로 테스트넷이 존재합니다. 테스트넷에선 누구나 무료로 XPLA 코인을 받아서 사용해볼 수 있습니다. 바로 시작해봅시다.
+
+:::caution
+
+테스트넷은 XPLA 블록체인의 발전을 위한 테스트 환경입니다. 테스트넷의 XPLA 코인은 실제 가치가 없답니다. 따라서 상용화를 목적으로 테스트넷을 이용하는 것은 바람직하지 않습니다. 테스트 환경이므로 블록체인의 여러 조건이 바뀔 수도 있고, 심지어 없어질 수도 있기 때문입니다. 가령 이더리움의 Ropsten 테스트넷처럼 말이죠.
+
+:::
+
+:::tip
+
+메인넷과 테스트넷은 이름(chainID)도 다릅니다! 메인넷의 chainID는 `dimension_37-1`이며, 테스트넷의 chainID는 `cube_47-5`입니다. 몇몇 분들은 [이전 단계](/docs/settings/create-wallet/create-wallet-with-js#runjs)에서 이미 눈치채셨을 수도 있겠습니다.
+
+:::
+
+## Faucet에서 XPLA 코인 받기
+
+테스트넷 XPLA 코인을 받는 곳을 Faucet이라고 부릅니다. 다음과 같은 절차로 XPLA 코인을 받을 수 있습니다.
+
+1. [Faucet 사이트](https://faucet.xpla.io/)에 접속합니다.
+
+2. Faucet에 여러분의 지갑 주소를 입력하고 `Send me tokens` 버튼을 눌러주세요. 튜토리얼에서는 테스트 지갑 `xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8`을 이용하겠습니다.
+
+<BrowserWindow url="https://faucet.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '29px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/faucet-example.png" />
+</div>
+</BrowserWindow>
+
+3. Vault를 확인해보면 100 XPLA가 생겼다는 것을 확인할 수 있습니다. 만약 100 XPLA가 없다면, 우측 상단 톱니바퀴 아이콘을 눌러 네트워크를 testnet으로 바꿔보세요.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/xpla-academy-dev/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/xpla-academy-dev/img/2-settings/1-create-wallet/get-token.png" />
+</div>
+</BrowserWindow>
+
+테스트넷 토큰을 잘 받으셨나요? [다음 단계](/docs/settings/create-testnet-transaction/send-tx)에선 받은 XPLA를 이용하여 블록체인에 데이터를 남겨보겠습니다.
