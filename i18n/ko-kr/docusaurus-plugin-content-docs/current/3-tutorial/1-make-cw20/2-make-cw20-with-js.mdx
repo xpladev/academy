@@ -1,0 +1,459 @@
+---
+sidebar_position: 3
+---
+
+# 토큰(CW20) 발행 및 전송하기 (Javascript)
+
+import Details from '@theme/Details';
+import Ex04 from "@site/src/components/Sandpack/Ex04-make-cw20";
+import Ex05 from "@site/src/components/Sandpack/Ex05-send-cw20";
+
+CW20을 이용하면 게임 생태계와 XPLA 블록체인을 더 쉽게 연결할 수 있습니다. 이번에는 직접 코드를 작성하여 토큰을 발행해봅시다.
+
+<Details summary="CW20이란 무엇인가요?">
+
+XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합니다. 이더리움의 ERC20처럼, **CW20**은 `Cosmwasm`에서 대체 가능한 토큰(Fungible tokens)에 대한 표준입니다. 더 자세히 알고 싶다면 [공식 문서](https://docs.rs/crate/cw20/0.2.3)를 참고해보세요.
+
+</Details>
+
+## Preview {#preview}
+
+먼저 Javascript로 CW20 컨트랙트를 생성하는 코드는 아래와 같습니다. 여러분의 니모닉 단어를 넣어 코드를 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex04 />
+
+<br/>
+
+컨트랙트를 잘 생성하셨나요? 그럼 CW20이 발행된 것입니다! 이제 발행한 CW20을 다른 지갑 주소로 전송해봅시다. 
+
+마찬가지로 아래 코드에 여러분의 니모닉 단어를 넣어주세요. 이후 `cw20_contract` 변수에 앞서 생성한 컨트랙트 주소를 대입해주세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Details summary="생성한 컨트랙트의 주소는 어디서 확인하나요?">
+
+가장 쉬운 방법은 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색해봅시다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/4BC262846BFA9F845480EF1447503B3F1927CCD4E08DFB82BA91C952BAC1825E#EventLogs)에서 확인할 수 있었습니다.
+
+</Details>
+
+<Ex05 />
+
+<br/>
+
+Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20)을 읽지 않고 바로 [다음 단계](/docs/tutorial/make-cw20/query-cw20)로 넘어가셔도 좋습니다.
+
+## Javascript로 CW20 발행하기 {#make-cw20}
+
+CW20 컨트랙트를 생성하여 CW20 토큰을 발행해봅시다. CW20 컨트랙트의 Code ID는 메인넷과 테스트넷 모두 `1`입니다.
+
+<Details summary="Code ID란 무엇인가요?">
+
+EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생성이 한번에 이뤄지지 않습니다. 먼저 작성한 컨트랙트 코드를 블록체인에 배포(StoreCode)하면 해당 코드의 `Code ID`를 발급 받습니다. 이후 `Code ID`를 기반으로 컨트랙트를 생성(InstantiateContract)할 수 있습니다.
+
+똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id)를 참고해보세요.
+
+</Details>
+
+### 코드 실행 {#make-cw20-runcode}
+
+1. example-4.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-4.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient, MnemonicKey, MsgInstantiateContract, Fee, SignMode } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+        })
+
+        const wallet = lcd.wallet(mk);
+        const myWalletAddress = wallet.key.accAddress;
+
+        const init_msg = {
+            name: "My CW20 Token", // My Cw20 Token
+            symbol: "MCT", // My Cw20 Token
+            decimals: 6,
+            initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
+            mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+                minter: myWalletAddress
+            }
+        };
+
+        const instantiate = new MsgInstantiateContract(
+            myWalletAddress, // sender
+            myWalletAddress, // admin
+            1, // MAINNET, TESTNET CW20 code id
+            init_msg,
+            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
+            'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+        );
+
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+            msgs: [instantiate]
+        });
+
+        // createAndSignTx 함수를 분리하여 직접 작성하면 아래와 같습니다.
+        // const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+        // const acc = accInfo;
+        
+        // const userSignOption = { // 서명 정보 
+        // 	chainID: 'cube_47-5',
+        // 	accountNumber: acc.account_number,
+        // 	sequence: acc.sequence,
+        // 	signMode: SignMode.SIGN_MODE_DIRECT
+        // }
+        
+        // const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+        
+        // const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+        
+        // const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+
+        const txResult = await lcd.tx.broadcastSync(signedTx);
+        console.log(txResult.txhash);
+    }
+    main()
+    ```
+
+3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-4.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. CW20 컨트랙트가 생성되고, 생성 트랜잭션의 해시값을 확인할 수 있을 것입니다.
+
+### 설명 {#make-cw20-explaination}
+
+우리는 CW20에 관한 컨트랙트 코드를 작성하지 않았습니다. 코드는 이미 XPLA 블록체인에 배포되었고, 단지 배포된 코드로 컨트랙트를 생성했을 뿐입니다. 컨트랙트 코드를 작성하는 방법은 나중 단계에서 알아볼 예정입니다.
+
+먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+})
+
+const wallet = lcd.wallet(mk);
+const myWalletAddress = wallet.key.accAddress;
+```
+
+<br/>
+
+CW20 컨트랙트 생성을 위해 초깃값을 미리 지정해줬습니다. 아래 값들은 수정하셔서, 여러분만의 토큰을 만들어 보시는 것도 좋습니다.
+
+```js
+const init_msg = {
+    name: "My CW20 Token", // My Cw20 Token
+    symbol: "MCT", // My Cw20 Token
+    decimals: 6,
+    initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
+    mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+        minter: myWalletAddress
+    }
+};
+```
+
+:::info
+
+토큰의 `decimals`는 발행할 때 마음대로 설정해도 상관없습니다. 예제 초깃값에서는 `decimals` 항목을 **6**으로 지정했습니다. 참고로 **XPLA**는 `decimals`는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
+
+:::
+
+<br/>
+
+누가 컨트랙트를 생성하는지(sender), 컨트랙트의 주인은 누구인지(admin), Code ID, 초깃값, 라벨 등을 입력하여 컨트랙트 생성을 준비합니다.
+
+```js
+const instantiate = new MsgInstantiateContract(
+    myWalletAddress, // sender
+    myWalletAddress, // admin
+    1, // MAINNET, TESTNET CW20 code id
+    init_msg,
+    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
+    'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+);
+```
+
+<br/>
+
+`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
+
+```js
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+    msgs: [instantiate]
+});
+```
+
+:::info
+
+`createAndSignTx` 함수는 트랜잭션을 생성하고, 수수료 금액을 자동으로 설정해주고, 서명도 진행합니다. `createAndSignTx` 함수의 역할을 분리하여, 아래와 같이 트랜잭션 생성, 수수료 설정, 서명 진행 모두 따로 진행할 수도 있습니다. 예제 코드에서 주석으로 처리된 부분입니다.
+
+```js
+const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+const acc = accInfo;
+
+const userSignOption = { // 서명 정보 
+    chainID: 'cube_47-5',
+    accountNumber: acc.account_number,
+    sequence: acc.sequence, 
+    signMode: SignMode.SIGN_MODE_DIRECT
+}
+
+const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+
+const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+
+const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+```
+
+:::
+
+<br/>
+
+`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신합니다. 트랜잭션이 XPLA 블록체인에 잘 생성되었다면, 트랜잭션 해시값을 결과로 확인할 수 있을 것입니다.
+
+```js
+const txResult = await lcd.tx.broadcastSync(signedTx);
+console.log(txResult.txhash);
+```
+
+<br/>
+
+생성한 트랜잭션 정보를 아래 코드로 확인해보세요.
+
+1. query-tx.js 파일을 생성합니다.
+
+2. 아래 코드를 복사합니다. `ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353` 대신 위에서 생성한 트랜잭션 해시값을 넣어주세요.
+
+```js
+const { LCDClient } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+async function main() {
+	const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+	console.log(JSON.stringify(txInfo, null, 2));
+}
+main()
+```
+
+3. Terminal에서 아래 명령어를 실행합니다.
+
+```bash
+node query-tx.js
+```
+
+4. 트랜잭션 정보를 확인합니다.
+
+<br />
+
+혹은 [XPLA Explorer](https://explorer.xpla.io/)를 이용하여 트랜잭션 데이터를 확인하는 것도 좋은 방법입니다.
+
+지금까지 CW20 토큰을 발행해보았습니다. 토큰을 이용하면 게임 생태계를 더욱 알차게 구성할 수 있겠습니다. 이제 유저들에게 토큰을 나눠주어야겠죠. 유저가 토큰을 획득할 있게, CW20 토큰 전송을 알아보겠습니다.
+
+
+## 발행한 CW20 전송하기 {#send-cw20}
+
+앞서 발행한 CW20 토큰을 전송해봅시다. 토큰 전송은 CW20 컨트랙트의 `transfer` 함수를 실행(**Execute**)하여 이뤄집니다. 예제로 사용할 MCT 토큰의 컨트랙트 주소는 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc` 이고, `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소에게 전송할 것입니다. 
+
+### 코드 실행 {#send-cw20-runcode}
+
+1. example-5.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-5.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+        mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+        })
+
+        const wallet = lcd.wallet(mk);
+        const myWalletAddress = wallet.key.accAddress;
+        
+        const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+
+        const transferMsg = new MsgExecuteContract(
+            myWalletAddress,
+            cw20_contract,
+            {
+                transfer: {
+                    recipient : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
+                    amount: "100000"
+                }
+            }
+        );
+        
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+            msgs: [transferMsg]
+        });
+
+        // const accInfo = await lcd.auth.accountInfo(myWalletAddress)
+        // const acc = accInfo;
+        
+        // // 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+        // const tx_api = new TxAPI(lcd)
+        // const simul_fee = await tx_api.estimateFee(
+        // 	[{
+        //     sequenceNumber: acc.sequence,
+        //     publicKey: mk.publicKey
+        // }],
+        // 	{
+        // 		msgs: [transferMsg],
+        // 		gasAdjustment: 1.25,			
+        // 	}
+        // )
+            
+        // const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+        
+        // const signedTx = await wallet.createAndSignTx({
+        //   msgs: [transferMsg], fee
+        // });
+
+        const txResult = await lcd.tx.broadcastSync(signedTx);
+        console.log(txResult.txhash);
+    }
+
+    main()
+    ```
+
+3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요. 
+
+  여러분이 [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20)에서 생성한 컨트랙트 주소를 16번째 줄의 `cw20_contract` 변수에 대입해주세요. 예제에서 `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`를 여러분의 컨트랙트 주소로 대체하시면 됩니다.
+
+  <Details summary="생성한 컨트랙트의 주소는 어디서 확인하나요?">
+
+  가장 쉬운 방법은 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색해봅시다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/4BC262846BFA9F845480EF1447503B3F1927CCD4E08DFB82BA91C952BAC1825E#EventLogs)에서 확인할 수 있었습니다.
+
+  </Details>
+
+  마지막으로 CW20 토큰을 받게 될 지갑 주소를 23번째 줄의 `recipient` 항목에 작성해주세요. 예제의 `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk` 주소 대신에, CW20을 받게 될 여러분의 지갑 주소로 적으시면 됩니다.
+
+  :::tip
+  
+  토큰을 받게 될 지갑이 없으신가요? Vault를 이용해 지갑을 하나 더 만들어 사용하시거나, 아니면 보내는 지갑 주소를 그대로 받는 지갑 주소에 적어도 됩니다. 자기 자신에게 토큰을 전송하는 것이죠.
+    
+  :::
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-5.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. CW20 토큰이 전송되고, 트랜잭션의 해시값을 확인할 수 있을 것입니다.
+
+### 설명 {#send-cw20-explaination}
+
+CW20 전송은 XPLA 전송과는 방식이 다릅니다. XPLA 코인 전송은 `MsgSend` 메소드를 이용했습니다. 그러나 CW20 토큰 전송은 CW20 컨트랙트의 `transfer` 함수를 실행(**Execute**)하여 이뤄지기 때문에, `MsgExecuteContract` 메소드를 이용합니다.
+
+먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+})
+
+const wallet = lcd.wallet(mk);
+const myWalletAddress = wallet.key.accAddress;
+```
+
+<br/>
+
+먼저 토큰의 컨트랙트 주소를 지정해주었습니다. 여러분들도 직접 만든 토큰의 컨트랙트 주소를 대입하셨을 것입니다.
+
+이후 누구에게 보낼 건지, CW20을 얼마만큼 보낼지도 지정하였습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
+
+```js
+const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+
+const transferMsg = new MsgExecuteContract(
+    myWalletAddress,
+    cw20_contract,
+    {
+        transfer: {
+            recipient : "xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk",
+            amount: "100000"
+        }
+    }
+);
+```
+
+<br/>
+
+`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
+
+```js
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+    msgs: [transferMsg]
+});
+```
+
+:::info
+
+`createAndSignTx` 함수는 트랜잭션을 생성하고, 수수료 금액을 자동으로 설정해주고, 서명도 진행합니다. [Javascript로 CW20 발행하기 단계](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination)에서 이를 각각 분리한 코드도 함께 보여드렸습니다.
+
+이번엔 트랜잭션 수수료를 추정해주는 `estimateFee` 함수를 이용해서 트랜잭션을 만드는 코드를 살펴보겠습니다. 마찬가지로 `createAndSignTx` 함수 대신 아래 코드로 대체하여 실행해보세요.
+
+```js
+const accInfo = await lcd.auth.accountInfo(myWalletAddress)
+const acc = accInfo;
+
+// 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+const tx_api = new TxAPI(lcd)
+const simul_fee = await tx_api.estimateFee(
+    [{
+    sequenceNumber: acc.sequence,
+    publicKey: mk.publicKey
+}],
+    {
+        msgs: [transferMsg],
+        gasAdjustment: 1.25,			
+    }
+)
+    
+const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+
+const signedTx = await wallet.createAndSignTx({
+    msgs: [transferMsg], fee
+});
+```
+
+`createAndSignTx` 함수에서 수수료 금액을 자동으로 설정해주었듯이, 이번에는 `estimateFee` 함수를 이용하여 수수료 금액을 설정해보았습니다. 예제에서 사용한 모든 모듈은 `@xpla/xpla.js` 패키지에 포함되어 있습니다.
+
+:::
+
+<br/>
+
+`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신합니다. 트랜잭션이 XPLA 블록체인에 잘 생성되었다면, 트랜잭션 해시값을 결과로 확인할 수 있을 것입니다.
+
+```js
+const txResult = await lcd.tx.broadcastSync(signedTx);
+console.log(txResult.txhash);
+```
+
+<br />
+
+트랜잭션 해시값이 잘 나왔나요? [XPLA Explorer](https://explorer.xpla.io/)를 이용하여 트랜잭션 데이터를 확인해보세요.
+
+## 마무리 {#conclusion}
+
+이렇게 CW20 토큰 전송까지 알아보았습니다. 이제 여러분의 게임에 CW20 토큰을 이용하여 XPLA 블록체인과 연결해보세요!

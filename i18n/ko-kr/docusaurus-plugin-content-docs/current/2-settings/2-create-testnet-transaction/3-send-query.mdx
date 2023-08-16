@@ -1,0 +1,92 @@
+---
+sidebar_position: 3
+---
+
+# 트랜잭션 확인하기 (Javascript)
+
+import Details from '@theme/Details';
+import Ex03 from "@site/src/components/Sandpack/Ex03-query-tx";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+이번 단계에서는 코드를 작성하여 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 만든 트랜잭션 데이터를 직접 가져와봅시다.
+
+## Preview {#preview}
+
+Javascript로 데이터를 가져오는 코드는 아래와 같습니다. 9번째 줄에 여러분이 만든 트랜잭션의 해시값을 입력하고, 12번째 줄에는 여러분 지갑의 주소를 입력하여 코드를 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+
+<Ex03 />
+
+<br/>
+
+Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testnet-transaction/send-query#runjs)을 읽지 않고 바로 [다음 단계](/docs/settings/create-testnet-transaction/use-xplad)로 넘어가셔도 좋습니다.
+
+## Javascript로 트랜잭션 데이터 가져오기 {#runjs}
+
+Javascript 코드로 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 만든 트랜잭션 데이터를 가져와봅시다.
+
+### 코드 실행 {#runcode}
+
+1. example-3.js 파일을 생성해주세요.
+
+2. 아래 코드를 복사하여 example-3.js 파일에 붙여넣고 저장합니다.
+
+    ```js
+    const { LCDClient } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    async function main() {
+        const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+        console.log(JSON.stringify(txInfo, null, 2));
+
+        const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+        console.log(JSON.stringify(balance, null, 2));
+    }
+    main()
+    ```
+
+3. 9번째 줄의 `ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353` 대신 여러분이 만든 트랜잭션의 해시값을 입력해주세요. 또한, 12번째 줄에는 `xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8` 대신 여러분 지갑의 주소를 입력해주세요.
+
+4. VSCode Terminal에서 아래 명령어를 입력합니다.
+
+  ```bash
+  node example-3.js
+  ```
+
+5. Terminal에서 결과를 확인합니다. 트랜잭션 데이터와 여러분의 지갑 정보를 확인할 수 있습니다.
+
+## 설명 {#explaination}
+
+LCDClient의 `txInfo` 함수를 이용하여 입력한 해시값에 해당하는 트랜잭션 데이터를 받아옵니다. 실행 결과를 살펴보시면 트랜잭션이 생성된 블록의 높이(Height), 트랜잭션 해시값(txhash), 트랜잭션 생성 시각(timestamp) 등이 있습니다. 결과값을 통해 여러분이 필요한 정보만 이용하시면 되겠습니다.
+
+```js
+const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+console.log(JSON.stringify(txInfo, null, 2));
+```
+
+<br/>
+
+LCDClient의 `balance` 함수를 이용하여 입력한 주소의 잔액을 받아옵니다. 기존 Faucet에서 100 XPLA를 받았으나, 전송 트랜잭션을 생성하여 100 XPLA보다 낮은 금액을 보유하고 계실 겁니다. amount 항목이 제대로 나오는지 확인해봅시다.
+
+```js
+const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+console.log(JSON.stringify(balance, null, 2));
+```
+
+:::info
+
+잔액에 너무 큰 숫자가 기록되어 있으신가요? 그것은 잔액이 `axpla` 단위로 표시되어 있기 때문입니다. 10<sup>18</sup> `aXPLA`는 1 `XPLA`인 것을 기억해주십시오.
+
+Preview Code의 결과를 참고하여 여러분의 결과와 비교해보세요.
+
+:::
+
+## 마무리
+
+코드로 얻은 결과는 모두 [XPLA Explorer](https://explorer.xpla.io/)에서도 확인할 수 있습니다. 이제 코드를 이용하여 더 다양한 작업을 수행하실 수 있을 것입니다.
+
+이로써 XPLA 블록체인에 트랜잭션을 생성하고, 데이터를 가져오실 수 있게 되었습니다! [다음 단계](/docs/settings/create-testnet-transaction/use-xplad)에서 더 깊이 공부해봅시다.
