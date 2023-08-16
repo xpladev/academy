@@ -172,9 +172,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
 :::info
 
-예제처럼 초깃값을 설정하면, 발행한 CW20 토큰의 기본 단위는 **MCT**입니다. 그런데 때로는 더 작은 단위가 필요할 수도 있습니다. CW20의 최소 단위는 기본 단위에 접두사로 **u**를 추가합니다. 예제 컨트랙트는 **uMCT**가 되겠군요.
-
-예제 초깃값에서 `decimals` 항목을 **6**으로 지정했기 때문에 10<sup>6</sup> **uMCT** = 1 **MCT** 가 됩니다. 참고로 **XPLA**는 decimals는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
+토큰의 `decimals`는 발행할 때 마음대로 설정해도 상관없습니다. 예제 초깃값에서는 `decimals` 항목을 **6**으로 지정했습니다. 참고로 **XPLA**는 `decimals`는 **18**이므로, 10<sup>18</sup> **aXPLA** = 1 **XPLA** 였습니다. 
 
 :::
 
@@ -292,7 +290,7 @@ Chrome Extension 앱 Vault에서 `Add tokens`를 클릭해주세요.
 
 <Details summary="initial_balances에서 amount값이 2,000,000,000,000,000개인데 왜 2,000,000,000개 밖에 들어 있지 않나요?">
 
-initial_balances에서 amount값의 단위가 uMCT였기 때문입니다. decimals를 **6**으로 지정했기 때문에 uMCT 2,000,000,000,000,000개는 MCT 2,000,000,000개와 동일한 값입니다. 즉, 정상적으로 발행되었습니다.
+initial_balances에서 amount값을 입력할 때는 `decimals` 항목을 고려해야 합니다. MCT 토큰의 `decimals` 값을 **6**으로 지정했기 때문에, 2,000,000,000 * 10<sup>6</sup> 으로 입력하였습니다. 따라서 정상적으로 2,000,000,000개가 발행된 것이 맞습니다.
 
 </Details>
 
