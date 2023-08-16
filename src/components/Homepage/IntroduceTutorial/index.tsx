@@ -19,30 +19,6 @@ interface SliderItemType {
 export default function IntroduceTutorial(): JSX.Element {
   const ref = useRef(null);
   const sliderRef = useRef();
-  const [slideIndex, setSlideIndex] = useState(0);
-  
-  // useEffect(() => {
-  //   if (!ref.current || !sliderRef) return;
-  //   window.addEventListener("mousewheel", e => {
-  //     const domPos = ref.current.getBoundingClientRect();
-  //     if (slideIndex < 2 && domPos.top < 0 && domPos.top > -833) {
-  //       e.preventDefault();
-  //       // if ( e.deltaY > 0 ) {
-  //       //   sliderRef.current.slickNext();
-  //       // } else {
-  //       //   sliderRef.current.slickPrev();
-  //       // }
-  //     }
-
-  //   });
-  //   // window.addEventListener("scroll", () => {
-  //   //   const domPos = ref.current.getBoundingClientRect();
-  //   //   if (domPos.top < 0 && domPos.top > -833) {
-  //   //     sliderRef.current.slickNext();
-  //   //   }
-  //   // });
-  // }, [ref, sliderRef]);
-
     
   const items: SliderItemType[] = [
     {
@@ -160,13 +136,12 @@ export default function IntroduceTutorial(): JSX.Element {
   const settings = {
     dots: true,
     autoplay : true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     arrows: false,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    beforeChange: (current, next) => setSlideIndex(next)
   };
   return (
     <section className="h-[833px]" ref={ref}>
