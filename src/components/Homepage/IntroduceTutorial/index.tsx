@@ -38,7 +38,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/category/게임-토큰cw20-다루기",
+          link: "/docs/category/토큰cw20-다루기",
           description: (
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your Creation!<br/>
