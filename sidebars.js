@@ -25,10 +25,10 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '지갑 생성하기',
+      label: `Let's get your Wallet ready!`,
       link: {
         type: 'generated-index',
-        title: '지갑 생성하기',
+        title: `Let's get your Wallet ready!`,
         // description: '블록체인에서 토큰을 보관하고, 전송하려면 무엇이 필요할까요? 바로 지갑입니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다.'
         description: '일상에서 현금을 보관하기 위해 지갑을 사용하는 것처럼, 블록체인에서도 토큰을 보관하기 위해 지갑이 필요합니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다.'
       },
@@ -36,10 +36,10 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '트랜잭션 생성하기',
+      label: 'Time to Make Transactions!',
       link: {
         type: 'generated-index',
-        title: '트랜잭션 생성하기',
+        title: 'Time to Make Transactions!',
         description: 'XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다.'
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
@@ -58,30 +58,30 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '토큰(CW20) 다루기',
+      label: 'Utilize Tokens (CW20)',
       link: {
         type: 'generated-index',
-        title: '토큰(CW20) 다루기',
+        title: 'Utilize Tokens (CW20)',
         // description: ''
       },
       items: ['tutorial/make-cw20/make-cw20-with-vault', 'tutorial/make-cw20/make-cw20-with-js', 'tutorial/make-cw20/query-cw20'],
     },
     {
       type: 'category',
-      label: 'NFT(CW721) 다루기',
+      label: 'Utilize NFT(CW721)',
       link: {
         type: 'generated-index',
-        title: 'NFT(CW721) 다루기',
+        title: 'Utilize NFT(CW721)',
         // description: ''
       },
       items: ['tutorial/make-cw721/make-nft-vault', 'tutorial/make-cw721/make-nft-js', 'tutorial/make-cw721/query-cw721'],
     },
     {
       type: 'category',
-      label: '심화 - XPLA 블록체인 깊게 이해하기',
+      label: 'Advenced - Dive deep into XPLA blockchain',
       link: {
         type: 'generated-index',
-        title: '심화 - XPLA 블록체인 깊게 이해하기',
+        title: 'Advenced - Dive deep into XPLA blockchain',
         // description: ''
       },
       items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract'],
