@@ -2,195 +2,38 @@
 sidebar_position: 2
 ---
 
-# 지갑 만들기 (Javascript)
+# Creating a Wallet (Javascript)
 
 import Ex01 from "@site/src/components/Sandpack/Ex01-make-wallet";
 import Ex01_react from "@site/src/components/Sandpack/Ex01-react-make-wallet";
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-여러분이 개발자라면, 코드를 통해 지갑을 생성하고 싶을 것입니다. 개발자가 아니더라도 상관없습니다. 개발 환경만 갖추면 10줄짜리 코드로 쉽게 지갑을 생성할 수 있습니다.
+If you're a developer, you might be itching to create a wallet through code. Now is the time!!
+
+Oh! No worries if you are not a developer - having the right setup allows you to easily create a wallet with just 10 lines of code.
 
 ## Preview {#preview}
 
-Javascript로 지갑을 만드는 코드는 아래와 같습니다. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+Below are the codes for creating a wallet using JavaScript. On the right side, you'll see the results of the execution.
 
 <Ex01 />
 
 <br/>
 
+You can generate new mnemonic words using `new MnemonicKey()` from the [@xpla/xpla.js](https://www.npmjs.com/package/@xpla/xpla.js) module. Then, you can extract the wallet's address using the LCDClient.
 
-[@xpla/xpla.js](https://www.npmjs.com/package/@xpla/xpla.js) 모듈에서 `new MnemonicKey()`로 새 니모닉 단어들을 만들 수 있습니다. 이후 LCDClient를 이용하여 지갑의 주소를 추출해낼 수 있습니다. 
-
-Preview Code를 이해하셨다면, [환경설정 이후 부분](/docs/settings/create-wallet/create-wallet-with-js#setting)을 읽지 않고 바로 [다음 단계](/docs/settings/create-wallet/get-testnet-xpla)로 넘어가셔도 좋습니다.
+If you've understood the Preview Code, feel free to skip the [post-Setup section](/docs/settings/create-wallet/create-wallet-with-js#setting) and move on to the [next steps](/docs/settings/create-wallet/get-testnet-xpla).
 
 import Details from '@theme/Details';
 
-<Details summary={"React로 지갑 생성하기"} style={{backgroundColor : 'white'}}>
+<Details summary={"Creating a Wallet Using React"} style={{backgroundColor : 'white'}}>
 <Ex01_react />
 </Details>
 
 :::tip
 
-코드로 만든 니모닉으로 Vault에서 지갑을 불러올 수 있습니다. Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
-
-<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
-<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
-    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17px', width : '100%', top : 0, zIndex : 0}} />
-    <div style={{position : 'absolute', backgroundColor : '#031435', height : '60px', width : '100%', top : 17, zIndex : 0}} />
-    <VaultImgCard style={{zIndex : 1}} imgSrc="/academy/img/2-settings/1-create-wallet/create-wallet-with-js/recover-wallet.png" />
-</div>
-</BrowserWindow>
-
-Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index는 Vault에서 몇번째 순서로 표시할 지갑인지 정합니다. 
-
-:::
-
-:::caution
-
-코드로 만든 지갑을 XPLA 네트워크에서 안전하게 사용하려면, 니모닉 단어들을 잘 보관해야 합니다. 절대 타인에게 알려주면 안됩니다.
-
-:::
-
-<Details summary={'LCDClient란 무엇인가요?'}>
-LCDClient는 XPLA 블록체인 내 데이터를 가져오는 도구입니다. 더 자세히 알고 싶으시다면 <a target="_blank" href="https://docs.xpla.io/docs/develop/guides/start-the-light-client-daemon/" >Docs</a>를 참고해보세요.
-
-지금 이것에 대해 명확하게 이해하지 않으셔도 괜찮습니다. 코드로 지갑을 생성할 수 있다는 것만 알아두시면 됩니다. 
-</Details>
-
-
-
-## 환경설정 {#setting}
-
-[Preview](/docs/settings/create-wallet/create-wallet-with-js#preview)에서 보여드린 코드를 실행할 수 있는 환경 설정에 대해 알아봅시다.
-
-1. [Node.js 설치](/docs/settings/create-wallet/create-wallet-with-js#installnodejs)
-
-2. [Visual Studio Code 설치](/docs/settings/create-wallet/create-wallet-with-js#installvscode)
-
-### 1. Node.js 설치 {#installnodejs}
-
-여러분의 운영체제에 맞는 [Node.js](https://nodejs.org/en/download/)를 설치하세요.
-
-Node.js가 잘 설치되었는지 확인하기 위해, Terminal을 열어 `node -v`를 입력해봅시다.
-
-```bash
-node -v
-```
-
-설치한 Node.js의 버전이 출력되면 설치가 완료된 것입니다. 예를 들어 `v16.16.0`이라고 출력되면 됩니다.
-
-<details>
-  <summary>Terminal이란 무엇인가요?</summary>
-컴퓨터 시스템을 제어하기 위한 도구입니다. 개발에 익숙하지 않으신 분들은 어떻게 터미널에 접근하는지 모르실 수 있습니다. 운영체제에 따라 다음과 같은 방식으로 터미널에 접근할 수 있습니다.
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs groupId="operating-systems">
-  <TabItem value="win" label="Windows">
-    윈도우 실행창 (Win + R)에서 cmd를 입력합니다.
-  </TabItem>
-  <TabItem value="mac" label="macOS">
-    <a href="https://support.apple.com/ko-kr/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac" target="_blank">
-    Apple 공식 사이트
-    </a>
-    를 참고해보세요.
-  </TabItem>
-</Tabs>
-</details>
-
-### 2. Visual Studio Code 설치 {#installvscode}
-
-Code 파일을 쉽게 편집하기 위해 Visual Studio Code를 이용하겠습니다. [Visual Studio Code](https://code.visualstudio.com/download)를 설치해주세요.
-
-## Javascript 코드 실행하기 {#runjs}
-
-이제 Preview에서 살펴본 코드를 직접 실행해봅시다.
-
-1. [실행 환경 구성](/docs/settings/create-wallet/create-wallet-with-js#requirements)
-
-2. [코드 실행](/docs/settings/create-wallet/create-wallet-with-js#runcode)
-
-### 실행 환경 구성 {#requirements}
-
-  1. 예제 코드 파일을 위한 폴더를 만들어주세요. 폴더 이름은 xpla-academy-example으로 부탁드립니다.
-
-  2. 설치한 Visual Studio Code를 실행합니다.
-
-  3. Visual Studio Code에서 File - Open Folder 를 통해 xpla-academy-example 폴더를 열어줍니다.
-
-  4. 왼쪽 Explorer 창에서 폴더 이름 옆 아이콘(New file)을 클릭하여 `example-1.js` 파일을 생성합니다.
-  <img src="/academy/img/2-settings/1-create-wallet/vscode-newfile.png"  width="400" height="200" />
-
-  5. 아래 코드를 복사하여 example-1.js 파일에 붙여넣고, 저장합니다.
-
-  ```js
-  const { MnemonicKey, LCDClient } = require("@xpla/xpla.js");
-
-  const newKey = new MnemonicKey();
-  console.log("mnemonic: " + newKey.mnemonic);
-
-  const lcd = new LCDClient({
-    chainID : 'cube_47-5', // xpla testnet network의 이름
-    URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
-  });
-  console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
-  ```
-
-### 코드 실행 {#runcode}
-
-  1. VSCode 상단 Terminal - New Terminal를 클릭하여 Terminal을 엽니다. 
-
-  2. 아래 명령어를 Terminal에 입력합니다.
-
-  ```bash
-  npm install @xpla/xpla.js
-  node example-1.js
-  ```
-
-  3. Terminal에서 결과를 확인합니다. 니모닉 단어들과 주소를 확인할 수 있을 것입니다.
-
-  :::tip
-
-  만약 여러분의 운영체제가 Windows라면 VS Code Terminal을 Powershell이 아닌, Command Prompt나 Git Bash로 실행하는 것을 권장합니다. 물론 여러분이 익숙하신 환경에서 Terminal을 열어도 좋습니다.
-
-  VS Code Default Terminal을 Command Prompt로 설정하는 방법은 다음과 같습니다.
-
-  <></>1. `Ctrl + shift + P` 로 명령어 팔레트(Command Palette)를 엽니다.
-  <br />
-  <></>2. Terminal: Select Default Profile을 검색합니다.
-  <br />
-  <></>3. Command Prompt를 설정하고, VS Code를 다시 실행합니다.
-
-  :::
- 
-## 설명 {#explanation}
-
-축하드립니다. 여러분의 지갑을 코드로 만드셨습니다!
-
-여러분은 아래 코드 중 `MnemonicKey()` 함수로 임의의 니모닉 단어들을 받았습니다.
-
-```js
-const newKey = new MnemonicKey();
-console.log("mnemonic: " + newKey.mnemonic);
-```
-
-받은 니모닉 단어로 이루어진 지갑의 주소를 LCDClient를 통해 알아냈습니다.
-
-```js
-const lcd = new LCDClient({
-  chainID : 'cube_47-5', // xpla testnet network의 이름
-  URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
-});
-console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
-```
-
-앞으로 우리는 지갑을 이용해서 더 많은 일들을 진행할 것입니다. 코드로 만든 지갑을 계속 사용하고 싶다면, Vault Chrome Extension에 연결하시는 것을 추천드립니다. 
-
-:::tip
-
-코드로 만든 니모닉으로 Vault에서 지갑을 불러올 수 있습니다. Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
+Using the mnemonic we've generated with code, you can initiate wallet recovery in Vault, basically bringing your wallet to life! Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
 
 <BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -206,14 +49,169 @@ Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호�
 
 :::caution
 
-코드로 만든 지갑을 XPLA 네트워크에서 안전하게 사용하려면, 니모닉 단어들을 잘 보관해야 합니다. 절대 타인에게 알려주면 안됩니다.
+To safely use the wallet you created with code on the XPLA network, remember to keep the mnemonic words secure. Never share them with others.
 
 :::
 
-<Details summary={'LCDClient란 무엇인가요?'}>
-LCDClient는 XPLA 블록체인 내 데이터를 가져오는 도구입니다. 더 자세히 알고 싶으시다면 <a target="_blank" href="https://docs.xpla.io/docs/develop/guides/start-the-light-client-daemon/" >Docs</a>를 참고해보세요.
+<Details summary={'What is an LCDClient?'}>
 
-지금 이것에 대해 명확하게 이해하지 않으셔도 괜찮습니다. 코드로 지갑을 생성할 수 있다는 것만 알아두시면 됩니다. 
+The LCDClient is a tool for fetching data from the XPLA blockchain. If you'd like to know more, refer to the <a target="_blank" href="https://docs.xpla.io/docs/develop/guides/start-the-light-client-daemon/" >Docs</a>.
+
+Even if you don't fully grasp this right now, it's okay. The key takeaway? Just remember that you can create a wallet through code!
+
+</Details>
+
+## Environment Setup {#setting}
+
+Let's delve into setting up the environment to run the code we showed you in the [Preview](/docs/settings/create-wallet/create-wallet-with-js#preview).
+
+1. [Install Node.js](/docs/settings/create-wallet/create-wallet-with-js#installnodejs)
+
+2. [Install Visual Studio Code](/docs/settings/create-wallet/create-wallet-with-js#installvscode)
+
+### 1. Install Node.js {#installnodejs}
+
+Install [Node.js](https://nodejs.org/en/download/) that corresponds to your operating system.
+
+To verify if Node.js is properly installed, open the Terminal and type `node -v`.
+
+```bash
+node -v
+```
+
+If the installed Node.js version is displayed, you're good to go! For instance, if it shows `v16.16.0`, that's what you're looking for.
+
+<details>
+  <summary>What's the Terminal?</summary>
+It's a tool for controlling computer systems. If you're new to development, you might not be familiar with accessing the terminal. Depending on your operating system, you can access the terminal like this!
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label="Windows">
+    Open Windows RUN (Win + R) application. Then simply enter cmd.
+  </TabItem>
+  <TabItem value="mac" label="macOS">
+    You can find out more information on <a href="https://support.apple.com/ko-kr/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac" target="_blank">Apple's official website.</a>
+  </TabItem>
+</Tabs>
+</details>
+
+### 2. Install Visual Studio Code {#installvscode}
+
+We'll use Visual Studio Code to easily edit code files. Let's install [Visual Studio Code](https://code.visualstudio.com/download) if you do not already have it or if you have a brand new computer!
+
+## Running JavaScript Code {#runjs}
+
+Now, let's dive into running the code you saw in the Preview.
+
+1. [Setting up the environment](/docs/settings/create-wallet/create-wallet-with-js#requirements)
+
+2. [Running the Code](/docs/settings/create-wallet/create-wallet-with-js#runcode)
+
+### Setting up the environment {#requirements}
+
+  1. Create a folder for the example code files. Let's keep the name of the folder as xpla-academy-example. but just without a period. 
+
+  2. Launch Visual Studio Code that you've installed.
+
+  3. In Visual Studio Code, go to File - Open Folder and open the xpla-academy-example folder.
+
+  4. In the left-hand EXPLORER panel, click the icon next to the folder name (New file) to create the `example-1.js` file.
+  <img src="/academy/img/2-settings/1-create-wallet/vscode-newfile.png"  width="400" height="200" />
+
+  5. Copy the code below and paste it into the `example-1.js` file, then save!
+
+  ```js
+  const { MnemonicKey, LCDClient } = require("@xpla/xpla.js");
+
+  const newKey = new MnemonicKey();
+  console.log("mnemonic: " + newKey.mnemonic);
+
+  const lcd = new LCDClient({
+    chainID : 'cube_47-5', // xpla testnet network의 이름
+    URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
+  });
+  console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
+  ```
+
+### Running the Code {#runcode}
+
+  1. At the top menu of the VSCode click "Terminal" menu. Then hit New "Terminal" (Ctrl+Shift+`) for a new Terminal. (If you don't see the "Terminal" option, make the VSCode screen fullsize.)
+
+  2. Type the following command in our new Terminal.
+
+  ```bash
+  npm install @xpla/xpla.js
+  node example-1.js
+  ```
+
+  3. Check the Terminal for results. You should see your mnemonic words and address.
+
+  :::tip
+
+  만약 여러분의 운영체제가 Windows라면 VS Code Terminal을 Powershell이 아닌, Command Prompt나 Git Bash로 실행하는 것을 권장합니다. 물론 여러분이 익숙하신 환경에서 Terminal을 열어도 좋습니다.
+
+  VS Code Default Terminal을 Command Prompt로 설정하는 방법은 다음과 같습니다.
+
+  <></>1. `Ctrl + shift + P` 로 명령어 팔레트(Command Palette)를 엽니다.
+  <br />
+  <></>2. Terminal: Select Default Profile을 검색합니다.
+  <br />
+  <></>3. Command Prompt를 설정하고, VS Code를 다시 실행합니다.
+
+  :::
+ 
+## Explanation {#explanation}
+
+Congratulations! You've just created a Wallet just using code!
+
+In the code below, you've used the `MnemonicKey()` function to generate random mnemonic words.
+
+```js
+const newKey = new MnemonicKey();
+console.log("mnemonic: " + newKey.mnemonic);
+```
+
+You've discovered the address of the wallet composed of the newly created mnemonic through the LCDClient.
+
+```js
+const lcd = new LCDClient({
+  chainID : 'cube_47-5', // xpla testnet network의 이름
+  URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
+});
+console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
+```
+
+Moving forward, we'll be using Wallets to accomplish even more tasks. If you wish to continue using the wallet you've crafted through code, we highly recommend connecting it to the Vault Chrome Extension.
+
+:::tip
+
+Using the mnemonic we've generated with code, you can initiate wallet recovery in Vault, basically bringing your wallet to life! Vault에서 `Add a wallet` - `Recover wallet`을 통해 지갑을 연결해보세요.
+
+<BrowserWindow url="https://vault.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#FC9803', height : '17px', width : '100%', top : 0, zIndex : 0}} />
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '60px', width : '100%', top : 17, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/academy/img/2-settings/1-create-wallet/create-wallet-with-js/recover-wallet.png" />
+</div>
+</BrowserWindow>
+
+Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index에는 디폴트로 0을 입력해줍니다. Index 값이 다르면, 같은 Mnemonic이더라도 다른 주소가 생성됩니다.
+
+:::
+
+:::caution
+
+To safely use the wallet you created with code on the XPLA network, remember to keep the mnemonic words secure. Never share them with others.
+
+:::
+
+<Details summary={'What is an LCDClient?'}>
+The LCDClient is a tool for fetching data from the XPLA blockchain. If you'd like to know more, refer to the <a target="_blank" href="https://docs.xpla.io/docs/develop/guides/start-the-light-client-daemon/" >Docs</a>.
+
+Even if you don't fully grasp this right now, it's okay. The key takeaway? Just remember that you can create a wallet through code!
 </Details>
 
 
