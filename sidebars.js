@@ -29,8 +29,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: `Let's get your Wallet ready!`,
-        // description: '블록체인에서 토큰을 보관하고, 전송하려면 무엇이 필요할까요? 바로 지갑입니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다.'
-        description: '일상에서 현금을 보관하기 위해 지갑을 사용하는 것처럼, 블록체인에서도 토큰을 보관하기 위해 지갑이 필요합니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다.'
+        description: `Just as we carry wallets to keep our cash safe in our everyday routines, in the blockchain world, we need Wallets to hold onto tokens (or any other digital assets). Let's take a closer look by creating a Wallet ourselves.`
       },
       items: ['settings/create-wallet/create-wallet-with-vault', 'settings/create-wallet/create-wallet-with-js', 'settings/create-wallet/get-testnet-xpla'],
     },
