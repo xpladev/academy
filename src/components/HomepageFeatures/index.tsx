@@ -9,15 +9,15 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    Svg: "/xpla-academy-dev/img/HomepageFeatures/easy-to-follow.svg",
+    Svg: "/academy/img/HomepageFeatures/easy-to-follow.svg",
     description: <>Easy to follow tutorials</>,
   },
   {
-    Svg: "/xpla-academy-dev/img/HomepageFeatures/freely-moddable.svg",
+    Svg: "/academy/img/HomepageFeatures/freely-moddable.svg",
     description: <>Flexible Modularity</>,
   },
   {
-    Svg: "/xpla-academy-dev/img/HomepageFeatures/game-developer-friendly.svg",
+    Svg: "/academy/img/HomepageFeatures/game-developer-friendly.svg",
     description: <>Game DEV-friendly</>,
   },
 ];
@@ -42,11 +42,11 @@ export default function HomepageFeatures(): JSX.Element {
     <section className="h-[812px] bg-[#004FFF] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.ellipsis}
-        src={`/xpla-academy-dev/img/HomepageFeatures/ellipsis.svg`}
+        src={`/academy/img/HomepageFeatures/ellipsis.svg`}
       />
       <img
         className={styles.square}
-        src={`/xpla-academy-dev/img/HomepageFeatures/square.svg`}
+        src={`/academy/img/HomepageFeatures/square.svg`}
       />
       <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
         <div className="flex flex-col flex-1 gap-[77px]">

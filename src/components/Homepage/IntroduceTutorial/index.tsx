@@ -189,13 +189,13 @@ const SliderItem = ({ title, color, contents }: SliderItemType) => {
             >
               <img
                 className="w-12"
-                src={`/xpla-academy-dev/img/IntroduceTutorial/quotationMark.svg`}
+                src={`/academy/img/IntroduceTutorial/quotationMark.svg`}
               />
               {content.description}
               <div className="flex justify-end">
                 <img
                   className="w-[51px]"
-                  src={`/xpla-academy-dev/img/IntroduceTutorial/right-arrow.svg`}
+                  src={`/academy/img/IntroduceTutorial/right-arrow.svg`}
                 />
               </div>
             </Link>

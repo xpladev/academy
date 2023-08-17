@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:3100/xpla-academy-dev",
+            "url": "http://localhost:3100/academy",
             "webRoot": "${workspaceFolder}"
         }
     ]

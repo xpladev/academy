@@ -14,7 +14,7 @@ const AdBanner = () => {
         <div className="relative flex items-center max-w-[1180px] w-[100%]">
           <img
             className="absolute left-0 mt-2"
-            src="/xpla-academy-dev/img/Banner/banner.svg"
+            src="/academy/img/Banner/banner.svg"
           />
           <div className={clsx("absolute right-0 flex items-center text-[16px] font-medium", styles.bannerWord)}>
             Period&nbsp;

@@ -144,7 +144,7 @@ function Endpoint({ title, link }: EndpointItem) {
       <div className="relative w-[100px] flex justify-end">
         {isCopy && (
           <img
-            src="/xpla-academy-dev/img/DevResource/copied.svg"
+            src="/academy/img/DevResource/copied.svg"
             className={clsx(
               "absolute left-[64px] bottom-[37px] w-[60px] ",
               copyAnimation ? styles.fadeIn : styles.fadeOut
@@ -153,7 +153,7 @@ function Endpoint({ title, link }: EndpointItem) {
         )}
         <img
           onClick={handleClickCopy}
-          src="/xpla-academy-dev/img/DevResource/CopyButton.svg"
+          src="/academy/img/DevResource/CopyButton.svg"
           className="hover:cursor-pointer hover:opacity-60"
         />
       </div>
