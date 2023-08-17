@@ -21,7 +21,7 @@ Overview
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-testnet-transaction/send-query">Check Transactions (Javascript)</a>
 <br/>
 <br/>Code Along Tutorial
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Utilize Game Tokens (CW20)
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;Utilize Tokens (CW20)
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/make-cw20-with-vault">Issue and send CW20 Tokens (Vault)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/make-cw20-with-js">Issue and send CW20 Tokens (Javascript)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/query-cw20">Working with CW20 Data</a>
