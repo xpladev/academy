@@ -29,13 +29,46 @@ xplad에 관한 더 자세한 정보는 [Docs](https://docs.xpla.io/docs/develop
 <Tabs groupId="operating-systems">
 
   <TabItem value="win" label="Windows">
-    1. <a target="_blank" href="https://go.dev/doc/install">
-    Golang 최신 버전
-    </a>
-    을 설치하시고, <code>GOPATH</code>와 <code>GOBIN</code> 환경 변수를 설정해줍니다.
+    1. Windows 환경에서 Linux를 사용하기 위해, <Link to="https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview">WSL(Windows Subsystem for Linux)</Link>이 필요합니다. WSL을 설치하고, 실행해주세요.
+    <br />
+    <br />
+    2. WSL 환경에서 아래 command를 입력하여 <Link to="https://go.dev/">Golang</Link>을 설치합니다. 
+    <CodeBlock language="bash"> 
+{
+    `sudo apt-get update
+wget https://golang.org/dl/go1.18.1.linux-amd64.tar.gz tar -xvf go1.18.1.linux-amd64.tar.gz
+rm -f go1.18.1.linux-amd64.tar.gz
+mkdir app
+mkdir app/bin
+mkdir app/pkg`
+}
+</CodeBlock>
     <br/>
+    3. Golang에 관한 환경변수를 설정합니다. 먼저 .profile 파일을 vim으로 엽니다.
+    <CodeBlock language="bash"> 
+{
+    `vim .profile`
+}
+</CodeBlock>
     <br/>
-    2. <a target="_blank" href="https://github.com/xpladev/xpla">
+    아래 내용대로 .profile 파일을 수정합니다.
+    <br/>
+    <CodeBlock language="bash"> 
+    {
+    `export GOROOT=$HOME/go
+export GOPATH=$HOME/app
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH`
+}
+</CodeBlock>
+<br/>
+수정한 내용을 적용합니다.
+    <CodeBlock language="bash"> 
+    {
+    `source .profile`
+}
+</CodeBlock>
+    <br/>
+    4. <a target="_blank" href="https://github.com/xpladev/xpla">
     Github
     </a>
     에서 xplad에 관한 소스 코드를 <code>clone</code>합니다.
@@ -43,12 +76,11 @@ xplad에 관한 더 자세한 정보는 [Docs](https://docs.xpla.io/docs/develop
     <CodeBlock language="bash">
 {
     `git clone https://github.com/xpladev/xpla
-cd xpla
-git checkout [latest version]`
+cd xpla`
 }
     </CodeBlock>
     <br/>
-    3. xplad 실행을 위해 빌드합니다.
+    5. xplad 실행을 위해 빌드합니다.
     <br/>
     <CodeBlock language="bash">
     {
@@ -56,7 +88,7 @@ git checkout [latest version]`
     }
     </CodeBlock>
     <br/>
-    4. xplad가 잘 설치되었는지 확인합니다.
+    6. xplad가 잘 설치되었는지 확인합니다.
     <CodeBlock language="bash">
     {
         `xplad version --long`
