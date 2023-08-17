@@ -31,7 +31,7 @@ function DocCategoryGeneratedIndexPageContent({categoryGeneratedIndex}) {
       <DocVersionBadge />
       <header>
         <Heading as="h1" className={styles.title}>
-          {categoryGeneratedIndex.title}
+          {category.label}
         </Heading>
         {categoryGeneratedIndex.description && (
           <p>{categoryGeneratedIndex.description}</p>
