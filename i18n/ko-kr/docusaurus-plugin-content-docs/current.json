@@ -12,15 +12,12 @@
     "description": "XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다."
   },
   "sidebar.tutorialSidebar.category.Utilize Tokens (CW20)": {
-    "message": "토큰(CW20) 다루기",
-    "description": ""
+    "message": "토큰(CW20) 다루기"
   },
   "sidebar.tutorialSidebar.category.Utilize NFT(CW721)": {
-    "message": "NFT(CW721) 다루기",
-    "description": ""
+    "message": "NFT(CW721) 다루기"
   },
   "sidebar.tutorialSidebar.category.Advenced - Dive deep into XPLA blockchain": {
-    "message": "심화 - XPLA 블록체인 깊게 이해하기",
-    "description": ""
+    "message": "심화 - XPLA 블록체인 깊게 이해하기"
   }
 }
