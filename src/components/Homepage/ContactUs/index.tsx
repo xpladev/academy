@@ -8,12 +8,12 @@ export default function ContactUs() {
     <section className="h-[276px] bg-[#F5F4F4] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.star}
-        src={`/xpla-academy-dev/img/ContactUs/star.svg`}
+        src={`/academy/img/ContactUs/star.svg`}
       />
 
       <img
         className={styles.earth}
-        src={`/xpla-academy-dev/img/ContactUs/earth.svg`}
+        src={`/academy/img/ContactUs/earth.svg`}
       />
       <div className="z-10 relative">
         <div className="flex flex-col items-center gap-[20px]">
@@ -29,7 +29,7 @@ export default function ContactUs() {
         </div>
         <img
           className={styles.heart}
-          src={`/xpla-academy-dev/img/ContactUs/heart.svg`}
+          src={`/academy/img/ContactUs/heart.svg`}
         />
       </div>
     </section>

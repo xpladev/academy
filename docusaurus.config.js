@@ -11,15 +11,15 @@ const config = {
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
-  url: 'https://nglsena0722c.github.io',
+  url: 'https://xpladev.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/xpla-academy-dev',
+  baseUrl: '/academy',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'xpladev', // Usually your GitHub org/user name.
-  projectName: 'xpla-academy-dev', // Usually your repo name.
+  projectName: 'academy', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

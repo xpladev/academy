@@ -5,7 +5,7 @@ const Pilot = () => {
   const pic = [...Array(61).keys()].map((v) => (
     <img
       style={{ width: "500px", height: "500px" }}
-      src={`/xpla-academy-dev/img/pilot-game/00${v < 10 ? "0" + v : v}.png`}
+      src={`/academy/img/pilot-game/00${v < 10 ? "0" + v : v}.png`}
     />
   ));
 
@@ -23,7 +23,7 @@ const Pilot = () => {
 
   return <>{pic[0]}</>;
   {
-    /* <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${filenum < 10 ? '0' + filenum : filenum}.png`}/> */
+    /* <img style={{width : '500px', height : '500px'}} src={`/academy/img/pilot-game/00${filenum < 10 ? '0' + filenum : filenum}.png`}/> */
   }
 };
 
@@ -36,7 +36,7 @@ export default Pilot;
 // }
 
 // const Pilot = () => {
-//     const pic =  [...Array(61).keys()].map((v) =>  <img style={{width : '500px', height : '500px'}} src={`/xpla-academy-dev/img/pilot-game/00${v < 10 ? '0' + v : v}.png`}/>)
+//     const pic =  [...Array(61).keys()].map((v) =>  <img style={{width : '500px', height : '500px'}} src={`/academy/img/pilot-game/00${v < 10 ? '0' + v : v}.png`}/>)
 //     const [num, setNum ] = useState<number>(0);
 
 //     useEffect(() => {

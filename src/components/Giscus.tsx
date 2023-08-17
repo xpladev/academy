@@ -8,7 +8,7 @@ const GiscusComponent = ({term } : {term : string}) => {
   return (
     <Giscus
       id="Comments"
-      repo="nglsena0722c/xpla-academy-dev"
+      repo="nglsena0722c/academy"
       repoId="R_kgDOJvLd5A"
       category="Announcements"
       categoryId="DIC_kwDOJvLd5M4CXagy"
