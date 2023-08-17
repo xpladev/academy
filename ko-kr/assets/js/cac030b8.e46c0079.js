@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkxpla_academy=self.webpackChunkxpla_academy||[]).push([[3378],{82247:a=>{a.exports=JSON.parse('{"permalink":"/academy/ko-kr/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
