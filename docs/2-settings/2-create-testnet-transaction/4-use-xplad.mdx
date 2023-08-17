@@ -16,7 +16,7 @@ xplad를 설치하셨고, 지갑도 잘 생성하셨다면 아래 단계를 진�
 
 2. 아래 명령어로 XPLA를 전송하는 트랜잭션을 생성할 수 있습니다. 
 ```bash
-xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node tcp://34.64.250.213:26657
+xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node tcp://34.64.250.213:26657 // 추후 xplad query tx E832D9C480EC2E6F3856ED4424892F9AC5A4704C3B9A2EE085C20A8D3832E6BB --node https://cube-rpc.xpla.dev:443 으로 수정할 것.
 ```
 
 예제에서 지갑 이름은 `test1`이었습니다. 따라서 Faucet 주소 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`에 1axpla를 전송하는 명령어는 아래와 같습니다.
