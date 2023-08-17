@@ -39,7 +39,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: 'Time to Make Transactions!',
-        description: 'XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다.'
+        description: `Let's use the $XPLA testnet tokens to leave a mark in the blockchain!`
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
     },
