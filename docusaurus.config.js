@@ -6,7 +6,7 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'XPLA Academy',
+  title: 'XPLA ACADEMY',
   tagline: 'Easily navigate the quick guides!',
   favicon: 'img/favicon.png',
 
