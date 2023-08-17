@@ -100,7 +100,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/deep-understa
                     { axpla: 1 }
                 );
             
-                const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+                const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
                     msgs: [send],
                     memo: 'Air Drop Test',
                     accountNumber,
@@ -180,7 +180,7 @@ for (let i = 0; i < receivers.length; i++) {
             { axpla: 1 }
         );
     
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [send],
             memo: 'Air Drop Test',
             accountNumber,

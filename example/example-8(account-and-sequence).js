@@ -32,7 +32,7 @@ const main = async () => {
                 { axpla: 1 }
             );
         
-            const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+            const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
                 msgs: [send],
                 memo: 'Air Drop Test',
                 accountNumber,
