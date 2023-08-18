@@ -124,9 +124,9 @@ export default function FooterLayout({ style, links, logo, copyright }) {
 
       </div>
       <div className={clsx(styles.footerBorder)} />
-
-      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between">
-        <div className="flex gap-[80px] items-start">
+      
+      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between ">
+        <div className="flex gap-[80px] items-start ">
           <Link href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
             <div className="leading-tight text-[#D9D9D9] font-medium text-[16px]">
@@ -136,14 +136,14 @@ export default function FooterLayout({ style, links, logo, copyright }) {
             <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA Acadmey. All rignts reserverd.</div>
           </div>
 
-          <div className="flex gap-[14px]">
+          <div className="flex gap-[14px] flex-1 justify-end">
             <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
             <Link href="https://linktr.ee/xpla_official" target="_blank" rel="noopener noreferrer" className={styles.footerLinktree} ></Link>
           </div>
         </div>
 
 
-        <div className="flex gap-[14px]">
+        {/* <div className="flex gap-[14px]">
           <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] ">
             Privacy Policy
           </Link>
@@ -155,7 +155,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
           <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
             Terms of Use
           </Link>
-        </div>
+        </div> */}
 
       </div>
     </footer>
