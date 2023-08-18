@@ -51,18 +51,14 @@
 
 .card {
   display: flex;
-  flex : 1;
-  padding : 42px;
+  flex: 1;
+  padding: 42px;
   background-color: white;
   aspect-ratio: 1 / 1;
   border: 1px solid black;
   box-shadow: 10px 10px 0px black;
   transition: all 200ms;
-  @media screen and (max-width : 768px) {
-    aspect-ratio: 3 / 1;
-    height : 100px;
-    padding: 20px;
-  }
+
 }
 
 .card:hover {
@@ -71,9 +67,17 @@
   transform: translate(10px, 10px);
 }
 
-.quotationMark {
-  @media screen and (max-width : 768px) {
+@media screen and (max-width : 768px) {
+  .card {
+    aspect-ratio: 3 / 1;
+    height: 100px;
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width : 768px) {
+  .quotationMark {
     visibility: hidden;
-    height : 0px;
+    height: 0px;
   }
 }

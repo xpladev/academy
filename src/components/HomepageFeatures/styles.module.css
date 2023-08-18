@@ -14,41 +14,48 @@
   position: absolute;
   top: 39px;
   left: 0;
-  @media screen and (max-width : 768px) {
-    display: none;
-  }
 }
+
 
 .square {
   position: absolute;
   right: 0;
   top: 145px;
-  @media screen and (max-width : 768px) {
-    display: none;
-  }
 }
 
 .card {
   aspect-ratio: 1 / 1;
-
-  @media screen and (max-width : 768px) {
-    height : 100px;
-    aspect-ratio: 3/1;
-  }
 }
 
 .mobileImg {
-  height : 171px;
-  @media screen and (max-width : 768px) {
-    height : 100px;
-    width: 100px;
-    min-width : 100px;
-  }
+  height: 171px;
 }
 
-.rightBorder { 
+.rightBorder {
   border-right: 1px solid white;
-  @media screen and (max-width : 768px) {
+}
+
+@media screen and (max-width : 768px) {
+  .ellipsis {
+    display: none;
+  }
+
+  .square {
+    display: none;
+  }
+
+  .card {
+    height: 100px;
+    aspect-ratio: 3 / 1;
+  }
+
+  .mobileImg {
+    height: 100px;
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .rightBorder {
     border-right: 0px;
     border-bottom: 1px solid white;
   }

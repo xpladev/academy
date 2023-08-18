@@ -14,19 +14,11 @@
 .trailblazer {
   background-image: url('/img/JoinCommunity/trailblazer.svg');
   height: 230px;
-  @media screen and (max-width : 768px) {
-    background-image: none;
-    background-color: black;
-  }
 }
 
 .hackathon {
   background-image: url('/img/JoinCommunity/hackathon-banner.svg');
   height: 230px;
-  @media screen and (max-width : 768px) {
-    background-image: none;
-    background-color: black;
-  }
 }
 
 .bannerMaxWidth {

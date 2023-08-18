@@ -16,6 +16,7 @@ import {
   WalletControllerChainOptions,
   getChainOptions,
 } from "@xpla/wallet-provider";
+import clsx from "clsx";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
@@ -50,7 +51,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
           </div>
         </div>
         <img
-          className={styles.explorerPlay}
+          className={"hidden lg:block lg:w-[40%] lg:static	lg:w-[50%] 2xl:top-[71px] 2xl:left-[618px] 2xl:absolute"}
           src={`/img/Homepage/explorer-play.svg`}
         />
         <img

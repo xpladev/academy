@@ -102,11 +102,11 @@ export default function FooterLayout({ style, links, logo, copyright }) {
       <div className="max-w-[1180px] w-[100%] py-10 px-4">
 
 
-        <div className="md:flex md:justify-between grid grid-cols-2">
+        <div className="md:flex md:justify-between grid grid-cols-2 gap-8">
           {
             LinkList.map((LinkSubject, subjectIdx) => (
-              <div key={subjectIdx} className="flex flex-col gap-9 leading-tight">
-                <span className="text-[#D9D9D9] font-bold text-[18px]">{LinkSubject.title}</span>
+              <div key={subjectIdx} className="flex flex-col gap-4 md:gap-9 leading-tight">
+                <span className="text-[#D9D9D9] font-bold text-[20px] md:text-[18px]">{LinkSubject.title}</span>
                 <div className="flex flex-col gap-3">
                   {
                     LinkSubject.content.map((LinkInfo, infoIdx) => (

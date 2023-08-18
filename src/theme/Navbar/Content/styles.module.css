@@ -7,32 +7,33 @@ Hide color mode toggle in small viewports
   }
 }
 
-.LogoAcademyLetter > div {
+.LogoAcademyLetter>div {
   margin-top: 2px;
   background-image: url('/img/Navbar/AcademyLogo.svg');
-  width : 210px;
-  height : 33.5px;
+  width: 210px;
+  height: 33.5px;
 }
 
 .LogoAcademyLetter>div:hover {
   background-image: url('/img/Navbar/AcademyLogo-blue.svg');
-  transition : background-image 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
+  transition: background-image 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
 }
 
-.tool {
-  @media screen and (max-width: 996px) {
-    display: none;
-  }
-}
 
 .tool::before {
-  content : 'Tool';
-  color : white;
-  transition : all 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
+  content: 'Tool';
+  color: white;
+  transition: all 200ms cubic-bezier(0.08, 0.52, 0.52, 1);
 
 }
 
 .tool:hover::before {
-  content : 'Tool (Coming Soon)';
+  content: 'Tool (Coming Soon)';
   color: #00b2fc;
+}
+
+@media screen and (max-width: 996px) {
+  .tool {
+    display: none;
+  }
 }
