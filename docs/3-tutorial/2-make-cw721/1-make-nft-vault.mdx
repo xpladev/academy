@@ -303,33 +303,32 @@ In the `attributes` part, you're describing the characteristics of the NFT. Let'
 </div>
 </BrowserWindow>
 
+<Details summary="What values should go into the important information (metadata)?">
 
-<Details summary="주요 정보(metadata)에는 어떤 값들이 들어가야 하나요?">
-
-주요 정보(metadata)에 들어갈 수 있는 항목들은 아래와 같습니다.
+Here are the items that can be included in the important information (metadata):
 
 ```js
 {
     mint: {
-        owner: "NFT Owner의 주소를 입력합니다.",
-        token_id: "개별 NFT 고유 식별자로 사용되는 Token ID입니다.",
-        token_uri: "아래 extension 정보를 JSON 형식으로 제공하는 URI입니다. OpenSea에서 사용하는 형식과 동일합니다.",
+        owner: "Enter the address of the NFT Owner.",
+        token_id: "A unique identifier used for individual NFTs, known as Token ID.",
+        token_uri: "A URI provided in JSON format with the extension information. It follows the same format used by OpenSea.",
         extension: { 
-            name : "NFT 이름입니다.",
-            description : "NFT에 대한 설명입니다.",
-            image : "NFT 이미지를 제공하는 URL입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.", 
-            animation_url : "NFT 영상을 제공하는 URL 입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.",
-            youtube_url : "Youtube 영상의 URL 로, 현재는 지원하지 않습니다."
-            attributes: [    // NFT의 특징을 나타냅니다.
+            name : "The name of the NFT.",
+            description : "A description of the NFT.",
+            image : "A URL providing the NFT image. It's recommended to keep it around 40MB, with support for up to 100MB.", 
+            animation_url : "A URL providing an animation for the NFT. Recommended size is around 40MB, with support for up to 100MB.",
+            youtube_url : "A URL for a YouTube video, currently not supported.",
+            attributes: [   // Represents characteristics of the NFT.
                 {
-                    category : "NFT 아이템 카테고리를 나타냅니다.",
-                    collection : "NFT Collection을 나타냅니다.",
-                    creator : "NFT 창작자 혹은 저작권자를 나타냅니다.",
-                    provider : "NFT 판매 혹은 배포 권리를 가진 사람을 나타냅니다.",
-                    thumbnail_url : "NFT의 썸네일 이미지를 제공하는 URL 입니다.",
-                    extension_url : "NFT extension 정보를 JSON 형식으로 제공하는 URL 입니다.",
-                    
-                    // 아래와 같이 NFT의 특징을 추가할 수도 있습니다.
+                    category : "NFT item category.",
+                    collection : "NFT Collection.",
+                    creator : "NFT creator or copyright holder.",
+                    provider : "Person with selling or distribution rights for the NFT.",
+                    thumbnail_url : "URL providing a thumbnail image for the NFT.",
+                    extension_url : "URL providing extension information in JSON format for the NFT.",
+
+                    // Additional NFT characteristics can be added like this.
                     trait_type: "CharacterName",
                     value: "Alice", 
                 },
@@ -339,7 +338,7 @@ In the `attributes` part, you're describing the characteristics of the NFT. Let'
 };
 ```
 
-더 자세히 알고 싶으시다면 [CW721 Github](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)을 살펴보시거나, [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다. [OpenSea Metadata 기준](https://docs.opensea.io/docs/metadata-standards)을 읽어보시는 것도 좋습니다.
+If you want more details, you can explore the [CW721 GitHub](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain) or refer to other NFTs on [XPLA Explorer](https://explorer.xpla.io/). It's also good to read about the [OpenSea Metadata standard](https://docs.opensea.io/docs/metadata-standards).
 
 </Details>
 
