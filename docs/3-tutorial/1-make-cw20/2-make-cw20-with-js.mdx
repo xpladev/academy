@@ -52,7 +52,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
 </Details>
 
-### Run Code {#make-cw20-runcode}
+### Running the Code {#make-cw20-runcode}
 
 1. Please create a file named "example-4.js".
 
@@ -266,7 +266,7 @@ So far, we've issued CW20 tokens. Using these tokens can enrich the gaming ecosy
 
 Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transfers are carried out by **Execute** the `transfer` function of the CW20 contract. For this example, we'll use the contract address of the MCT token as `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`, and we'll transfer the tokens to the address `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`.
 
-### Run Code {#send-cw20-runcode}
+### Running the Code {#send-cw20-runcode}
 
 1. Please create a file named example-5.js.
 
@@ -360,7 +360,7 @@ Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transf
 
 5. Check the results in the Terminal. You'll see that the CW20 tokens have been sent, and you'll be able to verify the transaction's hash value.
 
-### Description {#send-cw20-explaination}
+### Explanation {#send-cw20-explaination}
 
 Sending CW20 tokens works differently from sending XPLA coins. While XPLA coin transfers use the `MsgSend` method, CW20 token transfers are done by **Execute** the `transfer` function of the CW20 contract. This is why we use the `MsgExecuteContract` method.
 
@@ -453,6 +453,6 @@ console.log(txResult.txhash);
 
 Did you receive the transaction hash value? Use the [XPLA Explorer](https://explorer.xpla.io/) to check the transaction data and details.
 
-## Conclusion {#conclusion}
+## Wrapping Up {#conclusion}
 
 We've looked into transferring CW20 tokens like this. Now, let's connect CW20 tokens to your game with the XPLA blockchain! In the [next chapter](/docs/tutorial/make-cw20/query-cw20), we will retrieve data of the CW20 token we created ourselves from the blockchain.

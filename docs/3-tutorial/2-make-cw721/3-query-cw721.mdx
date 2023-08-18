@@ -93,7 +93,7 @@ We've looked into how to send queries to the contract and how to write query mes
 
 Let's use JavaScript code to find out what NFTs a specific wallet address owns and even fetch the information for each of those NFTs.
 
-### Run Code {#runcode}
+### Running the Code {#runcode}
 
 1. Please create a file named "example-query-cw721.js".
 
@@ -143,7 +143,7 @@ Let's use JavaScript code to find out what NFTs a specific wallet address owns a
 
 5. Check the results in the Terminal. The first Log value will display the NFT information owned by a specific wallet, and the second Log value will show that you were able to retrieve information about a specific NFT.
 
-## Description {#explaination}
+## Explanation {#explaination}
 
 To figure out which NFTs a specific wallet owns, we prepared a Query message in the **userNFTsMsg** variable as follows. We followed the Query message format from the [CW721 GitHub](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs#L140) as a reference.
 
@@ -218,6 +218,6 @@ const nftInfo = await lcd.wasm.contractQuery(contractAddress, nftInfoMsg);
 console.log(JSON.stringify(nftInfo, null, 2));
 ```
 
-## Conclusion
+## Wrapping Up {#conclusion}
 
 So far, we've looked at the process of sending queries to the CW721 contract. By referring to the [CW721 GitHub](https://github.com/CosmWasm/cw-nfts/blob/main/contracts/cw721-base/src/msg.rs), you can explore in more detail the types of queries that can be sent to the CW721 contract. Let's fetch CW721 data from the contract tailored to your game and make it more enjoyable for users to play.
