@@ -17,7 +17,7 @@ export default function ContactUs() {
       />
       <div className="z-10 relative">
         <div className="flex flex-col items-center gap-[20px]">
-          <span className="text-[#000000] font-semibold text-[42px]">
+          <span className="text-[#000000] font-semibold text-[30px] md:text-[42px] text-center">
             Interested in Collaborating?
           </span>
             <a href="mailto:xpla_official@xpla.io" className={clsx(

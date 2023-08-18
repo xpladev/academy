@@ -23,7 +23,9 @@
   position: absolute;
   right: 0;
   top: 145px;
-  
+  @media screen and (max-width : 768px) {
+    display: none;
+  }
 }
 
 .card {
@@ -39,10 +41,15 @@
   height : 171px;
   @media screen and (max-width : 768px) {
     height : 100px;
+    width: 100px;
     min-width : 100px;
   }
 }
 
 .rightBorder { 
   border-right: 1px solid white;
+  @media screen and (max-width : 768px) {
+    border-right: 0px;
+    border-bottom: 1px solid white;
+  }
 }

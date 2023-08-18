@@ -30,12 +30,12 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/lets-get-your-wallet-ready",
           description: (
-            matches ? <span className="font-semibold text-[16px]">
+            matches ? <span className="font-semibold text-[20px]">
             Experience the
             TESTNET!
             Create a WALLET
             Make your first
-            <span className="font-bold text-[16px]"> TRANSACTIONS!</span>
+            <span className="font-bold text-[20px]"> TRANSACTIONS!</span>
           </span>
           :
             <div className="font-semibold text-[24px] h-[197px]">
@@ -50,9 +50,9 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/utilize-tokens-cw20",
           description: (
-            matches ? <span className="font-semibold text-[16px]">
+            matches ? <span className="font-semibold text-[20px]">
               Play with your Creation!<br/>
-              Issue <span className="font-bold text-[16px]">TOKENS</span>
+              Issue <span className="font-bold text-[20px]">TOKENS</span>
           </span>
           :
             <div className="font-semibold text-[24px] h-[197px]">
@@ -64,10 +64,10 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/utilize-nftcw721",
           description: (
-            matches ? <span className="font-semibold text-[16px]">
+            matches ? <span className="font-semibold text-[20px]">
               Play with your
               Creation!
-              Issue <span className="font-bold text-[16px]">NFT</span>
+              Issue <span className="font-bold text-[20px]">NFT</span>
         </span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your<br/>
@@ -85,8 +85,8 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/advanced---dive-deep-into-xpla-blockchain",
           description: (
-            matches ? <span className="font-semibold text-[16px]">
-            Stand out with <br/><span className="font-bold text-[16px]">  ADVANCED 
+            matches ? <span className="font-semibold text-[20px]">
+            Stand out with <br/><span className="font-bold text-[20px]">  ADVANCED 
                 COURSES!</span>
       </span>:
             <div className="font-semibold text-[24px] h-[197px]">
@@ -101,7 +101,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/local-network",
           description: (
-            matches ? <span className="font-semibold text-[16px]">Make your own space!<br/><span className="font-bold text-[16px]"> XPLA Local Network</span></span>:
+            matches ? <span className="font-semibold text-[20px]">Make your own space!<br/><span className="font-bold text-[20px]"> XPLA Local Network</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Make your own <br/>
               space!<br/>
@@ -112,7 +112,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/account-sequence",
           description: (
-            matches ? <span className="font-semibold text-[16px]">Multi-Send<br/><span className="font-bold text-[16px]"> $XPLA!</span></span>:
+            matches ? <span className="font-semibold text-[20px]">Multi-Send<br/><span className="font-bold text-[20px]"> $XPLA!</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Multi-Send<br/>
               <span className="font-bold text-[24px]">$XPLA!</span>
@@ -128,7 +128,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/walletprovider",
           description: (
-            matches ? <span className="font-semibold text-[16px]">Integrate<br/><span className="font-bold text-[16px]">WALLET CONNECT!</span></span>:
+            matches ? <span className="font-semibold text-[20px]">Integrate<br/><span className="font-bold text-[20px]">WALLET CONNECT!</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Integrate<br/>
               <span className="font-bold text-[24px]">WALLET</span><br/>
@@ -139,7 +139,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/write-contract",
           description: (
-            matches ? <span className="font-semibold text-[16px]">Deploy your own<br/><span className="font-bold text-[16px]">CONTRACT on XPLA</span></span>:
+            matches ? <span className="font-semibold text-[20px]">Deploy your own<br/><span className="font-bold text-[20px]">CONTRACT on XPLA</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Deploy your own<br/>
               <span className="font-bold text-[24px]">CONTRACT </span>on<br/>
@@ -149,7 +149,7 @@ export default function IntroduceTutorial(): JSX.Element {
         },
         {
           description: (
-            matches ? <span className="font-semibold text-[16px]">Exchange Tokens with<br/><span className="font-bold text-[16px]">CONVERT! </span>(Coming Soon)</span>:
+            matches ? <span className="font-semibold text-[20px]">Exchange Tokens with<br/><span className="font-bold text-[20px]">CONVERT! </span>(Coming Soon)</span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Exchange<br/>
               Tokens with<br/>

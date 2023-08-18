@@ -2,8 +2,11 @@ import React from "react";
 import styles from "./styles.module.css";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function JoinCommunity(): JSX.Element {
+  const matches = useMediaQuery('(max-width:768px)');
+  
   return (
     <section className="h-[832px] flex flex-col justify-center items-center px-[16px]">
       <div className="font-bold text-[50px] mb-[53px]">
@@ -11,7 +14,7 @@ export default function JoinCommunity(): JSX.Element {
       </div>
       <div
         className={clsx(
-          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-8",
+          "justify-center px-[20px] md:px-[100px] md:py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-8",
           styles.trailblazer
         )}
       >
@@ -26,13 +29,34 @@ export default function JoinCommunity(): JSX.Element {
           <span className={styles.registerNow}>Register Now</span>
         </Link>
       </div>
-      <Link
-        to="https://app.glitch-hack.com/"
+      {
+        matches ? 
+        <div
         className={clsx(
-          "hover:cursor-pointer px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px]",
-          styles.hackathon
+          "justify-center px-[20px] md:px-[100px] md:py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-8",
+          styles.trailblazer
         )}
-      />
+      >
+        <span className="font-semibold text-[38px] text-[#ffffff]">
+          XPLA Hackathon
+        </span>
+        <Link
+          to="https://app.glitch-hack.com/"
+          className="w-fit"
+          style={{ textDecoration: "none" }}
+        >
+          <span className={styles.registerNow}>Register Now</span>
+        </Link>
+      </div>
+        :
+      <Link
+      to="https://app.glitch-hack.com/"
+      className={clsx(
+        "hover:cursor-pointer px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px]",
+        styles.hackathon
+        )}
+        />
+      }
     </section>
   );
 }
