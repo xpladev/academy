@@ -26,7 +26,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#F93AC3",
       contents: [
         {
-          link: "/docs/category/지갑-생성하기",
+          link: "/docs/category/lets-get-your-wallet-ready",
           description: (
             <div className="font-semibold text-[24px] h-[197px]">
               Experience the<br/>
@@ -38,7 +38,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/category/토큰cw20-다루기",
+          link: "/docs/category/utilize-tokens-cw20",
           description: (
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your Creation!<br/>
@@ -47,7 +47,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/category/nftcw721-다루기",
+          link: "/docs/category/utilize-nftcw721",
           description: (
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your<br/>
@@ -63,7 +63,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#C9FF00",
       contents: [
         {
-          link: "/docs/category/심화---xpla-블록체인-깊게-이해하기",
+          link: "/docs/category/advenced---dive-deep-into-xpla-blockchain",
           description: (
             <div className="font-semibold text-[24px] h-[197px]">
               Stand out with <br/>

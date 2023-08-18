@@ -6,18 +6,18 @@ sidebar_position: 4
 
 import Details from '@theme/Details';
 
-xplad로 cli에서 트랜잭션을 생성하고, query를 보낼 수도 있습니다. [이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서 xplad를 설치하지 않으셨다면, [다음 단계](/docs/tutorial/make-cw20/make-cw20-with-vault)로 넘어가셔도 좋습니다. 
+xplad로 cli에서 트랜잭션을 생성하고, query를 보낼 수도 있습니다. xplad를 설치하지 않으셨다면, [다음 단계](/docs/tutorial/make-cw20/make-cw20-with-vault)로 넘어가셔도 좋습니다. 
 
 ## xplad로 트랜잭션 생성하기 {#maketx}
 
-[이전 단계](/docs/settings/create-wallet/create-wallet-with-xplad)에서 xplad를 설치하셨고, 지갑도 잘 생성하셨다면 아래 단계를 진행해봅시다. 
+xplad를 설치하셨고, 지갑도 잘 생성하셨다면 아래 단계를 진행해봅시다. 
 
 1. 트랜잭션을 생성하려면 지갑에 [테스트넷 XPLA](/docs/settings/create-wallet/get-testnet-xpla)가 있어야 합니다. [Faucet](https://faucet.xpla.io/)에서 지갑 주소를 기입하고, 테스트넷 XPLA를 받읍시다.
 
 2. 아래 명령어로 XPLA를 전송하는 트랜잭션을 생성할 수 있습니다. 
 ```bash
-xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node tcp://34.64.250.213:26657
-```
+xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node tcp://34.64.250.213:26657 // 추후 xplad query tx E832D9C480EC2E6F3856ED4424892F9AC5A4704C3B9A2EE085C20A8D3832E6BB --node https://cube-rpc.xpla.dev:443 으로 수정할 것.
+``` 
 
 예제에서 지갑 이름은 `test1`이었습니다. 따라서 Faucet 주소 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`에 1axpla를 전송하는 명령어는 아래와 같습니다.
 

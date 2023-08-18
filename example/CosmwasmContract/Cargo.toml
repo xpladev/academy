@@ -1,0 +1,23 @@
+[package]
+name = "game-data-save"
+version = "0.0.1"
+authors = ["Your Name <your@email.com>"]
+edition = "2018"
+description = "XPLA Contract Example"
+license = "Apache-2.0"
+repository = ""
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+cw0 = { version = "0.10.3" }
+cw20 = { version = "0.13.4" }
+cw-storage-plus = { version = "0.13.4" }
+cosmwasm-std = { version = "1.0.0" }
+schemars = "0.8.1"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+thiserror = { version = "1.0.23" }
+
+[package.metadata.scripts]
+optimize = """docker run --rm -v %cd%:/code --mount type=volume,source=game-data-save_cache,target=/code/target --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry cosmwasm/rust-optimizer:0.12.6"""

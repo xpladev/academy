@@ -93,7 +93,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [instantiate]
         });
 
@@ -187,7 +187,7 @@ const instantiate = new MsgInstantiateContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
     msgs: [instantiate]
 });
 ```
@@ -302,7 +302,7 @@ node query-tx.js
             }
         );
         
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [transferMsg]
         });
 
@@ -402,7 +402,7 @@ const transferMsg = new MsgExecuteContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
     msgs: [transferMsg]
 });
 ```
@@ -456,4 +456,4 @@ console.log(txResult.txhash);
 
 ## 마무리 {#conclusion}
 
-이렇게 CW20 토큰 전송까지 알아보았습니다. 이제 여러분의 게임에 CW20 토큰을 이용하여 XPLA 블록체인과 연결해보세요!
+이렇게 CW20 토큰 전송까지 알아보았습니다. 이제 여러분의 게임에 CW20 토큰을 이용하여 XPLA 블록체인과 연결해보세요! [다음 단계](/docs/tutorial/make-cw20/query-cw20)에서는 직접 만든 CW20 토큰의 데이터를 블록체인에서 가져와보겠습니다.

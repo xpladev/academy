@@ -6,7 +6,7 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'XPLA Academy',
+  title: 'XPLA ACADEMY',
   tagline: 'Easily navigate the quick guides!',
   favicon: 'img/favicon.png',
 
@@ -74,7 +74,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      // image: 'img/logo512.png',
+      image: 'img/xpla-social-card.png',
       navbar: {
         items: [
           {

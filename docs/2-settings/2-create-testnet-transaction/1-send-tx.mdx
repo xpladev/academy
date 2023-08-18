@@ -2,55 +2,54 @@
 sidebar_position: 1
 ---
 
-# XPLA 전송 트랜잭션 만들기
+# Creating $XPLA Transfer Transactions
 
 import Details from '@theme/Details';
 import Ex02 from "@site/src/components/Sandpack/Ex02-send-tx";
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-블록체인에 기록된 데이터들을 트랜잭션(Transaction)이라고 부릅니다. 예를 들어 `Alice가 Bob에게 1 XPLA를 보냄`이라는 트랜잭션을 만들어 블록체인에 기록할 수 있겠군요. 
+The data recorded on the blockchain is referred to as transactions. For instance, creating a transaction where `Alice sends 1 XPLA to Bob` can be recorded on the blockchain.
 
-XPLA 블록체인에 트랜잭션을 생성하려면 XPLA 코인으로 수수료를 지불해야 합니다. [이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 테스트넷 XPLA 코인을 받았으니, 수수료 걱정 없이 테스트넷에서 트랜잭션을 생성해봅시다. 
+When creating a transaction on the XPLA blockchain, you need to pay fees in XPLA coins. Since you received testnet XPLA coins in the [previous step](/docs/settings/create-wallet/get-testnet-xpla), you can create transactions on the testnet without worrying about fees.
 
-<Details summary="블록체인에 트랜잭션을 생성하려면 왜 수수료를 지불해야 하나요?">
+<Details summary="Why do we need to pay fees to create transactions on the blockchain?">
 
-블록체인에 트랜잭션이 어떻게 생성되는지 예시로 살펴봅시다. `Alice가 Bob에게 1 XPLA를 보냄`이라는 트랜잭션을 네트워크에 알립니다(BroadCast). 그렇다면 Alice가 1 XPLA 이상을 보유하고 있는지, Alice가 트랜잭션을 생성한 것이 맞는지 등 트랜잭션에 대해 검증할 필요가 있습니다.
+Let's take a look at an example of how transactions are created and processed on the network. When Alice creates a transaction to send 1 XPLA to Bob, the network is notified (broadcasted) of this transaction. The network needs to verify details like whether Alice has more than 1 XPLA and whether Alice actually initiated the transaction.
 
-트랜잭션을 검증하는 역할을 [검증자(Validator)](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/)들이 담당합니다. 검증자들은 모든 블록체인 데이터를 확인하여, 새로 블록에 담을 트랜잭션에 문제가 없는지를 검증합니다.
+[Validators](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/) play the role of verifying transactions. They check all blockchain data and validate the transactions that will be included in new blocks.
 
-검증자들은 [블록체인의 시작부터 현재까지 기록된 모든 데이터를 저장](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)하고 있으면서, 네트워크에서 계속 트랜잭션을 받아 검증하기 때문에 많은 컴퓨팅 자원이 필요합니다. 우리는 컴퓨팅 자원을 사용하지 않는 대신에, 수수료를 지불하여 검증자들에게 트랜잭션 생성을 요청합니다. 이를 PoS(Proof of Stake) 방식이라고 합니다.
+Validators need significant computing resources to continually [receive and verify transactions against the entire history of the blockchain](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/). Instead of using computing resources, we request validators to create transactions by paying fees. This is known as the Proof of Stake (PoS) approach.
 
-또한 수수료는 악의적인 공격자가 트랜잭션을 무한히 발생시켜 블록체인 네트워크에 부하를 걸지 못하도록 방지하는 역할도 있습니다. 
+Furthermore, fees prevent malicious attackers from generating an excessive number of transactions and overwhelming the blockchain network. 
 
 </Details>
 
 ## Preview {#preview}
 
-Javascript로 전송 트랜잭션을 만드는 코드는 아래와 같습니다. 여러분의 니모닉 단어를 넣어 코드를 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+Below is the JavaScript code to create a transaction. Modify the code with your mnemonic words and run it. You'll see the execution result on the right side after a while. 
 
 <Ex02 />
 
 <br/>
 
-Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testnet-transaction/send-tx#runjs)을 읽지 않고 바로 [다음 단계](/docs/settings/create-testnet-transaction/check-tx-in-explorer)로 넘어가셔도 좋습니다.
+If you've understood the Preview Code, you may move on to the [next step](/docs/settings/create-testnet-transaction/check-tx-in-explorer) with out reading [the below](/docs/settings/create-testnet-transaction/send-tx#runjs).
 
+## Creating Transactions with JavaScript {#runjs}
 
-## Javascript로 Transaction 생성하기 {#runjs}
-
-[이전 단계](/docs/settings/create-wallet/get-testnet-xpla)에서 Faucet 지갑에게 XPLA 코인을 전송받았습니다. 이번엔 우리 지갑에서 Faucet 지갑으로 XPLA 코인을 전송하는 트랜잭션을 만들어보겠습니다. 전송하는 금액은 25aXPLA (0.000000000000000025XPLA)입니다.
+In the [previous step](/docs/settings/create-wallet/get-testnet-xpla), you received XPLA coins from the Faucet wallet. This time, let's create a transaction to send XPLA coins from our wallet to the Faucet wallet. The amount being sent is 25aXPLA (0.000000000000000025XPLA). Let's run the code.
 
 :::tip
 
-10<sup>18</sup> `aXPLA`는 1 `XPLA`입니다.
+10<sup>18</sup> `aXPLA` is equivalent to 1 `XPLA`.
 
 :::
 
 ### 코드 실행 {#runcode}
 
-1. [앞서](/docs/settings/create-wallet/create-wallet-with-js#runjs) example-1.js 파일을 생성한 것처럼, example-2.js 파일을 생성해주세요.
+1. Just like you created the example-1.js file [earlier](/docs/settings/create-wallet/create-wallet-with-js#runjs), create a new file called example-2.js. 
 
-2. 아래 코드를 복사하여 example-2.js 파일에 붙여넣고 저장합니다.
+2. Copy and paste the code below into the example-2.js file and save it.
 
     ```js
     const { LCDClient, MsgSend, MnemonicKey } = require("@xpla/xpla.js");
@@ -69,7 +68,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
         const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
         const token = { axpla: 25 };
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [new MsgSend(from, to, token)]
         });
 
@@ -79,43 +78,43 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
     main()
     ```
 
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
+3. Make sure to replace the mnemonic words on line 10 with your own mnemonic words.
 
-4. VSCode Terminal에서 아래 명령어를 입력합니다.
+4. Enter the following command in the VSCode Terminal.
 
   ```bash
   node example-2.js
   ```
 
-5. Terminal에서 결과를 확인합니다. 트랜잭션의 해시값을 확인할 수 있을 것입니다.
+5. Check the results in the Terminal. You should be able to see the hash value of the transaction. 
 
-<Details summary="해시값이란 무엇인가요?">
+<Details summary="What is a hash value?">
 
-해시값이란 `다양한 길이의 데이터를 일정한 길이의 데이터로 변환한 값`입니다. 데이터를 변환하는 방법은 적용하는 알고리즘에 따라 달라집니다.
+A hash value is `a value obtained by transforming data of various lengths into a fixed-length value`. The method of transformation depends on the applied algorithm.
 
-대표적인 `SHA256` 알고리즘을 이용하여 예시를 살펴봅시다. 두 입력값의 데이터 길이는 다르지만, 해시값 길이는 모두 64개로 동일한 것을 알 수 있습니다.
+Let's examine an example using the well-known `SHA256` algorithm. Even though the lengths of the two input values are different, the hash values are all 64 characters long.
 
-- 입력값 : `helloworld`
+- Input : `helloworld`
 
-  해시값 : `936A185CAAA266BB9CBE981E9E05CB78CD732B0B3280EB944412BB6F8F8F07AF`
+  Hash value : `936A185CAAA266BB9CBE981E9E05CB78CD732B0B3280EB944412BB6F8F8F07AF`
 
-- 입력값 : `xpla`
+- Input : `xpla`
 
-  해시값 : `2AA54B6285BB3FCF0A69452991C15DB65B76313950C4D6EF74E584AA5F0E3286`
+  Hash value : `2AA54B6285BB3FCF0A69452991C15DB65B76313950C4D6EF74E584AA5F0E3286`
 
-해시값의 특징으로는, 입력값이 조금만 달라져도 해시값이 크게 바뀐다는 점, 해시값을 통해 입력값이 무엇인지는 알아내기 어렵다는 점 등이 있습니다.
+Hash values have characteristics such as changing significantly with a small change in input, and it's difficult to determine the original input from the hash value.
 
-우리가 생성한 트랜잭션은 `트랜잭션이 포함된 블록의 높이(Height)`, `트랜잭션이 발생한 시간`, `트랜잭션 수수료` 등 다양한 데이터를 가지고 있습니다. 이러한 데이터를 입력값으로 트랜잭션의 해시값이 결정됩니다.
+The transaction we created contains various data such as `the height of the block containing the transaction`, `the time the transaction occurred`, and `the transaction fee`. This data determines the hash value of the transaction. 
 
 </Details>
 
-## 지갑 확인 {#checkvault}
+## Wallet Check {#checkvault}
 
-트랜잭션을 잘 생성했다면, 여러분의 지갑을 Vault에서 확인해보세요. 아래와 같이 기존 Faucet에서 받았던 100 XPLA가 아닌, 더 낮은 금액을 보유하고 계실겁니다.
+If you successfully created the transaction, check your wallet in the Vault. You'll see a lower amount than the 100 XPLA you received from the Faucet.
 
-25aXPLA를 다른 지갑에 전송했고, 트랜잭션 생성을 위해 수수료도 지불했기 때문입니다.
+This is because you sent 25aXPLA to another wallet and paid a fee to create the transaction.
 
-XPLA 코인이 소모되었다는 것을 통해, 우리는 트랜잭션이 잘 생성되었다고 간접적으로 알 수 있습니다.
+By seeing that XPLA coins were spent, you can indirectly confirm that the transaction was successfully created. 
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
@@ -126,9 +125,9 @@ XPLA 코인이 소모되었다는 것을 통해, 우리는 트랜잭션이 잘 �
 </div>
 </BrowserWindow>
 
-## 설명 {#explaination}
+## Explanation {#explaination}
 
-먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+First, you loaded the wallet using the mnemonic words. You might have used different mnemonic words to load your own wallet. 
 
 ```js
 const mk = new MnemonicKey({
@@ -138,7 +137,7 @@ const mk = new MnemonicKey({
 
 <br/>
 
-보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 우리가 소유한 지갑에서 Faucet 지갑으로 25aXPLA만큼 보내겠군요. 
+Specify the sending wallet address, receiving wallet address, and token information. 예제에서는 Faucet 지갑 주소인 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`으로 25aXPLA만큼 보내겠습니다.
 
 ```js
 const from = lcd.wallet(mk).key.accAddress;
@@ -148,41 +147,40 @@ const token = { axpla: 25 };
 
 <br/>
 
-`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 서명은 니모닉 단어를 알고 있으면 이렇게 코드로 진행할 수 있습니다.
+We'll use the `createAndSignTx` function to create a transaction and complete the signing process. You can perform this with the code if you know your mnemonic phrase.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
     msgs: [new MsgSend(from, to, token)]
 });
 ```
-<Details summary="서명이란 무엇인가요?">
+<Details summary="What is a signature?">
 
-서명은 `지갑의 주인이 트랜잭션을 만듦`을 증명하는 수단입니다.
+A signature is a way for `the owner of a wallet to prove that they created a transaction`.
 
-우리는 이번 단계에서 트랜잭션을 만들어 우리 지갑에서 다른 지갑으로 XPLA를 전송해보았습니다. 그러나 악의적인 사람이 내 지갑의 XPLA를 다른 지갑으로 전송할 수 있으면 안되겠죠.
+In this step, we created a transaction to send XPLA from our wallet to another wallet. However, it wouldn't be safe if malicious individuals could transfer XPLA from my wallet to another without permission.
 
-이것을 방지하는 것이 바로 서명입니다. 서명은 지갑의 니모닉 단어나 개인키를 알아야만 진행할 수 있습니다. 따라서 여러 번 언급드렸지만 니모닉 단어를 잘 보관해야 합니다. 니모닉 단어를 알고 있으면 다른 사람이 서명을 진행할 수 있고, 이를 통해 자금을 탈취할 수 있게 되니까요.
+This is where a signature comes in. A signature ensures that only the wallet's owner, who knows the mnemonic phrase or private key, can proceed with the transaction. So, it's crucial to securely store your mnemonic phrase, as knowing it would allow others to create signatures and potentially steal funds.
 
+Moreover, a signature carries more significance. It's generated using the transaction's data, and if the transaction's data is changed, the original signature becomes invalid. Therefore, you would need to create a new signature. This prevents unauthorized modification of transaction data.
 
-뿐만 아니라 서명은 더 다양한 의미를 지니고 있습니다. 서명은 트랜잭션의 데이터를 이용하여 만들어지는데, 트랜잭션 내 데이터를 수정하면 기존 서명은 효력이 사라집니다. 다시 서명을 진행해야 하죠. 이를 통해 다른 사람이 몰래 트랜잭션 데이터를 수정하는 것을 방지할 수 있습니다. 
-
-참고로 트랜잭션의 서명이 타당한지를 검증하는 사람들이 앞서 언급했던 검증자(Validator)들입니다.
+It's important to note that validators, as mentioned earlier, are the ones that verify whether a transaction's signature is valid.
 
 </Details>
 
 <br/>
 
-`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신하면, 검증자(Validator)들이 트랜잭션을 검증할 것입니다. 검증 이후 블록체인에 트랜잭션이 추가되면 결과값을 받을 수 있습니다. 
+When we use the `broadcastSync` function to send the transaction we created to the network, validators will verify the transaction. After verification, if the transaction is added to the blockchain, we can receive the result.
 
-결과값은 `txResult` 변수에 저장되고 이를 통해 해시값을 알아냅니다.
+The result is stored in the `txResult` variable, and from there, we can obtain the hash value.
 
 ```js
 const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
 console.log("Your Transaction Hash: " + txResult.txhash);
 ```
 
-## 마무리
+## Conclusion
 
-그런데 트랜잭션 데이터를 더 자세히 살펴보려면 어떻게 해야할까요? 하나는 XPLA의 모든 트랜잭션 기록을 살펴볼 수 있는 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 또 다른 방법으로는 직접 코드로 트랜잭션 데이터 값을 받아오는 것입니다.
+But how can we examine transaction data in more detail? One way is to use the [XPLA Explorer](https://explorer.xpla.io/), where you can look at all the transaction records of XPLA. Another method is to directly fetch transaction data values using code.
 
-[다음 단계](/docs/settings/create-testnet-transaction/check-tx-in-explorer)에서 하나씩 살펴보겠습니다.
+We will explore each step in the [next section](/docs/settings/create-testnet-transaction/check-tx-in-explorer).

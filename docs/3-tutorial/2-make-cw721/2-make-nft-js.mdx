@@ -103,7 +103,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [instantiate]
         });
 
@@ -172,7 +172,7 @@ const instantiate = new MsgInstantiateContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
     msgs: [instantiate]
 });
 ```
@@ -255,7 +255,7 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
             mintJSON
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [mint]
         });
 
@@ -373,3 +373,5 @@ const mint = new MsgExecuteContract(
 ## 마무리
 
 이렇게 CW721 컨트랙트로 NFT를 발행해보았습니다. NFT도 토큰이기 때문에, 컨트랙트로 발행하는 것임을 기억해주세요. 단지 토큰마다 고유한 메타데이터가 있기 때문에, 같은 컨트랙트에서 만들어진 다른 토큰들과 대체할 수 없다는 것이 큰 특징입니다.
+
+[다음 단계](/docs/tutorial/make-cw721/query-cw721)에서는 직접 만든 NFT 데이터를 블록체인에서 가져와보겠습니다.

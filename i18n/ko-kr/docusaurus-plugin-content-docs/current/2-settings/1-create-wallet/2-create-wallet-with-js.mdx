@@ -22,7 +22,7 @@ Javascript로 지갑을 만드는 코드는 아래와 같습니다. 조금만 �
 
 [@xpla/xpla.js](https://www.npmjs.com/package/@xpla/xpla.js) 모듈에서 `new MnemonicKey()`로 새 니모닉 단어들을 만들 수 있습니다. 이후 LCDClient를 이용하여 지갑의 주소를 추출해낼 수 있습니다. 
 
-Preview Code를 이해하셨다면, [환경설정 이후 부분](/docs/settings/create-wallet/create-wallet-with-js#setting)을 읽지 않고 바로 [다음 단계](/docs/settings/create-wallet/create-wallet-with-xplad)로 넘어가셔도 좋습니다.
+Preview Code를 이해하셨다면, [환경설정 이후 부분](/docs/settings/create-wallet/create-wallet-with-js#setting)을 읽지 않고 바로 [다음 단계](/docs/settings/create-wallet/get-testnet-xpla)로 넘어가셔도 좋습니다.
 
 import Details from '@theme/Details';
 
@@ -42,7 +42,7 @@ import Details from '@theme/Details';
 </div>
 </BrowserWindow>
 
-Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index는 Vault에서 몇번째 순서로 표시할 지갑인지 정합니다. 
+Wallet name과 Password는 Vault에서 사용할 지갑 이름과 비밀번호입니다. Mnemonic은 예제에서 얻은 니모닉 단어들을 넣으시면 됩니다. Index에는 디폴트로 0을 입력해줍니다. Index 값이 다르면, 같은 Mnemonic이더라도 다른 주소가 생성됩니다.
 
 :::
 
@@ -68,7 +68,7 @@ LCDClient는 XPLA 블록체인 내 데이터를 가져오는 도구입니다. �
 
 2. [Visual Studio Code 설치](/docs/settings/create-wallet/create-wallet-with-js#installvscode)
 
-### Node.js 설치 {#installnodejs}
+### 1. Node.js 설치 {#installnodejs}
 
 여러분의 운영체제에 맞는 [Node.js](https://nodejs.org/en/download/)를 설치하세요.
 
@@ -100,7 +100,7 @@ import TabItem from '@theme/TabItem';
 </Tabs>
 </details>
 
-### Visual Studio Code 설치 {#installvscode}
+### 2. Visual Studio Code 설치 {#installvscode}
 
 Code 파일을 쉽게 편집하기 위해 Visual Studio Code를 이용하겠습니다. [Visual Studio Code](https://code.visualstudio.com/download)를 설치해주세요.
 

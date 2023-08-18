@@ -69,7 +69,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
         const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
         const token = { axpla: 25 };
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
             msgs: [new MsgSend(from, to, token)]
         });
 
@@ -138,7 +138,7 @@ const mk = new MnemonicKey({
 
 <br/>
 
-보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 우리가 소유한 지갑에서 Faucet 지갑으로 25aXPLA만큼 보내겠군요. 
+보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 예제에서는 Faucet 지갑 주소인 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`으로 25aXPLA만큼 보내겠습니다.
 
 ```js
 const from = lcd.wallet(mk).key.accAddress;
@@ -151,7 +151,7 @@ const token = { axpla: 25 };
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 서명은 니모닉 단어를 알고 있으면 이렇게 코드로 진행할 수 있습니다.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝, 트랜잭션 fee 설정
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
     msgs: [new MsgSend(from, to, token)]
 });
 ```
