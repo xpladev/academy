@@ -9,15 +9,15 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    Svg: "/academy/img/HomepageFeatures/easy-to-follow.svg",
+    Svg: "/img/HomepageFeatures/easy-to-follow.svg",
     description: <>Easy to follow tutorials</>,
   },
   {
-    Svg: "/academy/img/HomepageFeatures/freely-moddable.svg",
+    Svg: "/img/HomepageFeatures/freely-moddable.svg",
     description: <>Flexible Modularity</>,
   },
   {
-    Svg: "/academy/img/HomepageFeatures/game-developer-friendly.svg",
+    Svg: "/img/HomepageFeatures/game-developer-friendly.svg",
     description: <>Game DEV-friendly</>,
   },
 ];
@@ -42,11 +42,11 @@ export default function HomepageFeatures(): JSX.Element {
     <section className="h-[812px] bg-[#004FFF] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.ellipsis}
-        src={`/academy/img/HomepageFeatures/ellipsis.svg`}
+        src={`/img/HomepageFeatures/ellipsis.svg`}
       />
       <img
         className={styles.square}
-        src={`/academy/img/HomepageFeatures/square.svg`}
+        src={`/img/HomepageFeatures/square.svg`}
       />
       <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
         <div className="flex flex-col flex-1 gap-[77px]">

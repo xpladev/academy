@@ -24,7 +24,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
     <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
       <div className="max-w-[1180px] flex flex-1 justify-between items-center relative">
         <div className="flex flex-col max-w-[576px] pb-[100px]">
-          <img className="mb-[30px]" src={`/academy/img/Homepage/xpla-academy.svg`} />
+          <img className="mb-[30px]" src={`/img/Homepage/xpla-academy.svg`} />
           <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
             {siteConfig.tagline}
           </span>
@@ -51,11 +51,11 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
         </div>
         <img
           className={styles.explorerPlay}
-          src={`/academy/img/Homepage/explorer-play.svg`}
+          src={`/img/Homepage/explorer-play.svg`}
         />
         <img
           className={styles.earth}
-          src={`/academy/img/Homepage/earth.svg`}
+          src={`/img/Homepage/earth.svg`}
         />
       </div>
     </header>
