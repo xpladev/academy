@@ -29,7 +29,7 @@ Overview
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/make-nft-vault">Issue CW721 NFT (Vault)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/make-nft-js">Issue CW721 NFTs (Javascript)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/query-cw721">Working with CW721 Data</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Advenced - Dive deep into XPLA blockchain
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;Advanced - Dive deep into XPLA blockchain
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/local-network">Run XPLA blockchain locally (Private)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/account-sequence">Decode Account Numbers and Sequences in transactions</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/walletprovider">Connect react with XPLA Vault wallet via wallet provider</a>

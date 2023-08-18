@@ -77,10 +77,10 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Advenced - Dive deep into XPLA blockchain',
+      label: 'Advanced - Dive deep into XPLA blockchain',
       link: {
         type: 'generated-index',
-        title: 'Advenced - Dive deep into XPLA blockchain',
+        title: 'Advanced - Dive deep into XPLA blockchain',
         // description: ''
       },
       items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract'],

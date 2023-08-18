@@ -83,7 +83,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#C9FF00",
       contents: [
         {
-          link: "/docs/category/advenced---dive-deep-into-xpla-blockchain",
+          link: "/docs/category/advanced---dive-deep-into-xpla-blockchain",
           description: (
             matches ? <span className="font-semibold text-[16px]">
             Stand out with <br/><span className="font-bold text-[16px]">  ADVANCED 
