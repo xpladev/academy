@@ -27,9 +27,9 @@ function Feature({ Svg, description }: FeatureItem) {
     <div
       className={clsx("flex flex-1 justify-center items-center", styles.card)}
     >
-      <div className="flex flex-col gap-[33px]">
-        <div className="flex flex-1 justify-center">
-          <img src={Svg} />
+      <div className="flex gap-[33px] items-center flex-row md:flex-col p-4">
+        <div className={clsx("flex flex-1 justify-center")}>
+          <img src={Svg} className={styles.mobileImg} />
         </div>
         <span className="font-bold text-[26px] ">{description}</span>
       </div>
@@ -53,7 +53,7 @@ export default function HomepageFeatures(): JSX.Element {
           <span className="text-[#ffffff] flex flex-1 justify-center font-semibold text-[50px]">
             Dive into XPLA Academy
           </span>
-          <div className="flex flex-1 gap-[20px]">
+          <div className="flex-col md:flex-row flex flex-1 gap-[20px]">
             {FeatureList.map((props, idx) => (
               <Feature key={idx} {...props} />
             ))}

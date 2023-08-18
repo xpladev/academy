@@ -58,10 +58,22 @@
   border: 1px solid black;
   box-shadow: 10px 10px 0px black;
   transition: all 200ms;
+  @media screen and (max-width : 768px) {
+    aspect-ratio: 3 / 1;
+    height : 100px;
+    padding: 20px;
+  }
 }
 
 .card:hover {
   cursor: pointer;
   box-shadow: none;
   transform: translate(10px, 10px);
+}
+
+.quotationMark {
+  @media screen and (max-width : 768px) {
+    visibility: hidden;
+    height : 0px;
+  }
 }

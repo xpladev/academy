@@ -4,6 +4,7 @@ import styles from "./styles.module.css";
 import Link from "@docusaurus/Link";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export async function copyToClipboard(text?: string | number) {
   if (text === undefined) return false;
@@ -122,6 +123,7 @@ const TestnetEndpointList: EndpointItem[] = [
 function Endpoint({ title, link }: EndpointItem) {
   const [copyAnimation, setCopyAnimation] = useState<boolean>(true);
   const [isCopy, setIsCopy] = useState<boolean>(false);
+  const matches = useMediaQuery('(max-width:768px)');
 
   const handleClickCopy = useCallback(() => {
     setCopyAnimation(true);
@@ -138,7 +140,7 @@ function Endpoint({ title, link }: EndpointItem) {
   return (
     <div className="flex justify-between">
       <div className="flex">
-        <span className="text-[18px] font-bold w-[175px]">{title}</span>
+        <span className="text-[18px] font-bold min-w-[130px] max-w-[130px] md:min-w-[175px] md:max-w-[175px]">{title}</span>
         <span className="text-[18px] font-medium">{link}</span>
       </div>
       <div className="relative w-[100px] flex justify-end">
@@ -151,11 +153,13 @@ function Endpoint({ title, link }: EndpointItem) {
             )}
           />
         )}
-        <img
-          onClick={handleClickCopy}
-          src="/img/DevResource/CopyButton.svg"
-          className="hover:cursor-pointer hover:opacity-60"
-        />
+        {!matches && (
+          <img
+            onClick={handleClickCopy}
+            src="/img/DevResource/CopyButton.svg"
+            className="hover:cursor-pointer hover:opacity-60"
+          />
+        )}
       </div>
     </div>
   );
