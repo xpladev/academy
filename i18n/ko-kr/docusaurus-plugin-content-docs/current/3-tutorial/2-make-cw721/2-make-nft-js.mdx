@@ -82,7 +82,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -99,11 +99,11 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             myWalletAddress, // admin
             3, // MAINNET, TESTNET CW721 code id
             init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-            'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'Input your label', // Enter the label you want to write.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [instantiate]
         });
 
@@ -162,8 +162,8 @@ const instantiate = new MsgInstantiateContract(
     myWalletAddress, // admin
     3, // MAINNET, TESTNET CW721 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'Input your label', // Enter the label you want to write.
 );
 ```
 
@@ -172,7 +172,7 @@ const instantiate = new MsgInstantiateContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
 });
 ```
@@ -188,8 +188,7 @@ console.log(txResult.txhash);
 
 <br/>
 
-생성한 컨트랙트 주소를 [XPLA Explorer](https://explorer.xpla.io/)에서 확인해봅시다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색합니다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 `
-xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인할 수 있습니다.
+생성한 컨트랙트 주소를 [XPLA Explorer](https://explorer.xpla.io/)에서 확인해봅시다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색합니다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 `xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0`인 것을 확인할 수 있습니다.
 
 <br/>
 
@@ -215,7 +214,7 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -255,7 +254,7 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
             mintJSON
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [mint]
         });
 

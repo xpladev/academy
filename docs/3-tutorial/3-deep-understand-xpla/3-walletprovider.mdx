@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Wallet Provider로 React와 XPLA Vault 지갑 연결하기
+# Connect React with XPLA Vault Wallet via Wallet Provider
 
 import WalletProvider from "@site/src/components/Sandpack/Walletprovider";
 import CodeWPIndex from "@site/src/components/CodeBlock/CodeWPIndex";
@@ -11,75 +11,75 @@ import CodeWPCss from "@site/src/components/CodeBlock/CodeWPCss";
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-[XPLA Wallet Provider](https://github.com/xpladev/wallet-provider)란 React에서 XPLA Vault 지갑을 이용할 수 있도록 도와주는 도구입니다. 이를 통해 유저들이 React 웹에서 자신의 Vault 지갑을 더 쉽게 이용할 수 있습니다. 직접 React 웹에서 Wallet Provider를 사용해봅시다.
+[XPLA Wallet Provider](https://github.com/xpladev/wallet-provider) is a tool in React that helps you utilize the XPLA Vault wallet. This makes it easier for users to use their Vault wallet within a React web application. Let's dive into using Wallet Provider directly in a React web app.
 
 :::info
 
-XPLA Wallet Provider에 관한 정보는 [XPLA Docs](https://docs.xpla.io/docs/develop/tools/wallet-provider/)에서도 확인할 수 있습니다.
+You can also find information about XPLA Wallet Provider in the [XPLA Docs](https://docs.xpla.io/docs/develop/tools/wallet-provider/).
 
 :::
 
 :::danger
 
-Edge 브라우저에서는 Wallet Provider를 이용하여 Vault Chrome Extension과 연결할 수 없습니다. 대신 모바일 애플리케이션 Vault를 설치하여, [Wallet Connect](https://walletconnect.com/) 방식으로 연결할 수 있습니다.
+In the Edge browser, you cannot connect to the Vault Chrome Extension using Wallet Provider. Instead, you can install the mobile application Vault and establish a connection using the [Wallet Connect](https://walletconnect.com/) method.
 
 :::
 
 ## Preview
 
-React에서 Wallet Provider를 이용하여 Vault 지갑을 연결하는 코드입니다. 아래 Connect Button을 누르고, 테스트넷 XPLA 전송까지 진행해보세요.
+Below is the code to connect a Vault wallet using Wallet Provider in React. Click the Connect button below and try sending testnet $XPLA. 
 
 <WalletProvider />
 
 <br />
 
-Wallet Provider로 유저의 Vault 지갑 정보를 받아, 테스트넷 XPLA 전송까지 진행할 수 있었습니다. Preview Code를 이해하셨다면 [다음 단계](/docs/tutorial/deep-understand-xpla/write-contract)로 넘어가셔도 좋습니다.
+We were able to receive the user's Vault wallet information through Wallet Provider and complete the process of sending testnet $XPLA. If you've understood the Preview Code, you're ready to move on to the [next step](/docs/tutorial/deep-understand-xpla/write-contract).
 
 ## React Code Along
 
-아래 과정을 따라하면서 Preview Code를 이해해봅시다.
+Let's follow the steps below to understand and work with the Preview Code:
 
-1. 먼저 React를 CRA로 설치합니다.
+1. Start by setting up React using CRA.
 
     ```bash
     npx create-react-app xpla-app
     cd xpla-app
     ``` 
 
-2. Wallet Provider를 이용하기 위해 필요한 모듈을 설치합니다. Wallet Provider는 [Polyfill](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill)을 이용하기 때문에, `react-scripts@4.0.3`를 함께 설치해줍니다.
+2. Install the necessary module for using Wallet Provider. Since Wallet Provider uses a [Polyfill](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill), make sure to install `react-scripts@4.0.3` as well.
 
     ```bash
     npm install react-scripts@4.0.3
     npm install @xpla/wallet-provider @xpla/xpla.js
     ```
 
-3. CRA로 설치한 React 프로젝트에서, src/index.js 파일을 예제와 같이 수정합니다.
+3. Modify the src/index.js file in your React project installed with CRA, as shown in the example.
     
     <CodeWPIndex />
 
-4. src/App.js 파일을 수정합니다.
+4. Edit the src/App.js file.
     
     <CodeWPApp />
 
-5. src/index.css 파일을 수정합니다.
+5. Make changes to the src/index.css file.
 
     <CodeWPCss />
 
-6. 로컬에서 React를 실행합니다.
+6. Run React locally.
 
     ```bash
     npm start
     ``` 
 
-이후 브라우저에서 `localhost:3000`로 접속하여 Preview 화면처럼 Vault 지갑을 연결해볼 수 있습니다. 직접 테스트넷 XPLA를 전송해보세요.
+After this, you can access the Vault wallet connection like in the preview by visiting `localhost:3000` in your browser. Try sending testnet $XPLA directly.
 
-## App.js 코드 분석
+## App.js Code Analysis
 
-Wallet Provider를 직접적으로 이용하는 App.js 파일의 코드를 분석해봅시다. 
+Let's analyze the code in the App.js file, which directly uses the Wallet Provider.
 
 ### Line 16~24 {#line16-24}
 
-`@xpla/wallet-provider` 모듈의 **useWallet**과 **useConnectedWallet** 함수를 사용했습니다. **status** 변수는 현재 유저가 Vault Chrome Extension과 연결했는지 상태를 나타내는 변수값입니다. 유저의 지갑이 연결되지 않았다면, **connectedWallet** 변수에는 `undefined` 값이 담겨 있습니다.
+We've used the **useWallet** and **useConnectedWallet** functions from the `@xpla/wallet-provider` module. The **status** variable indicates whether the user is connected to the Vault Chrome Extension. If the user's wallet is not connected, the **connectedWallet** variable holds an `undefined` value.
 
 ```js {2}
 const {
@@ -95,7 +95,7 @@ const connectedWallet = useConnectedWallet();
 
 ### Line 72~83 {#line72-83}
 
-유저가 아직 Vault 지갑을 연결하지 않았을 경우(**status === WalletStatus.WALLET_NOT_CONNECTED**), `Connect Wallet` 버튼을 보여주도록 했습니다. 유저가 버튼을 클릭하면 **connect** 함수를 실행합니다. **connect** 함수는 `@xpla/wallet-provider` 모듈의 내장 함수로, Vault에 연결할 수 있는 Modal 창을 띄워줍니다.
+When the user hasn't connected their Vault wallet yet (**status === WalletStatus.WALLET_NOT_CONNECTED**), we display the `Connect Wallet` button. Clicking this button triggers the **connect** function. This function, an embedded feature of the `@xpla/wallet-provider` module, opens a modal window to connect to the Vault.
 
 ```js {1,6}
 {status === WalletStatus.WALLET_NOT_CONNECTED ? (
@@ -114,7 +114,7 @@ const connectedWallet = useConnectedWallet();
 
 <br />
 
-유저가 지갑을 연결하면, 현재 유저가 Vault에서 사용하고 있는 주소 정보가 **connectedWallet** 변수에 담깁니다. 유저는 Vault에서 `Switch wallet` 버튼으로 사용하는 지갑 주소를 바꿀 수 있습니다.
+When the user connects their wallet, the address information they're using in the Vault is stored in the **connectedWallet** variable. Users can switch wallet addresses using the `Switch wallet` button in the Vault.
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
@@ -127,7 +127,7 @@ const connectedWallet = useConnectedWallet();
 
 ### Line 91~123 {#line91-123}
 
-예제 React 화면에서 Recipient 값과 Amount 값을 input으로 입력 받았습니다. 이후 `Send Tx` 버튼을 클릭할 경우 **handleSend** 함수를 실행합니다.
+In the example React interface, we take Recipient and Amount as input values. Clicking the `Send Tx` button triggers the **handleSend** function.
 
 ```js {3,16,27}
 <div className="info-container">
@@ -167,7 +167,7 @@ const connectedWallet = useConnectedWallet();
 
 ### Line 33~55 {#line33-55}
 
-**handleSend** 함수는 유저가 연결한 지갑으로부터, Recipient 지갑으로 입력한 금액(aXPLA)만큼 테스트넷 XPLA를 전송합니다. line 35에서 트랜잭션 메시지를 만들고, line 42에서 블록체인 네트워크에 트랜잭션을 전파합니다.
+The **handleSend** function sends testnet $XPLA from the user's connected wallet to the recipient's wallet, based on the amount (aXPLA) entered. It creates a transaction message at line 35 and broadcasts the transaction to the blockchain network at line 42.
 
 ```js {3,10}
 const handleSend = async () => {
@@ -197,9 +197,9 @@ const handleSend = async () => {
 
 ### Line 57~69 {#line57-69}
 
-XPLA 블록체인에서 블록 생성은 약 6초마다 이루어집니다. 따라서 트랜잭션을 전파한 후, 트랜잭션이 블록체인에 기록되기까지는 시간이 조금 걸립니다. 블록체인에 트랜잭션이 잘 기록되었는지 확인하기 위해, 예제에서는 `LCDClient`를 이용하여 해시값에 해당하는 트랜잭션이 있는지 조사하였습니다.
+In the XPLA blockchain, blocks are generated about every 6 seconds. So, after propagating a transaction, it takes a bit of time for it to be recorded in the blockchain. To confirm whether the transaction is successfully recorded, the example uses the `LCDClient` to check if there's a transaction corresponding to the hash value.
 
-**handleSend** 함수에서 트랜잭션이 전파되었다면, React State 중 **loading** 변수값이 **true**로 바뀌게 됩니다(line 44). 이때 **useEffect** 함수의 **dependency array** 항목에 **loading** 변수가 포함되어 있기 때문에 **useEffect**의 callback 함수가 실행됩니다. callback 함수는 LCDClient에게 트랜잭션 데이터를 받을 때까지, **setTimeout** 함수로 1초에 한번씩 계속 쿼리를 보냅니다. 
+If the transaction is successfully propagated in the `handleSend` function, the **loading** variable in React State changes to **true** (line 44). Since the **loading** variable is included in the **dependency array** of **useEffect**, the callback function of **useEffect** is executed. The callback function sends queries to the LCDClient every second using the **setTimeout** function until the transaction data is received.
 
 ```js {3,5,13}
 useEffect(() => {
@@ -219,13 +219,13 @@ useEffect(() => {
 
 :::info
 
-LCDClient를 이용하여 트랜잭션 데이터를 가져오는 방법은 [이전 단계](/docs/settings/create-testnet-transaction/send-query)에서 학습한 내용을 응용한 것입니다.
+The method of retrieving transaction data using LCDClient is an application of what you learned in the [previous step](/docs/settings/create-testnet-transaction/send-query).
 
 :::
 
 ### Line 124~143 {#line124-143}
 
-이후 트랜잭션 데이터를 받아 **loading** 변수값이 0이 된다면, React 화면에서 유저에게 트랜잭션 해시값을 보여줍니다. 예제에서는 해시값을 클릭하면 [XPLA Explorer](https://explorer.xpla.io/)로 이동하도록 연결해주었습니다.  
+Once the transaction data is received and the **loading** variable becomes 0, the React interface displays the transaction hash value to the user. Clicking the hash value links to the [XPLA Explorer](https://explorer.xpla.io/).
 
 ```js {11}
 {txResult && (
@@ -250,4 +250,4 @@ LCDClient를 이용하여 트랜잭션 데이터를 가져오는 방법은 [이�
 )}
 ```
 
-지금까지 React에서 `@xpla/wallet-provider` 모듈을 이용해봤습니다. 유저의 Vault 지갑 정보를 React에 연결하고, 테스트넷 XPLA까지 전송할 수 있었습니다. 예제 코드를 여러분의 게임에 맞게 수정하여, 유저들이 쉽게 블록체인을 이용할 수 있도록 만들어봅시다. 
+So far, we've explored using the `@xpla/wallet-provider` module in React. We've connected the user's Vault wallet information to React and successfully sent testnet $XPLA. Customize the example code to suit your game and make it easy for users to interact with the blockchain.

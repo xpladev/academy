@@ -23,7 +23,7 @@ const lcd = new LCDClient({
 
 const main = async () => {
   const mk = new MnemonicKey({
-    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
   })
 
   const wallet = lcd.wallet(mk);

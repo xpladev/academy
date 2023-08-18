@@ -44,15 +44,16 @@ If you’ve understood the Preview Code, you can proceed to the [next step](/doc
 
 Let's create a CW20 contract and issue CW20 tokens. The Code ID for the CW20 contract is `1` on both the mainnet and the testnet.
 
-<Details summary="Code ID란 무엇인가요?">
+<Details summary="Code ID?">
 
-EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생성이 한번에 이뤄지지 않습니다. 먼저 작성한 컨트랙트 코드를 블록체인에 배포(StoreCode)하면 해당 코드의 `Code ID`를 발급 받습니다. 이후 `Code ID`를 기반으로 컨트랙트를 생성(InstantiateContract)할 수 있습니다.
+Unlike EVM, the Code Deploy and Contract Creation do not go hand in hand in Cosmwasm. First, when you put your code onto the blockchain (StoreCode), you'll get a special number called a `Code ID` for that code. Afterward, you can use this `Code ID` to make a contract (InstantiateContract).
 
-똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id)를 참고해보세요.
+All the contracts made with the same Code ID are based on the same original code. The only difference is that if you provide different starting values (init_msg) when making the contract, the specific details of the contract will be different. For more detailed information, you can take a look at the [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id).
 
 </Details>
 
-### Run Code {#make-cw20-runcode}
+
+### Running the Code {#make-cw20-runcode}
 
 1. Please create a file named "example-4.js".
 
@@ -68,7 +69,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -78,8 +79,8 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             name: "My CW20 Token", // My Cw20 Token
             symbol: "MCT", // My Cw20 Token
             decimals: 6,
-            initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
-            mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+            initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // List the addresses that will initially hold the supply as an array.
+            mint: { // You can also optionally specify a minter in case additional minting is needed.
                 minter: myWalletAddress
             }
         };
@@ -89,30 +90,30 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             myWalletAddress, // admin
             1, // MAINNET, TESTNET CW20 code id
             init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
-            'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'My CW20 Token', // Enter the label you want to write.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [instantiate]
         });
 
-        // createAndSignTx 함수를 분리하여 직접 작성하면 아래와 같습니다.
-        // const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+        // You can replace the createAndSignTx function with the code below
+        // const accInfo = await lcd.auth.accountInfo(myWalletAddress) // Getting wallet information
         // const acc = accInfo;
         
-        // const userSignOption = { // 서명 정보 
+        // const userSignOption = { // Signing details 
         // 	chainID: 'cube_47-5',
         // 	accountNumber: acc.account_number,
         // 	sequence: acc.sequence,
         // 	signMode: SignMode.SIGN_MODE_DIRECT
         // }
         
-        // const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+        // const fee = new Fee(3000000, "2550000000000000000axpla") // Setting the fee amount
         
-        // const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+        // const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // Creating the transaction
         
-        // const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+        // const signedTx = await wallet.key.signTx(tx, userSignOption) // Signing
 
         const txResult = await lcd.tx.broadcastSync(signedTx);
         console.log(txResult.txhash);
@@ -154,8 +155,8 @@ const init_msg = {
     name: "My CW20 Token", // My Cw20 Token
     symbol: "MCT", // My Cw20 Token
     decimals: 6,
-    initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
-    mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+    initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // List the addresses that will initially hold the supply as an array.
+    mint: { // You can also optionally specify a minter in case additional minting is needed.
         minter: myWalletAddress
     }
 };
@@ -177,8 +178,8 @@ const instantiate = new MsgInstantiateContract(
     myWalletAddress, // admin
     1, // MAINNET, TESTNET CW20 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
-    'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'My CW20 Token', // Enter the label you want to write.
 );
 ```
 
@@ -187,7 +188,7 @@ const instantiate = new MsgInstantiateContract(
 You generate and complete the signature for a transaction using the `createAndSignTx` function.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
 });
 ```
@@ -197,21 +198,21 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 �
 The `createAndSignTx` function generates a transaction, automatically sets the fee amount, and proceeds with the signing process. You can also separate the roles of the `createAndSignTx` function into creating a transaction, setting the fee, and signing individually, as shown in the commented sections of the example code.
 
 ```js
-const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+const accInfo = await lcd.auth.accountInfo(myWalletAddress) // Getting wallet information
 const acc = accInfo;
 
-const userSignOption = { // 서명 정보 
+const userSignOption = { // Signing details 
     chainID: 'cube_47-5',
     accountNumber: acc.account_number,
     sequence: acc.sequence, 
     signMode: SignMode.SIGN_MODE_DIRECT
 }
 
-const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+const fee = new Fee(3000000, "2550000000000000000axpla") // Setting the fee amount
 
-const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // Creating the transaction
 
-const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+const signedTx = await wallet.key.signTx(tx, userSignOption) // Signing
 ```
 
 :::
@@ -242,7 +243,7 @@ const lcd = new LCDClient({
 });
 
 async function main() {
-	const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+	const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
 	console.log(JSON.stringify(txInfo, null, 2));
 }
 main()
@@ -264,9 +265,9 @@ So far, we've issued CW20 tokens. Using these tokens can enrich the gaming ecosy
 
 ## Send Issued CW20 {#send-cw20}
 
-Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transfers are carried out by **Execute** the `transfer` function of the CW20 contract. For this example, we'll use the contract address of the MCT token as `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`, and we'll transfer the tokens to the address `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`.
+Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transfers are carried out by **executing** the `transfer` function of the CW20 contract. For this example, we'll use the contract address of the MCT token as `xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc`, and we'll transfer the tokens to the address `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`.
 
-### Run Code {#send-cw20-runcode}
+### Running the Code {#send-cw20-runcode}
 
 1. Please create a file named example-5.js.
 
@@ -288,7 +289,7 @@ Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transf
         const wallet = lcd.wallet(mk);
         const myWalletAddress = wallet.key.accAddress;
         
-        const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+        const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // Replace it with the address of the CW20 token created in example-4.js.
 
         const transferMsg = new MsgExecuteContract(
             myWalletAddress,
@@ -301,14 +302,14 @@ Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transf
             }
         );
         
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [transferMsg]
         });
 
         // const accInfo = await lcd.auth.accountInfo(myWalletAddress)
         // const acc = accInfo;
         
-        // // 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+        // // Estimating the expected transaction fee for the message.
         // const tx_api = new TxAPI(lcd)
         // const simul_fee = await tx_api.estimateFee(
         // 	[{
@@ -360,9 +361,9 @@ Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transf
 
 5. Check the results in the Terminal. You'll see that the CW20 tokens have been sent, and you'll be able to verify the transaction's hash value.
 
-### Description {#send-cw20-explaination}
+### Explanation {#send-cw20-explaination}
 
-Sending CW20 tokens works differently from sending XPLA coins. While XPLA coin transfers use the `MsgSend` method, CW20 token transfers are done by **Execute** the `transfer` function of the CW20 contract. This is why we use the `MsgExecuteContract` method.
+Sending CW20 tokens works differently from sending XPLA coins. While XPLA coin transfers use the `MsgSend` method, CW20 token transfers are done by **executing** the `transfer` function of the CW20 contract. This is why we use the `MsgExecuteContract` method.
 
 First, you've loaded the wallet with your mnemonic words. You might have used different mnemonic words to load your wallet.
 
@@ -382,7 +383,7 @@ Then, we've specified the contract address of the token. You would have also ass
 Next, we've indicated who the transfer is going to and how much CW20 you're sending. In the `amount` field, you specify the quantity in uCW20 units. Remember that [when you created the contract](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination), the `decimal value` was set to **6**. So, if you have 100,000 **uCW20**, you'll be sending 0.1 **CW20**.
 
 ```js
-const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // Replace it with the address of the CW20 token created in example-4.js.
 
 const transferMsg = new MsgExecuteContract(
     myWalletAddress,
@@ -401,7 +402,7 @@ const transferMsg = new MsgExecuteContract(
 Use the `createAndSignTx` function to generate a transaction and go through the signing process as well.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [transferMsg]
 });
 ```
@@ -416,7 +417,7 @@ Now, let's take a look at the code that uses the `estimateFee` function to creat
 const accInfo = await lcd.auth.accountInfo(myWalletAddress)
 const acc = accInfo;
 
-// 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+// Estimating the expected transaction fee for the message.
 const tx_api = new TxAPI(lcd)
 const simul_fee = await tx_api.estimateFee(
     [{
@@ -453,6 +454,6 @@ console.log(txResult.txhash);
 
 Did you receive the transaction hash value? Use the [XPLA Explorer](https://explorer.xpla.io/) to check the transaction data and details.
 
-## Conclusion {#conclusion}
+## Wrapping Up {#conclusion}
 
 We've looked into transferring CW20 tokens like this. Now, let's connect CW20 tokens to your game with the XPLA blockchain! In the [next chapter](/docs/tutorial/make-cw20/query-cw20), we will retrieve data of the CW20 token we created ourselves from the blockchain.

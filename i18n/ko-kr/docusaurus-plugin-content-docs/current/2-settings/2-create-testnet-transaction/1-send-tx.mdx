@@ -66,14 +66,14 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/settings/create-testne
         })
 
         const from = lcd.wallet(mk).key.accAddress;
-        const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+        const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // Faucet wallet address
         const token = { axpla: 25 };
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [new MsgSend(from, to, token)]
         });
 
-        const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+        const txResult = await lcd.tx.broadcastSync(signedTx); // Sending transactions to blockchain
         console.log("Your Transaction Hash: " + txResult.txhash);
     }
     main()
@@ -138,11 +138,11 @@ const mk = new MnemonicKey({
 
 <br/>
 
-보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 예제에서는 Faucet 지갑 주소인 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`으로 25aXPLA만큼 보내겠습니다.
+보내는 지갑 주소, 받는 지갑 주소, 보내려는 토큰의 정보를 적어줍니다. 예제에서는 Faucet wallet address인 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`으로 25aXPLA만큼 보내겠습니다.
 
 ```js
 const from = lcd.wallet(mk).key.accAddress;
-const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // Faucet wallet address
 const token = { axpla: 25 };
 ```
 
@@ -151,7 +151,7 @@ const token = { axpla: 25 };
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 서명은 니모닉 단어를 알고 있으면 이렇게 코드로 진행할 수 있습니다.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [new MsgSend(from, to, token)]
 });
 ```
@@ -177,7 +177,7 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 �
 결과값은 `txResult` 변수에 저장되고 이를 통해 해시값을 알아냅니다.
 
 ```js
-const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+const txResult = await lcd.tx.broadcastSync(signedTx); // Sending transactions to blockchain
 console.log("Your Transaction Hash: " + txResult.txhash);
 ```
 

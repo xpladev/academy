@@ -45,7 +45,7 @@ In the [previous step](/docs/settings/create-wallet/get-testnet-xpla), you recei
 
 :::
 
-### 코드 실행 {#runcode}
+### Running the Code {#runcode}
 
 1. Just like you created the example-1.js file [earlier](/docs/settings/create-wallet/create-wallet-with-js#runjs), create a new file called example-2.js. 
 
@@ -65,14 +65,14 @@ In the [previous step](/docs/settings/create-wallet/get-testnet-xpla), you recei
         })
 
         const from = lcd.wallet(mk).key.accAddress;
-        const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+        const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // Faucet wallet address
         const token = { axpla: 25 };
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [new MsgSend(from, to, token)]
         });
 
-        const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+        const txResult = await lcd.tx.broadcastSync(signedTx); // Sending transactions to blockchain
         console.log("Your Transaction Hash: " + txResult.txhash);
     }
     main()
@@ -137,11 +137,11 @@ const mk = new MnemonicKey({
 
 <br/>
 
-Specify the sending wallet address, receiving wallet address, and token information. 예제에서는 Faucet 지갑 주소인 `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`으로 25aXPLA만큼 보내겠습니다.
+Specify the sending wallet address, receiving wallet address, and token information. We're sending 25aXPLA from our wallet to the Faucet wallet address `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv`.
 
 ```js
 const from = lcd.wallet(mk).key.accAddress;
-const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // Faucet wallet address
 const token = { axpla: 25 };
 ```
 
@@ -150,7 +150,7 @@ const token = { axpla: 25 };
 We'll use the `createAndSignTx` function to create a transaction and complete the signing process. You can perform this with the code if you know your mnemonic phrase.
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [new MsgSend(from, to, token)]
 });
 ```
@@ -175,11 +175,11 @@ When we use the `broadcastSync` function to send the transaction we created to t
 The result is stored in the `txResult` variable, and from there, we can obtain the hash value.
 
 ```js
-const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+const txResult = await lcd.tx.broadcastSync(signedTx); // Sending transactions to blockchain
 console.log("Your Transaction Hash: " + txResult.txhash);
 ```
 
-## Conclusion
+## Wrapping Up {#conclusion}
 
 But how can we examine transaction data in more detail? One way is to use the [XPLA Explorer](https://explorer.xpla.io/), where you can look at all the transaction records of XPLA. Another method is to directly fetch transaction data values using code.
 

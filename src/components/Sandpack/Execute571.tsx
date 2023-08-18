@@ -29,7 +29,7 @@ const main = async () => {
     const wallet = lcd.wallet(mk);
     const myWalletAddress = wallet.key.accAddress;
     
-    const contractAddress = "xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+    const contractAddress = "xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz"; // Replace it with the address of the CW20 token created in example-4.js.
 
     const executeMsg = {
       save_data : {
@@ -46,7 +46,7 @@ const main = async () => {
         executeMsg
     );
     
-    const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+    const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
         msgs: [message]
     });
 

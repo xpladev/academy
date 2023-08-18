@@ -2,33 +2,33 @@
 sidebar_position: 2
 ---
 
-# NFT(CW721) 발행하기 (Javascript)
+# Issue CW721 NFT (Javascript)
 
 import Details from '@theme/Details';
 import Ex06CW721 from "@site/src/components/Sandpack/Ex06-instantiate-cw721";
 import Ex07MintNFT from "@site/src/components/Sandpack/Ex07-mint-nft";
 
-CW721을 이용하면 XPLA 블록체인에서 쉽게 NFT를 발행할 수 있습니다. 직접 Javascript로 NFT를 만들어보고, 게임에 적용해봅시다.
+You can use CW721 to easily create NFTs on the XPLA blockchain. Let's give making NFTs a shot by crafting them in your Vault and trying them out in a game!
 
-<Details summary="NFT란 무엇인가요?">
+<Details summary="What is NFT?">
 
-NFT란 `Non-Fungible Token`의 약자로, 대체 불가능한 토큰이란 뜻입니다. `대체 불가능`이라는 건 무슨 뜻일까요?
+NFT stands for `Non-Fungible Token`, which means it's a token that can't be replaced with something else. But what does `Non-Fungible` actually mean?
 
-1달러짜리 지폐 두 장의 가치는 서로 같습니다. 둘 다 1달러의 가치를 지니므로, 하나가 다른 하나를 대체할 수 있습니다. 그러나 Alice가 그린 모나지라 그림과 루브르 박물관에 있는 모나리자의 가치는 어떨까요? Alice가 모나리자 그림의 모든 부분을 똑같이 묘사해도, 진짜 모나리자를 대체할 수는 없습니다. 이처럼 서로 대체할 수 없는 고유한 토큰을 두고 NFT라고 부릅니다. 
+Let's take the example of two $1 bills. They're both worth the same, $1 each, so one can replace the other. Now, think about a drawing of a Mona Lisa that Alice made and the actual Mona Lisa painting in the Louvre Museum. Even if Alice's drawing perfectly depicts every detail of the Mona Lisa, it can't replace the real Mona Lisa painting. This is because they're uniquely different and can't be swapped for each other. This is the idea behind NFTs - they're tokens for things that can't be replaced with something else.
 
-NFT로 무엇을 할 수 있을까요? Alice는 그림을 하나 그려 프로필 사진으로 사용하려고 합니다. 그런데 누군가가 Alice의 그림을 복사하여 사용하고, 자신이 그린 그림이라고 주장하면 어떡할까요? Alice가 그림의 주요 정보를 NFT에 담는다면 그림의 소유권을 증명할 수 있을 것입니다.
+So, what can you do with NFTs? Imagine Alice creates a drawing and wants to use it as her profile picture. But what if someone copies Alice's drawing, claims it as their own, and uses it? What can Alice do? If Alice includes the main information about the drawing in an NFT, she can prove ownership of the drawing. This way, she can establish that she's the real owner of the drawing.
 
 </Details>
 
-<Details summary="CW721이란 무엇인가요?">
+<Details summary="What is CW721?">
 
-XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합니다. 이더리움의 ERC721처럼, **CW721**은 `Cosmwasm`에서 대체 불가능한 토큰(Non-Fungible Tokens)에 대한 표준입니다. ERC721과 이름은 비슷할지 몰라도, 기능은 많이 다릅니다. 더 자세히 알고 싶다면 [공식 문서](https://github.com/xpladev/cw-nfts)를 참고해보세요.
+The XPLA blockchain uses a smart contract platform called `Cosmwasm`. Similar to Ethereum's ERC721, **CW721** is the standard for non-fungible tokens (NFTs) on `Cosmwasm`. Even though the name might sound similar to ERC721 from Ethereum, they actually work quite differently. If you want to know more details, you can check out the [official documentation](https://github.com/xpladev/cw-nfts).
 
 </Details>
 
 ## Preview {#preview}
 
-먼저 Javascript로 CW721 컨트랙트를 생성하는 코드는 아래와 같습니다. 여러분의 니모닉 단어를 넣어 코드를 수정하고 실행해보세요. 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+First, here's the JavaScript code to create the CW721 contract. Replace mnemonic with yours, adjust the code as needed, and then run it. After a short while, you'll be able to see the results on the right side.
 
 <Ex06CW721 />
 
@@ -36,11 +36,11 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 <br/>
 
-컨트랙트를 잘 생성하셨나요? 이제 컨트랙트를 이용하여 NFT를 발행해봅시다. 아래 코드에서 여러분의 니모닉 단어를 넣어주세요. 이후 위에서 만든 컨트랙트 주소를 `myContractAddress` 변수에 대입해주세요. 코드를 실행하면 잠시 후 NFT 발행 결과를 확인할 수 있습니다. 
+Did you create the contract successfully? Now let's use the contract to mint an NFT. In the code below, please insert your mnemonic. Then assign the contract address you made earlier to the `myContractAddress` variable. After running the code, you'll be able to see the NFT minting result shortly.
 
-<Details summary="생성한 컨트랙트의 주소는 어디서 확인하나요?">
+<Details summary="Where can you find the address of the created contract?">
 
-가장 쉬운 방법은 [XPLA Explorer](https://explorer.xpla.io/)를 이용하는 것입니다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색해봅시다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 확인할 수 있었습니다.
+The easiest way is to use [XPLA Explorer](https://explorer.xpla.io/). Take the transaction hash that appears as the result of your execution and search for it on [XPLA Explorer](https://explorer.xpla.io/). After that, when you go to the `Event Logs` tab in the Transaction Details screen, you'll be able to see the address of the contract you created. You could find the example contract address [here](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs).
 
 </Details>
 
@@ -48,29 +48,29 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 <br/>
 
-Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/make-cw721/make-nft-js#instantiate-runjs)을 읽지 않고 바로 [다음 단계](/docs/tutorial/make-cw721/query-cw721)로 넘어가셔도 좋습니다.
+If you've fully understood the Preview Code, feel free to skip reading the [following](/docs/tutorial/make-cw721/make-nft-js#instantiate-runjs) and move on to the [next step](/docs/tutorial/make-cw721/query-cw721).
 
 <br/>
 
-## Javascript로 CW721 컨트랙트 생성하기 {#instantiate-runjs}
+## Create CW721 Contract with Javascript {#instantiate-runjs}
 
-CW721 컨트랙트를 생성해봅시다. CW721 컨트랙트의 Code ID는 메인넷과 테스트넷 모두 `3`입니다.
+Now let’s create CW721 contract. The Code ID for CW721 is `3` on both mainnet & testnet.
 
-<Details summary="Code ID란 무엇인가요?">
+<Details summary="Code ID?">
 
-EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생성이 한번에 이뤄지지 않습니다. 먼저 코드를 블록체인에 배포(StoreCode)하면 해당 코드의 `Code ID`를 발급 받습니다. 이후 `Code ID`를 기반으로 컨트랙트를 생성(InstantiateContract)할 수 있습니다.
+Unlike EVM, the Code Deploy and Contract Creation do not go hand in hand in Cosmwasm. First, when you put your code onto the blockchain (StoreCode), you'll get a special number called a `Code ID` for that code. Afterward, you can use this `Code ID` to make a contract (InstantiateContract).
 
-똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id)를 참고해보세요.
+All the contracts made with the same Code ID are based on the same original code. The only difference is that if you provide different starting values (init_msg) when making the contract, the specific details of the contract will be different. For more detailed information, you can take a look at the [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id).
 
 </Details>
 
 <br/>
 
-### 코드 실행 {#instantiate-runcode}
+### Running the Code {#instantiate-runcode}
 
-1. example-6.js 파일을 생성해주세요.
+1. Create a file named "example-6.js".
 
-2. 아래 코드를 복사하여 example-6.js 파일에 붙여넣고 저장합니다.
+2. Copy and paste the below code in the file above then save it!
 
     ```js
     const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
@@ -82,7 +82,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -99,11 +99,11 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             myWalletAddress, // admin
             3, // MAINNET, TESTNET CW721 code id
             init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-            'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'Input your label', // Enter the label you want to write.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [instantiate]
         });
 
@@ -113,23 +113,23 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
     main()
     ```
 
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
+3. Change the mnemonic phrase in the 10th line with your own.
 
-4. VSCode Terminal에서 아래 명령어를 입력합니다.
+4. Type in the below command in VSCode Terminal.
 
   ```bash
   node example-6.js
   ```
 
-5. Terminal에서 결과를 확인합니다. CW721 컨트랙트가 생성되고, 생성 트랜잭션의 해시값을 확인할 수 있을 것입니다.
+5. Check the results in the Terminal. You'll see that the CW721 contract is created, and you'll be able to verify the hash value of the transaction created.
 
 <br/>
 
-### 설명 {#instantiate-explaination}
+### Explanation {#instantiate-explaination}
 
-우리는 CW721에 관한 컨트랙트 코드를 작성하지 않았습니다. 코드는 이미 XPLA 블록체인에 배포되었고, 단지 배포된 코드로 컨트랙트를 생성했을 뿐입니다.
+We haven't written the contract code for CW721. The code has already been deployed on the XPLA blockchain, and we've simply created a contract using the deployed code.
 
-먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+First, we loaded the wallet with mnemonic words. You might have loaded your wallet using different mnemonic words.
 
 ```js
 const mk = new MnemonicKey({
@@ -142,7 +142,7 @@ const myWalletAddress = wallet.key.accAddress;
 
 <br/>
 
-CW721 컨트랙트 생성을 위해 초깃값을 미리 지정해줬습니다. 아래 값들은 여러분이 원하는대로 수정하셔서, 여러분만의 NFT를 만들어 보시는 것도 좋습니다.
+We've set up initial values for creating the CW721 contract. Feel free to modify the values below as you want, and it's also a great idea to create your own unique NFT.
 
 ```js
 const init_msg = {
@@ -154,7 +154,7 @@ const init_msg = {
 
 <br/>
 
-누가 컨트랙트를 생성하는지(sender), 컨트랙트의 주인은 누구인지(admin), Code ID, 초깃값, 라벨 등을 입력하여 컨트랙트 생성을 준비합니다.
+Who is creating the contract (sender), who owns the contract (admin), the Code ID, initial values, and label - all of these are input to prepare for contract creation.
 
 ```js
 const instantiate = new MsgInstantiateContract(
@@ -162,24 +162,24 @@ const instantiate = new MsgInstantiateContract(
     myWalletAddress, // admin
     3, // MAINNET, TESTNET CW721 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'Input your label', // Enter the label you want to write.
 );
 ```
 
 <br/>
 
-`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
+Using the `createAndSignTx` function, you generate and sign the transaction. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
 });
 ```
 
 <br/>
 
-`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신합니다. 트랜잭션이 XPLA 블록체인에 잘 생성되었다면, 트랜잭션 해시값을 결과로 확인할 수 있을 것입니다.
+Then, with the `broadcastSync` function, you send the created transaction to the network. If the transaction is successfully created on the XPLA blockchain, you'll be able to see the transaction hash as the result. 
 
 ```js
 const txResult = await lcd.tx.broadcastSync(signedTx);
@@ -188,22 +188,21 @@ console.log(txResult.txhash);
 
 <br/>
 
-생성한 컨트랙트 주소를 [XPLA Explorer](https://explorer.xpla.io/)에서 확인해봅시다. 실행 결과로 나온 트랜잭션 해시값을 [XPLA Explorer](https://explorer.xpla.io/)에서 검색합니다. 이후 Transaction Details 화면에서 `Event Logs` 탭에 들어가시면, 생성된 컨트랙트의 주소를 확인할 수 있습니다. 예제 컨트랙트 주소는 [이곳](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs)에서 `
-xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인할 수 있습니다.
+Let's confirm the created contract address on [XPLA Explorer](https://explorer.xpla.io/). Take the transaction hash from the result and search for it on [XPLA Explorer](https://explorer.xpla.io/). After that, in the Transaction Details screen, go to the `Event Logs` tab, and you'll find the address of the created contract. You can see that the example contract address [here](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs) is `xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0`.
 
 <br/>
 
-## 생성한 CW721 컨트랙트로 NFT 발행하기 {#makenft-runjs}
+## Issuing NFT with Created CW721 Contract {#makenft-runjs}
 
-지금까지 우리는 CW721 컨트랙트를 생성했습니다. 이제부터 생성한 컨트랙트로 NFT를 발행(Mint)해봅시다.
+So far, it was about creating a CW721 contract. Now, let's mint NFT with the contract!
 
 <br/>
 
-### 코드 실행 {#makenft-runcode}
+### Running the Code {#makenft-runcode}
 
-1. example-7.js 파일을 생성해주세요.
+1. Create a file named "example-7.js".
 
-2. 아래 코드를 복사하여 example-7.js 파일에 붙여넣고 저장합니다.
+2. Copy and paste the code below into the "example-7.js" file, then save it.
 
     ```js
     const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
@@ -215,7 +214,7 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -255,7 +254,7 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
             mintJSON
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [mint]
         });
 
@@ -265,27 +264,27 @@ xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u`인 것을 확인
     main()
     ```
 
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요.
+3. Modify the mnemonic words in the 10th line with your own mnemonic words.
 
-4. 앞서 만든 컨트랙트 주소를 15번째 줄의 `myContractAddress` 변수에 대입해주세요.
+4. Assign the contract address you created earlier to the `myContractAddress` variable in the 15th line.
 
-5. VSCode Terminal에서 아래 명령어를 입력합니다.
+5. Enter the command below in the VSCode Terminal.
 
   ```bash
   node example-7.js
   ```
 
-6. Terminal에서 결과를 확인합니다. 여러분의 NFT가 발행되었을 것입니다.
+6. Check the results in the Terminal. Your NFT should have been minted.
 
 <br/>
 
-### 설명 {#makenft-explaination}
+### Explanation {#makenft-explaination}
 
-지갑을 불러오는 부분까지는 이전과 동일하므로 생략하겠습니다.
+Let's skip the part about loading the wallet since it's the same as before.
 
-먼저 어떤 주요 정보(metadata)를 가진 NFT를 발행할 것인지 정해야 합니다. 예제에서는 Alice라는 이름의 캐릭터 NFT를 만드는 것으로 가정해보았습니다. 이 NFT 캐릭터는 CP가 100이고, HP가 10이겠군요.
+First, you need to decide what kind of NFT with important information (metadata) you want to mint. Let's imagine we're creating a character NFT named Alice in this example. This NFT character has a CP of 100 and an HP of 10.
 
-아래 값들을 변경하여 자신만의 NFT를 만들어보세요.
+Feel free to change the values below to create your unique NFT.
 
 ```js
 const time = new Date();
@@ -317,32 +316,32 @@ const mintJSON = {
 };
 ```
 
-<Details summary="주요 정보(metadata)에는 어떤 값들이 들어가야 하나요?">
+<Details summary="What values should go into the important information (metadata)?">
 
-주요 정보(metadata)에 들어갈 수 있는 항목들은 아래와 같습니다. 
+Here are the items that can be included in the important information (metadata):
 
 ```js
 {
     mint: {
-        owner: "NFT Owner의 주소를 입력합니다.",
-        token_id: "개별 NFT 고유 식별자로 사용되는 Token ID입니다.",
-        token_uri: "아래 extension 정보를 JSON 형식으로 제공하는 URI입니다. OpenSea에서 사용하는 형식과 동일합니다.",
+        owner: "Enter the address of the NFT Owner.",
+        token_id: "A unique identifier used for individual NFTs, known as Token ID.",
+        token_uri: "A URI provided in JSON format with the extension information. It follows the same format used by OpenSea.",
         extension: { 
-            name : "NFT 이름입니다.",
-            description : "NFT에 대한 설명입니다.",
-            image : "NFT 이미지를 제공하는 URL입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.", 
-            animation_url : "NFT 영상을 제공하는 URL 입니다. 용량은 40MB를 권장하며, 최대 100MB까지 지원합니다.",
-            youtube_url : "Youtube 영상의 URL 로, 현재는 지원하지 않습니다."
-            attributes: [    // NFT의 특징을 나타냅니다.
+            name : "The name of the NFT.",
+            description : "A description of the NFT.",
+            image : "A URL providing the NFT image. It's recommended to keep it around 40MB, with support for up to 100MB.", 
+            animation_url : "A URL providing an animation for the NFT. Recommended size is around 40MB, with support for up to 100MB.",
+            youtube_url : "A URL for a YouTube video, currently not supported.",
+            attributes: [   // Represents characteristics of the NFT.
                 {
-                    category : "NFT 아이템 카테고리를 나타냅니다.",
-                    collection : "NFT Collection을 나타냅니다.",
-                    creator : "NFT 창작자 혹은 저작권자를 나타냅니다.",
-                    provider : "NFT 판매 혹은 배포 권리를 가진 사람을 나타냅니다.",
-                    thumbnail_url : "NFT의 썸네일 이미지를 제공하는 URL 입니다.",
-                    extension_url : "NFT extension 정보를 JSON 형식으로 제공하는 URL 입니다.",
-                    
-                    // 아래와 같이 NFT의 특징을 추가할 수도 있습니다.
+                    category : "NFT item category.",
+                    collection : "NFT Collection.",
+                    creator : "NFT creator or copyright holder.",
+                    provider : "Person with selling or distribution rights for the NFT.",
+                    thumbnail_url : "URL providing a thumbnail image for the NFT.",
+                    extension_url : "URL providing extension information in JSON format for the NFT.",
+
+                    // Additional NFT characteristics can be added like this.
                     trait_type: "CharacterName",
                     value: "Alice", 
                 },
@@ -352,13 +351,13 @@ const mintJSON = {
 };
 ```
 
-더 자세히 알고 싶으시다면 [CW721 Github](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain)을 살펴보시거나, [XPLA Explorer](https://explorer.xpla.io/)에서 다른 NFT를 참고해보시기 바랍니다. [OpenSea Metadata 기준](https://docs.opensea.io/docs/metadata-standards)을 읽어보시는 것도 좋습니다.
+If you want more details, you can explore the [CW721 GitHub](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain) or refer to other NFTs on [XPLA Explorer](https://explorer.xpla.io/). It's also good to read about the [OpenSea Metadata standard](https://docs.opensea.io/docs/metadata-standards).
 
 </Details>
 
 <br/>
 
-작성한 metadata를 이용하여 앞서 생성한 컨트랙트를 `Execute`합니다. 
+Use the written metadata to `Execute` the contract you created earlier.
 
 ```js
 const mint = new MsgExecuteContract(
@@ -368,10 +367,10 @@ const mint = new MsgExecuteContract(
 );
 ```
 
-이후 트랜잭션 생성, 서명, 네트워크 송신 등 작업을 거칩니다. 트랜잭션이 블록체인에 잘 생성되었다면, NFT 발행(Mint)이 성공적으로 진행된 것입니다.
+After that, there will be tasks such as generating the transaction, signing, and sending it over the network. If the transaction is successfully created on the blockchain, it means that the NFT minting has been successfully carried out.
 
-## 마무리
+## Wrapping Up {#conclusion}
 
-이렇게 CW721 컨트랙트로 NFT를 발행해보았습니다. NFT도 토큰이기 때문에, 컨트랙트로 발행하는 것임을 기억해주세요. 단지 토큰마다 고유한 메타데이터가 있기 때문에, 같은 컨트랙트에서 만들어진 다른 토큰들과 대체할 수 없다는 것이 큰 특징입니다.
+That's how we've minted NFTs using the CW721 contract. Remember, NFTs are also tokens, so keep in mind that you're minting them through the contract. The key thing is that each token has its own unique metadata, which makes them distinct from other tokens created within the same contract.
 
-[다음 단계](/docs/tutorial/make-cw721/query-cw721)에서는 직접 만든 NFT 데이터를 블록체인에서 가져와보겠습니다.
+In the [next chapter](/docs/tutorial/make-cw721/query-cw721), we are going to retrieve the date of the NFT we made ourselves from the blockchain!

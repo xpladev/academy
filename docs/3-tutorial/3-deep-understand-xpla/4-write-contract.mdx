@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Cosmwasm 컨트랙트 작성 및 빌드하기
+# Write and Build Cosmwasm Contracts
 
 import RustContractCode from "@site/src/components/Sandpack/RustContractCode";
 import Instantiate571 from "@site/src/components/Sandpack/Instantiate571";
@@ -10,34 +10,33 @@ import Execute571 from "@site/src/components/Sandpack/Execute571";
 import Query571 from "@site/src/components/Sandpack/Query571";
 import Details from '@theme/Details';
 
-이전 예제에서 [CW20](/docs/tutorial/make-cw20/make-cw20-with-vault)과 [CW721](/docs/tutorial/make-cw721/make-nft-vault) 컨트랙트를 Instantiate, Execute, Query까지 진행해보았습니다. 
-CW20과 CW721 컨트랙트는 모두 Cosmwasm 모듈을 이용하고, Rust 언어로 이루어져 있습니다. 두 컨트랙트는 표준 컨트랙트이기 때문에 XPLA 블록체인에 이미 배포되어 있었습니다.
+In the previous example, we went through the process of Instantiate, Execute, and Query for the [CW20](/docs/tutorial/make-cw20/make-cw20-with-vault) and [CW721](/docs/tutorial/make-cw721/make-nft-vault) contracts. 
+Both CW20 and CW721 contracts are built using the Cosmwasm module and the Rust language. Since both contracts are standard contracts, they were already deployed on the XPLA blockchain. 
 
 |Contract|Github|CodeId|
 |:---:|:---:|:---:|
 |CW20|[https://github.com/xpladev/cw-plus](https://github.com/xpladev/cw-plus)|[1](https://explorer.xpla.io/mainnet/code/1)|
 |CW721|[https://github.com/xpladev/cw-nfts](https://github.com/xpladev/cw-nfts)|[3](https://explorer.xpla.io/mainnet/code/3)|
 
-Web3 게임을 개발할 때 CW20, CW721 컨트랙트 기능만이 아닌, 다른 컨트랙트 기능이 필요할 수도 있습니다. 이번 단계에서는 직접 Cosmwasm 컨트랙트를 Rust 언어로 작성해보고, XPLA 블록체인에 배포해보겠습니다.
+When developing a Web3 game, you might need functionalities beyond CW20 and CW721 contracts. In this step, we will write a Cosmwasm contract in Rust and deploy it to the XPLA blockchain.
 
+## Index {#index}
 
-## 목차 {#index}
-
-다음과 같은 절차로 Cosmwasm 컨트랙트 작성을 알아볼 것입니다.
+We'll explore creating a Cosmwasm contract in the following steps:
 
 1. [Prerequisite](/docs/tutorial/deep-understand-xpla/write-contract#prerequisite)
 
-2. [컨트랙트 생성 순서](/docs/tutorial/deep-understand-xpla/write-contract#order-of-storecode)
+2. [Contract Creation Process](/docs/tutorial/deep-understand-xpla/write-contract#order-of-storecode)
 
-3. [코드 제공 및 빌드](/docs/tutorial/deep-understand-xpla/write-contract#build-contract)
+3. [Code Provision and Build](/docs/tutorial/deep-understand-xpla/write-contract#build-contract)
 
-4. [컨트랙트 생성하고, 사용하기](/docs/tutorial/deep-understand-xpla/write-contract#use-contract)
+4. [Creating and Using the Contract](/docs/tutorial/deep-understand-xpla/write-contract#use-contract)
 
 ## Prerequisite {#prerequisite}
 
-Coswmasm 컨트랙트는 Rust 언어로 작성합니다. 여러분의 운영체제에 맞게 [Rust](https://doc.rust-lang.org/book/ch01-01-installation.html)를 설치해주세요. 또한 빌드를 위해 Docker를 사용하니, [Docker](https://www.docker.com/)도 설치해주세요.
+Cosmwasm contracts are written in the Rust programming language. Please install [Rust](https://doc.rust-lang.org/book/ch01-01-installation.html) that matches your OS. Additionally, since Docker is used for building, make sure to install [Docker](https://www.docker.com/) as well.
 
-컨트랙트 코드를 직접 작성하려면 Rust 관련 지식이 필요합니다. Rust 학습에 도움이 될 만한 문서를 준비했습니다.
+If you want to write contract code directly, you'll need some knowledge about Rust. We've prepared some documents that can help you learn Rust. 
 
 |Guide|Link|
 |:---|:---|
@@ -48,31 +47,31 @@ Coswmasm 컨트랙트는 Rust 언어로 작성합니다. 여러분의 운영체�
 |CosmWasm Starter Pack|[https://github.com/CosmWasm/cw-template](https://github.com/CosmWasm/cw-template)|
 |XPLA Docs|[https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/)|
 
-Rust에 대해 완벽하게 알지 못해도 괜찮습니다. 일단 아래 내용을 읽고 따라해보는 것도 좋은 선택입니다. 여러분이 원하시는 대로 학습을 진행해주세요.
+It's okay if you don't know Rust perfectly. Reading over and following the below content is also a good option. Feel free to proceed with learning at your own pace.
 
-## 컨트랙트 생성 순서 {#order-of-storecode}
+## Contract Creation Process {#order-of-storecode}
 
-먼저 XPLA 블록체인에서 Cosmwasm 컨트랙트가 어떻게 생성되는지부터 살펴봅시다.
+Let's first understand how Cosmwasm contracts are created on the XPLA blockchain.
 
-1. Rust 언어로 컨트랙트 코드를 작성합니다.
+1. Write contract code in Rust.
 
-2. 작성한 컨트랙트 코드를 빌드하여 **.wasm** 파일을 생성합니다.
+2. Build the written contract code to generate a **.wasm** file.
 
-3. 생성한 **.wasm** 파일을 XPLA 블록체인에 배포합니다. 배포는 `StoreCode` Method 트랜잭션으로 진행할 수 있습니다. [Vault](https://vault.xpla.io/contract/store)를 이용하면 쉽게 **.wasm** 파일을 배포할 수 있습니다.
+3. Deploy the created **.wasm** file to the XPLA blockchain. Deployment can be done through the `StoreCode` Method transaction. [Vault](https://vault.xpla.io/contract/store) makes it easy to deploy **.wasm** files.
 
-4. **.wasm** 파일을 배포하면 Code ID가 부여됩니다. 해당 Code ID를 이용하여 `Instantiate` Method 트랜잭션으로 컨트랙트를 생성할 수 있습니다. 같은 Code ID로 `Instantiate` 된 컨트랙트들은 모두 같은 코드로 이루어져 있어, 기능이 비슷합니다. 다만 `Instantiate`할 때 입력한 초깃값에 따라 세부사항이 달라집니다. 
+4. Once deployed, a Code ID is assigned. You can use this Code ID to create contracts using the `Instantiate` Method transaction. Contracts instantiated with the same Code ID share the same code and have similar functionalities. However, the specifics may differ based on the initial values provided during instantiation.
 
-위 순서대로 이번 예제에서 컨트랙트를 생성해 볼 것입니다.
+We'll follow the steps above to create a contract in this example.
 
-## 코드 제공 및 빌드 {#build-contract}
+## Code Provision and Build {#build-contract}
 
-[Github](https://github.com/xpladev/academy/tree/main/example/CosmwasmContract)에서 컨트랙트 코드를 다운받아 주세요. 코드 구성은 아래와 동일합니다. 예제에서 작성하는 컨트랙트는 유저의 게임 결과를 기록해주는 기능을 가진 컨트랙트입니다.
+Download the contract code from [GitHub](https://github.com/xpladev/academy/tree/main/example/CosmwasmContract). The code structure is as follows. The example contract we're creating has the functionality of recording a user's game results. 
 
 <RustContractCode />
 
 <br/>
 
-빌드는 아래 command로 진행할 수 있습니다.
+You can build it using the command provided below. 
 
 ```bash
 cargo build
@@ -80,18 +79,17 @@ cargo install cargo-run-script
 cargo run-script optimize
 ```
 
-빌드를 완료하면 `artifacts/game_data_save.wasm` 파일이 생성됩니다. 
-
+Once the build is complete, an `artifacts/game_data_save.wasm` file will be generated. 
 
 <details>
   <summary>
 
-  빌드 과정에서 아래와 같은 에러가 발생합니다. 어떻게 해야 하나요? 
+  During the build process, you might encounter an error like the one below. 
   
   <CodeBlock>docker: Error response from daemon: create %cd%: "%cd%" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path.</CodeBlock>
   
   </summary>
-  Cargo.toml 파일의 23번째 줄을 다음과 같이 수정하고, 다시 빌드해보세요.
+  To resolve this, modify line 23 of the Cargo.toml file as shown, and then try building again.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -110,11 +108,11 @@ import CodeBlock from '@theme/CodeBlock';
 </Tabs>
 </details>
 
-## 컨트랙트 생성하고, 사용하기 {#use-contract}
+## Creating and Using the Contract {#use-contract}
 
 ### StoreCode {#storecode}
 
-빌드 결과로 나온 **.wasm** 파일을 `StoreCode` Method 트랜잭션으로 블록체인에 배포해봅시다. [Vault 웹페이지](https://vault.xpla.io/contract/store)를 이용하거나, 아래와 같이 Javascript로도 가능합니다. 예제에서 **.wasm** 파일의 이름은 **game_data_save.wasm** 입니다.
+Let's deploy the generated **.wasm** file to the blockchain using the `StoreCode` Method transaction. You can do this via the [Vault website](https://vault.xpla.io/contract/store) or using JavaScript, as shown below. In this example, the **.wasm** file is named **game_data_save.wasm.**
 
 ```js {17}
 const { LCDClient, MnemonicKey, MsgStoreCode } = require("@xpla/xpla.js");
@@ -142,17 +140,17 @@ async function main() {
 main()
 ```
 
-트랜잭션을 생성하고, Code Id를 Explorer에서 확인하겠습니다. 예제에서 만든 컨트랙트의 Code Id는 [571](https://explorer.xpla.io/testnet/tx/90EF62EB26FD3EBE7797EA4059E0D5B700498BB9D98F0AD8A33E54E7A37C02C4#EventLogs)입니다.
+We'll create a transaction and confirm the Code ID from the Explorer. The Code ID for the created contract in the example is [571](https://explorer.xpla.io/testnet/tx/90EF62EB26FD3EBE7797EA4059E0D5B700498BB9D98F0AD8A33E54E7A37C02C4#EventLogs).
 
 ### Instantiate {#instantiate}
 
-StoreCode로 배포한 코드로 컨트랙트를 Instantiate합니다. 마찬가지로 [Vault](https://vault.xpla.io/contract/instantiate)로 진행하거나, 아래처럼 Javascript로 가능합니다.
+Now, let's instantiate a contract using the code deployed through StoreCode. This can be done through [Vault](https://vault.xpla.io/contract/instantiate) or using JavaScript, as shown below. 
 
 <Instantiate571 />
 
 <br />
 
-Cosmwasm 컨트랙트와 Instantiate 트랜잭션이 어떻게 상호작용하는지 살펴봅시다. Instantiate 트랜잭션을 생성할 때, 아래와 같이 **init_msg**를 설정해주었습니다.
+Let's examine how the Cosmwasm contract and the Instantiate transaction interact. When creating the Instantiate transaction, we set the **init_msg** as shown below. 
 
 ```js
 const init_msg = {
@@ -161,7 +159,7 @@ const init_msg = {
 };
 ```
 
-이때 넣은 초깃값이 `src/lib.rs` 파일 **instantiate** 함수의 **InstantiateMsg** 타입의 argument로 들어오게 됩니다.  **tract.instantiate** 함수로 `src/execute.rs` 파일의 instantiate Method를 호출합니다. 
+The initial value you provide here will be passed as an argument of the **InstantiateMsg** type in the `src/lib.rs` file's **instantiate** function. The **tract.instantiate** function calls the instantiate Method from the `src/execute.rs` file.
 
 ```js title="src/lib.rs" {2,6,9}
 #[entry_point]
@@ -176,8 +174,7 @@ pub fn instantiate(
 }
 ```
 
-[cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module에서 **Item** struct의 **save** Method를 이용하여, 초깃값을 블록체인 데이터베이스에 저장했습니다. 이후 [Ok](https://doc.rust-lang.org/std/result/)로 결과를 전달하면 Instantiate가 완료됩니다. 예제에 나온 DepsMut와 Env struct에 관한 설명은 [Cosmwasm Book](https://book.cosmwasm.com/basics/entry-points.html)과 [cosmwasm_std](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/)에서 더 자세히 확인하실 수 있습니다. 
-
+Using the **save** Method of the **Item** struct from the [cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module, we store the initial value in the blockchain database. Once the result is sent with [Ok](https://doc.rust-lang.org/std/result/), the Instantiate is complete. More information about DepsMut and Env struct can be found in the [Cosmwasm Book](https://book.cosmwasm.com/basics/entry-points.html) and [cosmwasm_std](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/).
 
 ```js title="src/execute.rs" {1,14,16}
 pub fn instantiate(
@@ -202,13 +199,13 @@ pub fn instantiate(
 
 ### Execute {#execute}
 
-Execute를 진행해봅시다. 마찬가지로 [Vault](https://vault.xpla.io/contract/execute/xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz)와 Javascript로 가능합니다. Javascript 코드는 아래와 같습니다.
+Let's proceed with the Execute step. This can also be done through [Vault](https://vault.xpla.io/contract/execute/xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz) or JavaScript. The JavaScript code is provided below. 
 
 <Execute571 />
 
 <br />
 
-Cosmwasm 컨트랙트와 Execute 트랜잭션이 어떻게 상호작용하는지 살펴봅시다. Execute 트랜잭션을 생성할 때, 아래와 같이 **executeMsg**를 설정해주었습니다.
+Let's understand how the Cosmwasm contract and the Execute transaction interact. When creating the Execute transaction, we set the **executeMsg** as shown below. 
 
 ```js
 const executeMsg = {
@@ -221,7 +218,7 @@ const executeMsg = {
 };
 ```
 
-**executeMsg** 값은 `src/lib.rs` 파일 **execute** 함수의 **ExecuteMsg** 타입의 argument로 들어오게 됩니다. **tract.execute** 함수로 `src/execute.rs` 파일의 **execute** Method를 호출합니다. 
+The **executeMsg** value becomes an argument of the **ExecuteMsg** type in the `src/lib.rs` file's **execute** function. The **tract.execute** function calls the **execute** Method from the `src/execute.rs` file. 
 
 ```js title="src/lib.rs" {2,6,9}
 #[entry_point]
@@ -235,8 +232,7 @@ pub fn execute(
     tract.execute(deps, env, info, msg)
 }
 ```
-
-`src/execute.rs` 파일의 **execute** Method에서 **ExecuteMsg**는 **SaveData**의 패턴과 일치합니다. 따라서 같은 파일의 **save_data** Method를 호출합니다. 
+In the `src/execute.rs` file, the **execute** method matches the pattern of the **SaveData** in the **ExecuteMsg**. Thus, we call the **save_data** Method from the same file. 
 
 ```js title="src/execute.rs" {1,6,9,14}
 pub fn execute(
@@ -266,7 +262,7 @@ pub fn execute(
 }
 ```
 
-**save_data** Method 코드는 아래와 같습니다. [cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module에서 **Map** struct의 **update** Method를 이용하여, **executeMsg** 값들(last_stage, high_score, game_gold)이 블록체인 데이터베이스에 업데이트되는 것을 확인할 수 있습니다. 이후 [Ok](https://doc.rust-lang.org/std/result/)로 결과를 전달하면 Execute가 완료됩니다. 
+The code for the **save_data** Method is provided below. Using the **update** Method of the **Map** struct from the [cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module, you can see that the values from **executeMsg** values (last_stage, high_score, game_gold) are being updated in the blockchain database. Once the result is sent with [Ok](https://doc.rust-lang.org/std/result/), the Execute is complete.
 
 ```js title="src/execute.rs" {1,17,21,26,30}
 pub fn save_data(
@@ -313,15 +309,15 @@ pub fn save_data(
 
 ### Query {#query}
 
-Query는 [Explorer Contract Details의 InitMsg 탭](https://explorer.xpla.io/testnet/address/xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz#InitMsg)이나, [Vault](https://vault.xpla.io/contract)에서 간편하게 가능합니다. 예제에선 Javascript로 진행하겠습니다. 
+Query can be conveniently done through the [Explorer Contract Details' InitMsg tab](https://explorer.xpla.io/testnet/address/xpla1k6ufjtkyjnxgkmxjew96n2kssdzslpnp398ghm82hk5tt2xdls9spnufcz#InitMsg) or through [Vault](https://vault.xpla.io/contract). In this example, we'll use JavaScript. 
 
 <Query571 />
 
 <br />
 
-앞서 last_stage, game_gold 값을 10으로, high_score 값을 100으로, 넣어 **save_data** Method를 Execute했습니다. Query 결과도 Execute 입력을 바탕으로 잘 나오는 것을 확인할 수 있습니다. 예제 코드의 Query 결과는 game_gold 값이 10보다 클텐데, 이것은 game_gold 값이 Execute를 실행할 때마다 축적되기 때문입니다. 앞서 [Execute](/docs/tutorial/deep-understand-xpla/write-contract#execute)에 관한 코드에서 game_gold 값을 어떻게 저장하는지 다시 한 번 살펴보세요. 
+Since we previously executed **save_data** Method with the values last_stage and game_gold set to 10 and high_score set to 100, the Query result aligns with the executed inputs. The Query result shows that the game_gold value is greater than 10, which is due to the game_gold value accumulating with each Execute. Take another look at how the code in the [previous section](/docs/tutorial/deep-understand-xpla/write-contract#execute) handles storing the "game_gold" value in the Execute process. 
 
-Cosmwasm 컨트랙트에 Query를 보낼 때, 컨트랙트 코드가 어떻게 동작하는지 살펴봅시다. 먼저 **queryMsg**는 아래와 같이 입력하였습니다.
+Let's take a look at how the Cosmwasm contract operates when you send a Query. First, let's examine how the **queryMsg** is defined as shown below.
 
 ```js
 const queryMsg = {
@@ -331,7 +327,7 @@ const queryMsg = {
 }
 ```
 
-**queryMsg** 값은 `src/lib.rs` 파일 **query** 함수의 **QueryMsg** 타입의 argument로 들어오게 됩니다. **tract.query** 함수로 `src/query.rs` 파일의 query Method를 호출합니다. 
+The **queryMsg** value becomes an argument of the **QueryMsg** type in the `src/lib.rs` file's **query** function. The **tract.query** function calls the query Method from the `src/query.rs` file. 
 
 ```js title="src/lib.rs" {2,4}
 #[entry_point]
@@ -341,7 +337,7 @@ pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
 }
 ```
 
-`src/query.rs` 파일의 **query** Method에서 **QueryMsg**는 **GameData**의 패턴과 일치합니다. 따라서 같은 파일의 **game_data** Method를 호출합니다. 
+In the `src/query.rs` file, the **query** method matches the pattern of the **GameData** in the **QueryMsg**. Therefore, it calls the **game_data** method within the same file.
 
 ```js title="src/query.rs" {4}
 pub fn query(&self, deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
@@ -352,7 +348,7 @@ pub fn query(&self, deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
 }
 ```
 
-**game_data** Method 코드는 아래와 같습니다. [cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module에서 **Map** struct의 **may_load** Method를 이용하여, 블록체인 데이터베이스의 유저 게임 데이터 값을 불러왔습니다. 이후 [Ok](https://doc.rust-lang.org/std/result/)로 결과를 전달하면 Query 과정도 완료됩니다. 
+The code for the **game_data** method is as follows. It uses the **may_load** method of the **Map** struct from the [cw-storage-plus](https://github.com/CosmWasm/cw-storage-plus) Module to retrieve the user's game data value from the blockchain database. Afterward, when the result is sent as [Ok](https://doc.rust-lang.org/std/result/), the Query process is also finished.
 
 ```js title="src/query.rs" {6}
 fn game_data(
@@ -373,6 +369,6 @@ fn game_data(
 }
 ```
 
-## 마무리 {#conclusion}
+## Wrapping Up {#conclusion}
 
-지금까지 Cosmwasm 컨트랙트 코드를 분석해보면서, Instantiate, Execute, Query가 어떻게 진행되는지 살펴보았습니다. 예제를 활용하여 여러분만의 Cosmwasm 컨트랙트를 개발해보세요. Cosmwasm 컨트랙트 개발에 관한 다른 예제는 [Docs](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/)와 [CosmWasm Starter Pack](https://github.com/CosmWasm/cw-template)에도 있습니다.
+So far, we've examined the Cosmwasm contract code to understand how Instantiate, Execute, and Query processes work. Using the provided example, you can develop your own Cosmwasm contract. There are also other examples related to Cosmwasm contract development available in the [Docs](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/) and [CosmWasm Starter Pack](https://github.com/CosmWasm/cw-template). Feel free to explore and experiment with creating your own contracts!

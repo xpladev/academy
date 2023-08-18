@@ -17,7 +17,7 @@ export default function App() {
     const newKey = new MnemonicKey();
 
     const lcd = new LCDClient({
-      chainID : 'cube_47-5', // xpla testnet network의 이름
+      chainID : 'cube_47-5', // The name of xpla testnet network
       URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
     });
 

@@ -41,10 +41,10 @@ Let's use JavaScript code to fetch the transaction data created in the [previous
     });
 
     async function main() {
-        const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+        const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
         console.log(JSON.stringify(txInfo, null, 2));
 
-        const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+        const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // Balance details
         console.log(JSON.stringify(balance, null, 2));
     }
     main()
@@ -65,7 +65,7 @@ Let's use JavaScript code to fetch the transaction data created in the [previous
 We're using the LCDClient's `txInfo` function to retrieve transaction data for the given hash value. When you examine the execution result, you'll find details like the height of the block where the transaction was created (Height), the transaction hash value (txhash), and the timestamp of transaction creation (timestamp). You can extract the necessary information from the result.
 
 ```js
-const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
 console.log(JSON.stringify(txInfo, null, 2));
 ```
 
@@ -74,7 +74,7 @@ console.log(JSON.stringify(txInfo, null, 2));
 We're also using the LCDClient's `balance` function to fetch the balance of the provided address. Although you received 100 XPLA from the Faucet, you sent a lower amount in the transaction. Check if the amount is displayed correctly.
 
 ```js
-const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // Balance details
 console.log(JSON.stringify(balance, null, 2));
 ```
 
@@ -86,7 +86,7 @@ Compare your results with the Preview Code's outcome.
 
 :::
 
-## 마무리
+## Wrapping Up {#conclusion}
 
 The results obtained through the code can also be verified in the [XPLA Explorer](https://explorer.xpla.io/). Now you have the ability to perform various tasks using code.
 

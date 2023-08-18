@@ -132,7 +132,7 @@ Code 파일을 쉽게 편집하기 위해 Visual Studio Code를 이용하겠습�
   console.log("mnemonic: " + newKey.mnemonic);
 
   const lcd = new LCDClient({
-    chainID : 'cube_47-5', // xpla testnet network의 이름
+    chainID : 'cube_47-5', // The name of xpla testnet network
     URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
   });
   console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
@@ -157,11 +157,11 @@ Code 파일을 쉽게 편집하기 위해 Visual Studio Code를 이용하겠습�
 
   VS Code Default Terminal을 Command Prompt로 설정하는 방법은 다음과 같습니다.
 
-  <></>1. `Ctrl + shift + P` 로 명령어 팔레트(Command Palette)를 엽니다.
+  <></>1. "Ctrl + shift + P" 로 명령어 팔레트(Command Palette)를 엽니다.
   <br />
   <></>2. Terminal: Select Default Profile을 검색합니다.
   <br />
-  <></>3. Command Prompt를 설정하고, VS Code를 다시 실행합니다.
+  <></>3. Command Prompt로 설정하고, VS Code를 다시 실행합니다.
 
   :::
  
@@ -180,7 +180,7 @@ console.log("mnemonic: " + newKey.mnemonic);
 
 ```js
 const lcd = new LCDClient({
-  chainID : 'cube_47-5', // xpla testnet network의 이름
+  chainID : 'cube_47-5', // The name of xpla testnet network
   URL : 'https://cube-lcd.xpla.dev' // xpla testnet LCD URL
 });
 console.log("accAddress: " + lcd.wallet(newKey).key.accAddress);
