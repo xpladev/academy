@@ -10,7 +10,7 @@ import Ex08 from "@site/src/components/Sandpack/Ex08-sequence";
 During the process of [issuing tokens (CW20)](/docs/tutorial/make-cw20/make-cw20-with-js), when signing transactions, you filled in the **accountNumber** and **sequence** information as shown below. 
 
 ```js
-const userSignOption = { // 서명 정보 
+const userSignOption = { // Signing details 
     chainID: 'cube_47-5',
     accountNumber: acc.account_number,
     sequence: acc.sequence,
@@ -99,7 +99,7 @@ If you've grasped the Preview code, feel free to skip the [following explanation
                     { axpla: 1 }
                 );
             
-                const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+                const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
                     msgs: [send],
                     memo: 'Air Drop Test',
                     accountNumber,
@@ -178,7 +178,7 @@ for (let i = 0; i < receivers.length; i++) {
             { axpla: 1 }
         );
     
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [send],
             memo: 'Air Drop Test',
             accountNumber,

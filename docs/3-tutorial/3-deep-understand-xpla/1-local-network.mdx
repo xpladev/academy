@@ -81,7 +81,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
     docker build -t my-xpla-node .
     ```
 
-    `docker image ls` command를 입력하여 container image가 잘 생성되었는지 확인해봅시다.
+    Enter the `docker image ls` command to check whether the container image was successfully created.
 
 <br/>
 
@@ -91,7 +91,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
     docker run -it -d --name myXPLANode -p 26657:26657 -p 1317:1317 my-xpla-node
     ```
 
-    Local Network를 구축하면서 LCDClient와 RPC 네트워크도 사용할 것입니다. LCDClient 환경은 1317 Port를 사용하고, RPC 네트워크는 26657 Port를 사용하기 때문에, 각 Port도 열어주었습니다. 이후 `docker ps -a` command를 입력하여 docker container가 잘 생성되었는지 확인해봅시다.
+    While building the Local Network, we will also use the LCDClient and RPC networks. Since the LCDClient environment uses 1317 Port and the RPC network uses 26657 Port, each port was also opened. Afterwards, enter the `docker ps -a` command to check if the docker container was created successfully.
 
 <br/>
 
@@ -174,11 +174,11 @@ In this step, the key focus is on working with the Local Network, so you don't n
 
     When you enter the first command, a `gentx` folder will be created in `~/.xpla/config`. Entering the second command will apply the contents of the `gentx` folder to the `genesis.json` file
 
-    <Details summary="Delegate란 무엇인가요?">
+    <Details summary="What is a Delegate?">
 
-    검증자(Validator)에게 일정 물량의 XPLA를 맡기는 행위를 Delegate라고 부르고, 맡긴 사람을 Delegator라고 합니다. Proof of State(PoS) 형식의 XPLA 블록체인에서 검증자는 블록 생성을 통해 수수료를 얻습니다. Delegator들은 검증자들이 블록 생성으로 얻는 수수료를, 각자 Delegate한 XPLA의 비율만큼 얻을 수 있습니다.
+    The act of entrusting a certain amount of XPLA to a validator is called Delegate, and the person who entrusted it is called Delegator. In the Proof of State (PoS) type of XPLA blockchain, validators earn fees through block creation. Delegators can earn the fees that validators earn from block creation equal to the percentage of XPLA they each delegated.
 
-    검증자들은 자신에게 Delegate된 총 XPLA 물량(Weight)에 따라 얼마나 자주 블록을 생성할 것인지 결정됩니다. Weight가 높은 검증자일수록 블록 생성 비율이 높아지게 됩니다. 더 자세한 내용은 [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/#what-is-staking)를 참고해보세요.
+    How often validators will create blocks is determined by the total amount of XPLA delegated to them. The higher the weight, the higher the block creation rate. For more details, see [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/#what-is-staking).
 
     </Details>
 

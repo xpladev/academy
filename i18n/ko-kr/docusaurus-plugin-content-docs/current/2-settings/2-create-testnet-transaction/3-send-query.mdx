@@ -40,10 +40,10 @@ Javascript 코드로 [이전 단계](/docs/settings/create-testnet-transaction/s
     });
 
     async function main() {
-        const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+        const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
         console.log(JSON.stringify(txInfo, null, 2));
 
-        const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+        const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // Balance details
         console.log(JSON.stringify(balance, null, 2));
     }
     main()
@@ -64,7 +64,7 @@ Javascript 코드로 [이전 단계](/docs/settings/create-testnet-transaction/s
 LCDClient의 `txInfo` 함수를 이용하여 입력한 해시값에 해당하는 트랜잭션 데이터를 받아옵니다. 실행 결과를 살펴보시면 트랜잭션이 생성된 블록의 높이(Height), 트랜잭션 해시값(txhash), 트랜잭션 생성 시각(timestamp) 등이 있습니다. 결과값을 통해 여러분이 필요한 정보만 이용하시면 되겠습니다.
 
 ```js
-const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
 console.log(JSON.stringify(txInfo, null, 2));
 ```
 
@@ -73,7 +73,7 @@ console.log(JSON.stringify(txInfo, null, 2));
 LCDClient의 `balance` 함수를 이용하여 입력한 주소의 잔액을 받아옵니다. 기존 Faucet에서 100 XPLA를 받았으나, 전송 트랜잭션을 생성하여 100 XPLA보다 낮은 금액을 보유하고 계실 겁니다. amount 항목이 제대로 나오는지 확인해봅시다.
 
 ```js
-const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // 잔액 정보
+const balance = await lcd.bank.balance("xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8"); // Balance details
 console.log(JSON.stringify(balance, null, 2));
 ```
 

@@ -10,7 +10,7 @@ import Ex08 from "@site/src/components/Sandpack/Ex08-sequence";
 [토큰(CW20) 발행 단계](/docs/tutorial/make-cw20/make-cw20-with-js)에서 트랜잭션 서명을 진행할 때 아래처럼 **accountNumber**와 **sequence** 정보를 기입했습니다.
 
 ```js
-const userSignOption = { // 서명 정보 
+const userSignOption = { // Signing details 
     chainID: 'cube_47-5',
     accountNumber: acc.account_number,
     sequence: acc.sequence,
@@ -100,7 +100,7 @@ Preview Code를 이해하셨다면, [아래 내용](/docs/tutorial/deep-understa
                     { axpla: 1 }
                 );
             
-                const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+                const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
                     msgs: [send],
                     memo: 'Air Drop Test',
                     accountNumber,
@@ -180,7 +180,7 @@ for (let i = 0; i < receivers.length; i++) {
             { axpla: 1 }
         );
     
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [send],
             memo: 'Air Drop Test',
             accountNumber,

@@ -82,7 +82,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -99,11 +99,11 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             myWalletAddress, // admin
             3, // MAINNET, TESTNET CW721 code id
             init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-            'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'Input your label', // Enter the label you want to write.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [instantiate]
         });
 
@@ -162,8 +162,8 @@ const instantiate = new MsgInstantiateContract(
     myWalletAddress, // admin
     3, // MAINNET, TESTNET CW721 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'Input your label', // Enter the label you want to write.
 );
 ```
 
@@ -172,7 +172,7 @@ const instantiate = new MsgInstantiateContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
 });
 ```
@@ -214,7 +214,7 @@ console.log(txResult.txhash);
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -254,7 +254,7 @@ console.log(txResult.txhash);
             mintJSON
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [mint]
         });
 

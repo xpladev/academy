@@ -23,7 +23,7 @@ const lcd = new LCDClient({
 
 const main = async () => {
   const mk = new MnemonicKey({
-    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
   })
 
   const wallet = lcd.wallet(mk);
@@ -40,11 +40,11 @@ const main = async () => {
     myWalletAddress, // admin
     3, // MAINNET, TESTNET CW721 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둡니다.
-    'Input your label', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'Input your label', // Enter the label you want to write.
   );
 
-  const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+  const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
   });
 

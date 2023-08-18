@@ -11,14 +11,14 @@ async function main() {
     })
 
     const from = lcd.wallet(mk).key.accAddress;
-    const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // faucet 지갑 주소
+    const to = "xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv"; // Faucet wallet address
     const token = { axpla: 25 };
 
-    const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+    const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
         msgs: [new MsgSend(from, to, token)]
     });
 
-    const txResult = await lcd.tx.broadcastSync(signedTx); // 트랜잭션을 블록체인에 전송
+    const txResult = await lcd.tx.broadcastSync(signedTx); // Sending transactions to blockchain
     console.log("Your Transaction Hash: " + txResult.txhash);
 }
 main()

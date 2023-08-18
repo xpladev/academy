@@ -68,7 +68,7 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
 
     const main = async () => {
         const mk = new MnemonicKey({
-            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
         })
 
         const wallet = lcd.wallet(mk);
@@ -78,8 +78,8 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             name: "My CW20 Token", // My Cw20 Token
             symbol: "MCT", // My Cw20 Token
             decimals: 6,
-            initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
-            mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+            initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // List the addresses that will initially hold the supply as an array.
+            mint: { // You can also optionally specify a minter in case additional minting is needed.
                 minter: myWalletAddress
             }
         };
@@ -89,30 +89,30 @@ EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생�
             myWalletAddress, // admin
             1, // MAINNET, TESTNET CW20 code id
             init_msg,
-            {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
-            'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'My CW20 Token', // Enter the label you want to write.
         );
 
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [instantiate]
         });
 
-        // createAndSignTx 함수를 분리하여 직접 작성하면 아래와 같습니다.
-        // const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+        // You can replace the createAndSignTx function with the code below
+        // const accInfo = await lcd.auth.accountInfo(myWalletAddress) // Getting wallet information
         // const acc = accInfo;
         
-        // const userSignOption = { // 서명 정보 
+        // const userSignOption = { // Signing details 
         // 	chainID: 'cube_47-5',
         // 	accountNumber: acc.account_number,
         // 	sequence: acc.sequence,
         // 	signMode: SignMode.SIGN_MODE_DIRECT
         // }
         
-        // const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+        // const fee = new Fee(3000000, "2550000000000000000axpla") // Setting the fee amount
         
-        // const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+        // const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // Creating the transaction
         
-        // const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+        // const signedTx = await wallet.key.signTx(tx, userSignOption) // Signing
 
         const txResult = await lcd.tx.broadcastSync(signedTx);
         console.log(txResult.txhash);
@@ -154,8 +154,8 @@ const init_msg = {
     name: "My CW20 Token", // My Cw20 Token
     symbol: "MCT", // My Cw20 Token
     decimals: 6,
-    initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // 초기 물량을 보유하고 있을 주소들을 배열로 지정합니다.
-    mint: { // 추가로 mint가 필요한 경우를 대비해 minter도 지정할수 있지만 옵션입니다.
+    initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], // List the addresses that will initially hold the supply as an array.
+    mint: { // You can also optionally specify a minter in case additional minting is needed.
         minter: myWalletAddress
     }
 };
@@ -177,8 +177,8 @@ const instantiate = new MsgInstantiateContract(
     myWalletAddress, // admin
     1, // MAINNET, TESTNET CW20 code id
     init_msg,
-    {}, // 컨트랙트에 전송할 XPLA 토큰 수량, 현재는 필요하지 않으니 비워둠.
-    'My CW20 Token', // 작성하고 싶은 라벨을 입력해주세요.
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'My CW20 Token', // Enter the label you want to write.
 );
 ```
 
@@ -187,7 +187,7 @@ const instantiate = new MsgInstantiateContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [instantiate]
 });
 ```
@@ -197,21 +197,21 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 �
 `createAndSignTx` 함수는 트랜잭션을 생성하고, 수수료 금액을 자동으로 설정해주고, 서명도 진행합니다. `createAndSignTx` 함수의 역할을 분리하여, 아래와 같이 트랜잭션 생성, 수수료 설정, 서명 진행 모두 따로 진행할 수도 있습니다. 예제 코드에서 주석으로 처리된 부분입니다.
 
 ```js
-const accInfo = await lcd.auth.accountInfo(myWalletAddress) // 지갑 정보 받아오기
+const accInfo = await lcd.auth.accountInfo(myWalletAddress) // Getting wallet information
 const acc = accInfo;
 
-const userSignOption = { // 서명 정보 
+const userSignOption = { // Signing details 
     chainID: 'cube_47-5',
     accountNumber: acc.account_number,
     sequence: acc.sequence, 
     signMode: SignMode.SIGN_MODE_DIRECT
 }
 
-const fee = new Fee(3000000, "2550000000000000000axpla") // 수수료 금액 설정
+const fee = new Fee(3000000, "2550000000000000000axpla") // Setting the fee amount
 
-const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // 트랜잭션 생성
+const tx = await lcd.tx.create([], { msgs: [instantiate], fee }) // Creating the transaction
 
-const signedTx = await wallet.key.signTx(tx, userSignOption) // 서명
+const signedTx = await wallet.key.signTx(tx, userSignOption) // Signing
 ```
 
 :::
@@ -242,7 +242,7 @@ const lcd = new LCDClient({
 });
 
 async function main() {
-	const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // 트랜잭션 데이터
+	const txInfo = await lcd.tx.txInfo("ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353"); // Transaction data
 	console.log(JSON.stringify(txInfo, null, 2));
 }
 main()
@@ -289,7 +289,7 @@ node query-tx.js
         const wallet = lcd.wallet(mk);
         const myWalletAddress = wallet.key.accAddress;
         
-        const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+        const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // Replace it with the address of the CW20 token created in example-4.js.
 
         const transferMsg = new MsgExecuteContract(
             myWalletAddress,
@@ -302,14 +302,14 @@ node query-tx.js
             }
         );
         
-        const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
             msgs: [transferMsg]
         });
 
         // const accInfo = await lcd.auth.accountInfo(myWalletAddress)
         // const acc = accInfo;
         
-        // // 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+        // // Estimating the expected transaction fee for the message.
         // const tx_api = new TxAPI(lcd)
         // const simul_fee = await tx_api.estimateFee(
         // 	[{
@@ -383,7 +383,7 @@ const myWalletAddress = wallet.key.accAddress;
 이후 누구에게 보낼 건지, CW20을 얼마만큼 보낼지도 지정하였습니다. `amount` 항목에 수량을 지정하는데, 단위는 uCW20입니다. [앞서 컨트랙트를 생성할 때](/docs/tutorial/make-cw20/make-cw20-with-js#make-cw20-explaination), `decimal` 항목이 **6**이었다는 점을 생각해봅시다. **uCW20**이 100000개라면, **CW20** 0.1개를 전송하겠군요.
 
 ```js
-const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // example-4.js에서 생성한 cw20 토큰의 주소로 교체합니다.
+const cw20_contract = "xpla1xljvdrtyn86kv7hrdhae4qxdy8krajah3w7xhtyrt0n69und9xdqdhrasc"; // Replace it with the address of the CW20 token created in example-4.js.
 
 const transferMsg = new MsgExecuteContract(
     myWalletAddress,
@@ -402,7 +402,7 @@ const transferMsg = new MsgExecuteContract(
 `createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
 
 ```js
-const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 및 사이닝
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
     msgs: [transferMsg]
 });
 ```
@@ -417,7 +417,7 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // 트랜잭션 생성 �
 const accInfo = await lcd.auth.accountInfo(myWalletAddress)
 const acc = accInfo;
 
-// 메세지에 대한 예상 트랜잭션 fee를 알아낸다.
+// Estimating the expected transaction fee for the message.
 const tx_api = new TxAPI(lcd)
 const simul_fee = await tx_api.estimateFee(
     [{
