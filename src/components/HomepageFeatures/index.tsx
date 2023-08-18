@@ -31,8 +31,8 @@ function Feature({ Svg, description, rightBorder }: FeatureItem) {
     <div
       className={clsx("flex flex-1 justify-center items-center", styles.card,rightBorder && [styles.rightBorder])}
     >
-      <div className="flex gap-[33px] items-center flex-row md:flex-col p-4">
-        <div className={clsx("flex flex-1 justify-center")}>
+      <div className="flex gap-[33px] items-center flex-row md:flex-col p-4 justify-between">
+        <div className={clsx("flex flex-1 justify-center ")}>
           <img src={Svg} className={styles.mobileImg} />
         </div>
         <span className="font-bold text-[26px] text-white ">{description}</span>

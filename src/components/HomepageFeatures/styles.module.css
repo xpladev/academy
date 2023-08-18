@@ -36,6 +36,7 @@
 }
 
 .mobileImg {
+  height : 171px;
   @media screen and (max-width : 768px) {
     height : 100px;
     min-width : 100px;
