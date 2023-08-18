@@ -149,7 +149,7 @@ function Endpoint({ title, link }: EndpointItem) {
             src="/img/DevResource/copied.svg"
             className={clsx(
               "absolute left-[64px] bottom-[37px] w-[60px] ",
-              copyAnimation ? styles.fadeIn : styles.fadeOut
+              !copyAnimation && styles.fadeOut
             )}
           />
         )}
