@@ -96,7 +96,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
   return (
     <footer
       className={clsx('bg-[#000000] h-[510px] flex flex-col p-0 items-center')}>
-      <div className="max-w-[1180px] w-[100%] py-10">
+      <div className="max-w-[1180px] w-[100%] py-10 px-4">
 
 
         <div className="flex justify-between">
@@ -125,7 +125,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
       </div>
       <div className={clsx(styles.footerBorder)} />
       
-      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between ">
+      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between px-4">
         <div className="flex gap-[80px] items-start ">
           <Link href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
