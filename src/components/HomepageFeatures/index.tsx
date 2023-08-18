@@ -5,33 +5,37 @@ import clsx from "clsx";
 type FeatureItem = {
   Svg: string;
   description: JSX.Element;
+  rightBorder : boolean;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     Svg: "/img/HomepageFeatures/easy-to-follow.svg",
     description: <>Easy to follow tutorials</>,
+    rightBorder : true,
   },
   {
     Svg: "/img/HomepageFeatures/freely-moddable.svg",
     description: <>Flexible Modularity</>,
+    rightBorder : true,
   },
   {
     Svg: "/img/HomepageFeatures/game-developer-friendly.svg",
     description: <>Game DEV-friendly</>,
+    rightBorder : false,
   },
 ];
 
-function Feature({ Svg, description }: FeatureItem) {
+function Feature({ Svg, description, rightBorder }: FeatureItem) {
   return (
     <div
-      className={clsx("flex flex-1 justify-center items-center", styles.card)}
+      className={clsx("flex flex-1 justify-center items-center", styles.card,rightBorder && [styles.rightBorder])}
     >
       <div className="flex gap-[33px] items-center flex-row md:flex-col p-4">
         <div className={clsx("flex flex-1 justify-center")}>
           <img src={Svg} className={styles.mobileImg} />
         </div>
-        <span className="font-bold text-[26px] ">{description}</span>
+        <span className="font-bold text-[26px] text-white ">{description}</span>
       </div>
     </div>
   );
