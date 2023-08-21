@@ -32,8 +32,8 @@ export default function IntroduceTutorial(): JSX.Element {
           description: (
             matches ? <span className="font-semibold text-[20px]">
             Experience the
-            TESTNET!
-            Create a WALLET
+            TESTNET! <br/>
+            Create a WALLET,
             Make your first
             <span className="font-bold text-[20px]"> TRANSACTIONS!</span>
           </span>
@@ -66,7 +66,7 @@ export default function IntroduceTutorial(): JSX.Element {
           description: (
             matches ? <span className="font-semibold text-[20px]">
               Play with your
-              Creation!
+              Creation!<br/>
               Issue <span className="font-bold text-[20px]">NFT</span>
         </span>:
             <div className="font-semibold text-[24px] h-[197px]">
