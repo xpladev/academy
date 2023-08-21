@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import clsx from "clsx";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface SliderItemType {
   title: string[];
@@ -19,6 +20,7 @@ interface SliderItemType {
 export default function IntroduceTutorial(): JSX.Element {
   const ref = useRef(null);
   const sliderRef = useRef();
+  const matches = useMediaQuery('(max-width:768px)');
     
   const items: SliderItemType[] = [
     {
@@ -28,6 +30,14 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/lets-get-your-wallet-ready",
           description: (
+            matches ? <span className="font-semibold text-[20px]">
+            Experience the
+            TESTNET!
+            Create a WALLET
+            Make your first
+            <span className="font-bold text-[20px]"> TRANSACTIONS!</span>
+          </span>
+          :
             <div className="font-semibold text-[24px] h-[197px]">
               Experience the<br/>
               TESTNET!<br/>
@@ -40,6 +50,11 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/utilize-tokens-cw20",
           description: (
+            matches ? <span className="font-semibold text-[20px]">
+              Play with your Creation!<br/>
+              Issue <span className="font-bold text-[20px]">TOKENS</span>
+          </span>
+          :
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your Creation!<br/>
               Issue <span className="font-bold text-[24px]">TOKENS</span>
@@ -49,6 +64,11 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/category/utilize-nftcw721",
           description: (
+            matches ? <span className="font-semibold text-[20px]">
+              Play with your
+              Creation!
+              Issue <span className="font-bold text-[20px]">NFT</span>
+        </span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Play with your<br/>
               Creation!<br/>
@@ -63,8 +83,12 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#C9FF00",
       contents: [
         {
-          link: "/docs/category/advenced---dive-deep-into-xpla-blockchain",
+          link: "/docs/category/advanced---dive-deep-into-xpla-blockchain",
           description: (
+            matches ? <span className="font-semibold text-[20px]">
+            Stand out with <br/><span className="font-bold text-[20px]">  ADVANCED 
+                COURSES!</span>
+      </span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Stand out with <br/>
               <span className="font-bold text-[24px]">
@@ -77,6 +101,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/local-network",
           description: (
+            matches ? <span className="font-semibold text-[20px]">Make your own space!<br/><span className="font-bold text-[20px]"> XPLA Local Network</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Make your own <br/>
               space!<br/>
@@ -87,6 +112,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/account-sequence",
           description: (
+            matches ? <span className="font-semibold text-[20px]">Multi-Send<br/><span className="font-bold text-[20px]"> $XPLA!</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Multi-Send<br/>
               <span className="font-bold text-[24px]">$XPLA!</span>
@@ -102,6 +128,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/walletprovider",
           description: (
+            matches ? <span className="font-semibold text-[20px]">Integrate<br/><span className="font-bold text-[20px]">WALLET CONNECT!</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Integrate<br/>
               <span className="font-bold text-[24px]">WALLET</span><br/>
@@ -112,6 +139,7 @@ export default function IntroduceTutorial(): JSX.Element {
         {
           link: "/docs/tutorial/deep-understand-xpla/write-contract",
           description: (
+            matches ? <span className="font-semibold text-[20px]">Deploy your own<br/><span className="font-bold text-[20px]">CONTRACT on XPLA</span></span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Deploy your own<br/>
               <span className="font-bold text-[24px]">CONTRACT </span>on<br/>
@@ -121,6 +149,7 @@ export default function IntroduceTutorial(): JSX.Element {
         },
         {
           description: (
+            matches ? <span className="font-semibold text-[20px]">Exchange Tokens with<br/><span className="font-bold text-[20px]">CONVERT! </span>(Coming Soon)</span>:
             <div className="font-semibold text-[24px] h-[197px]">
               Exchange<br/>
               Tokens with<br/>
@@ -171,31 +200,31 @@ const SliderItem = ({ title, color, contents }: SliderItemType) => {
       }}
     >
       <div className="w-[1180px] flex flex-col items-center justify-center gap-[58px] mb-[60px]">
-        <div className="font-bold text-[50px] text-center leading-tight">
+        <div className="font-bold text-[30px] md:text-[50px] text-center leading-tight">
           {title.map((t, titleIdx) => (
             <div key={titleIdx}>{t}</div>
           ))}
         </div>
-        <div className="flex gap-5 w-[100%]">
+        <div className="flex flex-col md:flex-row gap-5 w-[100%]">
           {contents.map((content, contentIdx) => (
             <Link
               to={content.link}
               key={contentIdx}
               className={clsx(
-                "flex flex-col justify-between text-[#000000] hover:text-[#000000]",
+                "flex flex-col justify-center text-[#000000] hover:text-[#000000]",
                 styles.card
               )}
               style={{ textDecoration: "none" }}
             >
               <img
-                className="w-12"
-                src={`/academy/img/IntroduceTutorial/quotationMark.svg`}
+                className={clsx("w-12", styles.quotationMark)}
+                src={`/img/IntroduceTutorial/quotationMark.svg`}
               />
               {content.description}
               <div className="flex justify-end">
                 <img
-                  className="w-[51px]"
-                  src={`/academy/img/IntroduceTutorial/right-arrow.svg`}
+                  className={clsx("w-[51px]", styles.quotationMark)}
+                  src={`/img/IntroduceTutorial/right-arrow.svg`}
                 />
               </div>
             </Link>

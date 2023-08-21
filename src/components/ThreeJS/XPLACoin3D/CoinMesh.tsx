@@ -6,7 +6,7 @@ import { TextureLoader } from "three";
 function CoinMesh() {
   const mesh = useRef(null);
   const xplaTexture = new TextureLoader().load(
-    "/academy/img/logo512.png"
+    "/img/logo512.png"
   );
 
   useFrame(() => (mesh.current.rotation.y = mesh.current.rotation.z += 0.01)); // #2

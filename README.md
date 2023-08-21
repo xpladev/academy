@@ -12,28 +12,28 @@ Overview
 <br/>
 <br/>Settings
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Let's get your Wallet ready!
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-wallet/create-wallet-with-vault">Creating a Wallet (Vault)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-wallet/create-wallet-with-js">Creating a Wallet (Javascript)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-wallet/get-testnet-xpla">Getting Testnet XPLA Coins</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-wallet/create-wallet-with-vault">Creating a Wallet (Vault)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-wallet/create-wallet-with-js">Creating a Wallet (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-wallet/get-testnet-xpla">Getting Testnet XPLA Coins</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Time to Make Transactions!
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-testnet-transaction/send-tx">Creating XPLA transfer transactions</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-testnet-transaction/check-tx-in-explorer">Check Transactions (Explorer)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/settings/create-testnet-transaction/send-query">Check Transactions (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-testnet-transaction/send-tx">Creating XPLA transfer transactions</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-testnet-transaction/check-tx-in-explorer">Check Transactions (Explorer)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/settings/create-testnet-transaction/send-query">Check Transactions (Javascript)</a>
 <br/>
 <br/>Code Along Tutorial
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Utilize Tokens (CW20)
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/make-cw20-with-vault">Issue and send CW20 Tokens (Vault)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/make-cw20-with-js">Issue and send CW20 Tokens (Javascript)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw20/query-cw20">Working with CW20 Data</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw20/make-cw20-with-vault">Issue and send CW20 Tokens (Vault)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw20/make-cw20-with-js">Issue and send CW20 Tokens (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw20/query-cw20">Working with CW20 Data</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Utilize NFT(CW721)
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw721/make-nft-vault">Issue CW721 NFT (Vault)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw721/make-nft-js">Issue CW721 NFTs (Javascript)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/make-cw721/query-cw721">Working with CW721 Data</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Advenced - Dive deep into XPLA blockchain
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/deep-understand-xpla/local-network">Run XPLA blockchain locally (Private)</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/deep-understand-xpla/account-sequence">Decode Account Numbers and Sequences in transactions</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/deep-understand-xpla/walletprovider">Connect react with XPLA Vault wallet via wallet provider</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://xpladev.github.io/academy/docs/tutorial/deep-understand-xpla/write-contract">Write and build Cosmwasm contracts</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/make-nft-vault">Issue CW721 NFT (Vault)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/make-nft-js">Issue CW721 NFTs (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/make-cw721/query-cw721">Working with CW721 Data</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;Advanced - Dive deep into XPLA blockchain
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/local-network">Run XPLA blockchain locally (Private)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/account-sequence">Decode Account Numbers and Sequences in transactions</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/walletprovider">Connect react with XPLA Vault wallet via wallet provider</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/docs/tutorial/deep-understand-xpla/write-contract">Write and build Cosmwasm contracts</a>
 <br/></pre>
 <br />
 
@@ -55,5 +55,5 @@ No worries if you don't fully understand everything above. You'll learn more abo
 
 ## What are other documents on XPLA blockchain?
 
-To find other documents about the XPLA blockchain, go to the bottom of the [XPLA ACADEMY website](https://xpladev.github.io/academy/) and visit the "Dev Resources" section.
+To find other documents about the XPLA blockchain, go to the bottom of the [XPLA ACADEMY website](https://academy.xpla.dev/) and visit the "Dev Resources" section.
 

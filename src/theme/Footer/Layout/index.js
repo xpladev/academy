@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import styles from "./styles.module.css";
 import Link from "@docusaurus/Link";
 import NorthIcon from '@mui/icons-material/North';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const LinkList = [
   {
@@ -93,17 +94,19 @@ const LinkList = [
 
 
 export default function FooterLayout({ style, links, logo, copyright }) {
+  const matches = useMediaQuery('(max-width:768px)');
+
   return (
     <footer
-      className={clsx('bg-[#000000] h-[510px] flex flex-col p-0 items-center')}>
+      className={clsx('bg-[#000000] md:h-[510px] flex flex-col p-0 items-center')}>
       <div className="max-w-[1180px] w-[100%] py-10 px-4">
 
 
-        <div className="flex justify-between">
+        <div className="md:flex md:justify-between grid grid-cols-2 gap-8">
           {
             LinkList.map((LinkSubject, subjectIdx) => (
-              <div key={subjectIdx} className="flex flex-col gap-9 leading-tight">
-                <span className="text-[#D9D9D9] font-bold text-[18px]">{LinkSubject.title}</span>
+              <div key={subjectIdx} className="flex flex-col gap-4 md:gap-9 leading-tight">
+                <span className="text-[#D9D9D9] font-bold text-[20px] md:text-[18px]">{LinkSubject.title}</span>
                 <div className="flex flex-col gap-3">
                   {
                     LinkSubject.content.map((LinkInfo, infoIdx) => (
@@ -116,24 +119,27 @@ export default function FooterLayout({ style, links, logo, copyright }) {
               </div>
             ))
           }
+          {
+            !matches &&
           <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
+          className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
             <NorthIcon sx={{ fontSize: 50 }} />
           </div>
+            }
         </div>
 
       </div>
       <div className={clsx(styles.footerBorder)} />
       
-      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between px-4">
-        <div className="flex gap-[80px] items-start ">
+      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between px-4 flex-col md:flex-row py-5 md:py-0">
+        <div className="flex gap-5 md:gap-[80px] items-start flex-col md:flex-row">
           <Link href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
             <div className="leading-tight text-[#D9D9D9] font-medium text-[16px]">
               <div>Universal Content Powerhouse for a Sublime</div>
-              <div>Creative Expreience.</div>
+              <div>Creative Experience.</div>
             </div>
-            <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA Acadmey. All rignts reserverd.</div>
+            <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA Academy. All rignts reserved.</div>
           </div>
 
           <div className="flex gap-[14px] flex-1 justify-end">

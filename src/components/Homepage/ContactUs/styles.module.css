@@ -2,27 +2,20 @@
   position: absolute;
   bottom : 0;
   left : 257px;
-  @media screen and (max-width : 1024px) {
-    display : none;
-  }
+
 }
+
 
 .earth {
   position: absolute;
   right: 194px;
   top: 0;
-  @media screen and (max-width : 1024px) {
-    display : none;
-  }
 }
 
 .heart {
   position: absolute;
   right: -180px;
   top: 0;
-  @media screen and (max-width : 1024px) {
-    display : none;
-  }
 }
 
 .contactButton {
@@ -35,4 +28,16 @@
   cursor: pointer;
   box-shadow: none;
   transform: translate(5px, 5px);
+}
+
+@media screen and (max-width : 1024px) {
+  .star {
+    display : none;
+  }
+  .earth {
+    display : none;
+  }
+  .heart {
+    display : none;
+  }
 }

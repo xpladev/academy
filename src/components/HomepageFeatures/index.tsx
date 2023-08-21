@@ -5,33 +5,37 @@ import clsx from "clsx";
 type FeatureItem = {
   Svg: string;
   description: JSX.Element;
+  rightBorder : boolean;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    Svg: "/academy/img/HomepageFeatures/easy-to-follow.svg",
+    Svg: "/img/HomepageFeatures/easy-to-follow.svg",
     description: <>Easy to follow tutorials</>,
+    rightBorder : true,
   },
   {
-    Svg: "/academy/img/HomepageFeatures/freely-moddable.svg",
+    Svg: "/img/HomepageFeatures/freely-moddable.svg",
     description: <>Flexible Modularity</>,
+    rightBorder : true,
   },
   {
-    Svg: "/academy/img/HomepageFeatures/game-developer-friendly.svg",
+    Svg: "/img/HomepageFeatures/game-developer-friendly.svg",
     description: <>Game DEV-friendly</>,
+    rightBorder : false,
   },
 ];
 
-function Feature({ Svg, description }: FeatureItem) {
+function Feature({ Svg, description, rightBorder }: FeatureItem) {
   return (
     <div
-      className={clsx("flex flex-1 justify-center items-center", styles.card)}
+      className={clsx("flex flex-1 justify-center items-center", styles.card,rightBorder && [styles.rightBorder])}
     >
-      <div className="flex flex-col gap-[33px]">
-        <div className="flex flex-1 justify-center">
-          <img src={Svg} />
+      <div className="flex flex-1 gap-[33px] items-center flex-row md:flex-col p-4 justify-between">
+        <div className={clsx("flex flex-1 justify-between ")}>
+          <img src={Svg} className={styles.mobileImg} />
         </div>
-        <span className="font-bold text-[26px] ">{description}</span>
+        <span className="font-bold text-[26px] text-white ">{description}</span>
       </div>
     </div>
   );
@@ -42,18 +46,18 @@ export default function HomepageFeatures(): JSX.Element {
     <section className="h-[812px] bg-[#004FFF] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.ellipsis}
-        src={`/academy/img/HomepageFeatures/ellipsis.svg`}
+        src={`/img/HomepageFeatures/ellipsis.svg`}
       />
       <img
         className={styles.square}
-        src={`/academy/img/HomepageFeatures/square.svg`}
+        src={`/img/HomepageFeatures/square.svg`}
       />
       <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
         <div className="flex flex-col flex-1 gap-[77px]">
           <span className="text-[#ffffff] flex flex-1 justify-center font-semibold text-[50px]">
             Dive into XPLA Academy
           </span>
-          <div className="flex flex-1 gap-[20px]">
+          <div className="flex-col md:flex-row flex flex-1 gap-[20px]">
             {FeatureList.map((props, idx) => (
               <Feature key={idx} {...props} />
             ))}

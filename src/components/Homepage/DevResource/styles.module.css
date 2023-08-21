@@ -28,15 +28,19 @@
   padding: 0px 83px 0px 101px;
 }
 
+
+
 .endpointTestnet {
   border: 1px solid black;
   padding: 0px 83px 0px 101px;
+
 }
 
 .endpointURL {
   border : 1px solid black;
   background-color: white;
   padding : 30px 100px;
+
 }
 
 .dropdownRotate { 
@@ -122,5 +126,17 @@
   }
   to {
       opacity: 1;
+  }
+}
+
+@media screen and (max-width : 768px) {
+  .endpointMainnet {
+    padding: 20px;
+  }
+  .endpointTestnet{
+    padding: 20px;
+  }
+  .endpointURL{
+    padding: 20px;
   }
 }

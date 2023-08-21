@@ -3,7 +3,7 @@ import Cocosgame from "../../Cocosgame";
 
 export default function PlayGame(): JSX.Element {
   return (
-    <section className="h-[1272px] flex flex-col justify-center items-center gap-[78px]">
+    <section className="h-[1272px] flex flex-col justify-center items-center gap-[78px] px-4">
       <div className="flex flex-col items-center justify-center">
         <div className="font-bold text-[50px] leading-[60px]">
           Explore & Play the demo
@@ -12,7 +12,7 @@ export default function PlayGame(): JSX.Element {
           Experience game building on XPLA
         </div>
       </div>
-      <img src="/academy/img/PlayGame/comingsoon.svg" />
+      <img src="/img/PlayGame/comingsoon.svg" />
       {/* <Cocosgame /> */}
     </section>
   );

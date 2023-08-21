@@ -8,16 +8,16 @@ export default function ContactUs() {
     <section className="h-[276px] bg-[#F5F4F4] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.star}
-        src={`/academy/img/ContactUs/star.svg`}
+        src={`/img/ContactUs/star.svg`}
       />
 
       <img
         className={styles.earth}
-        src={`/academy/img/ContactUs/earth.svg`}
+        src={`/img/ContactUs/earth.svg`}
       />
       <div className="z-10 relative">
         <div className="flex flex-col items-center gap-[20px]">
-          <span className="text-[#000000] font-semibold text-[42px]">
+          <span className="text-[#000000] font-semibold text-[30px] md:text-[42px] text-center">
             Interested in Collaborating?
           </span>
             <a href="mailto:xpla_official@xpla.io" className={clsx(
@@ -29,7 +29,7 @@ export default function ContactUs() {
         </div>
         <img
           className={styles.heart}
-          src={`/academy/img/ContactUs/heart.svg`}
+          src={`/img/ContactUs/heart.svg`}
         />
       </div>
     </section>

@@ -16,6 +16,7 @@
   left: 0;
 }
 
+
 .square {
   position: absolute;
   right: 0;
@@ -23,7 +24,39 @@
 }
 
 .card {
-  background-color: white;
   aspect-ratio: 1 / 1;
-  border: 1px solid black;
+}
+
+.mobileImg {
+  height: 171px;
+}
+
+.rightBorder {
+  border-right: 1px solid white;
+}
+
+@media screen and (max-width : 768px) {
+  .ellipsis {
+    display: none;
+  }
+
+  .square {
+    display: none;
+  }
+
+  .card {
+    height: 100px;
+    aspect-ratio: 3 / 1;
+  }
+
+  .mobileImg {
+    height: 100px;
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .rightBorder {
+    border-right: 0px;
+    border-bottom: 1px solid white;
+  }
 }
