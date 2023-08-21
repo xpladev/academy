@@ -55,7 +55,7 @@ export default function HomepageFeatures(): JSX.Element {
       <div className="max-w-[1180px] flex flex-1 justify-center items-center z-10">
         <div className="flex flex-col flex-1 gap-[77px]">
           <span className="text-[#ffffff] flex flex-1 justify-center font-semibold text-[50px]">
-            Dive into XPLA Academy
+            Dive into XPLA ACADEMY
           </span>
           <div className="flex-col md:flex-row flex flex-1 gap-[20px]">
             {FeatureList.map((props, idx) => (
