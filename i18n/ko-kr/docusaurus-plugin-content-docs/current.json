@@ -5,11 +5,11 @@
   },
   "sidebar.tutorialSidebar.category.Let's get your Wallet ready!": {
     "message": "지갑 생성하기",
-    "description": "일상에서 현금을 보관하기 위해 지갑을 사용하는 것처럼, 블록체인에서도 토큰을 보관하기 위해 지갑이 필요합니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다."
+    "description": "Let's get your Wallet ready!"
   },
   "sidebar.tutorialSidebar.category.Time to Make Transactions!": {
     "message": "트랜잭션 생성하기",
-    "description": "XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다."
+    "description": "Time to Make Transactions!"
   },
   "sidebar.tutorialSidebar.category.Utilize Tokens (CW20)": {
     "message": "토큰(CW20) 다루기"

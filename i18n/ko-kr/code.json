@@ -269,5 +269,13 @@
   "theme.tags.tagsPageTitle": {
     "message": "태그",
     "description": "The title of the tag list page"
+  },
+  "sidebar.tutorialSidebar.category.Let's get your Wallet ready!.description": {
+    "message": "일상에서 현금을 보관하기 위해 지갑을 사용하는 것처럼, 블록체인에서도 토큰을 보관하기 위해 지갑이 필요합니다. 직접 지갑을 만들어 보면서 자세히 살펴봅시다.",
+    "description": "Just as we carry wallets to keep our cash safe in our everyday routines, in the blockchain world, we need Wallets to hold onto tokens (or any other digital assets). Let's take a closer look by creating a Wallet ourselves."
+  },
+  "sidebar.tutorialSidebar.category.Time to Make Transactions!.description": {
+    "message": "XPLA 테스트넷 토큰을 이용하여 블록체인에 데이터를 기록해봅시다.",
+    "description": "Let's use the $XPLA testnet tokens to leave a mark in the blockchain!"
   }
 }
