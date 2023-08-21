@@ -11,6 +11,8 @@ import DocVersionBadge from '@theme/DocVersionBadge';
 import DocBreadcrumbs from '@theme/DocBreadcrumbs';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import Translate from '@docusaurus/Translate';
+
 function DocCategoryGeneratedIndexPageMetadata({categoryGeneratedIndex}) {
   return (
     <PageMetadata
@@ -34,7 +36,11 @@ function DocCategoryGeneratedIndexPageContent({categoryGeneratedIndex}) {
           {category.label}
         </Heading>
         {categoryGeneratedIndex.description && (
-          <p>{categoryGeneratedIndex.description}</p>
+          <p>
+            <Translate id={`sidebar.tutorialSidebar.category.${categoryGeneratedIndex.title}.description`}>
+              {categoryGeneratedIndex.description}
+            </Translate>
+          </p>
         )}
       </header>
       <article className="margin-top--lg">
