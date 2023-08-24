@@ -34,6 +34,8 @@
 
 .dotsCustom>div>ul>li {
   margin: 0px 9px !important;
+  width : 21px;
+  height: 21px;
 }
 
 .dotsCustom>div>ul>li>button::before {
