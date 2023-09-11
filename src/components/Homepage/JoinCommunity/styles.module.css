@@ -16,11 +16,11 @@
   height: 230px;
 }
 
-.hackathon {
-  background-image: url('/img/JoinCommunity/hackathon-banner.svg');
-  height: 230px;
-}
-
 .bannerMaxWidth {
   max-width: 1180px !important;
+}
+
+.devEvents {
+  background-image: url('/img/JoinCommunity/devEvents.svg');
+  height: 230px;
 }

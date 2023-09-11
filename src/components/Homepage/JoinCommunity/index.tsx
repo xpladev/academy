@@ -38,24 +38,20 @@ export default function JoinCommunity(): JSX.Element {
         )}
       >
         <span className="font-semibold text-[38px] text-[#ffffff]">
-          XPLA Hackathon
+          Dev Events
         </span>
-        <Link
-          to="https://app.glitch-hack.com/"
-          className="w-fit"
-          style={{ textDecoration: "none" }}
-        >
-          <span className={styles.registerNow}>Register Now</span>
-        </Link>
       </div>
         :
-      <Link
-      to="https://app.glitch-hack.com/"
-      className={clsx(
-        "hover:cursor-pointer px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px]",
-        styles.hackathon
+        <div
+        className={clsx(
+          "px-[100px] py-[60px] flex flex-col gap-4 w-[100%] max-w-[1180px] mb-20",
+          styles.devEvents
         )}
-        />
+      >
+        <span className="font-semibold text-[38px] text-[#ffffff]">
+          Dev Events
+        </span>
+      </div>
       }
     </section>
   );
