@@ -18,8 +18,7 @@ export default function PlayGame(): JSX.Element {
         </div>
         }
       </div>
-      <img src="/img/PlayGame/comingsoon.svg" />
-      {/* <Cocosgame /> */}
+      <Cocosgame />
     </section>
   );
 }
