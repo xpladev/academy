@@ -1,4 +1,4 @@
-# Beginning XPLA ACADEMY
+# Beginning XPLA ACADEMY 
 
 Step into the world of XPLA ACADEMY. YAY! Your first step into the world of XPLA blockchain development has begun! XPLA ACADEMY warmly welcomes beginners who are willing to embark on their web3.0 development journey. 
 
