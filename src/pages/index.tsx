@@ -63,10 +63,10 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
 }
 
 export default function Home(): JSX.Element {
-  const element = useRef<HTMLDivElement>(null);
-  const onMoveToElement = () => {
+  const devResourceElement = useRef<HTMLDivElement>(null);
+  const onMoveTodevResourceElement = () => {
     var headerOffset = 80;
-    var elementPosition = element.current.getBoundingClientRect().top;
+    var elementPosition = devResourceElement.current.getBoundingClientRect().top;
     var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
     window.scrollTo({
@@ -74,6 +74,25 @@ export default function Home(): JSX.Element {
       behavior : "smooth"
     })
   };
+
+  const playgameElement = useRef<HTMLDivElement>(null);
+  const onMoveToPlaygameElement = () => {
+    var headerOffset = 80;
+    var elementPosition = playgameElement.current.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top : offsetPosition,
+      behavior : "smooth"
+    })
+  };
+
+  useEffect(() => {
+    if (window.location.hash === "#playgame") {
+      console.log(11);
+      onMoveToPlaygameElement();
+    } 
+  }, []);
 
   const [chainOptions, setChainoptions] =
     useState<WalletControllerChainOptions>();
@@ -91,12 +110,12 @@ export default function Home(): JSX.Element {
       title={`XPLA ACADEMY`}
       description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
-      <HomepageHeader onMoveToElement={onMoveToElement} />
+      <HomepageHeader onMoveToElement={onMoveTodevResourceElement} />
       <main>
         <HomepageFeatures />
-        <PlayGame />
+        <PlayGame moveToElement={playgameElement}/>
         <IntroduceTutorial />
-        <DevResource moveToElement={element} />
+        <DevResource moveToElement={devResourceElement} />
         <JoinCommunity />
         <ContactUs />
       </main>
