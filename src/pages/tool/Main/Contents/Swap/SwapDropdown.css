@@ -1,0 +1,26 @@
+.swap_navbar__link-custom {
+    /* color: var(--ifm-navbar-link-color); */
+    color: black;
+}
+
+.swap_navbar__link-custom:hover {}
+
+.swap_navbar__link-custom>svg {
+    margin: 0px;
+}
+
+.dropdownArrow>svg {
+    transform: translate(7px, 0px) rotate(0deg);
+}
+
+.dropdownArrow:hover>svg {
+    transform: translate(7px, 0px) rotate(180deg);
+}
+
+.swapDropdownMenu {
+    /* box-shadow: none !important; */
+    min-width: 180px !important;
+    margin-top: 1px;
+    border-radius: 0px;
+    padding: 0px;
+}

@@ -1,0 +1,100 @@
+@-webkit-keyframes fadeIn {
+
+	0% {
+
+		opacity: 0;
+
+		transform: scale(0.6);
+
+	}
+
+	100% {
+		opacity: 100%;
+		transform: scale(1);
+	}
+
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 100%;
+	}
+}
+
+.nftdetail-tooltip {
+	/* overflow: hidden; */
+	position: relative;
+	z-index: 1;
+}
+
+.nftdetail-tooltip>div {
+	display: none;
+	min-width: 252px;
+	min-height: 142px;
+	background-color: #C9FF00BF;
+	backdrop-filter: blur(10px);
+	position: absolute;
+	padding: 15px 10px;
+	bottom: calc(100% + 8px);
+	left: 50%;
+	transform: translate(-50%, 0);
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.nftdetail-tooltip:hover {
+	z-index: 2;
+	display: block;
+}
+
+.nftdetail-tooltip:hover>div {
+	display: flex;
+	-webkit-animation: fadeIn 0.2s ease-in-out;
+	animation: fadeIn 0.2s ease-in-out;
+
+}
+
+
+
+.nftdetail-tooltip>div:before {
+	/* 
+	position: absolute;
+
+	content: '';
+
+	width: 0;
+
+	height: 0;
+
+	border: 8px solid transparent;
+
+	border-top-color: #C9FF00BF;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	bottom: -14px;
+	backdrop-filter: blur(10px); */
+
+
+	position: absolute;
+	z-index: -1;
+
+	content: '';
+
+	width: 15px;
+	height: 7px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+	background-color: #C9FF00BF;
+	bottom: -7px;
+	filter: blur(2px);
+	backdrop-filter: blur(10px);
+	-webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}

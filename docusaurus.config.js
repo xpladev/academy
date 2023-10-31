@@ -86,6 +86,11 @@ const config = {
             label: 'Tutorial',
           },
           {
+            to: 'tool',
+            label: 'Tool',
+            position: 'left',
+          },
+          {
             href: 'https://github.com/xpladev',
             className: 'header-github-link',
             position: 'right',
@@ -171,6 +176,12 @@ const config = {
       '@docusaurus/plugin-google-tag-manager',
       {
         containerId: process.env.GTM,
+      },
+    ],
+    [
+      "docusaurus2-dotenv",
+      {
+        systemvars: true,
       },
     ],
   ],
