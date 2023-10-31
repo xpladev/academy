@@ -83,7 +83,7 @@ const sidebars = {
         title: 'Advanced - Dive deep into XPLA blockchain',
         // description: ''
       },
-      items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract'],
+      items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract', 'tutorial/deep-understand-xpla/convert', 'tutorial/deep-understand-xpla/swap'],
     },
   ],
 };
