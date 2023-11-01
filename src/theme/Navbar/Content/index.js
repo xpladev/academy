@@ -61,7 +61,7 @@ export default function NavbarContent() {
           </Link>
           {
             leftItems.map((leftItem, index) => {
-              return <NavbarItem {...leftItem} className={index === 0 ? "text-white ml-[78px]" : "text-white ml-[28px]"} />
+              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white ml-[78px]" : "text-white ml-[28px]"} />
             })
           }
           {/* <div className={clsx("font-semibold ml-10", styles.tool)} /> */}
