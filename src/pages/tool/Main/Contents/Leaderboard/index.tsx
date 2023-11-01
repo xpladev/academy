@@ -18,7 +18,8 @@ import { Modal } from "@mui/material";
 import LBTxSucceedModal from "./LBTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import { USERINFO } from "../../..";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+
 import _ from "lodash";
 import getNumberFormat from "@site/src/util/getNumberFormat";
 import Ranking from "./Ranking";
@@ -44,13 +45,9 @@ export interface RANKINFO {
   chain_high_score: number;
 }
 
-export default function Leaderboard({
-  userInfo,
-  setUserInfo,
-}: {
-  userInfo: USERINFO;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
-}) {
+export default function Leaderboard() {
+  const { userInfo, setUserInfo } = useUserInfo();
+
   const [rankinglist, setRankinglist] = useState<RANKRESPONSE | null>();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);

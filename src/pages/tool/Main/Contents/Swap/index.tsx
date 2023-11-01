@@ -19,7 +19,8 @@ import { Modal } from "@mui/material";
 import SwapTxSucceedModal from "./SwapTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import { USERINFO } from "../../..";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+
 import SwapDropdown from "./SwapDropdown";
 
 interface SWAPFORM {
@@ -30,13 +31,9 @@ const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
-export default function Swap({
-  userInfo,
-  setUserInfo,
-}: {
-  userInfo: USERINFO;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
-}) {
+export default function Swap() {
+  const { userInfo, setUserInfo } = useUserInfo();
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [tkn2xpla, setTkn2xpla] = useState<boolean>(true);
 
@@ -135,6 +132,7 @@ export default function Swap({
             setUserInfo({
               diamond: userInfo.diamond - Number(values.amount),
               id: userInfo.id,
+            xplaAddress : userInfo.xplaAddress,
               clearStage: userInfo.clearStage,
               xplaBalance: new BigNumber(userInfo.xplaBalance)
                 .minus(estimateFee)

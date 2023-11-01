@@ -5,16 +5,11 @@ import axios from "axios";
 import "./Inventory.css";
 import clsx from "clsx";
 import NFTInfo from "./NFTInfo";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
 
-export default function Inventory({
-  diamond,
-  xplaBalance,
-  tokenBalance,
-}: {
-  diamond: number;
-  xplaBalance: string;
-  tokenBalance: string;
-}) {
+export default function Inventory() {
+  const { userInfo } = useUserInfo();
+
   const { wallets } = useWallet();
   const userAddress = wallets[0].xplaAddress;
   const [nftlist, setNftlist] = useState<string[] | null>();
@@ -41,21 +36,21 @@ export default function Inventory({
     });
   }, []);
 
-  const bigXPLABalance = new BigNumber(xplaBalance)
+  const bigXPLABalance = new BigNumber(userInfo.xplaBalance)
     .toFormat(18, {
       decimalSeparator: ".",
       groupSeparator: ",",
       groupSize: 3,
     })
     .split(".");
-  const bigTokenBalance = new BigNumber(tokenBalance)
+  const bigTokenBalance = new BigNumber(userInfo.tokenBalance)
     .toFormat(6, {
       decimalSeparator: ".",
       groupSeparator: ",",
       groupSize: 3,
     })
     .split(".");
-  const bigDiamond = new BigNumber(diamond).toFormat(0, {
+  const bigDiamond = new BigNumber(userInfo.diamond).toFormat(0, {
     groupSeparator: ",",
     groupSize: 3,
   });
@@ -87,7 +82,7 @@ export default function Inventory({
           nftlist
             .slice((page - 1) * numPerPage, page * numPerPage)
             .map((userNFT) => (
-              <NFTInfo address={userAddress} tokenId={userNFT} />
+              <NFTInfo address={userAddress} tokenId={userNFT} key={userNFT} />
             ))}
         {nftlist?.length === 0 && <span>There is no nftlist item.</span>}
       </div>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
 import axios from "axios";
-import { USERINFO } from "../../..";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+
 import ShopInfo from "./ShopInfo";
 
 export interface NFTSHOPITEM {
@@ -16,13 +17,9 @@ export interface NFTSHOPITEM {
   isHave: number;
 }
 
-export default function Nftshop({
-  userInfo,
-  setUserInfo,
-}: {
-  userInfo: USERINFO;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
-}) {
+export default function Nftshop() {
+  const { userInfo, setUserInfo } = useUserInfo();
+
   const [shopItemlist, setShopItemlist] = useState<NFTSHOPITEM[] | null>();
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
@@ -85,6 +82,7 @@ export default function Nftshop({
               .slice((page - 1) * numPerPage, page * numPerPage)
               .map((item) => (
                 <ShopInfo
+                  key={item.idx}
                   address={userAddress}
                   shopItem={item}
                   setShopItemlist={setShopItemlist}

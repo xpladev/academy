@@ -9,7 +9,8 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NFTSHOPITEM } from "./index";
-import { USERINFO } from "../../..";
+import { USERINFO } from "@site/src/hooks/Store/useUserInfo";
+
 import { clsx } from "clsx";
 import styles from "../../../index.module.css";
 import getNumberFormat from "@site/src/util/getNumberFormat";

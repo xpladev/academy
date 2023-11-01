@@ -7,8 +7,7 @@ import LoginConnectWallet from "./LoginConnectWallet";
 import NotLinkErrorModal from "./Modal/NotLinkErrorModal";
 import SessionErrorModal from "./Modal/SessionErrorModal";
 import InformationModal from "./Modal/InformationModal";
-import axios from "axios";
-import { USERINFO } from "..";
+import getUserInfo from "@site/src/hooks/useMutation/getUserInfo";
 
 export const MODALTYPE = {
   NOTOPEN: 0,
@@ -18,39 +17,19 @@ export const MODALTYPE = {
 } as const;
 type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
 
-export default function Login({
-  setShowTool,
-  setUserInfo
-}: {
-  setShowTool: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
-}) {
-  const {
-    status,
-    network,
-    wallets,
-    availableConnections,
-    availableConnectTypes,
-    connect,
-    disconnect,
-    refetchStates,
-  } = useWallet();
+export default function Login() {
+  const { status, wallets, disconnect } = useWallet();
 
   const [modalOpen, setModalOpen] = useState<MODALTYPE>(MODALTYPE.NOTOPEN);
-
-  const setMainState = (_showTool: boolean, _userInfo: USERINFO | null) => {
-    setShowTool(_showTool);
-    if (_userInfo) {
-      setUserInfo(_userInfo);
-    }
-  };
+  const { mutate } = getUserInfo(() => {
+    disconnect();
+    setModalOpen(MODALTYPE.OPENWITHNOTLINKERROR);
+  });
 
   useEffect(() => {
     let timer = setTimeout(() => {
       if (status === WalletStatus.INITIALIZING) {
         setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
-        // console.log("Go refetch")
-        // refetchStates()
       }
     }, 2000);
 
@@ -58,43 +37,16 @@ export default function Login({
       if (wallets.length === 0) {
         setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
       } else {
-        const fetchData = async () => {
-          const res = await axios.post(
-            `${process.env.REACT_APP_SERVERURL}wallet/wallet-user-info`,
-            {
-              wallet: wallets[0].xplaAddress,
-            }
-          );
-          return res.data;
-        };
-
-        fetchData().then((res) => {
-          if (res.returnMsg === "success") {
-            setMainState(true, {
-              id: res.id,
-              diamond: res.diamond,
-              clearStage : res.clearStage,
-              xplaBalance: res.xpla,
-              tokenBalance: res.token,
-            });
-          } else {
-            disconnect();
-            setModalOpen(MODALTYPE.OPENWITHNOTLINKERROR);
-          }
-        });
+        mutate(wallets[0].xplaAddress);
       }
     }
     return () => {
       clearTimeout(timer);
     };
-  }, [status]);
-
+  }, [status, wallets]);
 
   return (
     <div className=" bg-[#004FFF] relative flex flex-col flex-1 items-center w-full ">
-      {/* <div className="absolute top-[90px] max-w-[1465px] mx-[20px]">
-          <img src={`/img/tool/Login/stars.svg`} />
-        </div> */}
       <div
         className={clsx(
           "absolute top-[90px] w-[1465px] h-[578px] mx-[20px]",
@@ -105,7 +57,6 @@ export default function Login({
         <img src={`/img/tool/Login/logintitle.svg`} />
         <LoginConnectWallet
           setModalOpen={setModalOpen}
-          setMainState={setMainState}
         />
 
         <div
@@ -127,10 +78,7 @@ export default function Login({
         </span>
       </div>
 
-      <img
-        className="mt-[45px] w-screen"
-        src={`/img/tool/Login/floor.svg`}
-      />
+      <img className="mt-[45px] w-screen" src={`/img/tool/Login/floor.svg`} />
       <Modal
         open={modalOpen !== MODALTYPE.NOTOPEN}
         onClose={() => setModalOpen(MODALTYPE.NOTOPEN)}
@@ -143,7 +91,9 @@ export default function Login({
             <SessionErrorModal setModalOpen={setModalOpen} />
           )}
           {modalOpen === MODALTYPE.OPENINFORMATION && (
-            <InformationModal setModalClose={() => setModalOpen(MODALTYPE.NOTOPEN)} />
+            <InformationModal
+              setModalClose={() => setModalOpen(MODALTYPE.NOTOPEN)}
+            />
           )}
         </>
       </Modal>

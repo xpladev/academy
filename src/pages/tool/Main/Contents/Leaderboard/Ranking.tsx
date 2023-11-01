@@ -83,7 +83,7 @@ const Ranking = ({ rankinglist }: { rankinglist: RANKRESPONSE }) => {
       </div>
 
       {rankinglist.ranking.slice(3).map((rank: RANKINFO) => (
-        <div className="flex gap-[7px] h-[26px]">
+        <div key={rank.id} className="flex gap-[7px] h-[26px]">
           <div
             className={clsx(
               "w-[26px] flex justify-center items-center text-[12px] leading-[14px] font-bold",
@@ -109,7 +109,7 @@ const Ranking = ({ rankinglist }: { rankinglist: RANKRESPONSE }) => {
       ))}
 
       {_.range(10 - rankinglist.ranking.length).map((idx) => (
-        <div className="flex gap-[7px] h-[26px]">
+        <div key={idx} className="flex gap-[7px] h-[26px]">
           <div className="w-[26px] flex justify-center items-center text-[12px] leading-[14px] font-bold bg-[#F5F4F4] text-[#555454]">
             {rankinglist.ranking.length + idx + 1}
           </div>

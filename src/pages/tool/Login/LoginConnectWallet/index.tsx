@@ -1,64 +1,22 @@
 import { ConnectType, useWallet, WalletStatus } from "@xpla/wallet-provider";
-import React, { useEffect } from "react";
-import Translate, { translate } from "@docusaurus/Translate";
+import React from "react";
 import { selectConnection } from "../../../../components/Wallet/ConnectModal";
 import clsx from "clsx";
 import styles from "../../index.module.css";
 import { MODALTYPE } from "..";
-import axios from "axios";
-import { USERINFO } from "../..";
 
 type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
 
 export default function LoginConnectWallet({
   setModalOpen,
-  setMainState,
 }: {
   setModalOpen: React.Dispatch<React.SetStateAction<MODALTYPE>>;
-  setMainState: (_showTool: boolean, _userInfo: USERINFO | null) => void;
 }) {
   const {
     status,
-    network,
-    wallets,
     availableConnections,
-    availableConnectTypes,
     connect,
-    disconnect,
   } = useWallet();
-
-  useEffect(() => {
-    if (status === WalletStatus.WALLET_CONNECTED) {
-      if (wallets.length === 0) {
-        setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
-      } else {
-        const fetchData = async () => {
-          const res = await axios.post(
-            `${process.env.REACT_APP_SERVERURL}wallet/wallet-user-info`,
-            {
-              wallet: wallets[0].xplaAddress,
-            }
-          );
-          return res.data;
-        };
-
-        fetchData().then((res) => {
-          if (res.returnMsg === "success") {
-            setMainState(true, {
-              id: res.id,
-              diamond: res.diamond,
-              clearStage: res.clearStage,
-              xplaBalance: res.xpla,
-              tokenBalance: res.token,
-            });
-          } else {
-            disconnect();
-            setModalOpen(MODALTYPE.OPENWITHNOTLINKERROR);
-          }
-        });
-      }
-    }
-  }, [wallets]);
 
   const clickConnect = async () => {
     try {
@@ -80,7 +38,6 @@ export default function LoginConnectWallet({
       const identifier = selected[1] || "";
       connect(type, identifier);
     } catch (e) {
-      console.log("error")
       setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
     }
   };

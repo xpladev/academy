@@ -4,14 +4,13 @@ import styles from "../index.module.css";
 import Link from "@docusaurus/Link";
 import { copyToClipboard } from "@site/src/components/Homepage/DevResource";
 import { useWallet } from "@xpla/wallet-provider";
+import useShowTool from "@site/src/hooks/Zustand/useShowTool";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
 
-export default function UserStatus({
-  userId,
-  setShowTool,
-}: {
-  userId: string;
-  setShowTool: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function UserStatus() {
+  const { setShowTool } = useShowTool();
+  const { userInfo } = useUserInfo();
+
   const [copyAnimation, setCopyAnimation] = useState<boolean>(true);
   const [isCopy, setIsCopy] = useState<boolean>(false);
   const {
@@ -47,7 +46,7 @@ export default function UserStatus({
         <div className="w-[88px] flex items-center bg-[#FFE300] font-semibold px-[13px]">
           ID
         </div>
-        <div className="flex items-center px-[11px]">{userId}</div>
+        <div className="flex items-center px-[11px]">{userInfo.id}</div>
       </div>
       <div className="w-full flex mt-[16px] border-solid border-[1px] bg-white h-[66px] text-[16px]">
         <div className="w-[88px] shrink-0 flex items-center bg-[#FFE300] font-semibold px-[13px] leading-[18px]">

@@ -22,7 +22,8 @@ import { Modal } from "@mui/material";
 import TxSucceedModal from "./ConvertTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import { USERINFO } from "../../..";
+import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+
 import getNumberFormat from "@site/src/util/getNumberFormat";
 
 interface CONVERTFORM {
@@ -33,13 +34,8 @@ const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
-export default function Convert({
-  userInfo,
-  setUserInfo,
-}: {
-  userInfo: USERINFO;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
-}) {
+export default function Convert() {
+  const { userInfo, setUserInfo } = useUserInfo();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [dia2tkn, setDia2tkn] = useState<boolean>(true);
 
