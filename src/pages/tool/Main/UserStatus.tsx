@@ -4,12 +4,13 @@ import styles from "../index.module.css";
 import Link from "@docusaurus/Link";
 import { copyToClipboard } from "@site/src/components/Homepage/DevResource";
 import { useWallet } from "@xpla/wallet-provider";
-import useShowTool from "@site/src/hooks/Zustand/useShowTool";
-import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
+import { CircularProgress } from "@mui/material";
 
 export default function UserStatus() {
-  const { setShowTool } = useShowTool();
-  const { userInfo } = useUserInfo();
+  const { userAddress, setUserAddress } = useUserAddress();
+  const { data : userInfo, status } = useUserInfo("");
 
   const [copyAnimation, setCopyAnimation] = useState<boolean>(true);
   const [isCopy, setIsCopy] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function UserStatus() {
       <img src={`/img/tool/Main/mainlogo.svg`} />
       <div
         onClick={() => {
-          setShowTool(false);
+          setUserAddress(undefined);
           disconnect();
         }}
         className="absolute right-[20px] top-[154px] border-[1px] border-solid border-white px-[8px] text-[14px] leading-[25px] text-white hover:cursor-pointer"
@@ -46,7 +47,11 @@ export default function UserStatus() {
         <div className="w-[88px] flex items-center bg-[#FFE300] font-semibold px-[13px]">
           ID
         </div>
-        <div className="flex items-center px-[11px]">{userInfo.id}</div>
+        <div className="flex items-center px-[11px]">{
+          status === "pending" ? <CircularProgress size={12} />
+          : status === "success" ? userInfo?.id 
+          : "-"
+        }</div>
       </div>
       <div className="w-full flex mt-[16px] border-solid border-[1px] bg-white h-[66px] text-[16px]">
         <div className="w-[88px] shrink-0 flex items-center bg-[#FFE300] font-semibold px-[13px] leading-[18px]">

@@ -1,16 +1,18 @@
 import React from "react";
-import { MODALTYPE } from "..";
+import useLoginModalOpen, {
+  MODALTYPE,
+} from "@site/src/hooks/Zustand/useLoginModalOpen";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import styles from "../../index.module.css";
+import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
 type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
 
-const NotLinkErrorModal = ({
-  setModalOpen,
-}: {
-  setModalOpen: React.Dispatch<React.SetStateAction<MODALTYPE>>;
-}) => {
+const NotLinkErrorModal = () => {
+  const { setLoginModalOpen } = useLoginModalOpen();
+  const { setLoginLoading } = useLoginLoading();
+
   return (
     <div
       style={{
@@ -42,10 +44,7 @@ const NotLinkErrorModal = ({
         </span>
       </div>
       <div className="relative flex justify-center items-center">
-        <img
-          className="w-full"
-          src={`/img/tool/Login/failBackground.svg`}
-        />
+        <img className="w-full" src={`/img/tool/Login/failBackground.svg`} />
         <div className="absolute text-center top-[20px]">
           <span className="text-[#FAED00] text-[20px] font-semibold leading-[23px]">
             Consider Doing These:
@@ -60,7 +59,10 @@ const NotLinkErrorModal = ({
       </div>
       <div className="mt-[22px] flex gap-[20px]">
         <div
-          onClick={() => setModalOpen(MODALTYPE.NOTOPEN)}
+          onClick={() => {
+            setLoginModalOpen(MODALTYPE.NOTOPEN);
+            setLoginLoading(false);
+          }}
           className={clsx(
             styles.smallShadowButton,
             "bg-[#00ABFF] font-medium text-white px-[30px] py-[10px] "

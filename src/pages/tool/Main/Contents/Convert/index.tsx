@@ -53,7 +53,7 @@ export default function Convert() {
   const { watch, setValue, handleSubmit } = form;
   const { ...values } = watch();
 
-  const walletServerAddr = "https://gw-qa-gcl.c2xstation.net:40202/";
+  const walletServerAddr = process.env.REACT_APP_SERVERURL;
   const userAddress = wallets[0].xplaAddress;
 
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {

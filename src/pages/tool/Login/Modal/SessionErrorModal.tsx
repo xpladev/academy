@@ -1,16 +1,16 @@
 import React from "react";
-import { MODALTYPE } from "..";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import styles from "../../index.module.css";
+import useLoginModalOpen, {
+  MODALTYPE,
+} from "@site/src/hooks/Zustand/useLoginModalOpen";
+import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
-type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
+const SessionErrorModal = () => {
+  const { setLoginModalOpen } = useLoginModalOpen();
+  const { setLoginLoading } = useLoginLoading();
 
-const SessionErrorModal = ({
-  setModalOpen,
-}: {
-  setModalOpen: React.Dispatch<React.SetStateAction<MODALTYPE>>;
-}) => {
   return (
     <div
       style={{
@@ -43,10 +43,7 @@ const SessionErrorModal = ({
         </span>
       </div>
       <div className="relative flex justify-center items-center leading-[25px]">
-        <img
-          className="w-full"
-          src={`/img/tool/Login/sessionErrorBg.svg`}
-        />
+        <img className="w-full" src={`/img/tool/Login/sessionErrorBg.svg`} />
         <div className="absolute text-center top-[22px]">
           <span className="text-[#FAED00] text-[20px] font-semibold">
             Consider Doing These:
@@ -56,16 +53,21 @@ const SessionErrorModal = ({
           <span className="text-white text-[16px] font-medium">
             1. Adding one or more wallets
             <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;on<span className="text-[#00B2FC] font-bold"> XPLA Vault.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;on
+            <span className="text-[#00B2FC] font-bold"> XPLA Vault.</span>
             <br />
             2. Refreshing the page using the <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#FAED00] font-bold">F5 key!</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span className="text-[#FAED00] font-bold">F5 key!</span>
           </span>
         </div>
       </div>
       <div className="mt-[22px] flex gap-[20px] w-full ">
         <div
-          onClick={() => setModalOpen(MODALTYPE.NOTOPEN)}
+          onClick={() => {
+            setLoginModalOpen(MODALTYPE.NOTOPEN);
+            setLoginLoading(false);
+          }}
           className={clsx(
             styles.smallShadowButton,
             "bg-[#00ABFF] font-medium text-white py-[10px] w-full text-center mx-[50px]"

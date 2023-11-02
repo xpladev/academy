@@ -7,37 +7,31 @@ import LoginConnectWallet from "./LoginConnectWallet";
 import NotLinkErrorModal from "./Modal/NotLinkErrorModal";
 import SessionErrorModal from "./Modal/SessionErrorModal";
 import InformationModal from "./Modal/InformationModal";
-import getUserInfo from "@site/src/hooks/useMutation/getUserInfo";
-
-export const MODALTYPE = {
-  NOTOPEN: 0,
-  OPENWITHNOTLINKERROR: 1,
-  OPENWITHSESSIONERROR: 2,
-  OPENINFORMATION: 3,
-} as const;
-type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useLoginModalOpen from "@site/src/hooks/Zustand/useLoginModalOpen";
+import { MODALTYPE } from "@site/src/hooks/Zustand/useLoginModalOpen";
+import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
 export default function Login() {
   const { status, wallets, disconnect } = useWallet();
-
-  const [modalOpen, setModalOpen] = useState<MODALTYPE>(MODALTYPE.NOTOPEN);
-  const { mutate } = getUserInfo(() => {
-    disconnect();
-    setModalOpen(MODALTYPE.OPENWITHNOTLINKERROR);
-  });
+  const { setUserAddress } = useUserAddress();
+  const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
+  const { setLoginLoading } = useLoginLoading();
 
   useEffect(() => {
     let timer = setTimeout(() => {
       if (status === WalletStatus.INITIALIZING) {
-        setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
+        disconnect();
+        setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
       }
     }, 2000);
 
     if (status === WalletStatus.WALLET_CONNECTED) {
       if (wallets.length === 0) {
-        setModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
+        disconnect();
+        setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
       } else {
-        mutate(wallets[0].xplaAddress);
+        setUserAddress(wallets[0].xplaAddress);
       }
     }
     return () => {
@@ -55,12 +49,10 @@ export default function Login() {
       />
       <div className="relative mt-[150px] flex items-center justify-center">
         <img src={`/img/tool/Login/logintitle.svg`} />
-        <LoginConnectWallet
-          setModalOpen={setModalOpen}
-        />
+        <LoginConnectWallet />
 
         <div
-          onClick={() => setModalOpen(MODALTYPE.OPENINFORMATION)}
+          onClick={() => setLoginModalOpen(MODALTYPE.OPENINFORMATION)}
           className={clsx(
             "absolute top-[87px] left-[741px] text-center bg-[#00FF61] px-[20px] pt-[10px] pb-[2px] leading-[29px]",
             styles.smallShadowButton
@@ -80,20 +72,21 @@ export default function Login() {
 
       <img className="mt-[45px] w-screen" src={`/img/tool/Login/floor.svg`} />
       <Modal
-        open={modalOpen !== MODALTYPE.NOTOPEN}
-        onClose={() => setModalOpen(MODALTYPE.NOTOPEN)}
+        open={loginModalOpen !== MODALTYPE.NOTOPEN}
+        onClose={() => {
+          setLoginModalOpen(MODALTYPE.NOTOPEN);
+          setLoginLoading(false);
+        }}
       >
         <>
-          {modalOpen === MODALTYPE.OPENWITHNOTLINKERROR && (
-            <NotLinkErrorModal setModalOpen={setModalOpen} />
+          {loginModalOpen === MODALTYPE.OPENWITHNOTLINKERROR && (
+            <NotLinkErrorModal />
           )}
-          {modalOpen === MODALTYPE.OPENWITHSESSIONERROR && (
-            <SessionErrorModal setModalOpen={setModalOpen} />
+          {loginModalOpen === MODALTYPE.OPENWITHSESSIONERROR && (
+            <SessionErrorModal />
           )}
-          {modalOpen === MODALTYPE.OPENINFORMATION && (
-            <InformationModal
-              setModalClose={() => setModalOpen(MODALTYPE.NOTOPEN)}
-            />
+          {loginModalOpen === MODALTYPE.OPENINFORMATION && (
+            <InformationModal />
           )}
         </>
       </Modal>
