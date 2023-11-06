@@ -19,8 +19,8 @@ import { Modal } from "@mui/material";
 import SwapTxSucceedModal from "./SwapTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
-
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import SwapDropdown from "./SwapDropdown";
 
 interface SWAPFORM {
@@ -32,7 +32,8 @@ const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
 export default function Swap() {
-  const { userInfo, setUserInfo } = useUserInfo();
+  const { userAddress } = useUserAddress();
+  const { data: userInfo, status } = useUserInfo();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [tkn2xpla, setTkn2xpla] = useState<boolean>(true);
@@ -52,7 +53,6 @@ export default function Swap() {
   const { ...values } = watch();
 
   const walletServerAddr = process.env.REACT_APP_SERVERURL;
-  const userAddress = wallets[0].xplaAddress;
 
   const onSubmit = async ({ ...submitValues }: SWAPFORM) => {
     try {
@@ -128,33 +128,33 @@ export default function Swap() {
         setRequestResult(txRes.data.returnMsg);
         if (txRes.data.returnMsg === "success") {
           setTxhash(txhash);
-          if (tkn2xpla) {
-            setUserInfo({
-              diamond: userInfo.diamond - Number(values.amount),
-              id: userInfo.id,
-            xplaAddress : userInfo.xplaAddress,
-              clearStage: userInfo.clearStage,
-              xplaBalance: new BigNumber(userInfo.xplaBalance)
-                .minus(estimateFee)
-                .toFixed(),
-              tokenBalance: BigNumber.sum(
-                userInfo.tokenBalance,
-                Number(values.amount)
-              ).toFixed(),
-            });
-          } else {
-            setUserInfo({
-              diamond: userInfo.diamond + Number(values.amount),
-              id: userInfo.id,
-              clearStage: userInfo.clearStage,
-              xplaBalance: new BigNumber(userInfo.xplaBalance)
-                .minus(estimateFee)
-                .toFixed(),
-              tokenBalance: new BigNumber(userInfo.tokenBalance)
-                .minus(Number(values.amount))
-                .toFixed(),
-            });
-          }
+          // if (tkn2xpla) {
+          //   setUserInfo({
+          //     diamond: userInfo.diamond - Number(values.amount),
+          //     id: userInfo.id,
+          //   xplaAddress : userInfo.xplaAddress,
+          //     clearStage: userInfo.clearStage,
+          //     xplaBalance: new BigNumber(userInfo.xplaBalance)
+          //       .minus(estimateFee)
+          //       .toFixed(),
+          //     tokenBalance: BigNumber.sum(
+          //       userInfo.tokenBalance,
+          //       Number(values.amount)
+          //     ).toFixed(),
+          //   });
+          // } else {
+          //   setUserInfo({
+          //     diamond: userInfo.diamond + Number(values.amount),
+          //     id: userInfo.id,
+          //     clearStage: userInfo.clearStage,
+          //     xplaBalance: new BigNumber(userInfo.xplaBalance)
+          //       .minus(estimateFee)
+          //       .toFixed(),
+          //     tokenBalance: new BigNumber(userInfo.tokenBalance)
+          //       .minus(Number(values.amount))
+          //       .toFixed(),
+          //   });
+          // }
         }
       }
     } catch (error) {

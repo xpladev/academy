@@ -5,13 +5,14 @@ import axios from "axios";
 import "./Inventory.css";
 import clsx from "clsx";
 import NFTInfo from "./NFTInfo";
-import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 
 export default function Inventory() {
-  const { userInfo } = useUserInfo();
-
   const { wallets } = useWallet();
-  const userAddress = wallets[0].xplaAddress;
+  const { userAddress } = useUserAddress();
+  const { data: userInfo, status } = useUserInfo();
+
   const [nftlist, setNftlist] = useState<string[] | null>();
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
@@ -36,21 +37,21 @@ export default function Inventory() {
     });
   }, []);
 
-  const bigXPLABalance = new BigNumber(userInfo.xplaBalance)
+  const bigXPLABalance = new BigNumber(userInfo?.xpla || "0")
     .toFormat(18, {
       decimalSeparator: ".",
       groupSeparator: ",",
       groupSize: 3,
     })
     .split(".");
-  const bigTokenBalance = new BigNumber(userInfo.tokenBalance)
+  const bigTokenBalance = new BigNumber(userInfo?.token || "0")
     .toFormat(6, {
       decimalSeparator: ".",
       groupSeparator: ",",
       groupSize: 3,
     })
     .split(".");
-  const bigDiamond = new BigNumber(userInfo.diamond).toFormat(0, {
+  const bigDiamond = new BigNumber(userInfo?.diamond || 0).toFormat(0, {
     groupSeparator: ",",
     groupSize: 3,
   });

@@ -18,7 +18,8 @@ import { Modal } from "@mui/material";
 import LBTxSucceedModal from "./LBTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 
 import _ from "lodash";
 import getNumberFormat from "@site/src/util/getNumberFormat";
@@ -46,7 +47,7 @@ export interface RANKINFO {
 }
 
 export default function Leaderboard() {
-  const { userInfo, setUserInfo } = useUserInfo();
+  // const { userInfo, setUserInfo } = useUserInfo();
 
   const [rankinglist, setRankinglist] = useState<RANKRESPONSE | null>();
 
@@ -61,7 +62,8 @@ export default function Leaderboard() {
   const connectedWallet = useConnectedWallet();
 
   const { wallets } = useWallet();
-  const userAddress = wallets[0].xplaAddress;
+  const { userAddress } = useUserAddress();
+  const { data: userInfo, status } = useUserInfo();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -152,16 +154,16 @@ export default function Leaderboard() {
         if (txRes.data.returnMsg === "success") {
           await getTxFee();
           setTxhash(txhash);
-          setUserInfo({
-            diamond: userInfo.diamond,
-            id: userInfo.id,
-            clearStage: userInfo.clearStage,
+          // setUserInfo({
+          //   diamond: userInfo.diamond,
+          //   id: userInfo.id,
+          //   clearStage: userInfo.clearStage,
 
-            xplaBalance: new BigNumber(userInfo.xplaBalance)
-              .minus(estimateFee)
-              .toFixed(),
-            tokenBalance: userInfo.tokenBalance,
-          });
+          //   xplaBalance: new BigNumber(userInfo.xplaBalance)
+          //     .minus(estimateFee)
+          //     .toFixed(),
+          //   tokenBalance: userInfo.tokenBalance,
+          // });
 
           // TODO :다시 정보 가져오기
           const fetchData = async () => {

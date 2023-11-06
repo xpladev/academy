@@ -4,6 +4,7 @@ import { CircularProgress } from "@mui/material";
 import "./Inventory.css";
 
 interface ITEMINFO {
+  name: string;
   thumbnailUrl: string;
   imgUrl: string;
   paddle_width: string;
@@ -32,8 +33,10 @@ const NFTInfo = ({
     };
 
     fetchData().then((res) => {
+      
       if (res.returnMsg === "success") {
         setItemInfo({
+          name : res.extension.name,
           thumbnailUrl: res.extension.attributes[0].value,
           imgUrl: res.extension.image,
           paddle_width: res.extension.attributes[6].value,
@@ -54,7 +57,7 @@ const NFTInfo = ({
     >
       <div>
         <span className="text-[14px] font-bold leading-[17px] text-center">
-          {tokenId}
+          {itemInfo.name}
         </span>
         <img src={itemInfo.imgUrl} className="h-[60px]" />
         <div className="text-[14px] font-normal leading-[22px] flex justify-center gap-[6px]">

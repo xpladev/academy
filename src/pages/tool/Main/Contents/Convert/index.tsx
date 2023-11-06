@@ -22,8 +22,8 @@ import { Modal } from "@mui/material";
 import TxSucceedModal from "./ConvertTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
-import useUserInfo from "@site/src/hooks/Zustand/useUserInfo";
-
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import getNumberFormat from "@site/src/util/getNumberFormat";
 
 interface CONVERTFORM {
@@ -35,7 +35,9 @@ const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
 export default function Convert() {
-  const { userInfo, setUserInfo } = useUserInfo();
+  const { userAddress } = useUserAddress();
+  const { data: userInfo, status } = useUserInfo();
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [dia2tkn, setDia2tkn] = useState<boolean>(true);
 
@@ -54,7 +56,6 @@ export default function Convert() {
   const { ...values } = watch();
 
   const walletServerAddr = process.env.REACT_APP_SERVERURL;
-  const userAddress = wallets[0].xplaAddress;
 
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {
     try {
@@ -130,32 +131,33 @@ export default function Convert() {
         setRequestResult(txRes.data.returnMsg);
         if (txRes.data.returnMsg === "success") {
           setTxhash(txhash);
-          if (dia2tkn) {
-            setUserInfo({
-              diamond: userInfo.diamond - Number(values.amount),
-              id: userInfo.id,
-              clearStage: userInfo.clearStage,
-              xplaBalance: new BigNumber(userInfo.xplaBalance)
-                .minus(estimateFee)
-                .toFixed(),
-              tokenBalance: BigNumber.sum(
-                userInfo.tokenBalance,
-                Number(values.amount)
-              ).toFixed(),
-            });
-          } else {
-            setUserInfo({
-              diamond: userInfo.diamond + Number(values.amount),
-              id: userInfo.id,
-              clearStage: userInfo.clearStage,
-              xplaBalance: new BigNumber(userInfo.xplaBalance)
-                .minus(estimateFee)
-                .toFixed(),
-              tokenBalance: new BigNumber(userInfo.tokenBalance)
-                .minus(Number(values.amount))
-                .toFixed(),
-            });
-          }
+          // TODO : Use Mutation 을 이용할 것.
+          // if (dia2tkn) {
+          //   setUserInfo({
+          //     diamond: userInfo.diamond - Number(values.amount),
+          //     id: userInfo.id,
+          //     clearStage: userInfo.clearStage,
+          //     xplaBalance: new BigNumber(userInfo?.xplaBalance || 0)
+          //       .minus(estimateFee)
+          //       .toFixed(),
+          //     tokenBalance: BigNumber.sum(
+          //       userInfo?.tokenBalance || 0,
+          //       Number(values.amount)
+          //     ).toFixed(),
+          //   });
+          // } else {
+          //   setUserInfo({
+          //     diamond: userInfo.diamond + Number(values.amount),
+          //     id: userInfo.id,
+          //     clearStage: userInfo.clearStage,
+          //     xplaBalance: new BigNumber(userInfo?.xplaBalance )
+          //       .minus(estimateFee)
+          //       .toFixed(),
+          //     tokenBalance: new BigNumber(userInfo.tokenBalance)
+          //       .minus(Number(values.amount))
+          //       .toFixed(),
+          //   });
+          // }
         }
       }
     } catch (error) {

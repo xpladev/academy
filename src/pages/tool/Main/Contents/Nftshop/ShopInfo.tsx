@@ -29,14 +29,12 @@ const ShopInfo = ({
   connectedWallet,
   setShopItemlist,
   userInfo,
-  setUserInfo,
 }: {
   address: string;
   shopItem: NFTSHOPITEM;
   connectedWallet: ConnectedWallet;
   setShopItemlist: React.Dispatch<React.SetStateAction<NFTSHOPITEM[]>>;
   userInfo: USERINFO;
-  setUserInfo: React.Dispatch<React.SetStateAction<USERINFO>>;
 }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [estimateFee, setEstimateFee] = useState<string | null>(null);
@@ -132,34 +130,34 @@ const ShopInfo = ({
         setRequestResult(txRes.data.returnMsg);
         if (txRes.data.returnMsg === "success") {
           setTxhash(txhash);
-          setUserInfo({
-            diamond: userInfo.diamond,
-            id: userInfo.id,
-            clearStage: userInfo.clearStage,
+          // setUserInfo({
+          //   diamond: userInfo.diamond,
+          //   id: userInfo.id,
+          //   clearStage: userInfo.clearStage,
 
-            xplaBalance: new BigNumber(userInfo.xplaBalance)
-              .minus(estimateFee)
-              .toFixed(),
-            tokenBalance: userInfo.tokenBalance,
-          });
+          //   xplaBalance: new BigNumber(userInfo.xplaBalance)
+          //     .minus(estimateFee)
+          //     .toFixed(),
+          //   tokenBalance: userInfo.tokenBalance,
+          // });
 
-          const fetchData = async () => {
-            const res = await axios.post(
-              `${process.env.REACT_APP_SERVERURL}wallet//wallet-nft-shop-list`,
-              {
-                wallet: address,
-              }
-            );
-            return res.data;
-          };
+          // const fetchData = async () => {
+          //   const res = await axios.post(
+          //     `${process.env.REACT_APP_SERVERURL}wallet//wallet-nft-shop-list`,
+          //     {
+          //       wallet: address,
+          //     }
+          //   );
+          //   return res.data;
+          // };
 
-          fetchData().then((res) => {
-            if (res.returnMsg === "success") {
-                const notHaveList = res.shopList.filter((nft) => nft.isHave !== 1);
-                const isHaveList = res.shopList.filter((nft) => nft.isHave === 1);
-                setShopItemlist(notHaveList.concat(isHaveList));
-            }
-          });
+          // fetchData().then((res) => {
+          //   if (res.returnMsg === "success") {
+          //       const notHaveList = res.shopList.filter((nft) => nft.isHave !== 1);
+          //       const isHaveList = res.shopList.filter((nft) => nft.isHave === 1);
+          //       setShopItemlist(notHaveList.concat(isHaveList));
+          //   }
+          // });
         }
       }
     } catch (error) {
