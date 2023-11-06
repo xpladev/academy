@@ -139,7 +139,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
               <div>Universal Content Powerhouse for a Sublime</div>
               <div>Creative Experience.</div>
             </div>
-            <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA ACADEMY. All rignts reserved.</div>
+            <div className="text-[#D9D9D9] font-normal text-[13px]">Copyright © 2023 XPLA ACADEMY. All rights reserved.</div>
           </div>
 
           <div className="flex gap-[14px] flex-1 justify-end">
