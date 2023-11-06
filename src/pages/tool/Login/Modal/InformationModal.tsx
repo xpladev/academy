@@ -8,7 +8,7 @@ import useLoginModalOpen, {
 } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
-const InformationModal = () => {
+const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => {
   const [page, setPage] = useState<number>(1);
   const { setLoginModalOpen } = useLoginModalOpen();
   const { setLoginLoading } = useLoginLoading();
@@ -74,8 +74,12 @@ const InformationModal = () => {
         </div>
         <div
           onClick={() => {
-            setLoginModalOpen(MODALTYPE.NOTOPEN);
-            setLoginLoading(false);
+            if (setModalClose) {
+              setModalClose();
+            } else {
+              setLoginModalOpen(MODALTYPE.NOTOPEN);
+              setLoginLoading(false);
+            }
           }}
           className={clsx(
             "border-[1px] border-solid flex justify-center items-center w-[50px] h-[50px]",
