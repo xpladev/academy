@@ -55,7 +55,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
         ldconfig
 
     ########
-    FROM ubuntu:22.10 AS runner
+    FROM ubuntu:22.04 AS runner
 
     RUN apt-get update && \
         apt-get install -y tzdata && \
