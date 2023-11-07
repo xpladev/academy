@@ -12,7 +12,7 @@ RUN cp /go/pkg/mod/github.com/!cosm!wasm/wasmvm@v1.0.0/api/libwasmvm.x86_64.so /
     ldconfig
 
 ########
-FROM ubuntu:22.10 AS runner
+FROM ubuntu:22.04 AS runner
 
 RUN apt-get update && \
     apt-get install -y tzdata && \
