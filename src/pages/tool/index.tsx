@@ -13,7 +13,7 @@ import { CircularProgress } from "@mui/material";
 import { useWallet } from "@xpla/wallet-provider";
 
 export default function Tool(): JSX.Element {
-  const queryClient = new QueryClient();
+  const [queryClient] = React.useState(() => new QueryClient());
 
   return (
     <Layout

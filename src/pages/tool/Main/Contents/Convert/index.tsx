@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styles from "../../../index.module.css";
 import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
-import { UseFormSetValue, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
+import { useConnectedWallet } from "@xpla/wallet-provider";
 import {
   LCDClient,
   MsgExecuteContract,
@@ -20,12 +20,13 @@ import TxSucceedModal from "./ConvertTxSucceedModal";
 import TxFailModal from "../TxFailModal";
 import { timeout } from "@site/src/util/timeout";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
-import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
-import getNumberFormat from "@site/src/util/getNumberFormat";
 import useConvertUnsigned from "@site/src/hooks/useMutation/useConvertUnsigned";
 import useConvertSigned from "@site/src/hooks/useMutation/useConvertSigned";
+import ConvertInput from "./ConvertInput";
+import ModalWrap from "../ModalWrap";
+import { useQueryClient } from "@tanstack/react-query";
 
-interface CONVERTFORM {
+export interface CONVERTFORM {
   amount: number | string;
 }
 
@@ -35,7 +36,6 @@ const lcd = new LCDClient({ chainID, URL });
 
 export default function Convert() {
   const { userAddress } = useUserAddress();
-  const { data: userInfo, status } = useUserInfo();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [dia2tkn, setDia2tkn] = useState<boolean>(true);
@@ -46,15 +46,15 @@ export default function Convert() {
   const [loading, setLoading] = useState<boolean>(false);
   const [estimateFee, setEstimateFee] = useState<string | null>(null);
 
-  const form = useForm<CONVERTFORM>({ mode: "onChange" });
   const connectedWallet = useConnectedWallet();
 
-  const { wallets } = useWallet();
-
+  const form = useForm<CONVERTFORM>({ mode: "onChange" });
   const { watch, setValue, handleSubmit } = form;
   const { ...values } = watch();
+
   const { mutateAsync: convertUnsigned } = useConvertUnsigned(dia2tkn);
   const { mutateAsync: convertSigned } = useConvertSigned(dia2tkn);
+  const queryClient = useQueryClient();
 
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {
     try {
@@ -81,6 +81,7 @@ export default function Convert() {
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
       const { txhash } = await convertSigned({ tid, userTx: userSignedTx });
 
+      setTxhash(txhash);
       setTimeout(waitResult, 1000, txhash);
     } catch (error) {
       setLoading(false);
@@ -90,54 +91,22 @@ export default function Convert() {
       );
     }
   };
-  // 블록에 최종 저장된 기록을 조회한다.
+
   async function waitResult(txhash) {
     try {
-      const txUrl = `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`;
-      const txRes = await axios.get(txUrl);
+      const txRes = await axios.get(`${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`);
       if (txRes.data.returnCode === "500") {
         setTimeout(waitResult, 1000, txhash);
       } else if (txRes.data.returnCode === "0") {
+        await queryClient.invalidateQueries({
+          queryKey: ["useUserInfo", userAddress],
+        });
         setLoading(false);
         setModalOpen(true);
         setRequestResult(txRes.data.returnMsg);
-        if (txRes.data.returnMsg === "success") {
-          setTxhash(txhash);
-          // TODO : Use Mutation 을 이용할 것.
-          // if (dia2tkn) {
-          //   setUserInfo({
-          //     diamond: userInfo.diamond - Number(values.amount),
-          //     id: userInfo.id,
-          //     clearStage: userInfo.clearStage,
-          //     xplaBalance: new BigNumber(userInfo?.xplaBalance || 0)
-          //       .minus(estimateFee)
-          //       .toFixed(),
-          //     tokenBalance: BigNumber.sum(
-          //       userInfo?.tokenBalance || 0,
-          //       Number(values.amount)
-          //     ).toFixed(),
-          //   });
-          // } else {
-          //   setUserInfo({
-          //     diamond: userInfo.diamond + Number(values.amount),
-          //     id: userInfo.id,
-          //     clearStage: userInfo.clearStage,
-          //     xplaBalance: new BigNumber(userInfo?.xplaBalance )
-          //       .minus(estimateFee)
-          //       .toFixed(),
-          //     tokenBalance: new BigNumber(userInfo.tokenBalance)
-          //       .minus(Number(values.amount))
-          //       .toFixed(),
-          //   });
-          // }
-        }
       }
     } catch (error) {
-      setLoading(false);
-      setModalOpen(true);
-      setRequestError(
-        `${error instanceof Error ? error.message : String(error)}`
-      );
+      throw error;
     }
   }
 
@@ -147,7 +116,7 @@ export default function Convert() {
       const cw20_contract =
         "xpla1shxdwyus9u6tgvu6kl5tdgem4d4at9vhanq0hxyqnm4ly3wd8awqkwlcj3";
       const accInfo = await lcd.auth.accountInfo(serverAdd);
-      const recipient = wallets[0].xplaAddress;
+      const recipient = userAddress;
       const transferMsg = new MsgExecuteContract(serverAdd, cw20_contract, {
         transfer: {
           recipient,
@@ -299,23 +268,7 @@ export default function Convert() {
         </button>
       </form>
       <Modal open={modalOpen} onClose={handleModalClose}>
-        <div
-          className="pt-[40px] pb-[50px] px-[52px]"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            height: 380,
-            backgroundColor: "white",
-            outlineStyle: "none",
-            border: "1px solid #000",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <ModalWrap>
           {requestResult && (
             <TxSucceedModal
               amount={values.amount.toString() || ""}
@@ -335,48 +288,8 @@ export default function Convert() {
               handleModalClose={handleModalClose}
             />
           )}
-        </div>
+        </ModalWrap>
       </Modal>
     </>
   );
 }
-
-const ConvertInput = ({
-  values,
-  setValue,
-  getTxFee,
-}: {
-  values: CONVERTFORM;
-  setValue: UseFormSetValue<CONVERTFORM>;
-  getTxFee: (amount: number) => Promise<void>;
-}) => {
-  return (
-    <>
-      <input
-        placeholder="0"
-        onKeyPress={(event) => {
-          if (!/[0-9]/.test(event.key)) {
-            event.preventDefault();
-          }
-        }}
-        value={
-          values.amount === undefined || values.amount === ""
-            ? ""
-            : getNumberFormat(values.amount?.toString() || "")
-        }
-        onChange={async (e) => {
-          setValue("amount", Number(e.target.value.replace(",", "")));
-          getTxFee(Number(e.target.value.replace(",", "")));
-        }}
-        maxLength={7}
-        className={clsx(
-          "mt-[44px] leading-[30px] font-normal text-center border-0 focus:outline-0 text-[30px] max-w-[280px]",
-          styles.gameFont
-        )}
-      />
-      <span className="font-normal text-[14px] leading-[14px] text-[#00B2FC] mt-[15px] mb-[22px]">
-        * No decimal point allowed.
-      </span>
-    </>
-  );
-};
