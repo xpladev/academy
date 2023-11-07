@@ -10,12 +10,11 @@ import { CircularProgress } from "@mui/material";
 
 export default function UserStatus() {
   const { userAddress, setUserAddress } = useUserAddress();
-  const { data : userInfo, status } = useUserInfo("");
+  const { data : userInfo, status } = useUserInfo();
 
   const [copyAnimation, setCopyAnimation] = useState<boolean>(true);
   const [isCopy, setIsCopy] = useState<boolean>(false);
   const {
-    wallets,
     disconnect,
   } = useWallet();
 
@@ -28,7 +27,7 @@ export default function UserStatus() {
     setTimeout(() => {
       setIsCopy(false);
     }, 1500);
-    copyToClipboard(wallets[0].xplaAddress);
+    copyToClipboard(userAddress);
   }, []);
 
   return (

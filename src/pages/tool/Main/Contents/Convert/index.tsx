@@ -4,10 +4,7 @@ import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
 import { UseFormSetValue, useForm } from "react-hook-form";
 import CircularProgress from "@mui/material/CircularProgress";
-import {
-  useConnectedWallet,
-  useWallet,
-} from "@xpla/wallet-provider";
+import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
 import {
   LCDClient,
   MsgExecuteContract,
@@ -25,6 +22,8 @@ import { timeout } from "@site/src/util/timeout";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import getNumberFormat from "@site/src/util/getNumberFormat";
+import useConvertUnsigned from "@site/src/hooks/useMutation/useConvertUnsigned";
+import useConvertSigned from "@site/src/hooks/useMutation/useConvertSigned";
 
 interface CONVERTFORM {
   amount: number | string;
@@ -54,32 +53,15 @@ export default function Convert() {
 
   const { watch, setValue, handleSubmit } = form;
   const { ...values } = watch();
-
-  const walletServerAddr = process.env.REACT_APP_SERVERURL;
+  const { mutateAsync: convertUnsigned } = useConvertUnsigned(dia2tkn);
+  const { mutateAsync: convertSigned } = useConvertSigned(dia2tkn);
 
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {
     try {
       setLoading(true);
       const { amount } = submitValues;
-      const addressinfo = await lcd.auth.accountInfo(userAddress);
-      const pubkey = addressinfo.getPublicKey() as SimplePublicKey;
+      const { tid, unsignedTx } = await convertUnsigned(amount);
 
-      const unsignedPost = {
-        wallet: userAddress,
-        amount,
-        userPubKey: pubkey.key,
-        userSeq: addressinfo.getSequenceNumber(),
-      };
-
-      const unsignedUrl = dia2tkn
-        ? `${walletServerAddr}wallet/wallet-gamecurrency-to-coin-unsigned`
-        : `${walletServerAddr}wallet/wallet-coin-to-gamecurrency-unsigned`;
-      const unsignedRes = await axios.post(unsignedUrl, unsignedPost);
-      const unsignedTx = unsignedRes.data.unsignedTx;
-
-      if (unsignedTx === undefined) {
-        throw new Error(unsignedRes.data.returnMsg);
-      }
       const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
 
       const { result: signedTx, success } = await timeout(
@@ -97,19 +79,9 @@ export default function Convert() {
       }
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
+      const { txhash } = await convertSigned({ tid, userTx: userSignedTx });
 
-      const convertPost: any = {
-        wallet: userAddress,
-        tid: unsignedRes.data.tid,
-        userTx: userSignedTx,
-      };
-
-      const walletUrl = dia2tkn
-        ? `${walletServerAddr}wallet/wallet-gamecurrency-to-coin`
-        : `${walletServerAddr}wallet/wallet-coin-to-gamecurrency`;
-      let res = await axios.post(walletUrl, convertPost);
-
-      setTimeout(waitResult, 1000, res.data.txhash);
+      setTimeout(waitResult, 1000, txhash);
     } catch (error) {
       setLoading(false);
       setModalOpen(true);
@@ -121,7 +93,7 @@ export default function Convert() {
   // 블록에 최종 저장된 기록을 조회한다.
   async function waitResult(txhash) {
     try {
-      const txUrl = `${walletServerAddr}wallet/txinfo?txhash=${txhash}`;
+      const txUrl = `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`;
       const txRes = await axios.get(txUrl);
       if (txRes.data.returnCode === "500") {
         setTimeout(waitResult, 1000, txhash);
@@ -203,7 +175,7 @@ export default function Convert() {
           })
       );
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       setEstimateFee("-");
     }
   };
