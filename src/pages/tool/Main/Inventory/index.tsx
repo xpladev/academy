@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import BigNumber from "bignumber.js";
 import "./Inventory.css";
 import clsx from "clsx";
@@ -17,24 +17,38 @@ export default function Inventory() {
   const { data: nftlistRes } = useWalletNftList();
   const [userNft, setUserNft] = useState<string[]>();
 
-  const bigXPLABalance = new BigNumber(userInfo?.xpla || "0")
-    .toFormat(18, {
-      decimalSeparator: ".",
-      groupSeparator: ",",
-      groupSize: 3,
-    })
-    .split(".");
-  const bigTokenBalance = new BigNumber(userInfo?.token || "0")
-    .toFormat(6, {
-      decimalSeparator: ".",
-      groupSeparator: ",",
-      groupSize: 3,
-    })
-    .split(".");
-  const bigDiamond = new BigNumber(userInfo?.diamond || 0).toFormat(0, {
-    groupSeparator: ",",
-    groupSize: 3,
-  });
+  const bigXPLABalance = useMemo(
+    () =>
+      new BigNumber(userInfo?.xpla || "0")
+        .toFormat(18, {
+          decimalSeparator: ".",
+          groupSeparator: ",",
+          groupSize: 3,
+        })
+        .split("."),
+    [userInfo]
+  );
+
+  const bigTokenBalance = useMemo(
+    () =>
+      new BigNumber(userInfo?.token || "0")
+        .toFormat(6, {
+          decimalSeparator: ".",
+          groupSeparator: ",",
+          groupSize: 3,
+        })
+        .split("."),
+    [userInfo]
+  );
+
+  const bigDiamond = useMemo(
+    () =>
+      new BigNumber(userInfo?.diamond || 0).toFormat(0, {
+        groupSeparator: ",",
+        groupSize: 3,
+      }),
+    [userInfo]
+  );
 
   useEffect(() => {
     if (

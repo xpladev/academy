@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -148,7 +148,7 @@ const Leaderboard = () => {
     setRequestResult(null);
   };
 
-  const getTxFee = async () => {
+  const getTxFee = useCallback(async () => {
     try {
       const serverAdd = "xpla19hynun4fs33h3kd0lgtsuxhxatqzwseq7t9658";
       const record_contract =
@@ -192,7 +192,7 @@ const Leaderboard = () => {
       console.log(e);
       setEstimateFee("-");
     }
-  };
+  }, [lcd, rankinglist, userAddress, setEstimateFee]);
 
   useEffect(() => {
     getTxFee();
@@ -414,6 +414,6 @@ const Leaderboard = () => {
       </Modal>
     </>
   );
-}
+};
 
 export default memo(Leaderboard);
