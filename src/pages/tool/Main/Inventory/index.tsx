@@ -7,35 +7,17 @@ import clsx from "clsx";
 import NFTInfo from "./NFTInfo";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
+import useWalletNftList from "../../../../hooks/useQuery/useWalletNftList";
 
 export default function Inventory() {
-  const { wallets } = useWallet();
   const { userAddress } = useUserAddress();
-  const { data: userInfo, status } = useUserInfo();
+  const { data: userInfo } = useUserInfo();
 
-  const [nftlist, setNftlist] = useState<string[] | null>();
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
   const numPerPage = 8;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVERURL}wallet/wallet-nft-list`,
-        {
-          wallet: userAddress,
-          startTokenId: "0",
-        }
-      );
-      return res.data;
-    };
-
-    fetchData().then((res) => {
-      if (res.returnMsg === "success") {
-        setNftlist(res.tokenList.tokens);
-      }
-    });
-  }, []);
+  const {data : nftlistRes, status } = useWalletNftList();
 
   const bigXPLABalance = new BigNumber(userInfo?.xpla || "0")
     .toFormat(18, {
@@ -57,15 +39,15 @@ export default function Inventory() {
   });
 
   useEffect(() => {
-    if (nftlist && nftlist.length > 0) {
-      const len = nftlist.length;
+    if (nftlistRes && nftlistRes.returnMsg === "success" && nftlistRes.tokenList.tokens.length > 0) {
+      const len = nftlistRes.tokenList.tokens.length;
       if (len % numPerPage === 0) {
         setMaxPage(Math.floor(len / numPerPage));
       } else {
         setMaxPage(Math.floor(len / numPerPage) + 1);
       }
     }
-  }, [nftlist]);
+  }, [nftlistRes]);
 
   return (
     <div className="max-w-[380px] bg-[#EAF8FF] flex flex-col items-center justify-between p-[20px]">
@@ -75,17 +57,17 @@ export default function Inventory() {
       <div
         className={clsx(
           "grid  gap-[8px] w-full mt-[16px] min-h-[165px]",
-          nftlist?.length === 0 ? "grid-cols-1" : "grid-cols-4"
+          nftlistRes?.tokenList.tokens.length === 0 ? "grid-cols-1" : "grid-cols-4"
         )}
       >
         {/* TODO : 8개만 slice해서 가져오고, 8개보다 적게 있으면 빈칸으로 추가해주기 */}
-        {nftlist &&
-          nftlist
+        {nftlistRes &&
+          nftlistRes?.tokenList.tokens
             .slice((page - 1) * numPerPage, page * numPerPage)
             .map((userNFT) => (
-              <NFTInfo address={userAddress} tokenId={userNFT} key={userNFT} />
+              <NFTInfo tokenId={userNFT} key={userNFT} />
             ))}
-        {nftlist?.length === 0 && <span>There is no nftlist item.</span>}
+        {nftlistRes?.tokenList.tokens.length === 0 && <span>There is no nftlist item.</span>}
       </div>
 
       <div className="flex items-center gap-[15px] py-[26px]">

@@ -3,24 +3,23 @@ import { useQuery } from '@tanstack/react-query';
 import { useWallet } from "@xpla/wallet-provider";
 import useUserAddress from "../Zustand/useUserAddress";
 
-interface UserInfoResponse {
-    clearStage: number;
-    diamond: number;
-    id: string;
+interface WalletNftListResponse {
     returnCode: string;
     returnMsg: string;
-    token: string;
-    xpla: string;
+    tokenList: {
+        tokens : string[]
+    };
 }
 
-const useUserInfo = () => {
+const useWalletNftList = () => {
     const { userAddress } = useUserAddress();
 
     return useQuery({
-        queryKey: ['useUserInfo', userAddress],
+        queryKey: ['useWalletNftList', userAddress],
         queryFn: async () => {
-            const { data } = await axios.post<UserInfoResponse>(`${process.env.REACT_APP_SERVERURL}wallet/wallet-user-info`, {
+            const { data } = await axios.post<WalletNftListResponse>(`${process.env.REACT_APP_SERVERURL}wallet/wallet-nft-list`, {
                 wallet: userAddress,
+                startTokenId: "0",
             });
 
             return data;
@@ -32,4 +31,4 @@ const useUserInfo = () => {
 
 }
 
-export default useUserInfo
+export default useWalletNftList

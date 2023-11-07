@@ -56,6 +56,7 @@ const ToolContent = () => {
 
   useEffect(() => {
     if (userAddress && status === "pending") {
+      console.log(userAddress, status);
       setLoginLoading(true);
     }
   }, [userAddress, status]);
