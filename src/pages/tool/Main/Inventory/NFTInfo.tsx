@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import "./Inventory.css";
@@ -44,4 +44,4 @@ const NFTInfo = ({
   );
 };
 
-export default NFTInfo;
+export default memo(NFTInfo);

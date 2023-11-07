@@ -18,8 +18,7 @@ export default function SwapDropdownLink({
   prependBaseUrlToHref,
   ...props
 }) {
-  // TODO all this seems hacky
-  // {to: 'version'} should probably be forbidden, in favor of {to: '/version'}
+
   const toUrl = useBaseUrl(to);
   const activeBaseUrl = useBaseUrl(activeBasePath);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "../../../index.module.css";
 import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
@@ -34,7 +34,7 @@ const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
-export default function Convert() {
+const Convert = () => {
   const { userAddress } = useUserAddress();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -296,3 +296,5 @@ export default function Convert() {
     </>
   );
 }
+
+export default memo(Convert)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "../../../index.module.css";
 import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
@@ -31,7 +31,7 @@ const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
 
-export default function Swap() {
+const Swap = () => {
   const { userAddress } = useUserAddress();
   const { data: userInfo, status } = useUserInfo();
 
@@ -422,3 +422,5 @@ const ConvertInput = ({
     />
   );
 };
+
+export default memo(Swap) 

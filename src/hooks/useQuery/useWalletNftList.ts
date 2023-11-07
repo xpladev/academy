@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useWallet } from "@xpla/wallet-provider";
 import useUserAddress from "../Zustand/useUserAddress";
 
-interface WalletNftListResponse {
+export interface WalletNftListResponse {
     returnCode: string;
     returnMsg: string;
     tokenList: {

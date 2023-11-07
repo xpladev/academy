@@ -39,7 +39,7 @@ const ToolContent = () => {
   const { disconnect, status : walletstatus, wallets, refetchStates } = useWallet();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { loginLoading, setLoginLoading } = useLoginLoading();
-  console.log("toolcontent :", walletstatus, wallets);
+  // console.log("toolcontent :", walletstatus, wallets);
   
   useEffect(() => {
     setLoginLoading(false);
@@ -56,7 +56,7 @@ const ToolContent = () => {
 
   useEffect(() => {
     if (userAddress && status === "pending") {
-      console.log(userAddress, status);
+      // console.log(userAddress, status);
       setLoginLoading(true);
     }
   }, [userAddress, status]);

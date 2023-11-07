@@ -2,7 +2,7 @@ import { CircularProgress, Modal } from "@mui/material";
 import { ConnectedWallet } from "@xpla/wallet-provider";
 import { SignMode, Tx } from "@xpla/xpla.js";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { clsx } from "clsx";
 import styles from "../../../index.module.css";
@@ -208,4 +208,4 @@ const ShopInfo = ({
   );
 };
 
-export default ShopInfo;
+export default memo(ShopInfo);

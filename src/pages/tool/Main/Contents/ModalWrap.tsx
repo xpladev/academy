@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, memo } from "react";
 
 const ModalWrap = ({
   children,
@@ -27,4 +27,4 @@ const ModalWrap = ({
   );
 };
 
-export default ModalWrap;
+export default memo(ModalWrap);

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
 
 import ShopInfo from "./ShopInfo";
 import useNftShopList, { NFTSHOPITEM } from "../../../../../hooks/useQuery/useNftShopList";
 
-export default function Nftshop() {
+const Nftshop = () => {
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
   const numPerPage = 6;
@@ -94,3 +94,5 @@ export default function Nftshop() {
     </>
   );
 }
+
+export default memo(Nftshop);

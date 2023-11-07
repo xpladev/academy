@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import clsx from "clsx";
 import CallMadeOutlinedIcon from "@mui/icons-material/CallMadeOutlined";
-import { useForm } from "react-hook-form";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
+import { useConnectedWallet } from "@xpla/wallet-provider";
 import {
   LCDClient,
   MsgExecuteContract,
@@ -51,7 +50,7 @@ export interface RANKINFO {
   chain_high_score: number;
 }
 
-export default function Leaderboard() {
+const Leaderboard = () => {
   const { data: rankinglist } = useRankingInfo();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -157,8 +156,8 @@ export default function Leaderboard() {
       const accInfo = await lcd.auth.accountInfo(serverAdd);
       const transferMsg = new MsgExecuteContract(serverAdd, record_contract, {
         save_data: {
-          id: rankinglist?.id || "",
           user: userAddress,
+          id: rankinglist?.id || "",
           high_score: rankinglist?.score || 0,
           record_time: Number(
             new Date(rankinglist?.date || "")
@@ -416,3 +415,5 @@ export default function Leaderboard() {
     </>
   );
 }
+
+export default memo(Leaderboard);
