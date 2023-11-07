@@ -1,15 +1,8 @@
 import { CircularProgress, Modal } from "@mui/material";
 import { ConnectedWallet } from "@xpla/wallet-provider";
-import {
-  LCDClient,
-  SignMode,
-  SimplePublicKey,
-  Tx,
-} from "@xpla/xpla.js";
+import { SignMode, Tx } from "@xpla/xpla.js";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { NFTSHOPITEM } from "./index";
-import { USERINFO } from "@site/src/hooks/Store/useUserInfo";
+import React, { useState } from "react";
 
 import { clsx } from "clsx";
 import styles from "../../../index.module.css";
@@ -18,24 +11,22 @@ import TxFailModal from "../TxFailModal";
 import ShopTxSucceedModal from "./ShopTxSucceedModal";
 import BigNumber from "bignumber.js";
 import { timeout } from "@site/src/util/timeout";
-
-const chainID = "cube_47-5";
-const URL = "https://cube-lcd.xpla.dev";
-const lcd = new LCDClient({ chainID, URL });
+import { NFTSHOPITEM } from "../../../../../hooks/useQuery/useNftShopList";
+import ModalWrap from "../ModalWrap";
+import useMintUnsigned from "@site/src/hooks/useMutation/useMintUnsigned";
+import useMintSigned from "@site/src/hooks/useMutation/useMintSigned";
+import { useQueryClient } from "@tanstack/react-query";
+import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 
 const ShopInfo = ({
-  address,
   shopItem,
   connectedWallet,
-  setShopItemlist,
-  userInfo,
 }: {
-  address: string;
   shopItem: NFTSHOPITEM;
-  connectedWallet: ConnectedWallet;
-  setShopItemlist: React.Dispatch<React.SetStateAction<NFTSHOPITEM[]>>;
-  userInfo: USERINFO;
+  connectedWallet: ConnectedWallet | undefined;
 }) => {
+  const { userAddress } = useUserAddress();
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [estimateFee, setEstimateFee] = useState<string | null>(null);
 
@@ -44,37 +35,26 @@ const ShopInfo = ({
   const [txhash, setTxhash] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { mutateAsync: mintUnsigned } = useMintUnsigned();
+  const { mutateAsync: mintSigned } = useMintSigned();
+  const queryClient = useQueryClient();
+
   const buyNFT = async () => {
     try {
-      setLoading(true);
-      const addressinfo = await lcd.auth.accountInfo(address);
-      const pubkey = addressinfo.getPublicKey() as SimplePublicKey;
-
-      const unsignedPost = {
-        wallet: address,
-        shopNo: shopItem.idx,
-        userPubKey: pubkey.key,
-        userSeq: addressinfo.getSequenceNumber(),
-      };
-
-      const unsignedUrl = `${process.env.REACT_APP_SERVERURL}wallet/wallet-minting-unsigned`;
-      const unsignedRes = await axios.post(unsignedUrl, unsignedPost);
-      const unsignedTx = unsignedRes.data.unsignedTx;
-
-      if (unsignedTx === undefined) {
-        throw new Error(unsignedRes.data.returnMsg);
+      if (!connectedWallet) {
+        throw new Error("VAULT Connection Error")
       }
+      setLoading(true);
+      const { fee, tid, unsignedTx } = await mintUnsigned(shopItem.idx);
+
       const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+
       setEstimateFee(
-        new BigNumber(
-          decodedTx.auth_info.fee.amount.toString().replace("axpla", "")
-        )
-          .dividedBy(10 ** 18)
-          .toFormat({
-            decimalSeparator: ".",
-            groupSeparator: ",",
-            groupSize: 3,
-          })
+        new BigNumber(fee.replace("axpla", "")).dividedBy(10 ** 18).toFormat({
+          decimalSeparator: ".",
+          groupSeparator: ",",
+          groupSize: 3,
+        })
       );
 
       const { result: signedTx, success } = await timeout(
@@ -84,25 +64,21 @@ const ShopInfo = ({
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "Vault Connection time Expired or Vault Sign Error."
+        "VAULT Connection Error"
       );
 
       if (!success) {
-        throw new Error("Vault Sign Error");
+        throw new Error("VAULT Sign Error");
       }
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
-
-      const convertPost: any = {
-        wallet: address,
-        tid: unsignedRes.data.tid,
+      const { txhash: resTxhash } = await mintSigned({
+        tid,
         userTx: userSignedTx,
-      };
+      });
 
-      const walletUrl = `${process.env.REACT_APP_SERVERURL}wallet/wallet-minting`;
-      let res = await axios.post(walletUrl, convertPost);
-
-      setTimeout(waitResult, 1000, res.data.txhash);
+      setTxhash(resTxhash);
+      setTimeout(waitResult, 1000, resTxhash);
     } catch (error) {
       setLoading(false);
       setModalOpen(true);
@@ -111,63 +87,38 @@ const ShopInfo = ({
       );
     }
   };
+
+  async function waitResult(resTxhash) {
+    try {
+      const txRes = await axios.get(
+        `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${resTxhash}`
+      );
+      if (txRes.data.returnCode === "500") {
+        setTimeout(waitResult, 1000, resTxhash);
+      } else if (txRes.data.returnCode === "0") {
+        await queryClient.invalidateQueries({
+          queryKey: ["useUserInfo", userAddress],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["useNftShopList", userAddress],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["useWalletNftList", userAddress],
+        });
+        setLoading(false);
+        setModalOpen(true);
+        setRequestResult(txRes.data.returnMsg);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 
   const handleModalClose = () => {
     setModalOpen(false);
     setRequestError(null);
     setRequestResult(null);
   };
-
-  async function waitResult(txhash) {
-    try {
-      const txUrl = `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`;
-      const txRes = await axios.get(txUrl);
-      if (txRes.data.returnCode === "500") {
-        setTimeout(waitResult, 1000, txhash);
-      } else if (txRes.data.returnCode === "0") {
-        setLoading(false);
-        setModalOpen(true);
-        setRequestResult(txRes.data.returnMsg);
-        if (txRes.data.returnMsg === "success") {
-          setTxhash(txhash);
-          // setUserInfo({
-          //   diamond: userInfo.diamond,
-          //   id: userInfo.id,
-          //   clearStage: userInfo.clearStage,
-
-          //   xplaBalance: new BigNumber(userInfo.xplaBalance)
-          //     .minus(estimateFee)
-          //     .toFixed(),
-          //   tokenBalance: userInfo.tokenBalance,
-          // });
-
-          // const fetchData = async () => {
-          //   const res = await axios.post(
-          //     `${process.env.REACT_APP_SERVERURL}wallet//wallet-nft-shop-list`,
-          //     {
-          //       wallet: address,
-          //     }
-          //   );
-          //   return res.data;
-          // };
-
-          // fetchData().then((res) => {
-          //   if (res.returnMsg === "success") {
-          //       const notHaveList = res.shopList.filter((nft) => nft.isHave !== 1);
-          //       const isHaveList = res.shopList.filter((nft) => nft.isHave === 1);
-          //       setShopItemlist(notHaveList.concat(isHaveList));
-          //   }
-          // });
-        }
-      }
-    } catch (error) {
-      setLoading(false);
-      setModalOpen(true);
-      setRequestError(
-        `${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
 
   return (
     <>
@@ -206,10 +157,7 @@ const ShopInfo = ({
           <span>|</span>
           <div className="flex items-center gap-[4px]">
             {getNumberFormat(shopItem.price)}{" "}
-            <img
-              src="/img/tool/Main/shopinfo-token.svg"
-              className="mt-[2px]"
-            />
+            <img src="/img/tool/Main/shopinfo-token.svg" className="mt-[2px]" />
           </div>
         </div>
         {shopItem.isHave === 1 && (
@@ -224,23 +172,7 @@ const ShopInfo = ({
         )}
       </div>
       <Modal open={modalOpen} onClose={handleModalClose}>
-        <div
-          className="pt-[40px] pb-[50px] px-[52px]"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            height: requestResult ? 480 : 380,
-            backgroundColor: "white",
-            outlineStyle: "none",
-            border: "1px solid #000",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <ModalWrap>
           {requestResult && (
             <ShopTxSucceedModal
               shopItem={shopItem}
@@ -253,13 +185,13 @@ const ShopInfo = ({
           {requestError && (
             <TxFailModal
               title={"NFT MINT"}
-              requestError={requestError}
+              requestError={requestError || ""}
               estimateFee={estimateFee || ""}
-              txhash={txhash}
+              txhash={txhash || ""}
               handleModalClose={handleModalClose}
             />
           )}
-        </div>
+        </ModalWrap>
       </Modal>
     </>
   );

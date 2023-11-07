@@ -1,56 +1,28 @@
 import React, { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
-import axios from "axios";
-import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
-import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 
 import ShopInfo from "./ShopInfo";
-
-export interface NFTSHOPITEM {
-  idx: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  width: number;
-  count: number;
-  ball: number;
-  isHave: number;
-}
+import useNftShopList, { NFTSHOPITEM } from "../../../../../hooks/useQuery/useNftShopList";
 
 export default function Nftshop() {
-  const { userAddress } = useUserAddress();
-  const { data: userInfo, status } = useUserInfo();
-
-
-  const [shopItemlist, setShopItemlist] = useState<NFTSHOPITEM[] | null>();
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
   const numPerPage = 6;
 
   const connectedWallet = useConnectedWallet();
 
-  const { wallets } = useWallet();
+  const { data : rawItemList} = useNftShopList();
+  const [shopItemlist, setShopItemlist] = useState<NFTSHOPITEM[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVERURL}wallet//wallet-nft-shop-list`,
-        {
-          wallet: userAddress,
-        }
-      );
-      return res.data;
-    };
-
-    fetchData().then((res) => {
-      if (res.returnMsg === "success") {
-        const notHaveList = res.shopList.filter((nft) => nft.isHave !== 1);
-        const isHaveList = res.shopList.filter((nft) => nft.isHave === 1);
+    if (rawItemList?.returnMsg === "success") {
+        const notHaveList = rawItemList.shopList.filter((nft) => nft.isHave !== 1);
+        const isHaveList = rawItemList.shopList.filter((nft) => nft.isHave === 1);
         setShopItemlist(notHaveList.concat(isHaveList));
-      }
-    });
-  }, [userInfo]);
+    }
+  }, [rawItemList]);
+
   useEffect(() => {
     if (shopItemlist && shopItemlist.length > 0) {
       const len = shopItemlist.length;
@@ -84,11 +56,8 @@ export default function Nftshop() {
               .map((item) => (
                 <ShopInfo
                   key={item.idx}
-                  address={userAddress}
                   shopItem={item}
-                  setShopItemlist={setShopItemlist}
                   connectedWallet={connectedWallet}
-                  userInfo={userInfo}
                 />
               ))}
           </div>

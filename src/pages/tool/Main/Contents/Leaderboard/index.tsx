@@ -24,6 +24,11 @@ import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import _ from "lodash";
 import getNumberFormat from "@site/src/util/getNumberFormat";
 import Ranking from "./Ranking";
+import useRankingInfo from "../../../../../hooks/useQuery/useRankingInfo";
+import ModalWrap from "../ModalWrap";
+import useRecordUnsigned from "../../../../../hooks/useMutation/useRecordUnsigned";
+import useRecordSigned from "../../../../../hooks/useMutation/useRecordSigned";
+import { useQueryClient } from "@tanstack/react-query";
 
 const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
@@ -47,9 +52,7 @@ export interface RANKINFO {
 }
 
 export default function Leaderboard() {
-  // const { userInfo, setUserInfo } = useUserInfo();
-
-  const [rankinglist, setRankinglist] = useState<RANKRESPONSE | null>();
+  const { data: rankinglist } = useRankingInfo();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -61,49 +64,30 @@ export default function Leaderboard() {
 
   const connectedWallet = useConnectedWallet();
 
-  const { wallets } = useWallet();
   const { userAddress } = useUserAddress();
-  const { data: userInfo, status } = useUserInfo();
+  const { data: userInfo } = useUserInfo();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVERURL}wallet/wallet-ranking-info`,
-        {
-          wallet: userAddress,
-        }
-      );
-      return res.data;
-    };
-
-    fetchData().then((res) => {
-      if (res.returnMsg === "success") {
-        setRankinglist(res);
-      }
-    });
-  }, []);
+  const { mutateAsync: recordUnsigned } = useRecordUnsigned();
+  const { mutateAsync: recordSigned } = useRecordSigned();
+  const queryClient = useQueryClient();
 
   const onSubmit = async () => {
     try {
-      setLoading(true);
-      const addressinfo = await lcd.auth.accountInfo(userAddress);
-      const pubkey = addressinfo.getPublicKey() as SimplePublicKey;
-
-      const unsignedPost = {
-        wallet: userAddress,
-        userPubKey: pubkey.key,
-        userSeq: addressinfo.getSequenceNumber(),
-      };
-
-      const unsignedUrl = `${process.env.REACT_APP_SERVERURL}wallet/wallet-score-record-unsigned`;
-
-      const unsignedRes = await axios.post(unsignedUrl, unsignedPost);
-      const unsignedTx = unsignedRes.data.unsignedTx;
-
-      if (unsignedTx === undefined) {
-        throw new Error(unsignedRes.data.returnMsg);
+      if (!connectedWallet) {
+        throw new Error("VAULT Connection Error");
       }
+      setLoading(true);
+      const { fee, tid, unsignedTx } = await recordUnsigned();
+
       const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+
+      setEstimateFee(
+        new BigNumber(fee.replace("axpla", "")).dividedBy(10 ** 18).toFormat({
+          decimalSeparator: ".",
+          groupSeparator: ",",
+          groupSize: 3,
+        })
+      );
 
       const { result: signedTx, success } = await timeout(
         connectedWallet.sign({
@@ -112,7 +96,7 @@ export default function Leaderboard() {
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "Vault Connection time Expired or Vault Sign Error."
+        "VAULT Connection Error"
       );
 
       if (!success) {
@@ -120,17 +104,13 @@ export default function Leaderboard() {
       }
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
-
-      const convertPost: any = {
-        wallet: userAddress,
-        tid: unsignedRes.data.tid,
+      const { txhash: resTxhash } = await recordSigned({
+        tid,
         userTx: userSignedTx,
-      };
+      });
 
-      const walletUrl = `${process.env.REACT_APP_SERVERURL}wallet/wallet-score-record`;
-      let res = await axios.post(walletUrl, convertPost);
-
-      setTimeout(waitResult, 1000, res.data.txhash);
+      setTxhash(resTxhash);
+      setTimeout(waitResult, 1000, resTxhash);
     } catch (error) {
       setLoading(false);
       setModalOpen(true);
@@ -139,56 +119,27 @@ export default function Leaderboard() {
       );
     }
   };
-  // 블록에 최종 저장된 기록을 조회한다.
 
-  async function waitResult(txhash) {
+  async function waitResult(resTxhash) {
     try {
-      const txUrl = `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`;
-      const txRes = await axios.get(txUrl);
+      const txRes = await axios.get(
+        `${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${resTxhash}`
+      );
       if (txRes.data.returnCode === "500") {
-        setTimeout(waitResult, 1000, txhash);
+        setTimeout(waitResult, 1000, resTxhash);
       } else if (txRes.data.returnCode === "0") {
         setLoading(false);
         setModalOpen(true);
         setRequestResult(txRes.data.returnMsg);
-        if (txRes.data.returnMsg === "success") {
-          await getTxFee();
-          setTxhash(txhash);
-          // setUserInfo({
-          //   diamond: userInfo.diamond,
-          //   id: userInfo.id,
-          //   clearStage: userInfo.clearStage,
-
-          //   xplaBalance: new BigNumber(userInfo.xplaBalance)
-          //     .minus(estimateFee)
-          //     .toFixed(),
-          //   tokenBalance: userInfo.tokenBalance,
-          // });
-
-          // TODO :다시 정보 가져오기
-          const fetchData = async () => {
-            const res = await axios.post(
-              `${process.env.REACT_APP_SERVERURL}wallet/wallet-ranking-info`,
-              {
-                wallet: userAddress,
-              }
-            );
-            return res.data;
-          };
-
-          fetchData().then((res) => {
-            if (res.returnMsg === "success") {
-              setRankinglist(res);
-            }
-          });
-        }
+        await queryClient.invalidateQueries({
+          queryKey: ["useUserInfo", userAddress],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["useRankingInfo", userAddress],
+        });
       }
     } catch (error) {
-      setLoading(false);
-      setModalOpen(true);
-      setRequestError(
-        `${error instanceof Error ? error.message : String(error)}`
-      );
+      throw error;
     }
   }
 
@@ -250,9 +201,7 @@ export default function Leaderboard() {
 
   return (
     <>
-      <div
-        className="flex flex-col items-center px-[18px] pt-[77px] pb-[20px] bg-[#EAF8FF] h-full"
-      >
+      <div className="flex flex-col items-center px-[18px] pt-[77px] pb-[20px] bg-[#EAF8FF] h-full">
         <img src="/img/tool/Main/leaderboardtitle.svg" />
         <img
           className="mt-[15px] mb-[4px]"
@@ -281,9 +230,12 @@ export default function Leaderboard() {
                 and strive to surpass their scores!
               </div>
               <div className="border-solid border-0 border-b-[1px] my-[10px] border-[#00B2FC]" />
-              {rankinglist && <Ranking rankinglist={rankinglist} />}
+              {rankinglist?.returnMsg === "success" && (
+                <Ranking rankinglist={rankinglist} />
+              )}
               <div className="border-solid border-0 border-b-[1px] my-[10px] border-[#00B2FC]" />
-              {rankinglist && rankinglist.myRanking.length > 0 ? (
+              {rankinglist?.returnMsg === "success" &&
+              rankinglist.myRanking.length > 0 ? (
                 <div className="flex gap-[7px] h-[26px]">
                   <div
                     className={clsx(
@@ -364,7 +316,9 @@ export default function Leaderboard() {
                         SCORE
                       </span>
                       <span className="font-semibold text-[26px] leading-[31px]">
-                        {rankinglist?.score?.toString() || "No score Yet"}
+                        {(rankinglist?.returnMsg === "success" &&
+                          rankinglist?.score?.toString()) ||
+                          "No score Yet"}
                       </span>
                     </div>
                   </div>
@@ -375,7 +329,9 @@ export default function Leaderboard() {
                         DATE
                       </span>
                       <span className="font-normal text-[20px] leading-[35px]">
-                        {rankinglist?.date?.split("-").join(":") || "-"}
+                        {(rankinglist?.returnMsg === "success" &&
+                          rankinglist?.date?.split("-").join(":")) ||
+                          "-"}
                       </span>
                     </div>
                   </div>
@@ -434,23 +390,7 @@ export default function Leaderboard() {
         </div>
       </div>
       <Modal open={modalOpen} onClose={handleModalClose}>
-        <div
-          className="pt-[40px] pb-[50px] px-[52px]"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            height: 380,
-            backgroundColor: "white",
-            outlineStyle: "none",
-            border: "1px solid #000",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <ModalWrap>
           {requestResult && (
             <LBTxSucceedModal
               id={rankinglist?.id || ""}
@@ -465,13 +405,13 @@ export default function Leaderboard() {
           {requestError && (
             <TxFailModal
               title={"LEADERBOARD"}
-              requestError={requestError}
+              requestError={requestError || ""}
               estimateFee={estimateFee || ""}
-              txhash={txhash}
+              txhash={txhash || ""}
               handleModalClose={handleModalClose}
             />
           )}
-        </div>
+        </ModalWrap>
       </Modal>
     </>
   );

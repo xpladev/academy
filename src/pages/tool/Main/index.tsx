@@ -10,7 +10,6 @@ import Nftshop from "./Contents/Nftshop";
 import Leaderboard from "./Contents/Leaderboard";
 
 export default function Main() {
-  console.log("Main");
   return (
     <div className="relative flex justify-center w-full">
       <div className="flex gap-[20px] max-w-[1180px] py-[30px] w-full mx-[20px]">

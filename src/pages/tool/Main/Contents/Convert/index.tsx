@@ -58,6 +58,9 @@ export default function Convert() {
 
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {
     try {
+      if (!connectedWallet) {
+        throw new Error("VAULT Connection Error")
+      }
       setLoading(true);
       const { amount } = submitValues;
       const { tid, unsignedTx } = await convertUnsigned(amount);
@@ -71,7 +74,7 @@ export default function Convert() {
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "Vault Connection time Expired or Vault Sign Error."
+        "VAULT Connection Error"
       );
 
       if (!success) {
@@ -79,10 +82,10 @@ export default function Convert() {
       }
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
-      const { txhash } = await convertSigned({ tid, userTx: userSignedTx });
+      const { txhash : resTxhash } = await convertSigned({ tid, userTx: userSignedTx });
 
-      setTxhash(txhash);
-      setTimeout(waitResult, 1000, txhash);
+      setTxhash(resTxhash);
+      setTimeout(waitResult, 1000, resTxhash);
     } catch (error) {
       setLoading(false);
       setModalOpen(true);
@@ -92,11 +95,11 @@ export default function Convert() {
     }
   };
 
-  async function waitResult(txhash) {
+  async function waitResult(resTxhash) {
     try {
-      const txRes = await axios.get(`${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${txhash}`);
+      const txRes = await axios.get(`${process.env.REACT_APP_SERVERURL}wallet/txinfo?txhash=${resTxhash}`);
       if (txRes.data.returnCode === "500") {
-        setTimeout(waitResult, 1000, txhash);
+        setTimeout(waitResult, 1000, resTxhash);
       } else if (txRes.data.returnCode === "0") {
         await queryClient.invalidateQueries({
           queryKey: ["useUserInfo", userAddress],
@@ -273,7 +276,7 @@ export default function Convert() {
             <TxSucceedModal
               amount={values.amount.toString() || ""}
               estimateFee={estimateFee || ""}
-              txhash={txhash}
+              txhash={txhash || ""}
               handleModalClose={handleModalClose}
               dia2tkn={dia2tkn}
             />
@@ -282,9 +285,9 @@ export default function Convert() {
           {requestError && (
             <TxFailModal
               title={"CONVERT"}
-              requestError={requestError}
+              requestError={requestError || ""}
               estimateFee={estimateFee || ""}
-              txhash={txhash}
+              txhash={txhash || ""}
               handleModalClose={handleModalClose}
             />
           )}
