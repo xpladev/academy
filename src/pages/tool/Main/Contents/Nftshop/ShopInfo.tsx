@@ -16,6 +16,7 @@ import ModalWrap from "../ModalWrap";
 import useMintUnsigned from "@site/src/hooks/useMutation/useMintUnsigned";
 import useMintSigned from "@site/src/hooks/useMutation/useMintSigned";
 import { useQueryClient } from "@tanstack/react-query";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 
 const ShopInfo = ({
@@ -26,6 +27,7 @@ const ShopInfo = ({
   connectedWallet: ConnectedWallet | undefined;
 }) => {
   const { userAddress } = useUserAddress();
+  const { data: userInfo } = useUserInfo();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [estimateFee, setEstimateFee] = useState<string | null>(null);
@@ -140,7 +142,6 @@ const ShopInfo = ({
             Ball <span className="font-semibold">{shopItem.ball}</span>
           </span>
         </div>
-        {/* <div>{shopItem.isHave}</div> */}
         <div
           onClick={buyNFT}
           className={clsx(
@@ -161,12 +162,22 @@ const ShopInfo = ({
           </div>
         </div>
         {shopItem.isHave === 1 && (
-          <div className="top-0 absolute flex flex-col justify-center items-center w-full h-full opacity-80 bg-black">
+          <div className="top-0 absolute flex flex-col justify-center items-center w-full h-full bg-black/75 bg-black">
             <span className="text-white font-normal text-[22px] leading-[26px]">
               ALREADY
             </span>
             <span className="text-[#C9FF00] font-bold text-[24px] leading-[26px]">
               "MINTED"
+            </span>
+          </div>
+        )}
+        {shopItem.isHave !== 1 && shopItem.clearStage > userInfo.clearStage && (
+          <div className="top-0 absolute flex flex-col justify-center items-center w-full h-full bg-black/75 bg-black">
+            <span className="text-white font-normal text-[22px] leading-[26px]">
+              CLEAR STAGE 20 
+            </span>
+            <span className="text-[#C9FF00] font-bold text-[24px] leading-[26px]">
+             <span className="text-white font-normal">TO</span> "UNLOCK"
             </span>
           </div>
         )}

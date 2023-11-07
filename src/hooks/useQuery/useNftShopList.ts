@@ -12,6 +12,7 @@ export interface NFTSHOPITEM {
     count: number;
     ball: number;
     isHave: number;
+    clearStage: number;
   }
 
 interface NFTSHOPResponse {
@@ -29,7 +30,6 @@ const useNftShopList = () => {
             const { data } = await axios.post<NFTSHOPResponse>(`${process.env.REACT_APP_SERVERURL}wallet//wallet-nft-shop-list`, {
                 wallet: userAddress,
             });
-
             return data;
         },
         staleTime: 60 * 1000,
