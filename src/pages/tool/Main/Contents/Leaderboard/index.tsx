@@ -234,7 +234,7 @@ const Leaderboard = () => {
               )}
               <div className="border-solid border-0 border-b-[1px] my-[10px] border-[#00B2FC]" />
               {rankinglist?.returnMsg === "success" &&
-              rankinglist.myRanking.length > 0 ? (
+              (rankinglist.myRanking.length > 0 && rankinglist.myRanking[0].chain_high_score !== -1) ? (
                 <div className="flex gap-[7px] h-[26px]">
                   <div
                     className={clsx(
