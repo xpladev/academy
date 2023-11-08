@@ -76,9 +76,11 @@ export default function Login() {
       </div>
 
       <img
-        className="mt-[45px] w-screen"
+        className="mt-[45px] w-screen h-auto"
         src={`/img/tool/Login/floor.svg`}
         alt="LoginPageFloor"
+        width="2748px"
+        height="402px"
       />
       <Modal
         open={loginModalOpen !== MODALTYPE.NOTOPEN}
