@@ -18,7 +18,12 @@ export default function ConvertTxSucceedModal({
 }) {
   return (
     <>
-      <img src="/img/tool/Login/successEmoji.svg" />
+      <img
+        src="/img/tool/Login/successEmoji.svg"
+        alt="successEmoji"
+        width="34px"
+        height="34px"
+      />
       <span className="mt-[10px] text-black font-semibold text-[30px] leading-[35px]">
         CONVERT&nbsp;
         <span className="text-[#04DD33]">Succeed!</span>
@@ -42,7 +47,7 @@ export default function ConvertTxSucceedModal({
               {getNumberFormat(amount)}
             </span>
           </div>
-          <img className="w-[28px]" src="/img/tool/Main/txsucceedarrow.svg" />
+          <img className="w-[28px]" src="/img/tool/Main/txsucceedarrow.svg" alt="txsucceedarrow"/>
           <div className="flex items-center gap-[6px]">
             {!dia2tkn ? (
               <img

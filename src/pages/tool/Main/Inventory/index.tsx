@@ -97,7 +97,7 @@ export default function Inventory() {
             key={idx + "emptyInventory"}
             className="border-[1px] border-solid aspect-square bg-white flex justify-center items-center"
           >
-            <img src="/img/tool/Main/Inventory/emptyImg.svg" />
+            <img src="/img/tool/Main/Inventory/emptyImg.svg" alt="emptyImg" width="53px" height="59px" />
           </div>
         ))}
       </div>
@@ -111,6 +111,9 @@ export default function Inventory() {
           }}
           src="/img/tool/Main/arrowleft.svg"
           className="hover:cursor-pointer"
+          alt="arrowleft"
+          width="16px"
+          height="24px"
         />
         <span className="text-[#004FFF] text-[18px] font-bold">
           {page}
@@ -124,11 +127,14 @@ export default function Inventory() {
           }}
           src="/img/tool/Main/arrowleft.svg"
           className="rotate-180 hover:cursor-pointer"
+          alt="arrowright"
+          width="16px"
+          height="24px"
         />
       </div>
       <div className="flex flex-col gap-[20px] p-[20px] border-[1px] border-solid bg-white w-full">
         <div className="flex items-center gap-[13px]">
-          <img src="/img/tool/Main/stroke-xpla.svg" />
+          <img src="/img/tool/Main/stroke-xpla.svg" alt="xplaToken" width="30px" height="30px"/>
           <span className="font-normal text-[16px]">
             {bigXPLABalance[0]}.
             <span className="font-normal text-[12px]">{bigXPLABalance[1]}</span>

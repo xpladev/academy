@@ -32,7 +32,7 @@ export default function UserStatus() {
 
   return (
     <div className="relative bg-[#004FFF] flex flex-col items-center px-[20px] pt-[30px] pb-[40px]">
-      <img src={`/img/tool/Main/mainlogo.svg`} />
+      <img src={`/img/tool/Main/mainlogo.svg`} alt="mainlogo" width="241px" height="143px"/>
       <div
         onClick={() => {
           setUserAddress(undefined);

@@ -6,6 +6,7 @@ import useLoginModalOpen, {
   MODALTYPE,
 } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
+import Picture from "@site/src/components/Picture";
 
 const SessionErrorModal = () => {
   const { setLoginModalOpen } = useLoginModalOpen();
@@ -31,6 +32,9 @@ const SessionErrorModal = () => {
       <img
         className="mt-[40px] w-[34px]"
         src={`/img/tool/Login/failEmoji.svg`}
+        alt="failEmoji"
+        width="34px"
+        height="34px"
       />
       <div className="font-semibold text-[30px]">
         <span>LOGIN&nbsp;</span>
@@ -43,12 +47,22 @@ const SessionErrorModal = () => {
         </span>
       </div>
       <div className="relative flex justify-center items-center leading-[25px]">
-        <img className="w-full" src={`/img/tool/Login/sessionErrorBg.svg`} />
+        <Picture
+          sources={[
+            `/img/tool/Login/sessionErrorBg.webp`,
+            `/img/tool/Login/sessionErrorBg.svg`,
+          ]}
+          alt="SessionErrorBg"
+          width="399px"
+          height="255px"
+          className="w-full"
+        />
         <div className="absolute text-center top-[22px]">
           <span className="text-[#FAED00] text-[20px] font-semibold">
             Consider Doing These:
           </span>
         </div>
+        <img className="absolute top-[67px]" width="280px" height="44px" alt="xplaVaultTitle" src={`/img/tool/Login/xplaVaultTitle.svg`} />
         <div className="absolute text-center mx-[50px] bottom-[22px] text-start">
           <span className="text-white text-[16px] font-medium">
             1. Adding one or more wallets

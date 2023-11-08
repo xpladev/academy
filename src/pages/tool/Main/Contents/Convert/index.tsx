@@ -165,10 +165,13 @@ const Convert = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center px-[100px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full max-w-[780px]"
       >
-        <img src="/img/tool/Main/Convert/converttitle.svg" />
+        <img src="/img/tool/Main/Convert/converttitle.svg" alt="converttitle" width="333px" height="60px"/>
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
+          alt="starlight"
+          width="28px"
+          height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[28px]">
           Experience a special exchange system <br />

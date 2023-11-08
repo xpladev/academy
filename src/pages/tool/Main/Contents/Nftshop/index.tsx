@@ -37,10 +37,13 @@ const Nftshop = () => {
   return (
     <>
       <div className="flex flex-col items-center pt-[77px] pb-[79px] bg-[#EAF8FF] h-full">
-        <img src="/img/tool/Main/Nftshop/nftshoptitle.svg" />
+        <img src="/img/tool/Main/Nftshop/nftshoptitle.svg" alt="nftshoptitle" width="330px" height="60px" />
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
+          alt="starlight"
+          width="28px"
+          height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[28px]">
           Gather ACADEMY-TKN by playing game,
@@ -75,6 +78,9 @@ const Nftshop = () => {
             }}
             src="/img/tool/Main/arrowleft.svg"
             className="hover:cursor-pointer"
+            alt="arrowleft"
+            width="16px"
+            height="24px"
           />
           <span className="text-[#004FFF] text-[18px] font-bold">
             {page}
@@ -88,6 +94,9 @@ const Nftshop = () => {
             }}
             src="/img/tool/Main/arrowleft.svg"
             className="rotate-180 hover:cursor-pointer"
+            alt="arrowright"
+            width="16px"
+            height="24px"
           />
         </div>
       </div>

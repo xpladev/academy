@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import Link from "@docusaurus/Link";
 import styles from "../../index.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import useLoginModalOpen, {
@@ -8,7 +7,11 @@ import useLoginModalOpen, {
 } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
-const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => {
+const InformationModal = ({
+  setModalClose,
+}: {
+  setModalClose?: () => void;
+}) => {
   const [page, setPage] = useState<number>(1);
   const { setLoginModalOpen } = useLoginModalOpen();
   const { setLoginLoading } = useLoginLoading();
@@ -41,7 +44,12 @@ const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => 
           >
             <span className="font-bold text-[46px]">i</span>
           </div>
-          <img src="/img/tool/Main/Info/abouttoolpage.svg" />
+          <img
+            src="/img/tool/Main/Info/abouttoolpage.svg"
+            alt="abouttoolpage"
+            width="164px"
+            height="60px"
+          />
         </div>
         <div className="border-solid border-0 border-b-[1px] flex flex-1" />
       </div>
@@ -58,6 +66,9 @@ const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => 
             }}
             src="/img/tool/Main/arrowleft.svg"
             className="hover:cursor-pointer"
+            alt="arrowleft"
+            width="16px"
+            height="24px"
           />
           <span>
             <span className="font-bold text-[#004FFF]">{page} </span>/ 4
@@ -70,6 +81,9 @@ const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => 
             }}
             src="/img/tool/Main/arrowleft.svg"
             className="rotate-180 hover:cursor-pointer"
+            alt="arrowright"
+            width="16px"
+            height="24px"
           />
         </div>
         <div
@@ -100,7 +114,7 @@ const InfoDetail = ({ page }: { page: number }) => {
     case 2:
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-2-img.svg" />
+          <img src="/img/tool/Main/Info/info-2-img.svg" alt="info-2" width="366px" height="97px"/>
           <div className="text-center flex flex-col gap-[25px]">
             <span className="text-[24px] leading-[30px] font-bold text-[#004FFF]">
               The TOOL PAGE is linked with the
@@ -134,21 +148,39 @@ const InfoDetail = ({ page }: { page: number }) => {
 
           <div className="grid grid-rows-4 gap-[26px] w-full px-[35px]">
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/Convert/converttitle.svg" className="h-[28px]" />
+              <img
+                src="/img/tool/Main/Convert/converttitle.svg"
+                alt="converttitle"
+                height="28px"
+                width="155px"
+                className="h-[28px]"
+              />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Offer a game items(diamond) and</span>
                 <span>tokens(ACADEMY-TKN) exchange feature.</span>
               </div>
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/Swap/swaptitle.svg" className="h-[28px]" />
+              <img
+                src="/img/tool/Main/Swap/swaptitle.svg"
+                alt="swaptitle"
+                height="28px"
+                width="99px"
+                className="h-[28px]"
+              />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Provide token exchange function.</span>
                 <span>(Especially between XPLA and ACADEMY-TKN)</span>
               </div>
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/Nftshop/nftshoptitle.svg" className="h-[28px]" />
+              <img
+                src="/img/tool/Main/Nftshop/nftshoptitle.svg"
+                alt="nftshoptitle"
+                height="28px"
+                width="154px"
+                className="h-[28px]"
+              />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Provide NFT Minting function using</span>
                 <span>ACADEMY-TKN as a minting fee.</span>
@@ -157,6 +189,9 @@ const InfoDetail = ({ page }: { page: number }) => {
             <div className="flex items-center gap-[12px] h-[32px]">
               <img
                 src="/img/tool/Main/Leaderboard/leaderboardtitle.svg"
+                alt="leaderboardtitle"
+                height="28px"
+                width="242px"
                 className="h-[28px]"
               />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
@@ -170,7 +205,7 @@ const InfoDetail = ({ page }: { page: number }) => {
     case 4:
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-4-img.svg" />
+          <img src="/img/tool/Main/Info/info-4-img.svg" alt="info-4" width="309px" height="142px"/>
           <div className="font-normal text-[24px] leading-[28px] text-center">
             <span className="font-bold text-[#004FFF]">
               TOOL PAGE introduction is NOW a wrap!
@@ -187,7 +222,7 @@ const InfoDetail = ({ page }: { page: number }) => {
     default:
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-1-img.svg" />
+          <img src="/img/tool/Main/Info/info-1-img.svg" alt="info-1" width="80px" height="97px" />
           <div className="font-normal text-[24px] leading-[28px] text-center">
             <span className="font-bold text-[#004FFF]">The TOOL PAGE</span> is a
             sample website

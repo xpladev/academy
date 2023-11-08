@@ -48,7 +48,12 @@ export default function Login() {
         )}
       />
       <div className="relative mt-[150px] flex items-center justify-center">
-        <img src={`/img/tool/Login/logintitle.svg`} />
+        <img
+          src={`/img/tool/Login/logintitle.svg`}
+          alt="logintitle"
+          width="756px"
+          height="549px"
+        />
         <LoginConnectWallet />
 
         <div
@@ -70,7 +75,11 @@ export default function Login() {
         </span>
       </div>
 
-      <img className="mt-[45px] w-screen" src={`/img/tool/Login/floor.svg`} />
+      <img
+        className="mt-[45px] w-screen"
+        src={`/img/tool/Login/floor.svg`}
+        alt="LoginPageFloor"
+      />
       <Modal
         open={loginModalOpen !== MODALTYPE.NOTOPEN}
         onClose={() => {
@@ -85,9 +94,7 @@ export default function Login() {
           {loginModalOpen === MODALTYPE.OPENWITHSESSIONERROR && (
             <SessionErrorModal />
           )}
-          {loginModalOpen === MODALTYPE.OPENINFORMATION && (
-            <InformationModal />
-          )}
+          {loginModalOpen === MODALTYPE.OPENINFORMATION && <InformationModal />}
         </>
       </Modal>
     </div>

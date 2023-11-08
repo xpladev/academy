@@ -201,10 +201,13 @@ const Leaderboard = () => {
   return (
     <>
       <div className="flex flex-col items-center px-[18px] pt-[77px] pb-[20px] bg-[#EAF8FF] h-full">
-        <img src="/img/tool/Main/Leaderboard/leaderboardtitle.svg" />
+        <img src="/img/tool/Main/Leaderboard/leaderboardtitle.svg" alt="leaderboardtitle" width="520px" height="60px" />
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
+          alt="starlight"
+          width="28px"
+          height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[24px]">
           Check and record your best game score through 'MY BEST SCORE'!

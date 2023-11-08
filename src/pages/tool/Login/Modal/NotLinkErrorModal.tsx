@@ -33,6 +33,9 @@ const NotLinkErrorModal = () => {
       <img
         className="mt-[40px] w-[34px]"
         src={`/img/tool/Login/failEmoji.svg`}
+        alt="failEmoji"
+        width="34px"
+        height="34px"
       />
       <div className="font-semibold text-[30px]">
         <span>LOGIN&nbsp;</span>
@@ -44,7 +47,12 @@ const NotLinkErrorModal = () => {
         </span>
       </div>
       <div className="relative flex justify-center items-center">
-        <img className="w-full" src={`/img/tool/Login/failBackground.svg`} />
+        <img 
+         src={`/img/tool/Login/failBackground.svg`} 
+         alt="failBackground" 
+         width="399px"
+         height="255px"
+         />
         <div className="absolute text-center top-[20px]">
           <span className="text-[#FAED00] text-[20px] font-semibold leading-[23px]">
             Consider Doing These:

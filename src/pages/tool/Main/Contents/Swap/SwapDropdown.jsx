@@ -61,7 +61,7 @@ export default function SwapDropdown({
     <div
     onClick={() => setTkn2xpla(!isfrom)}
     className="hover:bg-[#f2f2f2] py-[7px] h-[36px] pl-[26px] hover:cursor-pointer flex items-center">
-      <img className="w-[22px] mr-[8px]" src={xplaImgsrc} />
+      <img className="w-[22px] mr-[8px]" src={xplaImgsrc} alt="xplaToken" />
       <span className="leading-[14px] font-semibold text-[14px]">XPLA</span>
     </div>
   );

@@ -19,7 +19,12 @@ export default function SwapTxSucceedModal({
 }) {
   return (
     <>
-      <img src="/img/tool/Login/successEmoji.svg" />
+      <img
+        src="/img/tool/Login/successEmoji.svg"
+        alt="successEmoji"
+        width="34px"
+        height="34px"
+      />
       <span className="mt-[10px] text-black font-semibold text-[30px] leading-[35px]">
         SWAP&nbsp;
         <span className="text-[#04DD33]">Succeed!</span>
@@ -33,17 +38,21 @@ export default function SwapTxSucceedModal({
                 src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
               />
             ) : (
-              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" />
+              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" alt="xplaToken" />
             )}
 
             <span className="font-normal leading-[16px] text-[16px]">
               {getNumberFormat(amount)}
             </span>
           </div>
-          <img className="h-[28px] w-[28px] rotate-90" src="/img/tool/Main/txsucceedarrow.svg"  />
+          <img
+            className="h-[28px] w-[28px] rotate-90"
+            src="/img/tool/Main/txsucceedarrow.svg"
+            alt="txsucceedarrow"
+          />
           <div className="flex items-center w-full justify-between">
             {tkn2xpla ? (
-              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" />
+              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" alt="xplaToken"/>
             ) : (
               <img
                 className="w-[28px]"

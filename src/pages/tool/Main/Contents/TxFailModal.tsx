@@ -17,7 +17,12 @@ export default function TxFailModal({
 }) {
   return (
     <>
-      <img src="/img/tool/Login/failEmoji.svg" />
+      <img
+        src="/img/tool/Login/failEmoji.svg"
+        alt="failEmoji"
+        width="34px"
+        height="34px"
+      />
       <span className="mt-[10px] text-black font-semibold text-[30px] leading-[35px]">
         {title}&nbsp;
         <span className="text-[#FF3C24]">Failed</span>

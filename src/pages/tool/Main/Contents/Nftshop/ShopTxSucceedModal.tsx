@@ -18,7 +18,12 @@ export default function ShopTxSucceedModal({
 }) {
   return (
     <>
-      <img src="/img/tool/Login/successEmoji.svg" />
+      <img
+        src="/img/tool/Login/successEmoji.svg"
+        alt="successEmoji"
+        width="34px"
+        height="34px"
+      />
       <span className="mt-[10px] text-black font-semibold text-[30px] leading-[35px]">
         NFT MINT&nbsp;
         <span className="text-[#04DD33]">Succeed!</span>
