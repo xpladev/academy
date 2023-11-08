@@ -65,6 +65,7 @@ function Resource({ title, link, color }: ResourceItem) {
       to={link}
       className={clsx("flex flex-col p-5 gap-5", styles.devResourceButton)}
       style={{ backgroundColor: color, textDecoration: "none" }}
+      aria-label={"resourcelink" + title}
     >
       <div className="font-bold text-[20px] text-[#ffffff]">{title}</div>
       <div className="flex justify-end">

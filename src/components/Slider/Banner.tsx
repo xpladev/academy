@@ -77,7 +77,7 @@ const Banner = () => {
 
 const SponserItem = ({ url, imgsrc }: SponserItemType) => {
   return (
-    <Link className="w-[180px] h-[100px]" to={url}>
+    <Link className="w-[180px] h-[100px]" to={url} aria-label="sponser-link">
       <img className="w-[180px] h-[100px]" src={imgsrc} />
     </Link>
   );

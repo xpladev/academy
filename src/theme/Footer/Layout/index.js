@@ -110,7 +110,9 @@ export default function FooterLayout({ style, links, logo, copyright }) {
                 <div className="flex flex-col gap-3">
                   {
                     LinkSubject.content.map((LinkInfo, infoIdx) => (
-                      <Link key={infoIdx} to={LinkInfo.link} className="hover:opacity-60 transition-all" style={{ textDecoration: 'none' }}>
+                      <Link 
+                      aria-label="footer-link"
+                      key={infoIdx} to={LinkInfo.link} className="hover:opacity-60 transition-all" style={{ textDecoration: 'none' }}>
                         <span className="text-[#D9D9D9] font-bold text-[16px]">{LinkInfo.description}</span>
                       </Link>
                     ))
@@ -133,7 +135,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
       
       <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between flex-col md:flex-row py-5 md:py-0">
         <div className="flex gap-5 md:gap-[80px] items-start flex-col md:flex-row">
-          <Link href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
+          <Link aria-label='xpla.io' href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
             <div className="leading-tight text-[#D9D9D9] font-medium text-[16px]">
               <div>Universal Content Powerhouse for a Sublime</div>
@@ -143,8 +145,8 @@ export default function FooterLayout({ style, links, logo, copyright }) {
           </div>
 
           <div className="flex gap-[14px] flex-1 justify-end">
-            <Link href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
-            <Link href="https://linktr.ee/xpla_official" target="_blank" rel="noopener noreferrer" className={styles.footerLinktree} ></Link>
+            <Link aria-label='xpla-github' href="https://github.com/xpladev" target="_blank" rel="noopener noreferrer" className={styles.footerGithubLink} ></Link>
+            <Link aria-label='xpla-linktr' href="https://linktr.ee/xpla_official" target="_blank" rel="noopener noreferrer" className={styles.footerLinktree} ></Link>
           </div>
         </div>
 

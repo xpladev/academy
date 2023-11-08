@@ -260,6 +260,7 @@ const SliderItem = ({ title, color, contents }: SliderItemType) => {
                 styles.card
               )}
               style={{ textDecoration: "none" }}
+              aria-label={"content-link" + content.link}
             >
               <img
                 className={clsx("w-12", styles.quotationMark)}

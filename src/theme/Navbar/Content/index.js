@@ -56,7 +56,7 @@ export default function NavbarContent() {
         // TODO stop hardcoding items?
         <>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
-          <Link to="/" className={clsx("flex items-center", styles.LogoAcademyLetter)}>
+          <Link aria-label="open-root" to="/" className={clsx("flex items-center", styles.LogoAcademyLetter)}>
             <div />
           </Link>
           {
