@@ -128,7 +128,7 @@ const ShopInfo = ({
         <div className="font-bold text-[14px] leading-[16px]">
           {shopItem.name}
         </div>
-        <img src={shopItem.imageUrl} className="h-[60px]" />
+        <img src={shopItem.imageUrl} className="h-[60px]" width="229px" height="60px" alt="shopItemImg" />
         <div className="text-[14px] font-normal leading-[22px] flex justify-center gap-[6px]">
           <span>
             Count <span className="font-semibold">{shopItem.count}</span>
@@ -158,7 +158,7 @@ const ShopInfo = ({
           <span>|</span>
           <div className="flex items-center gap-[4px]">
             {getNumberFormat(shopItem.price)}{" "}
-            <img src="/img/tool/Main/Nftshop/shopinfo-token.svg" className="mt-[2px]" />
+            <img src="/img/tool/Main/Nftshop/shopinfo-token.svg" className="mt-[2px]" alt="shopinfo-token" width="18px" height="18px" />
           </div>
         </div>
         {shopItem.isHave === 1 && (

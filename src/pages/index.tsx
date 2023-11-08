@@ -15,7 +15,6 @@ import {
   WalletControllerChainOptions,
   getChainOptions,
 } from "@xpla/wallet-provider";
-import clsx from "clsx";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig } = useDocusaurusContext();
@@ -24,7 +23,13 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
     <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
       <div className="max-w-[1180px] flex flex-1 justify-between items-center relative">
         <div className="flex flex-col max-w-[576px] pb-[100px]">
-          <img className="mb-[30px]" src={`/img/Homepage/xpla-academy.svg`} />
+          <img
+            className="mb-[30px]"
+            src={`/img/Homepage/xpla-academy.svg`}
+            alt="xpla-academy"
+            width="564px"
+            height="55px"
+          />
           <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
             {siteConfig.tagline}
           </span>
@@ -50,12 +55,18 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
           </div>
         </div>
         <img
-          className={"hidden lg:block lg:w-[40%] lg:static	lg:w-[50%] 2xl:top-[71px] 2xl:left-[618px] 2xl:absolute"}
+          className={
+            "hidden lg:block lg:w-[40%] lg:static	lg:w-[50%] 2xl:top-[71px] 2xl:left-[618px] 2xl:absolute"
+          }
           src={`/img/Homepage/explorer-play.svg`}
+          alt="explorer-play"
+          sizes="(min-width: 1024px) 590px"
         />
         <img
           className={styles.earth}
           src={`/img/Homepage/earth.svg`}
+          alt="earth"
+          sizes="(min-width: 900px) 185px"
         />
       </div>
     </header>
@@ -66,13 +77,14 @@ export default function Home(): JSX.Element {
   const devResourceElement = useRef<HTMLDivElement>(null);
   const onMoveTodevResourceElement = () => {
     var headerOffset = 80;
-    var elementPosition = devResourceElement.current.getBoundingClientRect().top;
+    var elementPosition =
+      devResourceElement.current.getBoundingClientRect().top;
     var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
     window.scrollTo({
-      top : offsetPosition,
-      behavior : "smooth"
-    })
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   };
 
   const playgameElement = useRef<HTMLDivElement>(null);
@@ -82,16 +94,16 @@ export default function Home(): JSX.Element {
     var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
     window.scrollTo({
-      top : offsetPosition,
-      behavior : "smooth"
-    })
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
     if (window.location.hash === "#playgame") {
       console.log(11);
       onMoveToPlaygameElement();
-    } 
+    }
   }, []);
 
   const [chainOptions, setChainoptions] =
@@ -113,7 +125,7 @@ export default function Home(): JSX.Element {
       <HomepageHeader onMoveToElement={onMoveTodevResourceElement} />
       <main>
         <HomepageFeatures />
-        <PlayGame moveToElement={playgameElement}/>
+        <PlayGame moveToElement={playgameElement} />
         <IntroduceTutorial />
         <DevResource moveToElement={devResourceElement} />
         <JoinCommunity />

@@ -71,6 +71,9 @@ export default function UserStatus() {
               onClick={handleClickCopy}
               src="/img/DevResource/CopyButton.svg"
               className="hover:cursor-pointer hover:opacity-60"
+              alt="copyButton"
+              width="15px"
+              height="18px"
             />
           </div>
         </div>

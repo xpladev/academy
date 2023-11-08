@@ -264,12 +264,18 @@ const SliderItem = ({ title, color, contents }: SliderItemType) => {
               <img
                 className={clsx("w-12", styles.quotationMark)}
                 src={`/img/IntroduceTutorial/quotationMark.svg`}
+                alt="questionMark"
+                width="48px"
+                height="36px"
               />
               {content.description}
               <div className="flex justify-end">
                 <img
                   className={clsx("w-[51px]", styles.quotationMark)}
                   src={`/img/IntroduceTutorial/right-arrow.svg`}
+                  alt="right-arrow"
+                  width="51px"
+                  height="20px"
                 />
               </div>
             </Link>

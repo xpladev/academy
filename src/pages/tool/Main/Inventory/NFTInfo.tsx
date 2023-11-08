@@ -23,7 +23,7 @@ const NFTInfo = ({
         <span className="text-[14px] font-bold leading-[17px] text-center">
           {nftInfo.extension.name}
         </span>
-        <img src={nftInfo.extension.image} className="h-[60px]" />
+        <img src={nftInfo.extension.image} className="h-[60px]" alt="nftinfo-image" width="232px" height="60px"/>
         <div className="text-[14px] font-normal leading-[22px] flex justify-center gap-[6px]">
           <span>
             Count <span className="font-semibold">{nftInfo.extension.attributes.filter((a) => a.trait_type === 'paddle_count')[0].value}</span>
