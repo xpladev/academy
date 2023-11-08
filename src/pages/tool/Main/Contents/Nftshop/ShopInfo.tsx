@@ -158,7 +158,7 @@ const ShopInfo = ({
           <span>|</span>
           <div className="flex items-center gap-[4px]">
             {getNumberFormat(shopItem.price)}{" "}
-            <img src="/img/tool/Main/shopinfo-token.svg" className="mt-[2px]" />
+            <img src="/img/tool/Main/Nftshop/shopinfo-token.svg" className="mt-[2px]" />
           </div>
         </div>
         {shopItem.isHave === 1 && (

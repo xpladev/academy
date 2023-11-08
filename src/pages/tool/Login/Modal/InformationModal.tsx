@@ -41,7 +41,7 @@ const InformationModal = ({ setModalClose }: { setModalClose?: () => void }) => 
           >
             <span className="font-bold text-[46px]">i</span>
           </div>
-          <img src="/img/tool/Main/abouttoolpage.svg" />
+          <img src="/img/tool/Main/Info/abouttoolpage.svg" />
         </div>
         <div className="border-solid border-0 border-b-[1px] flex flex-1" />
       </div>
@@ -134,21 +134,21 @@ const InfoDetail = ({ page }: { page: number }) => {
 
           <div className="grid grid-rows-4 gap-[26px] w-full px-[35px]">
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/converttitle.svg" className="h-[28px]" />
+              <img src="/img/tool/Main/Convert/converttitle.svg" className="h-[28px]" />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Offer a game items(diamond) and</span>
                 <span>tokens(ACADEMY-TKN) exchange feature.</span>
               </div>
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/swaptitle.svg" className="h-[28px]" />
+              <img src="/img/tool/Main/Swap/swaptitle.svg" className="h-[28px]" />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Provide token exchange function.</span>
                 <span>(Especially between XPLA and ACADEMY-TKN)</span>
               </div>
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
-              <img src="/img/tool/Main/nftshoptitle.svg" className="h-[28px]" />
+              <img src="/img/tool/Main/Nftshop/nftshoptitle.svg" className="h-[28px]" />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
                 <span>Provide NFT Minting function using</span>
                 <span>ACADEMY-TKN as a minting fee.</span>
@@ -156,7 +156,7 @@ const InfoDetail = ({ page }: { page: number }) => {
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
               <img
-                src="/img/tool/Main/leaderboardtitle.svg"
+                src="/img/tool/Main/Leaderboard/leaderboardtitle.svg"
                 className="h-[28px]"
               />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">

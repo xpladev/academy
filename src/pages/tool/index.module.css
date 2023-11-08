@@ -88,7 +88,7 @@
 }
 
 .convertChangeButton {
-  background-image: url('/img/tool/Main/convertarrow.svg');
+  background-image: url('/img/tool/Main/Convert/convertarrow.svg');
   box-shadow: 3px 3px 0px black;
   width: 46px;
   height: 46px;
@@ -98,12 +98,12 @@
 }
 
 .convertChangeButton:hover {
-  background-image: url('/img/tool/Main/converthoverarrow.svg');
+  background-image: url('/img/tool/Main/Convert/converthoverarrow.svg');
   cursor: pointer;
 }
 
 .swapChangeButton {
-  background-image: url('/img/tool/Main/swaparrow.svg');
+  background-image: url('/img/tool/Main/Swap/swaparrow.svg');
   box-shadow: 3px 3px 0px black;
   width: 46px;
   height: 46px;
@@ -113,7 +113,7 @@
 }
 
 .swapChangeButton:hover {
-  background-image: url('/img/tool/Main/swaphoverarrow.svg');
+  background-image: url('/img/tool/Main/Swap/swaphoverarrow.svg');
   transform: none;
   cursor: pointer;
 }

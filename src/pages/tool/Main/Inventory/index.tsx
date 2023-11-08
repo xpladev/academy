@@ -97,7 +97,7 @@ export default function Inventory() {
             key={idx + "emptyInventory"}
             className="border-[1px] border-solid aspect-square bg-white flex justify-center items-center"
           >
-            <img src="/img/tool/Main/Info/emptyImg.svg" />
+            <img src="/img/tool/Main/Inventory/emptyImg.svg" />
           </div>
         ))}
       </div>

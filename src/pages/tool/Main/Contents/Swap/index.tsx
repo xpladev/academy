@@ -218,7 +218,7 @@ const Swap = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center px-[100px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full"
       >
-        <img src="/img/tool/Main/swaptitle.svg" />
+        <img src="/img/tool/Main/Swap/swaptitle.svg" />
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
@@ -301,7 +301,7 @@ const Swap = () => {
                     {tkn2xpla ? "ACADEMY-TKN" : "XPLA"}
                   </span>
                 </span>
-                <img src="/img/tool/Main/swapEmoji.svg" />
+                <img src="/img/tool/Main/Swap/swapEmoji.svg" />
                 <span>
                   1{" "}
                   <span className="font-bold">

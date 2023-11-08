@@ -37,7 +37,7 @@ const Nftshop = () => {
   return (
     <>
       <div className="flex flex-col items-center pt-[77px] pb-[79px] bg-[#EAF8FF] h-full">
-        <img src="/img/tool/Main/nftshoptitle.svg" />
+        <img src="/img/tool/Main/Nftshop/nftshoptitle.svg" />
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
