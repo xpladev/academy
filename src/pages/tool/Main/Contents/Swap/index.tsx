@@ -17,7 +17,7 @@ import axios from "axios";
 import BigNumber from "bignumber.js";
 import { Modal } from "@mui/material";
 import SwapTxSucceedModal from "./SwapTxSucceedModal";
-import TxFailModal from "../TxFailModal";
+import TxFailModal from "../Modal/TxFailModal";
 import { timeout } from "@site/src/util/timeout";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";

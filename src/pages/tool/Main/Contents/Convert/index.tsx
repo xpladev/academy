@@ -17,13 +17,13 @@ import axios from "axios";
 import BigNumber from "bignumber.js";
 import { Modal } from "@mui/material";
 import TxSucceedModal from "./ConvertTxSucceedModal";
-import TxFailModal from "../TxFailModal";
+import TxFailModal from "../Modal/TxFailModal";
 import { timeout } from "@site/src/util/timeout";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 import useConvertUnsigned from "@site/src/hooks/useMutation/useConvertUnsigned";
 import useConvertSigned from "@site/src/hooks/useMutation/useConvertSigned";
 import ConvertInput from "./ConvertInput";
-import ModalWrap from "../ModalWrap";
+import ModalWrap from "../Modal/ModalWrap";
 import { useQueryClient } from "@tanstack/react-query";
 
 export interface CONVERTFORM {
