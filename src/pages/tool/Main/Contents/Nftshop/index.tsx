@@ -52,7 +52,7 @@ const Nftshop = () => {
           <br />
           Paddle NFT will become your powerful weapon in the game!
         </div>
-        {shopItemlist ? (
+        {shopItemlist.length !== 0 ? (
           <div className="mt-[27px] grid grid-cols-3 gap-[12px] relative w-full min-h-[396px]">
             {shopItemlist
               .slice((page - 1) * numPerPage, page * numPerPage)
