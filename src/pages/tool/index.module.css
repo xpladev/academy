@@ -22,10 +22,6 @@
   transform: translate(5px, 5px);
 }
 
-.stars {
-  background-image: url('/img/tool/Login/stars.svg');
-}
-
 .fadeOut {
   animation: fadeout 500ms;
   -moz-animation: fadeout 500ms;
