@@ -84,6 +84,7 @@ const NotLinkErrorModal = () => {
             styles.smallShadowButton,
             "bg-[#004FFF] font-medium text-white px-[30px] py-[10px] hover:no-underline"
           )}
+          aria-label="open-game"
         >
           <span className="text-white">GO TO GAME</span>
         </Link>

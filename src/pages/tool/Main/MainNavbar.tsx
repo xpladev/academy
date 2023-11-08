@@ -22,6 +22,7 @@ export default function MainNavbar() {
           style={{
             textDecoration: "none",
           }}
+          aria-label="open-convert"
         >
           CONVERT
         </Link>
@@ -34,6 +35,7 @@ export default function MainNavbar() {
           style={{
             textDecoration: "none",
           }}
+          aria-label="open-swap"
         >
           SWAP
         </Link>
@@ -48,6 +50,7 @@ export default function MainNavbar() {
           style={{
             textDecoration: "none",
           }}
+          aria-label="open-nftshop"
         >
           NFT SHOP
         </Link>
@@ -62,6 +65,7 @@ export default function MainNavbar() {
           style={{
             textDecoration: "none",
           }}
+          aria-label="open-leaderboard"
         >
           LEADER BOARD
         </Link>

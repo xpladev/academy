@@ -81,6 +81,7 @@ export default function UserStatus() {
           "mt-[20px] font-bold text-[30px] leading-[36px] bg-[#00B2FC] px-[29px] py-[14px] hover:no-underline",
           styles.smallShadowButton
         )}
+        aria-label="open-game"
       >
         <span className="text-white">PLAY GAME</span>
       </Link>

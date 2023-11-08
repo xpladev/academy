@@ -50,6 +50,7 @@ export default function SwapDropdownLink({
       };
   return (
     <Link
+      aria-label="open-explorer"
       to={toUrl}
       isNavLink
       {...((activeBasePath || activeBaseRegex) && {
