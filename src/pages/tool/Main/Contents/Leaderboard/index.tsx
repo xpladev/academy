@@ -28,17 +28,28 @@ import ModalWrap from "../Modal/ModalWrap";
 import useRecordUnsigned from "../../../../../hooks/useMutation/useRecordUnsigned";
 import useRecordSigned from "../../../../../hooks/useMutation/useRecordSigned";
 import { useQueryClient } from "@tanstack/react-query";
+import TxInProgressModal from "../Modal/TxInProgressModal";
+import NowInConfirmationModal from "../Modal/NowInConfirmationModal";
 
 const chainID = "cube_47-5";
 const URL = "https://cube-lcd.xpla.dev";
 const lcd = new LCDClient({ chainID, URL });
+
+const TXMODALTYPE = {
+  NOTOPEN: 0,
+  NOWINCONFIRMATION: 1,
+  TXINPROGRESS: 2,
+  TXSUCCESS: 3,
+  TXFAIL: 4,
+} as const;
+type TXMODALTYPE = (typeof TXMODALTYPE)[keyof typeof TXMODALTYPE];
 
 export interface RANKRESPONSE {
   returnCode: number;
   returnMsg: string;
   id: string;
   score: number;
-  date: string; // Date 형식
+  date: string;
   ranking: RANKINFO[];
   myRanking: RANKINFO[];
   isRecoding: number;
@@ -53,9 +64,8 @@ export interface RANKINFO {
 const Leaderboard = () => {
   const { data: rankinglist } = useRankingInfo();
 
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<TXMODALTYPE>(TXMODALTYPE.NOTOPEN);
 
-  const [requestResult, setRequestResult] = useState<string | null>(null);
   const [requestError, setRequestError] = useState<string | null>(null);
   const [txhash, setTxhash] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,6 +86,8 @@ const Leaderboard = () => {
         throw new Error("VAULT Connection Error");
       }
       setLoading(true);
+      setModalOpen(TXMODALTYPE.NOWINCONFIRMATION);
+
       const { fee, tid, unsignedTx } = await recordUnsigned();
 
       const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
@@ -101,6 +113,7 @@ const Leaderboard = () => {
       if (!success) {
         throw new Error("Vault Sign Error");
       }
+      setModalOpen(TXMODALTYPE.TXINPROGRESS);
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
       const { txhash: resTxhash } = await recordSigned({
@@ -112,7 +125,7 @@ const Leaderboard = () => {
       setTimeout(waitResult, 1000, resTxhash);
     } catch (error) {
       setLoading(false);
-      setModalOpen(true);
+      setModalOpen(TXMODALTYPE.TXFAIL);
       setRequestError(
         `${error instanceof Error ? error.message : String(error)}`
       );
@@ -128,8 +141,8 @@ const Leaderboard = () => {
         setTimeout(waitResult, 1000, resTxhash);
       } else if (txRes.data.returnCode === "0") {
         setLoading(false);
-        setModalOpen(true);
-        setRequestResult(txRes.data.returnMsg);
+        setModalOpen(TXMODALTYPE.TXSUCCESS);
+
         await queryClient.invalidateQueries({
           queryKey: ["useUserInfo", userAddress],
         });
@@ -143,9 +156,13 @@ const Leaderboard = () => {
   }
 
   const handleModalClose = () => {
-    setModalOpen(false);
-    setRequestError(null);
-    setRequestResult(null);
+    if (
+      modalOpen !== TXMODALTYPE.NOWINCONFIRMATION &&
+      modalOpen !== TXMODALTYPE.TXINPROGRESS
+    ) {
+      setModalOpen(TXMODALTYPE.NOTOPEN);
+      setRequestError(null);
+    }
   };
 
   const getTxFee = useCallback(async () => {
@@ -201,7 +218,12 @@ const Leaderboard = () => {
   return (
     <>
       <div className="flex flex-col items-center px-[18px] pt-[77px] pb-[20px] bg-[#EAF8FF] h-full">
-        <img src="/img/tool/Main/Leaderboard/leaderboardtitle.svg" alt="leaderboardtitle" width="520px" height="60px" />
+        <img
+          src="/img/tool/Main/Leaderboard/leaderboardtitle.svg"
+          alt="leaderboardtitle"
+          width="520px"
+          height="60px"
+        />
         <img
           className="mt-[15px] mb-[4px]"
           src="/img/tool/Main/starlight.svg"
@@ -237,7 +259,8 @@ const Leaderboard = () => {
               )}
               <div className="border-solid border-0 border-b-[1px] my-[10px] border-[#00B2FC]" />
               {rankinglist?.returnMsg === "success" &&
-              (rankinglist.myRanking.length > 0 && rankinglist.myRanking[0].chain_high_score !== -1) ? (
+              rankinglist.myRanking.length > 0 &&
+              rankinglist.myRanking[0].chain_high_score !== -1 ? (
                 <div className="flex gap-[7px] h-[26px]">
                   <div
                     className={clsx(
@@ -391,29 +414,47 @@ const Leaderboard = () => {
           </div>
         </div>
       </div>
-      <Modal open={modalOpen} onClose={handleModalClose}>
-        <ModalWrap>
-          {requestResult && (
-            <LBTxSucceedModal
-              id={rankinglist?.id || ""}
-              score={rankinglist?.score?.toString() || ""}
-              date={rankinglist?.date || ""}
-              estimateFee={estimateFee || ""}
-              txhash={txhash || ""}
-              handleModalClose={handleModalClose}
-            />
+      <Modal
+        open={modalOpen !== TXMODALTYPE.NOTOPEN}
+        onClose={handleModalClose}
+      >
+        <>
+          {modalOpen === TXMODALTYPE.TXSUCCESS && (
+            <ModalWrap>
+              <LBTxSucceedModal
+                id={rankinglist?.id || ""}
+                score={rankinglist?.score?.toString() || ""}
+                date={rankinglist?.date || ""}
+                estimateFee={estimateFee || ""}
+                txhash={txhash || ""}
+                handleModalClose={handleModalClose}
+              />
+            </ModalWrap>
           )}
 
-          {requestError && (
-            <TxFailModal
-              title={"LEADERBOARD"}
-              requestError={requestError || ""}
-              estimateFee={estimateFee || ""}
-              txhash={txhash || ""}
-              handleModalClose={handleModalClose}
-            />
+          {modalOpen === TXMODALTYPE.TXFAIL && (
+            <ModalWrap>
+              <TxFailModal
+                title={"LEADERBOARD"}
+                requestError={requestError || ""}
+                estimateFee={estimateFee || ""}
+                txhash={txhash || ""}
+                handleModalClose={handleModalClose}
+              />
+            </ModalWrap>
           )}
-        </ModalWrap>
+          {modalOpen === TXMODALTYPE.NOWINCONFIRMATION && (
+            <ModalWrap>
+              <NowInConfirmationModal />
+            </ModalWrap>
+          )}
+
+          {modalOpen === TXMODALTYPE.TXINPROGRESS && (
+            <ModalWrap>
+              <TxInProgressModal />
+            </ModalWrap>
+          )}
+        </>
       </Modal>
     </>
   );

@@ -18,6 +18,17 @@ import useMintSigned from "@site/src/hooks/useMutation/useMintSigned";
 import { useQueryClient } from "@tanstack/react-query";
 import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
 import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
+import TxInProgressModal from "../Modal/TxInProgressModal";
+import NowInConfirmationModal from "../Modal/NowInConfirmationModal";
+
+const TXMODALTYPE = {
+  NOTOPEN: 0,
+  NOWINCONFIRMATION: 1,
+  TXINPROGRESS: 2,
+  TXSUCCESS: 3,
+  TXFAIL: 4,
+} as const;
+type TXMODALTYPE = (typeof TXMODALTYPE)[keyof typeof TXMODALTYPE];
 
 const ShopInfo = ({
   shopItem,
@@ -29,10 +40,9 @@ const ShopInfo = ({
   const { userAddress } = useUserAddress();
   const { data: userInfo } = useUserInfo();
 
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<TXMODALTYPE>(TXMODALTYPE.NOTOPEN);
   const [estimateFee, setEstimateFee] = useState<string | null>(null);
 
-  const [requestResult, setRequestResult] = useState<string | null>(null);
   const [requestError, setRequestError] = useState<string | null>(null);
   const [txhash, setTxhash] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -44,9 +54,11 @@ const ShopInfo = ({
   const buyNFT = async () => {
     try {
       if (!connectedWallet) {
-        throw new Error("VAULT Connection Error")
+        throw new Error("VAULT Connection Error");
       }
       setLoading(true);
+      setModalOpen(TXMODALTYPE.NOWINCONFIRMATION);
+
       const { fee, tid, unsignedTx } = await mintUnsigned(shopItem.idx);
 
       const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
@@ -72,6 +84,7 @@ const ShopInfo = ({
       if (!success) {
         throw new Error("VAULT Sign Error");
       }
+      setModalOpen(TXMODALTYPE.TXINPROGRESS);
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
       const { txhash: resTxhash } = await mintSigned({
@@ -83,7 +96,7 @@ const ShopInfo = ({
       setTimeout(waitResult, 1000, resTxhash);
     } catch (error) {
       setLoading(false);
-      setModalOpen(true);
+      setModalOpen(TXMODALTYPE.TXFAIL);
       setRequestError(
         `${error instanceof Error ? error.message : String(error)}`
       );
@@ -105,8 +118,7 @@ const ShopInfo = ({
           queryKey: ["useWalletNftList", userAddress],
         });
         setLoading(false);
-        setModalOpen(true);
-        setRequestResult(txRes.data.returnMsg);
+        setModalOpen(TXMODALTYPE.TXSUCCESS);
       }
     } catch (error) {
       throw error;
@@ -114,12 +126,16 @@ const ShopInfo = ({
   }
 
   const handleModalClose = async () => {
-    setModalOpen(false);
-    setRequestError(null);
-    setRequestResult(null);
-    await queryClient.invalidateQueries({
-      queryKey: ["useNftShopList", userAddress],
-    });
+    if (
+      modalOpen !== TXMODALTYPE.NOWINCONFIRMATION &&
+      modalOpen !== TXMODALTYPE.TXINPROGRESS
+    ) {
+      setModalOpen(TXMODALTYPE.NOTOPEN);
+      setRequestError(null);
+      await queryClient.invalidateQueries({
+        queryKey: ["useNftShopList", userAddress],
+      });
+    }
   };
 
   return (
@@ -128,7 +144,13 @@ const ShopInfo = ({
         <div className="font-bold text-[14px] leading-[16px]">
           {shopItem.name}
         </div>
-        <img src={shopItem.imageUrl} className="h-[60px]" width="229px" height="60px" alt="shopItemImg" />
+        <img
+          src={shopItem.imageUrl}
+          className="h-[60px]"
+          width="229px"
+          height="60px"
+          alt="shopItemImg"
+        />
         <div className="text-[14px] font-normal leading-[22px] flex justify-center gap-[6px]">
           <span>
             Count <span className="font-semibold">{shopItem.count}</span>
@@ -158,7 +180,13 @@ const ShopInfo = ({
           <span>|</span>
           <div className="flex items-center gap-[4px]">
             {getNumberFormat(shopItem.price)}{" "}
-            <img src="/img/tool/Main/Nftshop/shopinfo-token.svg" className="mt-[2px]" alt="shopinfo-token" width="18px" height="18px" />
+            <img
+              src="/img/tool/Main/Nftshop/shopinfo-token.svg"
+              className="mt-[2px]"
+              alt="shopinfo-token"
+              width="18px"
+              height="18px"
+            />
           </div>
         </div>
         {shopItem.isHave === 1 && (
@@ -174,35 +202,54 @@ const ShopInfo = ({
         {shopItem.isHave !== 1 && shopItem.clearStage > userInfo.clearStage && (
           <div className="top-0 absolute flex flex-col justify-center items-center w-full h-full bg-black/75 bg-black">
             <span className="text-white font-normal text-[22px] leading-[26px]">
-              CLEAR STAGE 20 
+              CLEAR STAGE 20
             </span>
             <span className="text-[#C9FF00] font-bold text-[24px] leading-[26px]">
-             <span className="text-white font-normal">TO</span> "UNLOCK"
+              <span className="text-white font-normal">TO</span> "UNLOCK"
             </span>
           </div>
         )}
       </div>
-      <Modal open={modalOpen} onClose={handleModalClose}>
-        <ModalWrap>
-          {requestResult && (
-            <ShopTxSucceedModal
-              shopItem={shopItem}
-              estimateFee={estimateFee || ""}
-              txhash={txhash || ""}
-              handleModalClose={handleModalClose}
-            />
+      <Modal
+        open={modalOpen !== TXMODALTYPE.NOTOPEN}
+        onClose={handleModalClose}
+      >
+        <>
+          {modalOpen === TXMODALTYPE.TXSUCCESS && (
+            <ModalWrap>
+              <ShopTxSucceedModal
+                shopItem={shopItem}
+                estimateFee={estimateFee || ""}
+                txhash={txhash || ""}
+                handleModalClose={handleModalClose}
+              />
+            </ModalWrap>
           )}
 
-          {requestError && (
-            <TxFailModal
-              title={"NFT MINT"}
-              requestError={requestError || ""}
-              estimateFee={estimateFee || ""}
-              txhash={txhash || ""}
-              handleModalClose={handleModalClose}
-            />
+          {modalOpen === TXMODALTYPE.TXFAIL && (
+            <ModalWrap>
+              <TxFailModal
+                title={"NFT MINT"}
+                requestError={requestError || ""}
+                estimateFee={estimateFee || ""}
+                txhash={txhash || ""}
+                handleModalClose={handleModalClose}
+              />
+            </ModalWrap>
           )}
-        </ModalWrap>
+
+          {modalOpen === TXMODALTYPE.NOWINCONFIRMATION && (
+            <ModalWrap>
+              <NowInConfirmationModal />
+            </ModalWrap>
+          )}
+
+          {modalOpen === TXMODALTYPE.TXINPROGRESS && (
+            <ModalWrap>
+              <TxInProgressModal />
+            </ModalWrap>
+          )}
+        </>
       </Modal>
     </>
   );

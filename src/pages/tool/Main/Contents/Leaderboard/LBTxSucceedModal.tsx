@@ -35,23 +35,27 @@ export default function LBTxSucceedModal({
         <div className="flex items-start justify-between">
           <span className="font-semibold leading-[18px] text-[18px]">{id}</span>
 
-          <div className="grid grid-cols-2 items-center gap-y-[3px] gap-x-[11px]">
-            <div className="flex items-center justify-end">
-              <div className="flex justify-center items-center rounded-full bg-[#00B2FC] font-medium leading-[12px] text-[12px] w-[16px] h-[16px] text-white">
-                S
+          <div className="flex flex-col items-center gap-[3px] min-w-[142px]">
+            <div className="flex justify-between w-full">
+              <div className="flex items-center justify-end">
+                <div className="flex justify-center items-center rounded-full bg-[#00B2FC] font-medium leading-[12px] text-[12px] w-[16px] h-[16px] text-white">
+                  S
+                </div>
               </div>
+              <span className="font-semibold text-[14px] leading-[16px] text-right mb-[1px]">
+                {getNumberFormat(score)}
+              </span>
             </div>
-            <span className="font-semibold text-[14px] leading-[16px] text-right mb-[1px]">
-              {getNumberFormat(score)}
-            </span>
-            <div className="flex items-center justify-end">
-              <div className="flex justify-center items-center rounded-full bg-[#00B2FC] font-medium leading-[12px] text-[12px] w-[16px] h-[16px] text-white">
-                D
+            <div className="flex justify-between w-full">
+              <div className="flex items-center justify-end">
+                <div className="flex justify-center items-center rounded-full bg-[#00B2FC] font-medium leading-[12px] text-[12px] w-[16px] h-[16px] text-white">
+                  D
+                </div>
               </div>
+              <span className="font-normal text-[11px] leading-[13px]">
+                {date.split("-").join(":") || "-"}
+              </span>
             </div>
-            <span className="font-normal text-[11px] leading-[13px]">
-              {date.split("-").join(":") || "-"}
-            </span>
           </div>
         </div>
         <div className="w-full border-solid border-0 border-t-[1px]" />
