@@ -102,9 +102,6 @@ const ShopInfo = ({
           queryKey: ["useUserInfo", userAddress],
         });
         await queryClient.invalidateQueries({
-          queryKey: ["useNftShopList", userAddress],
-        });
-        await queryClient.invalidateQueries({
           queryKey: ["useWalletNftList", userAddress],
         });
         setLoading(false);
@@ -116,10 +113,13 @@ const ShopInfo = ({
     }
   }
 
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
     setModalOpen(false);
     setRequestError(null);
     setRequestResult(null);
+    await queryClient.invalidateQueries({
+      queryKey: ["useNftShopList", userAddress],
+    });
   };
 
   return (

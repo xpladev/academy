@@ -1,9 +1,7 @@
-import BigNumber from "bignumber.js";
 import clsx from "clsx";
 import React from "react";
 import styles from "../../../index.module.css";
-import getNumberFormat from "@site/src/util/getNumberFormat";
-import { NFTSHOPITEM } from "./index";
+import { NFTSHOPITEM } from "@site/src/hooks/useQuery/useNftShopList";
 
 export default function ShopTxSucceedModal({
   shopItem,
