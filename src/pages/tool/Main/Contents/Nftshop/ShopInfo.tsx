@@ -54,7 +54,7 @@ const ShopInfo = ({
   const buyNFT = async () => {
     try {
       if (!connectedWallet) {
-        throw new Error("VAULT Connection Error");
+        throw new Error("602");
       }
       setLoading(true);
       setModalOpen(TXMODALTYPE.NOWINCONFIRMATION);
@@ -78,11 +78,11 @@ const ShopInfo = ({
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "VAULT Connection Error"
+        "602"
       );
 
       if (!success) {
-        throw new Error("VAULT Sign Error");
+        throw new Error("603");
       }
       setModalOpen(TXMODALTYPE.TXINPROGRESS);
 

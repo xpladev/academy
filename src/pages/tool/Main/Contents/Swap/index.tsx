@@ -86,11 +86,11 @@ const Swap = () => {
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "Vault Connection time Expired or Vault Sign Error."
+        "602"
       );
 
       if (!success) {
-        throw new Error("Vault Sign Error");
+        throw new Error("603");
       }
 
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");

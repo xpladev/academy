@@ -7,8 +7,6 @@ import useLoginModalOpen from "@site/src/hooks/Zustand/useLoginModalOpen";
 import { MODALTYPE } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import { CircularProgress } from "@mui/material";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
-import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
-import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 
 export default function LoginConnectWallet() {
   const { status, availableConnections, connect, disconnect, refetchStates } = useWallet();
@@ -31,12 +29,11 @@ export default function LoginConnectWallet() {
         throw new Error("Wallet Connect Error");
       } else {
         // TODO
-        // setTimeout(() => {
-        //   if (status !== WalletStatus.WALLET_CONNECTED || loginModalOpen === MODALTYPE.NOTOPEN) {
-        //     setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
-        //   } 
-        // }, 10000);
-
+        setTimeout(() => {
+          if (status !== WalletStatus.WALLET_CONNECTED || loginModalOpen === MODALTYPE.NOTOPEN) {
+            setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
+          } 
+        }, 10000);
       }
       const type = selected[0];
       const identifier = selected[1] || "";

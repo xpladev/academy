@@ -43,8 +43,8 @@ const useMintUnsigned = () => {
         mutationFn: fetchData,
         mutationKey: ['useMintUnsigned', userAddress, Date.now()],
         onSuccess: (data: Response) => {
-            if (data.unsignedTx === undefined) {
-                throw new Error(data.returnMsg);
+            if (data.returnCode !== "0") {
+                throw new Error(data.returnCode);
             }
         },
         onError : (err) => {

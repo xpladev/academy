@@ -36,18 +36,27 @@ export default function Tool(): JSX.Element {
 const ToolContent = () => {
   const { userAddress, setUserAddress } = useUserAddress();
   const { data: userInfo, status } = useUserInfo();
-  const { disconnect, status : walletstatus, wallets, refetchStates } = useWallet();
+  const {
+    disconnect,
+    status: walletstatus,
+    wallets,
+    refetchStates,
+    network,
+  } = useWallet();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { loginLoading, setLoginLoading } = useLoginLoading();
-  // console.log("toolcontent :", walletstatus, wallets);
-  
+
   useEffect(() => {
     setLoginLoading(false);
   }, []);
 
   useEffect(() => {
     // TODO
-    if (userAddress && status === "success" && userInfo.returnMsg !== "success") {
+    if (
+      userAddress &&
+      status === "success" &&
+      userInfo.returnMsg !== "success"
+    ) {
       disconnect();
       setLoginModalOpen(MODALTYPE.OPENWITHNOTLINKERROR);
       setUserAddress(undefined);
@@ -61,11 +70,18 @@ const ToolContent = () => {
     }
   }, [userAddress, status]);
 
+  useEffect(() => {
+    if (network && network.name === "mainnet") {
+      setLoginModalOpen(MODALTYPE.OPENMAINNETERROR);
+    }
+  }, [network]);
+
   return (
     <>
       {userAddress &&
       status === "success" &&
-      userInfo.returnMsg === "success" ? (
+      userInfo.returnMsg === "success" &&
+      network?.name === "testnet" ? (
         <Main />
       ) : (
         <Login />

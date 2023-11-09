@@ -5,6 +5,7 @@ export const MODALTYPE = {
     OPENWITHNOTLINKERROR: 1,
     OPENWITHSESSIONERROR: 2,
     OPENINFORMATION: 3,
+    OPENMAINNETERROR: 4,
 } as const;
 type MODALTYPE = (typeof MODALTYPE)[keyof typeof MODALTYPE];
 

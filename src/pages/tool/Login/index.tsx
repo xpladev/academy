@@ -11,9 +11,11 @@ import useUserAddress from "@site/src/hooks/Zustand/useUserAddress";
 import useLoginModalOpen from "@site/src/hooks/Zustand/useLoginModalOpen";
 import { MODALTYPE } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
+import TxFailModal from "../Main/Contents/Modal/TxFailModal";
+import ModalWrap from "../Main/Contents/Modal/ModalWrap";
 
 export default function Login() {
-  const { status, wallets, disconnect } = useWallet();
+  const { status, wallets, disconnect, network } = useWallet();
   const { setUserAddress } = useUserAddress();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { setLoginLoading } = useLoginLoading();
@@ -42,12 +44,15 @@ export default function Login() {
   return (
     <div className=" bg-[#004FFF] relative flex flex-col flex-1 items-center w-full ">
       <div
-        className={clsx(
-          "absolute top-[90px] w-[1465px] h-[578px] mx-[20px]",
-        )}
+        className={clsx("absolute top-[90px] w-[1465px] h-[578px] mx-[20px]")}
       >
-        <img src={`/img/tool/Login/stars.svg`} alt="stars" width="1465px" height="578px" />
-        </div>
+        <img
+          src={`/img/tool/Login/stars.svg`}
+          alt="stars"
+          width="1465px"
+          height="578px"
+        />
+      </div>
       <div className="relative mt-[150px] flex items-center justify-center">
         <img
           src={`/img/tool/Login/logintitle.svg`}
@@ -98,6 +103,18 @@ export default function Login() {
             <SessionErrorModal />
           )}
           {loginModalOpen === MODALTYPE.OPENINFORMATION && <InformationModal />}
+          {loginModalOpen === MODALTYPE.OPENMAINNETERROR && (
+            <ModalWrap>
+              <TxFailModal
+                title="Login"
+                requestError="604"
+                txhash=""
+                handleModalClose={() => {
+                  setLoginModalOpen(MODALTYPE.NOTOPEN);
+                }}
+              />
+            </ModalWrap>
+          )}
         </>
       </Modal>
     </div>

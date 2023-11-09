@@ -69,7 +69,7 @@ const Convert = () => {
   const onSubmit = async ({ ...submitValues }: CONVERTFORM) => {
     try {
       if (!connectedWallet) {
-        throw new Error("VAULT Connection Error");
+        throw new Error("602");
       }
       setLoading(true);
       setModalOpen(TXMODALTYPE.NOWINCONFIRMATION);
@@ -85,11 +85,11 @@ const Convert = () => {
           signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
         }),
         20000,
-        "VAULT Connection Error"
+        "602"
       );
 
       if (!success) {
-        throw new Error("Vault Sign Error");
+        throw new Error("603");
       }
       setModalOpen(TXMODALTYPE.TXINPROGRESS);
       const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
@@ -330,7 +330,7 @@ const Convert = () => {
             <ModalWrap>
               <TxFailModal
                 title={"CONVERT"}
-                requestError={requestError || ""}
+                requestError={requestError || "Unknown Error"}
                 estimateFee={estimateFee || ""}
                 txhash={txhash || ""}
                 handleModalClose={handleModalClose}
