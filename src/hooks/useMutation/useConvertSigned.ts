@@ -39,7 +39,11 @@ const useConvertSigned = (dia2tkn: boolean) => {
         mutationKey: ['useConvertSigned', userAddress, Date.now()],
         onSuccess: (data: Response) => {
             if (data.returnCode !== "0") {
-                throw new Error(data.returnCode);
+                if (data.returnCode === "499" && data.returnMsg.includes("insufficient funds")) {
+                    throw new Error("601");
+                } else {
+                    throw new Error(data.returnCode);
+                }
             }
         },
         onError : (err) => {
