@@ -103,7 +103,7 @@ const Ranking = ({ rankinglist }: { rankinglist: RANKRESPONSE }) => {
             )}
           >
             <span>{rank.id || ""}</span>
-            <span>{rank.chain_high_score}</span>
+            <span>{getNumberFormat(rank.chain_high_score || "0")}</span>
           </div>
         </div>
       ))}
