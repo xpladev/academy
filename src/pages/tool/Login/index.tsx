@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <div className=" bg-[#004FFF] relative flex flex-col flex-1 items-center w-full ">
       <div
-        className={clsx("absolute top-[90px] w-[1465px] h-[578px] mx-[20px]")}
+        className={clsx("absolute top-[90px] w-[1465px] h-[578px] mx-[20px] max-w-full")}
       >
         <img
           src={`/img/tool/Login/stars.svg`}
