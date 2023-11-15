@@ -33,7 +33,9 @@ export default function SwapDropdown({
   isfrom,
   nowXPLASelected,
   setTkn2xpla,
+  setRatioShow,
   className,
+  onClickFn,
   ...props
 }) {
   const dropdownRef = useRef(null);
@@ -59,8 +61,13 @@ export default function SwapDropdown({
 
   const XPLADropdown = (
     <div
-    onClick={() => setTkn2xpla(!isfrom)}
-    className="hover:bg-[#f2f2f2] py-[7px] h-[36px] pl-[26px] hover:cursor-pointer flex items-center">
+      onClick={() => {
+        setTkn2xpla(!isfrom);
+        setRatioShow(isfrom ? 0 : 1);
+        onClickFn();
+      }}
+      className="hover:bg-[#f2f2f2] py-[7px] h-[36px] pl-[26px] hover:cursor-pointer flex items-center"
+    >
       <img className="w-[22px] mr-[8px]" src={xplaImgsrc} alt="xplaToken" />
       <span className="leading-[14px] font-semibold text-[14px]">XPLA</span>
     </div>
@@ -68,8 +75,13 @@ export default function SwapDropdown({
 
   const TokenDropdown = (
     <div
-    onClick={() => setTkn2xpla(isfrom)}
-    className="hover:bg-[#f2f2f2] py-[7px] h-[36px] pl-[26px] hover:cursor-pointer  flex items-center">
+      onClick={() => {
+        setTkn2xpla(isfrom);
+        setRatioShow(isfrom ? 1 : 0);
+        onClickFn();
+      }}
+      className="hover:bg-[#f2f2f2] py-[7px] h-[36px] pl-[26px] hover:cursor-pointer  flex items-center"
+    >
       <img className="w-[22px] mr-[8px]" src={tokenImgsrc} />
       <span className="leading-[14px] font-semibold text-[14px]">
         ACADEMY-TKN

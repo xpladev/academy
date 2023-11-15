@@ -313,9 +313,8 @@ const Convert = () => {
         open={modalOpen !== TXMODALTYPE.NOTOPEN}
         onClose={handleModalClose}
       >
-        <>
+        <ModalWrap>
           {modalOpen === TXMODALTYPE.TXSUCCESS && (
-            <ModalWrap>
               <TxSucceedModal
                 amount={values.amount.toString() || ""}
                 estimateFee={estimateFee || ""}
@@ -323,11 +322,9 @@ const Convert = () => {
                 handleModalClose={handleModalClose}
                 dia2tkn={dia2tkn}
               />
-            </ModalWrap>
           )}
 
           {modalOpen === TXMODALTYPE.TXFAIL && (
-            <ModalWrap>
               <TxFailModal
                 title={"CONVERT"}
                 requestError={requestError || "Unknown Error"}
@@ -335,21 +332,17 @@ const Convert = () => {
                 txhash={txhash || ""}
                 handleModalClose={handleModalClose}
               />
-            </ModalWrap>
           )}
 
           {modalOpen === TXMODALTYPE.NOWINCONFIRMATION && (
-            <ModalWrap>
               <NowInConfirmationModal />
-            </ModalWrap>
           )}
 
           {modalOpen === TXMODALTYPE.TXINPROGRESS && (
-            <ModalWrap>
               <TxInProgressModal />
-            </ModalWrap>
           )}
-        </>
+            </ModalWrap>
+
       </Modal>
     </>
   );

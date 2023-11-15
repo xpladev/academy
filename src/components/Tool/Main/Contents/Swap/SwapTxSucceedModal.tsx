@@ -5,13 +5,15 @@ import styles from "../../../index.module.css";
 import getNumberFormat from "@site/src/util/getNumberFormat";
 
 export default function SwapTxSucceedModal({
-  amount,
+  xplaAmount,
+  tknAmount,
   estimateFee,
   txhash,
   handleModalClose,
   tkn2xpla,
 }: {
-  amount: string;
+  xplaAmount: number | string;
+  tknAmount: number | string;
   estimateFee: string;
   txhash: string;
   handleModalClose: () => void;
@@ -38,11 +40,16 @@ export default function SwapTxSucceedModal({
                 src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
               />
             ) : (
-              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" alt="xplaToken" />
+              <img
+                className="w-[28px]"
+                src="/img/tool/Main/stroke-xpla.svg"
+                alt="xplaToken"
+              />
             )}
 
+
             <span className="font-normal leading-[16px] text-[16px]">
-              {getNumberFormat(amount)}
+              {getNumberFormat(tkn2xpla ? tknAmount : xplaAmount)}
             </span>
           </div>
           <img
@@ -52,7 +59,11 @@ export default function SwapTxSucceedModal({
           />
           <div className="flex items-center w-full justify-between">
             {tkn2xpla ? (
-              <img className="w-[28px]" src="/img/tool/Main/stroke-xpla.svg" alt="xplaToken"/>
+              <img
+                className="w-[28px]"
+                src="/img/tool/Main/stroke-xpla.svg"
+                alt="xplaToken"
+              />
             ) : (
               <img
                 className="w-[28px]"
@@ -60,7 +71,7 @@ export default function SwapTxSucceedModal({
               />
             )}
             <span className="font-normal leading-[16px] text-[16px]">
-              {getNumberFormat(amount)}
+              {getNumberFormat(!tkn2xpla ? tknAmount : xplaAmount)}
             </span>
           </div>
         </div>
