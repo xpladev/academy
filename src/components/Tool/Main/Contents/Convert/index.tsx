@@ -124,7 +124,11 @@ const Convert = () => {
         setModalOpen(TXMODALTYPE.TXSUCCESS);
       }
     } catch (error) {
-      throw error;
+      setLoading(false);
+      setModalOpen(TXMODALTYPE.TXFAIL);
+      setRequestError(
+        `${error instanceof Error ? error.message : String(error)}`
+      );
     }
   }
 
