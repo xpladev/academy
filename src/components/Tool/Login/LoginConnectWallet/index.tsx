@@ -21,7 +21,7 @@ export default function LoginConnectWallet() {
 
       const selected = await selectConnection(
         availableConnections.filter(
-          (connection) => connection.type != ConnectType.READONLY
+          (connection) => (connection.type === ConnectType.EXTENSION)
         )
       );
       if (!selected) {
