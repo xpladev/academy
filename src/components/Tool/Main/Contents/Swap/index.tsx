@@ -7,11 +7,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useConnectedWallet, useWallet } from "@xpla/wallet-provider";
 import {
   Coin,
+  Fee,
   LCDClient,
   MsgExecuteContract,
-  SignMode,
   SimplePublicKey,
-  Tx,
   TxAPI,
 } from "@xpla/xpla.js";
 import axios from "axios";
@@ -73,14 +72,14 @@ const Swap = () => {
   const [requestError, setRequestError] = useState<string | null>(null);
   const [txhash, setTxhash] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [estimateFee, setEstimateFee] = useState<string | null>(null);
+  const [estimateFee, setEstimateFee] = useState<Fee | "-">("-");
 
   const form = useForm<SWAPFORM>({ mode: "onChange" });
   const connectedWallet = useConnectedWallet();
 
   const queryClient = useQueryClient();
 
-  const { watch, setValue, handleSubmit, register } = form;
+  const { watch, setValue, handleSubmit, register, resetField } = form;
   const { ...values } = watch();
 
   const swapPoolAddr =
@@ -133,9 +132,14 @@ const Swap = () => {
             ]
       );
 
+      if (estimateFee === '-') {
+        throw new Error("Fee is not calculated.");
+      }
+      
       const { result: postedTx, success } = await timeout(
         connectedWallet.post({
           msgs: [swapMsg],
+          fee: estimateFee
         }),
         20000,
         "602"
@@ -160,7 +164,7 @@ const Swap = () => {
     try {
       const txRes = await axios.get(
         `https://cube-lcd.xpla.dev/cosmos/tx/v1beta1/txs/${resTxhash}`
-        );
+      );
       if (txRes.data.tx_response?.code === 0) {
         await queryClient.invalidateQueries({
           queryKey: ["useUserInfo", userAddress],
@@ -232,15 +236,17 @@ const Swap = () => {
           gasAdjustment: 1.1,
         }
       );
+      console.log(simul_fee);
 
       setEstimateFee(
-        new BigNumber(simul_fee.amount.toString().replace("axpla", ""))
-          .dividedBy(10 ** 18)
-          .toFormat({
-            decimalSeparator: ".",
-            groupSeparator: ",",
-            groupSize: 3,
-          })
+        // new BigNumber(simul_fee.amount.toString().replace("axpla", ""))
+        //   .dividedBy(10 ** 18)
+        //   .toFormat({
+        //     decimalSeparator: ".",
+        //     groupSeparator: ",",
+        //     groupSize: 3,
+        //   })
+        simul_fee
       );
     } catch (e) {
       setEstimateFee("-");
@@ -254,6 +260,9 @@ const Swap = () => {
     ) {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
+      setEstimateFee('-');
+      resetField("tknAmount");
+      resetField("xplaAmount");
     }
   };
 
@@ -567,7 +576,15 @@ const Swap = () => {
               </span>
             ) : (
               <span className="font-medium text-[16px] leading-[19px] text-black">
-                {estimateFee}
+                {new BigNumber(
+                  estimateFee.amount.toString().replace("axpla", "")
+                )
+                  .dividedBy(10 ** 18)
+                  .toFormat({
+                    decimalSeparator: ".",
+                    groupSeparator: ",",
+                    groupSize: 3,
+                  })}
                 <span className="font-extrabold"> XPLA</span>
               </span>
             )}
@@ -615,7 +632,19 @@ const Swap = () => {
             <SwapTxSucceedModal
               xplaAmount={values.xplaAmount}
               tknAmount={values.tknAmount}
-              estimateFee={estimateFee || ""}
+              estimateFee={
+                estimateFee !== '-'
+                  ? new BigNumber(
+                      estimateFee.amount.toString().replace("axpla", "")
+                    )
+                      .dividedBy(10 ** 18)
+                      .toFormat({
+                        decimalSeparator: ".",
+                        groupSeparator: ",",
+                        groupSize: 3,
+                      })
+                  : ""
+              }
               txhash={txhash || ""}
               handleModalClose={handleModalClose}
               tkn2xpla={tkn2xpla}
@@ -626,7 +655,19 @@ const Swap = () => {
             <TxFailModal
               title={"CONVERT"}
               requestError={requestError}
-              estimateFee={estimateFee || ""}
+              estimateFee={
+                estimateFee !== '-'
+                  ? new BigNumber(
+                      estimateFee.amount.toString().replace("axpla", "")
+                    )
+                      .dividedBy(10 ** 18)
+                      .toFormat({
+                        decimalSeparator: ".",
+                        groupSeparator: ",",
+                        groupSize: 3,
+                      })
+                  : ""
+              }
               txhash={txhash || ""}
               handleModalClose={handleModalClose}
             />
