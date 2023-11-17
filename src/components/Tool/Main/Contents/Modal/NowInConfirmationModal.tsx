@@ -34,9 +34,8 @@ const NowInConfirmation = () => {
 
       <span className="font-medium text-[16px] leading-[19px] text-[#555454]">
         Please check out XPLA VAULT{" "}
-        <span className="font-medium text-[12px] leading-[14px]"> (App /</span>{" "}
         <br />
-        <span>Chrome Extension) </span>to confirm and <br />
+        <span>Chrome Extension </span>to confirm and <br />
         complete the process.
       </span>
     </div>
