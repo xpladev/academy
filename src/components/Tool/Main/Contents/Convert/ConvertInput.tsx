@@ -30,8 +30,11 @@ const ConvertInput = ({
             : getNumberFormat(values.amount?.toString() || "")
         }
         onChange={async (e) => {
-          setValue("amount", Number(e.target.value.replace(",", "")));
-          getTxFee(Number(e.target.value.replace(",", "")));
+          const text = Number(e.target.value.replace(",", ""));
+          if (!isNaN(text)) {
+            setValue("amount",text );
+            getTxFee(text);
+          }
         }}
         maxLength={7}
         className={clsx(
