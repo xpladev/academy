@@ -483,7 +483,7 @@ const Swap = () => {
               )}
             </div>
           </div>
-          <div className="absolute left-[265px] top-[118px] flex justify-center items-center">
+          <div className="absolute left-[239px] top-[118px] flex justify-center items-center">
             <div
               onClick={async () => {
                 await getSwapTxFee(

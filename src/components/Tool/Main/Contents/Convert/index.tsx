@@ -207,6 +207,8 @@ const Convert = () => {
           <br />
           Furthermore, acquire tokens needed to mint Paddle NFT!
         </div>
+        <div>
+
         <div className="mt-[27px] flex items-center justify-center gap-[20px] relative w-full">
           <div className="aspect-square border-[1px] border-solid flex flex-col">
             <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
@@ -276,6 +278,8 @@ const Convert = () => {
             />
           </div>
         </div>
+        </div>
+
         <div className="mt-[18px] bg-[#00B2FC33] w-full max-w-[580px] px-[20px] py-[24px]">
           <div className="flex justify-between border-solid border-0 border-b-[1px]">
             <span className="font-bold text-[16px] leading-[19px] text-[#3F3F3F]">
