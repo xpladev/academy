@@ -236,18 +236,8 @@ const Swap = () => {
           gasAdjustment: 1.1,
         }
       );
-      console.log(simul_fee);
 
-      setEstimateFee(
-        // new BigNumber(simul_fee.amount.toString().replace("axpla", ""))
-        //   .dividedBy(10 ** 18)
-        //   .toFormat({
-        //     decimalSeparator: ".",
-        //     groupSeparator: ",",
-        //     groupSize: 3,
-        //   })
-        simul_fee
-      );
+      setEstimateFee(simul_fee);
     } catch (e) {
       setEstimateFee("-");
     }
@@ -348,7 +338,9 @@ const Swap = () => {
                         );
                         await getSwapTxFee(e.target.value, tkn2xpla);
                       } catch (e) {
-                        console.log(e);
+                        setEstimateFee('-');
+                        resetField("tknAmount");
+                        resetField("xplaAmount");
                       }
                     },
                   })}
@@ -384,7 +376,9 @@ const Swap = () => {
                         );
                         await getSwapTxFee(e.target.value, tkn2xpla);
                       } catch (e) {
-                        console.log(e);
+                        setEstimateFee('-');
+                        resetField("tknAmount");
+                        resetField("xplaAmount");
                       }
                     },
                   })}
@@ -448,7 +442,9 @@ const Swap = () => {
                         );
                         await getSwapTxFee(e.target.value, tkn2xpla);
                       } catch (e) {
-                        console.log(e);
+                        setEstimateFee('-');
+                        resetField("tknAmount");
+                        resetField("xplaAmount");
                       }
                     },
                   })}
@@ -484,7 +480,9 @@ const Swap = () => {
                         );
                         await getSwapTxFee(e.target.value, tkn2xpla);
                       } catch (e) {
-                        console.log(e);
+                        setEstimateFee('-');
+                        resetField("tknAmount");
+                        resetField("xplaAmount");
                       }
                     },
                   })}
