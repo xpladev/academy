@@ -147,7 +147,7 @@ export default function Inventory() {
           />
           <span className="font-normal text-[16px]">
             {bigXPLABalance[0]}.
-            <span className="font-normal text-[12px]">{bigXPLABalance[1]}</span>
+            <span className="font-normal text-[12px] break-all">{bigXPLABalance[1]}</span>
           </span>
         </div>
         <div className="flex items-center gap-[13px]">

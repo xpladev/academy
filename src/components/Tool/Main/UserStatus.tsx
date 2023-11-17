@@ -57,7 +57,7 @@ export default function UserStatus() {
           Wallet Address
         </div>
         <div className="flex gap-[11px] items-center break-all px-[11px] py-[14px] leading-[19px]">
-          <span> {userAddress || ""}</span>
+          <div className={clsx(styles.addressEllipsis)}> {userAddress || ""}</div>
           <div className="relative shrink-0 w-[15px]">
             {isCopy && (
               <div className="absolute bottom-[26px] w-[60px] left-[-10px] ">

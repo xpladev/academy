@@ -186,7 +186,7 @@ const Convert = () => {
       <form
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center px-[100px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full max-w-[780px]"
+        className="flex flex-col items-center justify-center px-[20px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full max-w-[780px]"
       >
         <img
           src="/img/tool/Main/Convert/converttitle.svg"
@@ -207,7 +207,7 @@ const Convert = () => {
           <br />
           Furthermore, acquire tokens needed to mint Paddle NFT!
         </div>
-        <div className="mt-[27px] flex gap-[20px] relative w-full">
+        <div className="mt-[27px] flex items-center justify-center gap-[20px] relative w-full">
           <div className="aspect-square border-[1px] border-solid flex flex-col">
             <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
               {dia2tkn ? "DIAMOND" : "ACADEMY-TKN"}

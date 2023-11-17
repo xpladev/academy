@@ -13,7 +13,7 @@ export default function Main() {
   return (
     <div className="relative flex justify-center w-full">
       <div className="flex gap-[20px] max-w-[1180px] py-[30px] w-full mx-[20px]">
-        <div className="border-solid border-[1px] w-full max-w-[380px] bg-[#EAF8FF]">
+        <div className="border-solid border-[1px] w-full max-w-[380px] bg-[#EAF8FF] min-w-[278px]">
           <UserStatus />
           <Inventory />
         </div>

@@ -53,7 +53,7 @@ export default function Login() {
           height="578px"
         />
       </div>
-      <div className="relative mt-[150px] flex items-center justify-center">
+      <div className="relative min-[700px]:mt-[150px] flex items-center justify-center px-[20px] max-[400px]:h-[400px]">
         <img
           src={`/img/tool/Login/logintitle.svg`}
           alt="logintitle"
@@ -65,18 +65,18 @@ export default function Login() {
         <div
           onClick={() => setLoginModalOpen(MODALTYPE.OPENINFORMATION)}
           className={clsx(
-            "absolute top-[87px] left-[741px] text-center bg-[#00FF61] px-[20px] pt-[10px] pb-[2px] leading-[29px]",
+            "max-[900px]:hidden absolute top-[87px] left-[741px] text-center bg-[#00FF61] px-[20px] pt-[10px] pb-[2px] leading-[29px]",
             styles.smallShadowButton
           )}
         >
           <span className="font-bold text-[46px]">i</span>
         </div>
       </div>
-      <div className="mt-[20px] text-center leading-[25px]">
+      <div className="mt-[20px] text-center leading-[25px] px-[20px]">
         <span className="text-white text-[18px]">
           To log in using WalletConnect, you should recover or import your
           wallet through the XPLA Vault. <br />
-          (available as a Chrome Extension or App) Click the Info icon to view
+          (available as a Chrome Extension) Click the Info icon to view
           more details.
         </span>
       </div>

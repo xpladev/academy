@@ -9,8 +9,8 @@ export default function MainNavbar() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="flex w-full bg-[#004FFF] flex items-center py-[11px]">
-      <div className="flex gap-[90px] px-[45px] py-[17px]">
+    <div className="flex w-full bg-[#004FFF] flex items-center py-[11px] px-[20px]">
+      <div className="flex max-w-[703px] flex-1 justify-between  px-[45px] py-[17px]">
         <Link
           to="/tool#convert"
           className={clsx(

@@ -262,7 +262,7 @@ const Swap = () => {
       <form
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center px-[100px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full"
+        className="flex flex-col items-center justify-center px-[20px] pt-[77px] pb-[79px] bg-[#EAF8FF] h-full"
       >
         <img
           src="/img/tool/Main/Swap/swaptitle.svg"
@@ -282,7 +282,7 @@ const Swap = () => {
           <br /> Exchange your tokens for different types of
           <br /> tokens and explore various services!
         </div>
-        <div className="mt-[27px] flex flex-col gap-[41px] relative w-full">
+        <div className="mt-[27px] flex flex-col gap-[41px] relative w-full max-w-[528px]">
           <div className="border-[1px] border-solid flex flex-col">
             <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
               FROM
@@ -499,7 +499,7 @@ const Swap = () => {
             />
           </div>
         </div>
-        <div className="mt-[18px] bg-[#00B2FC33] w-full px-[20px] py-[8px]">
+        <div className="mt-[18px] bg-[#00B2FC33] w-full px-[20px] py-[8px] max-w-[528px]">
           <div className="flex justify-between border-solid border-0 border-b-[1px] mb-[10px]">
             <span className="font-medium text-[16px] leading-[19px] text-[#3F3F3F]">
               Swap Rate

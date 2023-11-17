@@ -22,6 +22,12 @@
   transform: translate(5px, 5px);
 }
 
+.shadowButtonNotHover {
+  box-shadow: 10px 10px 0px black;
+  border: 1px solid black;
+  transition: all 200ms;
+}
+
 .fadeOut {
   animation: fadeout 500ms;
   -moz-animation: fadeout 500ms;
@@ -395,4 +401,13 @@
 .infoIcon {
   box-shadow: 5px 5px 0px black;
   border: 1px solid black;
+}
+
+.addressEllipsis {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
