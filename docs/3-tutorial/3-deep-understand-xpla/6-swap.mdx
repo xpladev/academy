@@ -161,7 +161,7 @@ main()
 ### 2. Increase Allowance {#increase-allowance}
 
 [3. 유동성 공급](/docs/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 CW20 토큰과 XPLA를 dezswap_pair Contract로 공급해주어야 합니다.
-이때 [dezpswap_pair Contract는 CW20 토큰의 transfer 함수를 Execute](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366)하여, 토큰을 공급하는 지갑으로부터 CW20 토큰을 가져옵니다.
+이때 [dezpswap_pair Contract는 CW20 토큰의 TransferFrom 함수를 Execute](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366)하여, 토큰을 공급하는 지갑으로부터 CW20 토큰을 가져옵니다.
 유동성 공급이 잘 이루어지기 위해, dezswap_pair Contract가 CW20 토큰을 가져갈 수 있도록 허용해주어야 합니다.
 따라서 CW20 토큰 Contract의 [IncreaseAllowance](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) 함수를 실행해주겠습니다.
 
@@ -210,7 +210,7 @@ main()
 
 ### 3. 유동성 공급 {#provide-liquidity}
 
-이제 유동성 공급을 위해 dezswap_pair Contract의 [provide_liquidity 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format)를 실행하겠습니다.
+1번에서 생성한 Swap Pool에 유동성 공급을 위해 dezswap_pair Contract의 [provide_liquidity 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format)를 실행하겠습니다.
 
 ```js {16,30,38,43,44,45}
 const { LCDClient, MnemonicKey, MsgExecuteContract, Coin } = require("@xpla/xpla.js");
