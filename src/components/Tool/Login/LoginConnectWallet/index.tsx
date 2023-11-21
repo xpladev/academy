@@ -55,8 +55,8 @@ export default function LoginConnectWallet() {
     <div
       onClick={clickConnect}
       className={clsx(
-        "absolute top-[425px] max-[400px]:top-[300px] text-center bg-[#F93AC3] pl-[58px] pr-[48px] py-[18px] leading-[30px] flex gap-[15px] items-center justify-center max-[996px]:p-[20px] max-[996px]:leading-[20px]",
-        isMobile ? styles.shadowButtonNotHover : styles.shadowButton
+        "absolute top-[425px] max-[400px]:top-[300px] text-center bg-[#F93AC3] pl-[58px] pr-[48px] py-[18px] leading-[30px] flex gap-[15px] items-center justify-center max-[996px]:p-[20px] max-[996px]:leading-[25px]",
+        isMobile ? styles.onlyAvailablePC : styles.shadowButton
       )}
     >
       <div>
@@ -66,7 +66,7 @@ export default function LoginConnectWallet() {
               ONLY available on PC
             </span>
             <br />
-            <span className="font-normal max-[996px]:text-[21px] max-[700px]:text-[20px] text-[30px]">with XPLA Vault Chrome Extension</span>
+            <span className="font-normal max-[996px]:text-[21px] max-[700px]:text-[16px] text-[30px]">with XPLA Vault Chrome Extension</span>
           </>
         ) : (
           <>

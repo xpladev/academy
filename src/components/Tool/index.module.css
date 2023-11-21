@@ -22,10 +22,10 @@
   transform: translate(5px, 5px);
 }
 
-.shadowButtonNotHover {
-  box-shadow: 10px 10px 0px black;
+.onlyAvailablePC {
+  color : white;
+  background-color: #555454;
   border: 1px solid black;
-  transition: all 200ms;
 }
 
 .fadeOut {
