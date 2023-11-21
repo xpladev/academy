@@ -171,6 +171,8 @@ const Swap = () => {
         });
         setLoading(false);
         setModalOpen(TXMODALTYPE.TXSUCCESS);
+      } else {
+        throw new Error("Blockchain write failure in Swap.");
       }
     } catch (error) {
       if (error.response.data?.code === 5) {
