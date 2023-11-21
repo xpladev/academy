@@ -59,7 +59,7 @@ const Convert = () => {
   const connectedWallet = useConnectedWallet();
 
   const form = useForm<CONVERTFORM>({ mode: "onChange" });
-  const { watch, setValue, handleSubmit } = form;
+  const { watch, setValue, handleSubmit, reset } = form;
   const { ...values } = watch();
 
   const { mutateAsync: convertUnsigned } = useConvertUnsigned(dia2tkn);
@@ -180,6 +180,8 @@ const Convert = () => {
     ) {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
+      setEstimateFee(null);
+      reset();
     }
   };
 
