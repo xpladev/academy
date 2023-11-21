@@ -59,7 +59,7 @@ export default function Login() {
           alt="logintitle"
           width="756px"
           height="549px"
-          className="max-[996px]:mr-[30px]"
+          className="max-[996px]:mr-[20px]"
         />
         <LoginConnectWallet />
 
