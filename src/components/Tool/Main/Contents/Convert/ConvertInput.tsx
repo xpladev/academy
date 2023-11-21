@@ -7,10 +7,12 @@ import getNumberFormat from "@site/src/util/getNumberFormat";
 import { CONVERTFORM } from "./index";
 
 const ConvertInput = ({
+  autoFocus = false,
   values,
   setValue,
   getTxFee,
 }: {
+  autoFocus? : boolean;
   values: CONVERTFORM;
   setValue: UseFormSetValue<CONVERTFORM>;
   getTxFee: (amount: number) => Promise<void>;
@@ -18,6 +20,7 @@ const ConvertInput = ({
   return (
     <>
       <input
+      autoFocus={autoFocus}
         placeholder="0"
         onKeyPress={(event) => {
           if (!/[0-9]/.test(event.key)) {

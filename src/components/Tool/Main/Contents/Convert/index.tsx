@@ -221,6 +221,7 @@ const Convert = () => {
             </div>
             <div className="bg-white flex flex-1 flex-col items-center">
               <ConvertInput
+                autoFocus
                 values={values}
                 setValue={setValue}
                 getTxFee={getTxFee}
