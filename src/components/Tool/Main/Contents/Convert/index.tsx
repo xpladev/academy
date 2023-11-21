@@ -182,6 +182,7 @@ const Convert = () => {
       setRequestError(null);
       setEstimateFee(null);
       reset();
+      setTxhash(null);
     }
   };
 

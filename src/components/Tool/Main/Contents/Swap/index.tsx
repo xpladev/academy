@@ -253,6 +253,7 @@ const Swap = () => {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
       setEstimateFee('-');
+      setTxhash(null);
       resetField("tknAmount");
       resetField("xplaAmount");
     }

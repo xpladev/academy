@@ -168,6 +168,7 @@ const Leaderboard = () => {
     ) {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
+      setTxhash(null);
     }
   };
 

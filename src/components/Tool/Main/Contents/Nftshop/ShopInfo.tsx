@@ -138,6 +138,7 @@ const ShopInfo = ({
     ) {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
+      setTxhash(null);
       await queryClient.invalidateQueries({
         queryKey: ["useNftShopList", userAddress],
       });
