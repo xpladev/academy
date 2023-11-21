@@ -1,5 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
-import axios from "axios";
+import React, { memo } from "react";
 import { CircularProgress } from "@mui/material";
 import "./Inventory.css";
 import useWalletNftInfo from "../../../../hooks/useQuery/useWalletNftInfo";

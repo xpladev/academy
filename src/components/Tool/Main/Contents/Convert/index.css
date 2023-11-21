@@ -1,0 +1,79 @@
+@-webkit-keyframes fadeIn {
+
+	0% {
+
+		opacity: 0;
+
+		transform: scale(0.6);
+
+	}
+
+	100% {
+		opacity: 100%;
+		transform: scale(1);
+	}
+
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 100%;
+	}
+}
+
+/* Tooltip container */
+.convertTooltip {
+    position: relative;
+    display: inline-flex;
+    border-bottom: 1px dotted black;
+    font-size: 14px;
+    /* If you want dots under the hoverable text */
+}
+
+/* convertTooltip text */
+.convertTooltip .convertTooltipText {
+    visibility: hidden;
+    background-color: #6600FFBF;
+    color: #fff;
+    text-align:left;
+    min-width: 270px;
+    padding: 15px;
+	/* backdrop-filter: blur(40px); */
+    font-weight: 400;
+
+    line-height: normal;
+    /* Position the convertTooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+	bottom: calc(100% + 8px);
+	transform: translate(-50%, 0);
+	left: 50%;
+}
+
+.convertTooltip .convertTooltipText:before {
+	position: absolute;
+	z-index: -1;
+
+	content: '';
+
+	width: 15px;
+	height: 7px;
+
+	left: 50%;
+	transform: translate(-50%, 0);
+	background-color: #6600FFBF;
+	bottom: -6px;
+	-webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* Show the convertTooltip text when you mouse over the convertTooltip container */
+.convertTooltip:hover .convertTooltipText {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.2s ease-in-out;
+	animation: fadeIn 0.2s ease-in-out;
+}

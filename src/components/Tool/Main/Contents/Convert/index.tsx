@@ -27,6 +27,9 @@ import ModalWrap from "../Modal/ModalWrap";
 import { useQueryClient } from "@tanstack/react-query";
 import TxInProgressModal from "../Modal/TxInProgressModal";
 import NowInConfirmationModal from "../Modal/NowInConfirmationModal";
+import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
+import getNumberFormat from "@site/src/util/getNumberFormat";
+import "./index.css";
 
 export interface CONVERTFORM {
   amount: number | string;
@@ -47,6 +50,7 @@ const lcd = new LCDClient({ chainID, URL });
 
 const Convert = () => {
   const { userAddress } = useUserAddress();
+  const { data: userInfo } = useUserInfo();
 
   const [modalOpen, setModalOpen] = useState<TXMODALTYPE>(TXMODALTYPE.NOTOPEN);
   const [dia2tkn, setDia2tkn] = useState<boolean>(true);
@@ -286,17 +290,33 @@ const Convert = () => {
         </div>
         </div>
 
-        <div className="mt-[18px] bg-[#00B2FC33] w-full max-w-[580px] px-[20px] py-[24px]">
-          <div className="flex justify-between border-solid border-0 border-b-[1px]">
-            <span className="font-bold text-[16px] leading-[19px] text-[#3F3F3F]">
+        <div className="mt-[18px] bg-[#00B2FC33] w-full max-w-[580px] px-[20px] py-[8px]">
+        <div className="flex justify-between border-solid border-0 border-b-[1px] pb-[6px] mb-[8px]">
+            <span className="font-bold text-[16px] leading-[16px] text-[#3F3F3F]">
+              Daily Converted Amount <div className="convertTooltip relative w-[16px] justify-center items-center aspect-square relative rounded-full bg-[#3F3F3F] text-[#BBEAFE]">
+                ?
+                <div className="convertTooltipText">
+                Today's exchanged quantity <br/>
+divided by the <span className="font-medium">Daily convertible limit.</span>
+                </div>
+              </div>
+            </span>
+
+              <span className="font-medium text-[16px] leading-[16px] text-black">
+                <span className="text-[#004FFF]">{getNumberFormat(userInfo?.convertValue || 0)}</span> / {getNumberFormat(userInfo?.convertMax || '5,000')}
+                <span className="font-extrabold"> DIAMOND</span>
+              </span>
+          </div>
+          <div className="flex justify-between border-solid border-0 border-b-[1px] pb-[6px]">
+            <span className="font-bold text-[16px] leading-[16px] text-[#3F3F3F]">
               Estimated Fee
             </span>
             {estimateFee === "-" || !estimateFee ? (
-              <span className="font-medium text-[16px] leading-[19px] text-black">
+              <span className="font-medium text-[16px] leading-[16px] text-black">
                 -
               </span>
             ) : (
-              <span className="font-medium text-[16px] leading-[19px] text-black">
+              <span className="font-medium text-[16px] leading-[16px] text-black">
                 {estimateFee}
                 <span className="font-extrabold"> XPLA</span>
               </span>

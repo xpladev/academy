@@ -10,6 +10,8 @@ interface UserInfoResponse {
     returnMsg: string;
     token: string;
     xpla: string;
+    convertValue : number;
+    convertMax : number;
 }
 
 const useUserInfo = () => {
