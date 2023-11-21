@@ -149,6 +149,8 @@ const Leaderboard = () => {
         await queryClient.invalidateQueries({
           queryKey: ["useRankingInfo", userAddress],
         });
+      } else {
+        throw Error(txRes.data.returnMsg);
       }
     } catch (error) {
       setLoading(false);

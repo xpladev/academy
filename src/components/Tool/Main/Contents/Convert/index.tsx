@@ -122,6 +122,8 @@ const Convert = () => {
         });
         setLoading(false);
         setModalOpen(TXMODALTYPE.TXSUCCESS);
+      } else {
+        throw Error(txRes.data.returnMsg);
       }
     } catch (error) {
       setLoading(false);

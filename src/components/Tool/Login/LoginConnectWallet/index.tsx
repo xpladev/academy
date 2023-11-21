@@ -55,18 +55,18 @@ export default function LoginConnectWallet() {
     <div
       onClick={clickConnect}
       className={clsx(
-        "absolute top-[425px] max-[400px]:top-[300px] text-center bg-[#F93AC3] pl-[58px] pr-[48px] py-[18px] leading-[30px] flex gap-[15px] items-center justify-center max-[700px]:p-[20px] max-[700px]:leading-[20px]",
+        "absolute top-[425px] max-[400px]:top-[300px] text-center bg-[#F93AC3] pl-[58px] pr-[48px] py-[18px] leading-[30px] flex gap-[15px] items-center justify-center max-[996px]:p-[20px] max-[996px]:leading-[20px]",
         isMobile ? styles.shadowButtonNotHover : styles.shadowButton
       )}
     >
       <div>
         {isMobile ? (
           <>
-          <span className="font-semibold max-[700px]:text-[16px] text-[21px]">
-              Only available on <span className="font-normal">PC with</span>
+          <span className="font-medium max-[700px]:text-[16px] text-[21px]">
+              ONLY available on PC
             </span>
             <br />
-            <span className="font-bold max-[700px]:text-[20px] text-[30px]">Vault Chrome Extension</span>
+            <span className="font-normal max-[996px]:text-[21px] max-[700px]:text-[20px] text-[30px]">with XPLA Vault Chrome Extension</span>
           </>
         ) : (
           <>
