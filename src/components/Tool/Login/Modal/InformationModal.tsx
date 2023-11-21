@@ -227,7 +227,7 @@ const InfoDetail = ({ page }: { page: number }) => {
             <span className="font-bold text-[#004FFF]">The TOOL PAGE</span> is a
             sample website
             <br /> demonstrating integrated
-            <br /> functions of games and blockchain
+            <br /> functions of games and blockchain.
           </div>
         </div>
       );
