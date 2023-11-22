@@ -9,24 +9,20 @@ sidebar_position: 2
 
 ```mermaid
 stateDiagram-v2
-    classDef CriticalEvent fill:#f00,color:white,font-weight:bold,stroke-width:2px,stroke:yellow
     
     BTBG : Break The Bricks start
     CAW : Create a Wallet
-    state "Recommend: Add a new Wallet to XPLA Vault Chrome Extension" as Recommend
     NM : NFT Mint
     AA : Academy Admission (Create Game Account for playing advanced game)
 
     BTBG --> Tutorial : Click "START HERE" in Game
     state Tutorial {
         [*] --> CAW
-        CAW --> Recommend
-        Recommend --> NM
+        CAW --> NM : Recommend - Add a new Wallet to XPLA Vault Chrome Extension
         NM --> [*]
     }
     Tutorial --> AA
 
-    class Recommend CriticalEvent
 ```
 
 Tutorial 과정을 끝내면, [Break The Bricks 게임](/#playgame)에서 사용하게 될 계정을 만들 수 있습니다.
