@@ -13,7 +13,6 @@ const sidebars = {
     'overview/intro',
     'overview/gameArchitecture',
     'overview/gameArchitecturebeauty',
-    'overview/gameArchitecturebeauty2',
     {
       type: 'html',
       value: '<span class="sidebar-divider" />',
