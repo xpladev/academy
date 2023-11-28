@@ -70,115 +70,6 @@
   top: 0;
 }
 
-
-
-.tags {
-  list-style: none;
-}
-
-.tags li,
-.tags div {
-  float: left;
-  line-height: 24px;
-  position: relative;
-  font-size: 14px;
-}
-
-.tags div {
-  padding: 0 10px 0 12px;
-  background: rgba(9, 88, 255, 0.9);
-  color: #fff;
-  text-decoration: none;
-}
-
-
-.tags div:before {
-  content: "";
-  float: left;
-  position: absolute;
-  top: 0;
-  left: -12px;
-  width: 0;
-  height: 0;
-  border-color: transparent rgba(9, 88, 255, 0.9) transparent transparent;
-  border-style: solid;
-  border-width: 12px 12px 12px 0;
-}
-
-.tags div:after {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 0;
-  float: left;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
-}
-
-.tagline {
-  z-index: 1;
-  margin-bottom: 10px;
-  margin-left: 25px;
-  width: 26px;
-  height: 12px;
-  border: 2px solid black;
-  border-bottom: 0px;
-  border-radius: 12px 12px 0 0;
-}
-
-
-.tags-tutorial {
-  list-style: none;
-}
-
-.tags-tutorial li,
-.tags-tutorial div {
-  float: left;
-  line-height: 24px;
-  position: relative;
-  font-size: 14px;
-}
-
-.tags-tutorial div {
-  padding: 0 10px 0 12px;
-  background: rgba(249, 58, 195, 0.9);
-  color: black;
-  text-decoration: none;
-}
-
-
-.tags-tutorial div:before {
-  content: "";
-  float: left;
-  position: absolute;
-  top: 30px;
-  left: -12px;
-  width: 0;
-  height: 0;
-  border-color: transparent rgba(249, 58, 195, 0.9) transparent transparent;
-  border-style: solid;
-  border-width: 12px 12px 12px 0;
-}
-
-.tags-tutorial div:after {
-  content: "";
-  position: absolute;
-  top: 40px;
-  left: 0;
-  float: left;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
-}
-
-
 .short-line-col {
   z-index: -1;
   display: block;
@@ -225,7 +116,6 @@
   top: 0;
 }
 
-
 .long-line-col {
   z-index: -1;
   display: block;
@@ -247,7 +137,6 @@
   left: 0;
   top: 0;
 }
-
 
 .whitetag {
   line-height: 24px;
@@ -390,3 +279,14 @@
   box-shadow: -1px -1px 2px #004977;
 }
 
+
+.tagline {
+  z-index: 1;
+  margin-bottom: 10px;
+  margin-left: 25px;
+  width: 26px;
+  height: 12px;
+  border: 2px solid black;
+  border-bottom: 0px;
+  border-radius: 12px 12px 0 0;
+}

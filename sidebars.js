@@ -12,7 +12,6 @@ const sidebars = {
     },
     'overview/intro',
     'overview/gameArchitecture',
-    'overview/gameArchitecturebeauty',
     {
       type: 'html',
       value: '<span class="sidebar-divider" />',

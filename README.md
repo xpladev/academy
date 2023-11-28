@@ -8,7 +8,7 @@ Our content has been meticulously curated just for you:
 
 Overview
 <br/><a href="https://academy.xpla.dev/docs/overview/intro">&nbsp;&nbsp;&nbsp;&nbsp;Beginning XPLA ACADEMY</a>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Web3 Game Architecture (Coming Soon)     # Let's build a web3 game from scratch together
+<br/><a href="https://academy.xpla.dev/docs/overview/gameArchitecture">&nbsp;&nbsp;&nbsp;&nbsp;Game Architecture</a>
 <br/>
 <br/>Settings
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Let's get your Wallet ready!
