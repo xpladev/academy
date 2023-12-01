@@ -19,7 +19,6 @@ export default function Login() {
   const { setUserAddress } = useUserAddress();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { setLoginLoading } = useLoginLoading();
-  console.log("Login Component", status )
 
   useEffect(() => {
     let timer = setTimeout(() => {
