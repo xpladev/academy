@@ -100,6 +100,10 @@ const config = {
             type: 'localeDropdown',
             position: 'right',
           },
+          {
+            type: 'search',
+            position : 'right'
+          }
         ],
       },
       footer: {
@@ -188,7 +192,15 @@ const config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', [
+    "@easyops-cn/docusaurus-search-local",
+    /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+    ({
+      indexDocs: false,
+      hashed: true,
+      language: ["en", "ko"],
+    }),
+  ]],
   scripts: [
     {
       src: './pretendardFont.js',
