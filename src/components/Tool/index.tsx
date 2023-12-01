@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Layout from "@theme/Layout";
+import React, { useEffect } from "react";
 import WalletWrap from "@site/src/components/Wallet/WalletWrap";
 import Login from "./Login";
 import Main from "./Main";
@@ -9,7 +8,6 @@ import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 import useLoginModalOpen from "@site/src/hooks/Zustand/useLoginModalOpen";
 import { MODALTYPE } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useUserInfo from "@site/src/hooks/useQuery/useUserInfo";
-import { CircularProgress } from "@mui/material";
 import { useWallet } from "@xpla/wallet-provider";
 
 export default function ToolPage(): JSX.Element {
@@ -18,8 +16,6 @@ export default function ToolPage(): JSX.Element {
   return (
       <QueryClientProvider client={queryClient}>
         <main>
-          {/* // mediaquery로 모바일일 떄 여기서 분기 */}
-          {/* // 그냥 여기서 메인이랑 로그인 나누는 컴포넌트를 하나 더 추가해도 괜찮을듯? */}
           <WalletWrap>
             <ToolContent />
           </WalletWrap>
@@ -33,20 +29,16 @@ const ToolContent = () => {
   const { data: userInfo, status } = useUserInfo();
   const {
     disconnect,
-    status: walletstatus,
-    wallets,
-    refetchStates,
     network,
   } = useWallet();
-  const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
-  const { loginLoading, setLoginLoading } = useLoginLoading();
+  const { setLoginModalOpen } = useLoginModalOpen();
+  const { setLoginLoading } = useLoginLoading();
 
   useEffect(() => {
     setLoginLoading(false);
   }, []);
 
   useEffect(() => {
-    // TODO
     if (
       userAddress &&
       status === "success" &&
@@ -60,7 +52,6 @@ const ToolContent = () => {
 
   useEffect(() => {
     if (userAddress && status === "pending") {
-      // console.log(userAddress, status);
       setLoginLoading(true);
     }
   }, [userAddress, status]);

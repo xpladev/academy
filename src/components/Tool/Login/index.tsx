@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { WalletStatus, useWallet } from "@xpla/wallet-provider";
 import clsx from "clsx";
 import styles from "../index.module.css";
@@ -15,10 +15,11 @@ import TxFailModal from "../Main/Contents/Modal/TxFailModal";
 import ModalWrap from "../Main/Contents/Modal/ModalWrap";
 
 export default function Login() {
-  const { status, wallets, disconnect, network } = useWallet();
+  const { status, wallets, disconnect } = useWallet();
   const { setUserAddress } = useUserAddress();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { setLoginLoading } = useLoginLoading();
+  console.log("Login Component", status )
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -26,7 +27,11 @@ export default function Login() {
         disconnect();
         setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
       }
-    }, 2000);
+    }, 5000);
+
+    if (status === WalletStatus.WALLET_NOT_CONNECTED) {
+      setLoginLoading(false);
+    }
 
     if (status === WalletStatus.WALLET_CONNECTED) {
       if (wallets.length === 0) {
@@ -36,6 +41,7 @@ export default function Login() {
         setUserAddress(wallets[0].xplaAddress);
       }
     }
+
     return () => {
       clearTimeout(timer);
     };

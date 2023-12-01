@@ -1,5 +1,5 @@
 import { ConnectType, useWallet, WalletStatus } from "@xpla/wallet-provider";
-import React from "react";
+import React, { useEffect } from "react";
 import { selectConnection } from "../../../../components/Wallet/ConnectModal";
 import clsx from "clsx";
 import styles from "../../index.module.css";
@@ -9,47 +9,58 @@ import { CircularProgress, useMediaQuery } from "@mui/material";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
 
 export default function LoginConnectWallet() {
-  const { status, availableConnections, connect, disconnect, refetchStates } =
+  const { status, availableConnections, connect } =
     useWallet();
   const { loginModalOpen, setLoginModalOpen } = useLoginModalOpen();
   const { loginLoading, setLoginLoading } = useLoginLoading();
-  // console.log(loginModalOpen, "outside")
   const isMobile = useMediaQuery("(max-width:996px)");
 
   const clickConnect = async () => {
-    if (isMobile) {
+    if (
+      availableConnections.filter(
+        (connection) => connection.type === ConnectType.EXTENSION
+      ).length === 0
+    ) {
+      setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
       return;
     }
-    try {
-      setLoginLoading(true);
-      refetchStates();
 
+    try {
       const selected = await selectConnection(
         availableConnections.filter(
           (connection) => connection.type === ConnectType.EXTENSION
         )
       );
+      
       if (!selected) {
-        // console.log("Wallet Connect Error");
-        throw new Error("Wallet Connect Error");
+        return;
       } else {
-        // TODO
-        setTimeout(() => {
-          if (
-            status !== WalletStatus.WALLET_CONNECTED ||
-            loginModalOpen === MODALTYPE.NOTOPEN
-          ) {
-            setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
-          }
-        }, 10000);
+        const type = selected[0];
+        const identifier = selected[1] || "";
+        connect(type, identifier);
+        setLoginLoading(true);
       }
-      const type = selected[0];
-      const identifier = selected[1] || "";
-      connect(type, identifier);
+
     } catch (e) {
       setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
     }
   };
+
+  useEffect(() => {
+    if (loginLoading) {
+      const timer = setTimeout(() => {
+        if (
+          status !== WalletStatus.WALLET_CONNECTED &&
+          loginModalOpen === MODALTYPE.NOTOPEN
+        ) {
+          window.location.reload();
+        }
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+      }
+    }
+  }, [loginLoading])
 
   return (
     <div
