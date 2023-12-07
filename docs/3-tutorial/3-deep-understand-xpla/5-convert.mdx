@@ -43,21 +43,21 @@ sequenceDiagram
     actor U as User Client App;
     participant C as Convert server;
     participant D as Database(DB);
-    U->>C: 1. 게임 재화를 CW20 토큰으로<br/> 바꾸는 Convert 요청 
-    C->>D: 2. DB에서 유저가 적절한 게임 재화를<br/> 보유하고 있는지 확인 후, 요청 수량만큼<br/> 유저가 보유한 재화를 감소시킴.
-    Note over C: 3. 게임 운영 지갑이 유저 지갑으로<br/> CW20 토큰을 전송하는 unsigned 트랜잭션 생성
-    C->>U: 4. 유저에게 unsigned 트랜잭션을 전달
-    Note over U: 5. 유저는 unsigned 트랜잭션에 서명<br/>(트랜잭션 수수료 부담에 동의)
-    U->>C: 6. 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+    U->>C: Step 1. 게임 재화를 CW20 토큰으로<br/> 바꾸는 Convert 요청 
+    C->>D: Step 2. DB에서 유저가 적절한 게임 재화를<br/> 보유하고 있는지 확인 후, 요청 수량만큼<br/> 유저가 보유한 재화를 감소시킴.
+    Note over C: Step 3. 게임 운영 지갑이 유저 지갑으로<br/> CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+    C->>U: Step 4. 유저에게 unsigned 트랜잭션을 전달
+    Note over U: Step 5. 유저는 unsigned 트랜잭션에 서명<br/>(트랜잭션 수수료 부담에 동의)
+    U->>C: Step 6. 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
     critical Sequence Mismatch 방지
         Note over D: DB는 게임 운영 지갑의 <br/>Sequence 값을 저장하고 있음
-        C->>D: 7. DB에 Lock을 걸고,<br/> Sequence 값을 요청
+        C->>D: Step 7. DB에 Lock을 걸고,<br/> Sequence 값을 요청
         D->>C: Sequence 값 전달
-        Note over C: 8. Sequence 값을 이용하여 <br/> 트랜잭션에 게임 운영 지갑 서명 추가
-        Note over C: 9. 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 <br/>트랜잭션을 XPLA 네트워크에 전파
-        C->>D: 10. DB의 Sequence 값을<br/> 1만큼 증가시키고 Lock을 해제함
+        Note over C: Step 8. Sequence 값을 이용하여 <br/> 트랜잭션에 게임 운영 지갑 서명 추가
+        Note over C: Step 9. 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 <br/>트랜잭션을 XPLA 네트워크에 전파
+        C->>D: Step 10. DB의 Sequence 값을<br/> 1만큼 증가시키고 Lock을 해제함
     end
-    C->>U: 11. 트랜잭션 결과를 유저에게 전달
+    C->>U: Step 11. 트랜잭션 결과를 유저에게 전달
 ```
 <br/>
 
@@ -79,7 +79,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
-1. User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
+Step 1. User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
 
     ```js {6} title="User Client App"
     import { useWallet } from "@xpla/wallet-provider";
@@ -100,7 +100,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-2. Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
+Step 2. Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
 
     ```js title="Convert Server"
     db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
@@ -110,7 +110,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-3. Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+Step 3. Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
     ```js {6,17,29,31} title="Convert Server"
     import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
@@ -151,7 +151,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-4. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+Step 4. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
     ```js title="Convert Server"
     const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
@@ -163,7 +163,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
     
 <br/>
 
-5. User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
+Step 5. User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
 
     ```js {9,12} title="User Client App"
     const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
@@ -186,7 +186,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-6. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+Step 6. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
     ```js {3,6,7} title="User Client App"
     const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
@@ -204,7 +204,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-7. Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
+Step 7. Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
 
     ```js {6,9} title="Convert Server"
     const game_opeartor_mk = new MnemonicKey({ mnemonic: opeartorMnemonicKey })
@@ -223,7 +223,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-8. Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
+Step 8. Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
 
     ```js {9,12} title="Convert Server"
     try { // step 7
@@ -263,7 +263,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-9. Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+Step 9. Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
     ```js title="Convert Server"
     txResult = await lcd.tx.broadcastSync(allSignedTx)      
@@ -273,7 +273,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-10. Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
+Step 10. Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
 
     ```js title="Convert Server"
       await db.execute(`UPDATE operator_sequence SET sequence = ? WHERE accAddress = ?`, [operatorSeq+1, operatorWallet.key.accAddress])
@@ -286,7 +286,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 <br/>
 
-11. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+Step 11. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
     ```js title="Convert Server"
     return { txhash : txResult.txhash }
@@ -307,14 +307,14 @@ sequenceDiagram
     actor U as User Client App;
     participant C as Convert server;
     participant D as Database(DB);
-    U->>C: 1. CW20 토큰을 게임 재화로<br/> 바꾸는 Convert 요청 
-    Note over C: 2. 유저 지갑이 게임 운영 지갑으로<br/> CW20 토큰을 전송하는 unsigned 트랜잭션 생성
-    C->>U: 3. 유저에게 unsigned 트랜잭션을 전달
-    Note over U: 4. 유저는 unsigned 트랜잭션에 서명
-    U->>C: 5. 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
-    Note over C: 6. 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
-    C->>D: 7. 유저가 요청한 만큼 DB에 기록된<br/> 유저의 게임 재화 보유량을 증가시킴.
-    C->>U: 8. 트랜잭션 결과를 유저에게 전달
+    U->>C: Step 1. CW20 토큰을 게임 재화로<br/> 바꾸는 Convert 요청 
+    Note over C: Step 2. 유저 지갑이 게임 운영 지갑으로<br/> CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+    C->>U: Step 3. 유저에게 unsigned 트랜잭션을 전달
+    Note over U: Step 4. 유저는 unsigned 트랜잭션에 서명
+    U->>C: Step 5. 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+    Note over C: Step 6. 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+    C->>D: Step 7. 유저가 요청한 만큼 DB에 기록된<br/> 유저의 게임 재화 보유량을 증가시킴.
+    C->>U: Step 8. 트랜잭션 결과를 유저에게 전달
 ```
 <br/>
 
@@ -324,7 +324,7 @@ sequenceDiagram
 
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
-1. User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
+Step 1. User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
 
     ```js {6} title="User Client App"
     import { useWallet } from "@xpla/wallet-provider";
@@ -345,7 +345,7 @@ sequenceDiagram
 
 <br/>
 
-2. Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+Step 2. Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
     ```js {7,18,31,33} title="Convert Server"
     import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
@@ -388,7 +388,7 @@ sequenceDiagram
 
 <br/>
 
-3. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+Step 3. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
     ```js title="Convert Server"
     const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
@@ -400,7 +400,7 @@ sequenceDiagram
 
 <br/>
 
-4. User Client App : 유저는 unsigned 트랜잭션에 서명
+Step 4. User Client App : 유저는 unsigned 트랜잭션에 서명
 
     ```js {9,12} title="User Client App"
     const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
@@ -423,7 +423,7 @@ sequenceDiagram
 
 <br/>
 
-5. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+Step 5. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
     ```js {3,6,7} title="User Client App"
     const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
@@ -441,7 +441,7 @@ sequenceDiagram
 
 <br/>
 
-6. Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+Step 6. Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
     ```js title="Convert Server"
     const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
@@ -453,7 +453,7 @@ sequenceDiagram
 
 <br/>
 
-7. Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
+Step 7. Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
 
     ```js title="Convert Server"
     db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
@@ -463,7 +463,7 @@ sequenceDiagram
 
 <br/>
 
-8. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+Step 8. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
     ```js title="Convert Server"
     return { txhash : txResult.txhash }
