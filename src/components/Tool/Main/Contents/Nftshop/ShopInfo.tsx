@@ -202,7 +202,7 @@ const ShopInfo = ({
               ALREADY
             </span>
             <span className="text-[#C9FF00] font-bold text-[24px] leading-[26px]">
-              "MINTED"
+              "OWNED"
             </span>
           </div>
         )}

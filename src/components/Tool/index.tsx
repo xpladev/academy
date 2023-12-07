@@ -59,6 +59,8 @@ const ToolContent = () => {
   useEffect(() => {
     if (network && network.name === "mainnet") {
       setLoginModalOpen(MODALTYPE.OPENMAINNETERROR);
+    } else {
+      setLoginLoading(false);
     }
   }, [network]);
 

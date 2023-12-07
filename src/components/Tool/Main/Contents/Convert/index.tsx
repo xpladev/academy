@@ -217,95 +217,101 @@ const Convert = () => {
           Furthermore, acquire tokens needed to mint Paddle NFT!
         </div>
         <div>
-
-        <div className="mt-[27px] flex items-center justify-center gap-[20px] relative w-full">
-          <div className="aspect-square border-[1px] border-solid flex flex-col">
-            <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
-              {dia2tkn ? "DIAMOND" : "ACADEMY-TKN"}
+          <div className="mt-[27px] flex items-center justify-center gap-[20px] relative w-full">
+            <div className="aspect-square border-[1px] border-solid flex flex-col">
+              <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
+                {dia2tkn ? "DIAMOND" : "ACADEMY-TKN"}
+              </div>
+              <div className="bg-white flex flex-1 flex-col items-center">
+                <ConvertInput
+                  autoFocus
+                  values={values}
+                  setValue={setValue}
+                  getTxFee={getTxFee}
+                />
+                {dia2tkn ? (
+                  <img
+                    className="w-[70px]"
+                    src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg"
+                    alt="academy-diamond"
+                    width="70px"
+                    height="68px"
+                  />
+                ) : (
+                  <img
+                    className="w-[70px]"
+                    src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
+                    alt="academy-token"
+                    width="70px"
+                    height="68px"
+                  />
+                )}
+              </div>
             </div>
-            <div className="bg-white flex flex-1 flex-col items-center">
-              <ConvertInput
-                autoFocus
-                values={values}
-                setValue={setValue}
-                getTxFee={getTxFee}
+            <div className="aspect-square border-[1px] border-solid flex flex-col">
+              <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
+                {!dia2tkn ? "DIAMOND" : "ACADEMY-TKN"}
+              </div>
+              <div className="bg-white flex flex-1 flex-col items-center">
+                <ConvertInput
+                  values={values}
+                  setValue={setValue}
+                  getTxFee={getTxFee}
+                />
+                {!dia2tkn ? (
+                  <img
+                    className="w-[70px]"
+                    src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg"
+                    alt="academy-diamond"
+                    width="70px"
+                    height="68px"
+                  />
+                ) : (
+                  <img
+                    className="w-[70px]"
+                    src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
+                    alt="academy-token"
+                    width="70px"
+                    height="68px"
+                  />
+                )}
+              </div>
+            </div>
+            <div className="absolute left-[270px] h-full flex justify-center items-center">
+              <div
+                onClick={() => setDia2tkn(!dia2tkn)}
+                className={clsx(
+                  "hover:cursor-pointer",
+                  styles.convertChangeButton
+                )}
               />
-              {dia2tkn ? (
-                <img
-                  className="w-[70px]"
-                  src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg"
-                  alt="academy-diamond"
-                  width="70px"
-                  height="68px"
-                />
-              ) : (
-                <img
-                  className="w-[70px]"
-                  src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
-                  alt="academy-token"
-                  width="70px"
-                  height="68px"
-                />
-              )}
             </div>
           </div>
-          <div className="aspect-square border-[1px] border-solid flex flex-col">
-            <div className="py-[13px] text-center text-white font-semibold text-[24px] bg-[#00B2FC] leading-[24px]">
-              {!dia2tkn ? "DIAMOND" : "ACADEMY-TKN"}
-            </div>
-            <div className="bg-white flex flex-1 flex-col items-center">
-              <ConvertInput
-                values={values}
-                setValue={setValue}
-                getTxFee={getTxFee}
-              />
-              {!dia2tkn ? (
-                <img
-                  className="w-[70px]"
-                  src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg"
-                  alt="academy-diamond"
-                  width="70px"
-                  height="68px"
-                />
-              ) : (
-                <img
-                  className="w-[70px]"
-                  src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg"
-                  alt="academy-token"
-                  width="70px"
-                  height="68px"
-                />
-              )}
-            </div>
-          </div>
-          <div className="absolute left-[270px] h-full flex justify-center items-center">
-            <div
-              onClick={() => setDia2tkn(!dia2tkn)}
-              className={clsx(
-                "hover:cursor-pointer",
-                styles.convertChangeButton
-              )}
-            />
-          </div>
-        </div>
         </div>
 
         <div className="mt-[18px] bg-[#00B2FC33] w-full max-w-[580px] px-[20px] py-[8px]">
-        <div className="flex justify-between border-solid border-0 border-b-[1px] pb-[6px] mb-[8px]">
+          <div className="flex justify-between border-solid border-0 border-b-[1px] pb-[6px] mb-[8px]">
             <span className="font-bold text-[16px] leading-[16px] text-[#3F3F3F]">
-              Daily Converted Amount <div className="convertTooltip relative w-[16px] justify-center items-center aspect-square relative rounded-full bg-[#3F3F3F] text-[#BBEAFE]">
+              Daily Converted Amount{" "}
+              <div className="convertTooltip relative w-[16px] justify-center items-center aspect-square relative rounded-full bg-[#3F3F3F] text-[#BBEAFE]">
                 ?
                 <div className="convertTooltipText">
-                Today's exchanged quantity <br/>
-divided by the <span className="font-medium">Daily convertible limit.</span>
+                  Today's exchanged quantity <br />
+                  divided by the{" "}
+                  <span className="font-medium">Daily convertible limit.</span>
+                  <br />
+                  <span className="text-[12px]">{`(Apply to DIAMOND -> ACADEMY-TKN case)`}</span>
                 </div>
               </div>
             </span>
 
-              <span className="font-medium text-[16px] leading-[16px] text-black">
-                <span className="text-[#004FFF]">{getNumberFormat(userInfo?.convertValue || 0)}</span> / {getNumberFormat(userInfo?.convertMax || '5,000')}
-                <span className="font-extrabold"> DIAMOND</span>
-              </span>
+            <span className="font-medium text-[16px] leading-[16px] text-black">
+              <span className="text-[#004FFF]">
+                {getNumberFormat(userInfo?.convertValue || 0)}
+              </span>{" "}
+              / {getNumberFormat(userInfo?.convertMax || "5,000")}
+              <span className="font-extrabold"> DIAMOND</span>
+            </span>
           </div>
           <div className="flex justify-between border-solid border-0 border-b-[1px] pb-[6px]">
             <span className="font-bold text-[16px] leading-[16px] text-[#3F3F3F]">
@@ -349,34 +355,31 @@ divided by the <span className="font-medium">Daily convertible limit.</span>
       >
         <ModalWrap>
           {modalOpen === TXMODALTYPE.TXSUCCESS && (
-              <TxSucceedModal
-                amount={values.amount.toString() || ""}
-                estimateFee={estimateFee || ""}
-                txhash={txhash || ""}
-                handleModalClose={handleModalClose}
-                dia2tkn={dia2tkn}
-              />
+            <TxSucceedModal
+              amount={values.amount.toString() || ""}
+              estimateFee={estimateFee || ""}
+              txhash={txhash || ""}
+              handleModalClose={handleModalClose}
+              dia2tkn={dia2tkn}
+            />
           )}
 
           {modalOpen === TXMODALTYPE.TXFAIL && (
-              <TxFailModal
-                title={"CONVERT"}
-                requestError={requestError || "Unknown Error"}
-                estimateFee={estimateFee || ""}
-                txhash={txhash || ""}
-                handleModalClose={handleModalClose}
-              />
+            <TxFailModal
+              title={"CONVERT"}
+              requestError={requestError || "Unknown Error"}
+              estimateFee={estimateFee || ""}
+              txhash={txhash || ""}
+              handleModalClose={handleModalClose}
+            />
           )}
 
           {modalOpen === TXMODALTYPE.NOWINCONFIRMATION && (
-              <NowInConfirmationModal />
+            <NowInConfirmationModal />
           )}
 
-          {modalOpen === TXMODALTYPE.TXINPROGRESS && (
-              <TxInProgressModal />
-          )}
-            </ModalWrap>
-
+          {modalOpen === TXMODALTYPE.TXINPROGRESS && <TxInProgressModal />}
+        </ModalWrap>
       </Modal>
     </>
   );
