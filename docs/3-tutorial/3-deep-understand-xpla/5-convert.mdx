@@ -81,218 +81,218 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 Step 1. User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
 
-    ```js {6} title="User Client App"
-    import { useWallet } from "@xpla/wallet-provider";
-    
-    const { wallets } = useWallet();
-    const userAddress = wallets[0].xplaAddress;
+```js {6} title="User Client App"
+import { useWallet } from "@xpla/wallet-provider";
 
-    const unsignedResponse = await axios.post(
-        "https://convertserver.com/gamecurrency-to-coin-unsigned", 
-        {
-            userAddress: userAddress, 
-            amount : 1,
-        }
-    ); 
-    ```
+const { wallets } = useWallet();
+const userAddress = wallets[0].xplaAddress;
 
-    유저가 게임 재화를 CW20 토큰으로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 Convert하려는 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
+const unsignedResponse = await axios.post(
+    "https://convertserver.com/gamecurrency-to-coin-unsigned", 
+    {
+        userAddress: userAddress, 
+        amount : 1,
+    }
+); 
+```
+
+유저가 게임 재화를 CW20 토큰으로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 Convert하려는 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
 
 <br/>
 
 Step 2. Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
 
-    ```js title="Convert Server"
-    db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
-    ```
+```js title="Convert Server"
+db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
+```
 
-    Convert하려는 수량(amount)보다 많이 있을 때, 유저가 보유한 재화량을 감소시킵니다. 
+Convert하려는 수량(amount)보다 많이 있을 때, 유저가 보유한 재화량을 감소시킵니다. 
 
 <br/>
 
 Step 3. Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
-    ```js {6,17,29,31} title="Convert Server"
-    import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
+```js {6,17,29,31} title="Convert Server"
+import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
 
-    const lcd = new LCDClient({	chainID, URL });
-    const tx_api = new TxAPI(lcd);
+const lcd = new LCDClient({	chainID, URL });
+const tx_api = new TxAPI(lcd);
 
-    const cw20TransferMsg = new MsgExecuteContract(
-            game_operator_address,
-            cw20_contract_address, 
-            {
-                transfer: {
-                    recipient : req.body.userAddress,
-                    amount: String(req.body.amount)
-                }
+const cw20TransferMsg = new MsgExecuteContract(
+        game_operator_address,
+        cw20_contract_address, 
+        {
+            transfer: {
+                recipient : req.body.userAddress,
+                amount: String(req.body.amount)
             }
-        )
-
-    const simul_fee = await tx_api.estimateFee(
-      [        
-        { 
-            sequenceNumber: game_operator_address_sequence, 
-            publicKey: game_operator_address_pubKey 
         }
-      ],
-      {
-        msgs: [cw20TransferMsg],
-        gasAdjustment: 1.5,			
-      }
-    );
-    const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), req.body.userAddress); // gas_limit, amount, payer
+    )
 
-    const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, options
-    ```
+const simul_fee = await tx_api.estimateFee(
+    [        
+    { 
+        sequenceNumber: game_operator_address_sequence, 
+        publicKey: game_operator_address_pubKey 
+    }
+    ],
+    {
+    msgs: [cw20TransferMsg],
+    gasAdjustment: 1.5,			
+    }
+);
+const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), req.body.userAddress); // gas_limit, amount, payer
 
-    트랜잭션 예상 수수료(simul_fee)를 계산하고, 게임 운영 지갑(game_operator_address)이 유저 지갑(userAddress)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
-    이때 fee 변수를 초기화할 때, payer parameter로 userAddress 변수를 전달하여 유저 지갑이 수수료 지불자가 되도록 설정합니다.
+const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, options
+```
+
+트랜잭션 예상 수수료(simul_fee)를 계산하고, 게임 운영 지갑(game_operator_address)이 유저 지갑(userAddress)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
+이때 fee 변수를 초기화할 때, payer parameter로 userAddress 변수를 전달하여 유저 지갑이 수수료 지불자가 되도록 설정합니다.
 
 <br/>
 
 Step 4. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
-    ```js title="Convert Server"
-    const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
-    const result = { unsignedTx : unsignedTx }
-    return result
-    ```
+```js title="Convert Server"
+const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+const result = { unsignedTx : unsignedTx }
+return result
+```
 
-    User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
+User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
     
 <br/>
 
 Step 5. User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
 
-    ```js {9,12} title="User Client App"
-    const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
-    const unsignedTx = unsignedResponse.data.unsignedTx;
+```js {9,12} title="User Client App"
+const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
+const unsignedTx = unsignedResponse.data.unsignedTx;
 
-    if (unsignedTx === undefined) {
-        throw new Error("Response is undefined!");
-    }
-    const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+if (unsignedTx === undefined) {
+    throw new Error("Response is undefined!");
+}
+const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
 
-    const { result: signedTx, success } = await connectedWallet.sign({
-        msgs: decodedTx.body.messages,
-        fee: decodedTx.auth_info.fee,
-        signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
-    });
-    ```
+const { result: signedTx, success } = await connectedWallet.sign({
+    msgs: decodedTx.body.messages,
+    fee: decodedTx.auth_info.fee,
+    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+});
+```
 
-    유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
-    [1번 과정](/docs/tutorial/deep-understand-xpla/convert#convert-case1)의 Convert 트랜잭션은 유저 지갑 서명과 게임 운영 지갑 서명이 필요한 [다중 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명하는 것이 중요합니다. 
+유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
+[1번 과정](/docs/tutorial/deep-understand-xpla/convert#convert-case1)의 Convert 트랜잭션은 유저 지갑 서명과 게임 운영 지갑 서명이 필요한 [다중 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명하는 것이 중요합니다. 
 
 <br/>
 
 Step 6. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
-    ```js {3,6,7} title="User Client App"
-    const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
+```js {3,6,7} title="User Client App"
+const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
 
-    const res = await axios.post(
-        "https://convertserver.com/gamecurrency-to-coin-signed", 
-        {
-            wallet: userAddress,
-            userSignedTx: userSignedTx,
-        }
-    );
-    ```
+const res = await axios.post(
+    "https://convertserver.com/gamecurrency-to-coin-signed", 
+    {
+        wallet: userAddress,
+        userSignedTx: userSignedTx,
+    }
+);
+```
 
-    유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
+유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
 
 <br/>
 
 Step 7. Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
 
-    ```js {6,9} title="Convert Server"
-    const game_opeartor_mk = new MnemonicKey({ mnemonic: opeartorMnemonicKey })
-    const operatorWallet = lcd.wallet(game_opeartor_mk);
-    const operatorState = await operatorWallet.accountNumberAndSequence()
-    const operatorAccNum = operatorState.account_number   
+```js {6,9} title="Convert Server"
+const game_opeartor_mk = new MnemonicKey({ mnemonic: opeartorMnemonicKey })
+const operatorWallet = lcd.wallet(game_opeartor_mk);
+const operatorState = await operatorWallet.accountNumberAndSequence()
+const operatorAccNum = operatorState.account_number   
 
-    await db.beginTransaction()
-    let txResult; 
-    try {
-      const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]);
-      const operatorSeq = data[0].sequence
-    ```
+await db.beginTransaction()
+let txResult; 
+try {
+    const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]);
+    const operatorSeq = data[0].sequence
+```
 
-    예제에서는 beginTransaction 함수를 이용하여 DB에 Lock을 걸고, 쿼리를 통해 게임 운영 지갑의 Sequence 값을 전달받습니다.
+예제에서는 beginTransaction 함수를 이용하여 DB에 Lock을 걸고, 쿼리를 통해 게임 운영 지갑의 Sequence 값을 전달받습니다.
 
 <br/>
 
 Step 8. Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
 
-    ```js {9,12} title="Convert Server"
-    try { // step 7
-      const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]); // step 7
-      const operatorSeq = data[0].sequence // step 7
+```js {9,12} title="Convert Server"
+try { // step 7
+    const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]); // step 7
+    const operatorSeq = data[0].sequence // step 7
 
-      const signOption: SignOptions = {
-        chainID: chainID,
-        accountNumber: operatorAccNum,
-        sequence: operatorSeq,
-        signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
-      }
-      
-      const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
-      const allSignedTx = await operatorWallet.key.signTx(tx, signOption, false)
-      allSignedTx.signatures.reverse()
-      allSignedTx.auth_info.signer_infos.reverse()
-      ...
-    ```
+    const signOption: SignOptions = {
+    chainID: chainID,
+    accountNumber: operatorAccNum,
+    sequence: operatorSeq,
+    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+    }
+    
+    const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
+    const allSignedTx = await operatorWallet.key.signTx(tx, signOption, false)
+    allSignedTx.signatures.reverse()
+    allSignedTx.auth_info.signer_infos.reverse()
+    ...
+```
 
-    DB에서 전달받은 Sequence 값으로 트랜잭션에 게임 운영 지갑 서명을 추가합니다. 
-    이때도 **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명해주어야 합니다.
+DB에서 전달받은 Sequence 값으로 트랜잭션에 게임 운영 지갑 서명을 추가합니다. 
+이때도 **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명해주어야 합니다.
 
-    <Details summary="마지막 부분에서 signatures와 signer_infos의 reverse() 함수를 사용하는 이유는 무엇인가요?">
+<Details summary="마지막 부분에서 signatures와 signer_infos의 reverse() 함수를 사용하는 이유는 무엇인가요?">
 
-    지금까지 트랜잭션 수수료 지불을 위해 유저 지갑의 서명을 먼저 받고, CW20 토큰 전달의 주체인 게임 운영 지갑의 서명을 나중에 받았습니다.
-    현재 트랜잭션(allSignedTx 변수) 내 서명 순서가 유저 지갑 - 게임 운영 지갑 순입니다.
+지금까지 트랜잭션 수수료 지불을 위해 유저 지갑의 서명을 먼저 받고, CW20 토큰 전달의 주체인 게임 운영 지갑의 서명을 나중에 받았습니다.
+현재 트랜잭션(allSignedTx 변수) 내 서명 순서가 유저 지갑 - 게임 운영 지갑 순입니다.
 
-    CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 운영 지갑의 서명이고, 유저의 서명은 수수료 지불을 위해 추가된 것입니다.
-    만약 유저가 트랜잭션 수수료를 내지 않았다면, CW20 토큰을 Transfer하는 게임 운영 지갑의 서명만 있었으면 됩니다.
+CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 운영 지갑의 서명이고, 유저의 서명은 수수료 지불을 위해 추가된 것입니다.
+만약 유저가 트랜잭션 수수료를 내지 않았다면, CW20 토큰을 Transfer하는 게임 운영 지갑의 서명만 있었으면 됩니다.
 
-    [Cosmos SDK에서 수수료 지불자(Fee payer)가 추가되어도, 트랜잭션 서명 순서가 바뀌지는 않습니다.](https://github.com/xpladev/xpla/blob/main/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
-    따라서 올바른 트랜잭션 서명 순서는 게임 운영 지갑 - 유저 지갑 순입니다.
-    예제에서는 reverse 함수를 이용하여 서명 순서를 조정하였고, 트랜잭션 생성이 잘 되는 것을 확인할 수 있습니다.
+[Cosmos SDK에서 수수료 지불자(Fee payer)가 추가되어도, 트랜잭션 서명 순서가 바뀌지는 않습니다.](https://github.com/xpladev/xpla/blob/main/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
+따라서 올바른 트랜잭션 서명 순서는 게임 운영 지갑 - 유저 지갑 순입니다.
+예제에서는 reverse 함수를 이용하여 서명 순서를 조정하였고, 트랜잭션 생성이 잘 되는 것을 확인할 수 있습니다.
 
-    </Details>
+</Details>
 
 <br/>
 
 Step 9. Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
-    ```js title="Convert Server"
-    txResult = await lcd.tx.broadcastSync(allSignedTx)      
-    ```
+```js title="Convert Server"
+txResult = await lcd.tx.broadcastSync(allSignedTx)      
+```
 
-    트랜잭션을 XPLA 네트워크에 전파합니다.
+트랜잭션을 XPLA 네트워크에 전파합니다.
 
 <br/>
 
 Step 10. Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
 
-    ```js title="Convert Server"
-      await db.execute(`UPDATE operator_sequence SET sequence = ? WHERE accAddress = ?`, [operatorSeq+1, operatorWallet.key.accAddress])
+```js title="Convert Server"
+    await db.execute(`UPDATE operator_sequence SET sequence = ? WHERE accAddress = ?`, [operatorSeq+1, operatorWallet.key.accAddress])
 
-      await db.commit(); 
-      db.release();
-    ```
+    await db.commit(); 
+    db.release();
+```
 
-    트랜잭션 생성이 제대로 이루어지면, DB 내 저장된 게임 운영 지갑의 Sequence 값을 수정하고, DB에 걸려 있는 Lock을 해제합니다.
+트랜잭션 생성이 제대로 이루어지면, DB 내 저장된 게임 운영 지갑의 Sequence 값을 수정하고, DB에 걸려 있는 Lock을 해제합니다.
 
 <br/>
 
 Step 11. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
-    ```js title="Convert Server"
-    return { txhash : txResult.txhash }
-    ```
+```js title="Convert Server"
+return { txhash : txResult.txhash }
+```
 
-    User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
+User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
 
 <br/>
 
@@ -326,150 +326,150 @@ sequenceDiagram
 
 Step 1. User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
 
-    ```js {6} title="User Client App"
-    import { useWallet } from "@xpla/wallet-provider";
-    
-    const { wallets } = useWallet();
-    const userAddress = wallets[0].xplaAddress;
+```js {6} title="User Client App"
+import { useWallet } from "@xpla/wallet-provider";
 
-    const unsignedResponse = await axios.post(
-        "https://convertserver.com/coin-to-gamecurrency-unsigned", 
-        {
-            userAddress: userAddress, 
-            amount : 1,
-        }
-    ); 
-    ```
+const { wallets } = useWallet();
+const userAddress = wallets[0].xplaAddress;
 
-    유저가 CW20 토큰을 게임 재화로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 받고 싶은 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
+const unsignedResponse = await axios.post(
+    "https://convertserver.com/coin-to-gamecurrency-unsigned", 
+    {
+        userAddress: userAddress, 
+        amount : 1,
+    }
+); 
+```
+
+유저가 CW20 토큰을 게임 재화로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 받고 싶은 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
 
 <br/>
 
 Step 2. Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
-    ```js {7,18,31,33} title="Convert Server"
-    import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
+```js {7,18,31,33} title="Convert Server"
+import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
 
-    const lcd = new LCDClient({ chainID, URL });
-    const tx_api = new TxAPI(lcd);
-    const userAccountInfo = await lcd.auth.accountInfo(req.body.userAddress);
+const lcd = new LCDClient({ chainID, URL });
+const tx_api = new TxAPI(lcd);
+const userAccountInfo = await lcd.auth.accountInfo(req.body.userAddress);
 
-    const cw20TransferMsg = new MsgExecuteContract(
-        req.body.userAddress,
-        cw20_contract_address, 
-        {
-            transfer: {
-                recipient : game_operator_address,
-                amount: String(req.body.amount)
-            }
+const cw20TransferMsg = new MsgExecuteContract(
+    req.body.userAddress,
+    cw20_contract_address, 
+    {
+        transfer: {
+            recipient : game_operator_address,
+            amount: String(req.body.amount)
         }
-    )
+    }
+)
 
-    const simul_fee = await tx_api.estimateFee(
-        [        
-            { 
-                sequenceNumber: userAccountInfo.getSequenceNumber(), 
-                publicKey: userAccountInfo.getPublicKey()
-            }
-        ],
-        {
-            msgs: [cw20TransferMsg],
-            gasAdjustment: 1.5,         
+const simul_fee = await tx_api.estimateFee(
+    [        
+        { 
+            sequenceNumber: userAccountInfo.getSequenceNumber(), 
+            publicKey: userAccountInfo.getPublicKey()
         }
-    );
-    
-    const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+    ],
+    {
+        msgs: [cw20TransferMsg],
+        gasAdjustment: 1.5,         
+    }
+);
 
-    const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
-    ```
+const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
 
-    트랜잭션 예상 수수료(simul_fee)를 계산하고, 유저 지갑(userAddress)이 게임 운영 지갑(game_operator_address)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
-    이번에는 fee 변수를 초기화할 때, payer parameter에 아무 값도 입력하지 않습니다.
+const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
+```
+
+트랜잭션 예상 수수료(simul_fee)를 계산하고, 유저 지갑(userAddress)이 게임 운영 지갑(game_operator_address)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
+이번에는 fee 변수를 초기화할 때, payer parameter에 아무 값도 입력하지 않습니다.
 
 <br/>
 
 Step 3. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
-    ```js title="Convert Server"
-    const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
-    const result = { unsignedTx : unsignedTx }
-    return result
-    ```
+```js title="Convert Server"
+const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+const result = { unsignedTx : unsignedTx }
+return result
+```
 
-    User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
+User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
 
 <br/>
 
 Step 4. User Client App : 유저는 unsigned 트랜잭션에 서명
 
-    ```js {9,12} title="User Client App"
-    const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
-    const unsignedTx = unsignedResponse.data.unsignedTx;
+```js {9,12} title="User Client App"
+const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
+const unsignedTx = unsignedResponse.data.unsignedTx;
 
-    if (unsignedTx === undefined) {
-        throw new Error("Response is undefined!");
-    }
-    const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+if (unsignedTx === undefined) {
+    throw new Error("Response is undefined!");
+}
+const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
 
-    const { result: signedTx, success } = await connectedWallet.sign({
-        msgs: decodedTx.body.messages,
-        fee: decodedTx.auth_info.fee,
-        signMode: SignMode.SIGN_MODE_DIRECT,
-    });
-    ```
+const { result: signedTx, success } = await connectedWallet.sign({
+    msgs: decodedTx.body.messages,
+    fee: decodedTx.auth_info.fee,
+    signMode: SignMode.SIGN_MODE_DIRECT,
+});
+```
 
-    유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
-    [2번 과정](/docs/tutorial/deep-understand-xpla/convert#convert-case2)의 Convert 트랜잭션은 유저 지갑 서명만 필요한 [단일 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_DIRECT** 변수로 진행합니다. 
+유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
+[2번 과정](/docs/tutorial/deep-understand-xpla/convert#convert-case2)의 Convert 트랜잭션은 유저 지갑 서명만 필요한 [단일 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_DIRECT** 변수로 진행합니다. 
 
 <br/>
 
 Step 5. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
-    ```js {3,6,7} title="User Client App"
-    const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
+```js {3,6,7} title="User Client App"
+const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
 
-    const res = await axios.post(
-        "https://convertserver.com/coin-to-gamecurrency-signed", 
-        {
-            wallet: userAddress,
-            userSignedTx: userSignedTx,
-        }
-    );
-    ```
+const res = await axios.post(
+    "https://convertserver.com/coin-to-gamecurrency-signed", 
+    {
+        wallet: userAddress,
+        userSignedTx: userSignedTx,
+    }
+);
+```
 
-    유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
+유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
 
 <br/>
 
 Step 6. Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
-    ```js title="Convert Server"
-    const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
+```js title="Convert Server"
+const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
 
-    txResult = await lcd.tx.broadcastSync(allSignedTx)      
-    ```
+txResult = await lcd.tx.broadcastSync(allSignedTx)      
+```
 
-    트랜잭션을 XPLA 네트워크에 전파합니다.
+트랜잭션을 XPLA 네트워크에 전파합니다.
 
 <br/>
 
 Step 7. Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
 
-    ```js title="Convert Server"
-    db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
-    ```
+```js title="Convert Server"
+db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
+```
 
-    유저가 받고 싶은 게임 재화량(req.body.amount)만큼 증가시킵니다.
+유저가 받고 싶은 게임 재화량(req.body.amount)만큼 증가시킵니다.
 
 <br/>
 
 Step 8. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
-    ```js title="Convert Server"
-    return { txhash : txResult.txhash }
-    ```
+```js title="Convert Server"
+return { txhash : txResult.txhash }
+```
 
-    User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
+User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
 
 <br/>
 
