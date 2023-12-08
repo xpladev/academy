@@ -45,7 +45,7 @@ const LinkList = [
     content: [
       {
         description: 'XPLA DOCS',
-        link: 'https://docs.xpla.io/docs/learn/about-xpla-chain/'
+        link: 'https://docs.xpla.io/learn/learn/about-xpla-chain/'
       },
       {
         description: 'XPLA.JS',
@@ -53,11 +53,11 @@ const LinkList = [
       },
       {
         description: 'XPLAD',
-        link: 'https://docs.xpla.io/docs/develop/tools/xplad/about-xplad/'
+        link: 'https://docs.xpla.io/develop/develop/tools/xplad/about-xplad/'
       },
       {
         description: 'ENDPOINTS',
-        link: 'https://docs.xpla.io/docs/full-node/resources/public-and-private-endpoints/'
+        link: 'https://docs.xpla.io/full-node/full-node/resources/public-and-private-endpoints/'
       },
       {
         description: 'XPLA FAUCET',

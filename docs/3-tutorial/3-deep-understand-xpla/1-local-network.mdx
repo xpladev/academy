@@ -38,7 +38,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
 
 1. Create a file named **Dockerfile**.
 
-2. Copy and paste the following code into the **Dockerfile** and save it. This **Dockerfile** streamlines the process of installing xplad. For more detailed information about xplad, refer to the [Docs](https://docs.xpla.io/docs/develop/tools/xplad/install-xplad/) or [Github](https://github.com/xpladev/xpla). 
+2. Copy and paste the following code into the **Dockerfile** and save it. This **Dockerfile** streamlines the process of installing xplad. For more detailed information about xplad, refer to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/install-xplad/) or [Github](https://github.com/xpladev/xpla). 
 
     ```dockerfile
     ########
@@ -137,7 +137,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
 
     In the world of blockchain, the very first block that's created is called the Genesis block. The Genesis file is the record where all the data for this first block is stored. Every node participating in the same blockchain network needs to start block generation with the same Genesis file. As a result, right from the first block, they all share the same data, and the block hash values among nodes match.
 
-    Both [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1) and [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5) have their own Genesis files, and you can find them on Github. If you use the same Genesis file as the Mainnet, you can operate a [Mainnet Full Node (a node storing all information of the blockchain)](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/). For detailed instructions on running Full Nodes for both Mainnet and Testnet, refer to the [Docs](https://docs.xpla.io/docs/full-node/run-a-full-node/join-a-network/#join-a-public-network).
+    Both [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1) and [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5) have their own Genesis files, and you can find them on Github. If you use the same Genesis file as the Mainnet, you can operate a [Mainnet Full Node (a node storing all information of the blockchain)](https://docs.xpla.io/full-node/full-node/run-a-full-node/overview/). For detailed instructions on running Full Nodes for both Mainnet and Testnet, refer to the [Docs](https://docs.xpla.io/full-node/full-node/run-a-full-node/join-a-network/#join-a-public-network).
 
     In this example, we're not dealing with Mainnet or Testnet but instead operating a Local Network. This is why we'll create a Genesis file directly.
 
@@ -178,7 +178,7 @@ In this step, the key focus is on working with the Local Network, so you don't n
 
     The act of entrusting a certain amount of XPLA to a validator is called Delegate, and the person who entrusted it is called Delegator. In the Proof of State (PoS) type of XPLA blockchain, validators earn fees through block creation. Delegators can earn the fees that validators earn from block creation equal to the percentage of XPLA they each delegated.
 
-    How often validators will create blocks is determined by the total amount of XPLA delegated to them. The higher the weight, the higher the block creation rate. For more details, see [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/#what-is-staking).
+    How often validators will create blocks is determined by the total amount of XPLA delegated to them. The higher the weight, the higher the block creation rate. For more details, see [Docs](https://docs.xpla.io/full-node/full-node/manage-a-validator/validator-faq/#what-is-staking).
 
     </Details>
 
@@ -382,7 +382,7 @@ Let's try using xplad in the container's bash environment.
     xplad query tx <txhash>
     ```
 
-By utilizing xplad, we've confirmed that the Local Network blockchain is functioning properly. For more xplad commands, refer to the [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/) or try `xplad -h` command.
+By utilizing xplad, we've confirmed that the Local Network blockchain is functioning properly. For more xplad commands, refer to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/commands/) or try `xplad -h` command.
 
 ## Making Use of the RPC Network {#use-rpc}
 
@@ -424,7 +424,7 @@ Send occured!
 }
 ```
 
-This demonstrates using WebSocket to access the RPC network and detecting the creation of a transaction on the blockchain. Check the [Docs](https://docs.xpla.io/docs/develop/tools/xpla-js/websockets/) and [Github](https://github.com/xpladev/xpla.js/blob/main/src/client/WebSocketClient.ts) for more diverse actions you can perform using WebSocket.
+This demonstrates using WebSocket to access the RPC network and detecting the creation of a transaction on the blockchain. Check the [Docs](https://docs.xpla.io/develop/develop/tools/xpla-js/websockets/) and [Github](https://github.com/xpladev/xpla.js/blob/main/src/client/WebSocketClient.ts) for more diverse actions you can perform using WebSocket.
 
 ## Exploring with Swagger {#use-swagger}
 

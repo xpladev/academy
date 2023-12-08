@@ -17,9 +17,9 @@ XPLA 블록체인에 트랜잭션을 생성하려면 XPLA 코인으로 수수료
 
 블록체인에 트랜잭션이 어떻게 생성되는지 예시로 살펴봅시다. `Alice가 Bob에게 1 XPLA를 보냄`이라는 트랜잭션을 네트워크에 알립니다(BroadCast). 그렇다면 Alice가 1 XPLA 이상을 보유하고 있는지, Alice가 트랜잭션을 생성한 것이 맞는지 등 트랜잭션에 대해 검증할 필요가 있습니다.
 
-트랜잭션을 검증하는 역할을 [검증자(Validator)](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/)들이 담당합니다. 검증자들은 모든 블록체인 데이터를 확인하여, 새로 블록에 담을 트랜잭션에 문제가 없는지를 검증합니다.
+트랜잭션을 검증하는 역할을 [검증자(Validator)](https://docs.xpla.io/full-node/full-node/manage-a-validator/validator-faq/)들이 담당합니다. 검증자들은 모든 블록체인 데이터를 확인하여, 새로 블록에 담을 트랜잭션에 문제가 없는지를 검증합니다.
 
-검증자들은 [블록체인의 시작부터 현재까지 기록된 모든 데이터를 저장](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)하고 있으면서, 네트워크에서 계속 트랜잭션을 받아 검증하기 때문에 많은 컴퓨팅 자원이 필요합니다. 우리는 컴퓨팅 자원을 사용하지 않는 대신에, 수수료를 지불하여 검증자들에게 트랜잭션 생성을 요청합니다. 이를 PoS(Proof of Stake) 방식이라고 합니다.
+검증자들은 [블록체인의 시작부터 현재까지 기록된 모든 데이터를 저장](https://docs.xpla.io/full-node/full-node/run-a-full-node/overview/)하고 있으면서, 네트워크에서 계속 트랜잭션을 받아 검증하기 때문에 많은 컴퓨팅 자원이 필요합니다. 우리는 컴퓨팅 자원을 사용하지 않는 대신에, 수수료를 지불하여 검증자들에게 트랜잭션 생성을 요청합니다. 이를 PoS(Proof of Stake) 방식이라고 합니다.
 
 또한 수수료는 악의적인 공격자가 트랜잭션을 무한히 발생시켜 블록체인 네트워크에 부하를 걸지 못하도록 방지하는 역할도 있습니다. 
 
