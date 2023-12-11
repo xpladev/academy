@@ -6,7 +6,8 @@ import useLoginModalOpen, {
   MODALTYPE,
 } from "@site/src/hooks/Zustand/useLoginModalOpen";
 import useLoginLoading from "@site/src/hooks/Zustand/useLoginLoading";
-
+import Link from "@docusaurus/Link";
+import WarningIcon from "@mui/icons-material/Warning";
 const InformationModal = ({
   setModalClose,
 }: {
@@ -44,12 +45,10 @@ const InformationModal = ({
           >
             <span className="font-bold text-[46px]">i</span>
           </div>
-          <img
-            src="/img/tool/Main/Info/abouttoolpage.svg"
-            alt="abouttoolpage"
-            width="164px"
-            height="60px"
-          />
+          <div className="text-[#004FFF] font-bold text-[26px] leading-[28px]">
+            About <br />
+            Web3 Gaming Ops.
+          </div>
         </div>
         <div className="border-solid border-0 border-b-[1px] flex flex-1" />
       </div>
@@ -114,23 +113,26 @@ const InfoDetail = ({ page }: { page: number }) => {
     case 2:
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-2-img.svg" alt="info-2" width="366px" height="97px"/>
+          <img
+            src="/img/tool/Main/Info/info-2-img.svg"
+            alt="info-2"
+            width="366px"
+            height="97px"
+          />
           <div className="text-center flex flex-col gap-[25px]">
             <span className="text-[24px] leading-[30px] font-bold text-[#004FFF]">
-              The TOOL PAGE is linked with the
+              Web3 Gaming Ops. is linked with the
               <br />
               Break the Bricks Game and connected to
               <br />
               XPLA Vault for blockchain interaction.
             </span>
             <span className="font-normal text-[18px] leading-[26px]">
-              This setup allows Web2 gamers to maintain their
+              Web3 Gaming Ops.
               <br />
-              usual play style and provides additional features for
+              allows Web2 gamers to enjoy game itself,
               <br />
-              those interested in blockchain functions,
-              <br />
-              simplifying onboarding for Web2 users.
+              allows DEVs to playfully interact with blockchain functions.
             </span>
           </div>
         </div>
@@ -139,9 +141,7 @@ const InfoDetail = ({ page }: { page: number }) => {
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center w-full">
           <div className="font-normal text-[24px] leading-[28px] text-center">
-            <span className="font-bold text-[#004FFF]">
-              The TOOL PAGE provides 4 functions:
-            </span>
+            <span className="font-bold text-[#004FFF]">4 Key Functions</span>
             <br /> CONVERT, SWAP, NFT SHOP,
             <br /> and LEADERBOARD.
           </div>
@@ -204,30 +204,60 @@ const InfoDetail = ({ page }: { page: number }) => {
       );
     case 4:
       return (
-        <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-4-img.svg" alt="info-4" width="309px" height="142px"/>
-          <div className="font-normal text-[24px] leading-[28px] text-center">
-            <span className="font-bold text-[#004FFF]">
-              TOOL PAGE introduction is NOW a wrap!
+        <div className="flex flex-1 flex-col gap-[40px] items-center justify-center">
+          <Link
+            target="_blank"
+            to="https://github.com/xpladev/academy"
+            className={clsx(
+              styles.shadowButton,
+              "bg-[#004FFF] px-[22px] py-[12px] flex justify-center items-center gap-[10px] hover:no-underline"
+            )}
+          >
+            <div className="header-github-link-white" />
+            <span className="text-white font-bold text-[30px]">
+              GO TO GITHUB
             </span>
+          </Link>
+
+          <span className="font-bold text-[24px] leading-[28px] text-[#004FFF] text-center">
+            Break the Bricks Game & Web3 Gaming Ops.
             <br />
-            It's time to dive into the website and
+            Open-Source available on Github!
+          </span>
+          <div className="font-normal text-[18px] leading-[26px] text-center mt-[-15px]">
+            Feel free to visit Github, check out the page source code,
             <br />
-            embark on your adventure of exploring
-            <br />
-            its diverse functions.
+            and use it on your own project!
+          </div>
+          <div className="flex gap-[14px] bg-[#FFDDD9] items-center mt-[15px] px-[15px] py-[10px]">
+            <WarningIcon style={{ fill: "#FF0000" }} />
+            <div className="text-[12px] leading-[12px] text-[#FF0000]">
+              <span className="font-bold">PLEASE BE AWARE!</span>
+              <br />
+              <span className="font-normal">
+                Excessive abuse that disrupts platform operations may result in
+                future <br /> usage restrictions.
+              </span>
+            </div>
           </div>
         </div>
       );
     default:
       return (
         <div className="flex flex-1 flex-col gap-[37px] items-center justify-center">
-          <img src="/img/tool/Main/Info/info-1-img.svg" alt="info-1" width="80px" height="97px" />
+          <img
+            src="/img/tool/Main/Info/info-1-img.svg"
+            alt="info-1"
+            width="80px"
+            height="97px"
+          />
           <div className="font-normal text-[24px] leading-[28px] text-center">
-            <span className="font-bold text-[#004FFF]">The TOOL PAGE</span> is a
-            sample website
-            <br /> demonstrating integrated
-            <br /> functions of games and blockchain.
+            <span className="font-bold text-[#004FFF]">Web3 Gaming Ops.</span>
+            <br />
+            demonstrates integrated
+            <br /> functions of games and XPLA.
+            <br />{" "}
+            <span className="text-[#CCCCCC] text-[24px]">(on test-net!)</span>
           </div>
         </div>
       );

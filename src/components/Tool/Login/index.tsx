@@ -47,7 +47,7 @@ export default function Login() {
   }, [status, wallets]);
 
   return (
-    <div className=" bg-[#004FFF] relative flex flex-col flex-1 items-center w-full ">
+    <div className="bg-[#004FFF] relative flex flex-col flex-1 items-center w-full ">
       <div
         className={clsx("absolute top-[90px] w-[1465px] h-[578px] mx-[20px] max-w-full")}
       >
@@ -64,7 +64,7 @@ export default function Login() {
           alt="logintitle"
           width="756px"
           height="549px"
-          className="max-[996px]:mr-[20px]"
+          className="max-[996px]:mr-[20px] mr-[45px]"
         />
         <LoginConnectWallet />
 
