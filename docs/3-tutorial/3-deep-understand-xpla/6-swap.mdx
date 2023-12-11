@@ -2,6 +2,8 @@
 sidebar_position: 6
 ---
 
+import Details from '@theme/Details';
+
 # Swap 기능 구현하기
 
 Swap 기능을 통해 CW20 토큰과 XPLA를 교환하거나, 혹은 CW20 토큰끼리도 쉽게 교환할 수 있습니다. 
@@ -158,6 +160,41 @@ main()
 예제에서 dezswap_pair Contract는 [xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns](https://explorer.xpla.io/testnet/address/xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns#InitMsg), dezswap_token Contract는 [xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057](https://explorer.xpla.io/testnet/address/xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057#InitMsg)입니다.
 
 
+<Details summary="CW20-CW20끼리 교환하는 Swap Pool을 만들고 싶다면 어떻게 해야 하나요?">
+
+위 코드에서 createPairMsg 변수를 아래와 같이 입력하면 됩니다.
+
+```js {7-14}
+const createPairMsg = new MsgExecuteContract(
+	myWalletAddress,
+	testnet_dezswap_factory,
+	{
+		"create_pair": {
+			"assets": [
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address1
+						}
+					},
+					"amount": "0"
+				},
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address2
+						}
+					},
+					"amount": "0"
+				}
+			]
+		}
+	}
+);
+```
+
+</Details>
+
 ### 2. Increase Allowance {#increase-allowance}
 
 [3. 유동성 공급](/docs/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 CW20 토큰과 XPLA를 dezswap_pair Contract로 공급해주어야 합니다.
@@ -279,7 +316,6 @@ provideLiquidityMsg 변수를 만들 때, 이전과는 달리 마지막 paramete
 이를 통해 트랜잭션 실행과 동시에 dezswap_pair Contract에 XPLA를 공급할 수 있습니다. 
 CW20 토큰 공급은 [2. Increase-allowance](/docs/tutorial/deep-understand-xpla/swap#increase-allowance) 단계에서 알아본 대로, dezswap_pair 컨트랙트가 CW20 토큰을 가져왔습니다.
 
-
 ### 4. Swap 진행 (Execute Swap) {#execute-swap}
 
 이제 Swap을 진행해보겠습니다. 예제에서는 `ACAD` 토큰 1개를 XPLA로 교환할 것입니다. Contract Execute를 위한 Msg 형식은 [dezswap Github](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap)을 참고했습니다. 
@@ -343,6 +379,40 @@ XPLA를 CW20 토큰으로 교환할 때는 실행해야 하는 컨트랙트가 �
 그러나 dezswap에서는 swap을 할 때 [유동성 공급을 해준 사람에게 LP Commission을 0.3%만큼 지급](https://docs.dezswap.io/docs/introduction/trading-fees/)해야 합니다.
 따라서 0.3%만큼 수수료를 냈을 때, 남은 XPLA 0.000996900309969002개를 받게 됩니다.
 더 자세한 사항은 [dezswap Docs](https://docs.dezswap.io/docs/introduction/mechanism/)를 참고해보세요.
+
+<Details summary="XPLA를 CW20 토큰으로 교환하려면 어떻게 해야 하나요?">
+
+위 코드에서 swapMsg를 아래와 같이 입력하면 됩니다.
+
+```js {3,19-22}
+const swapMsg = new MsgExecuteContract(
+	myWalletAddress,
+	dezswap_pair_contract_address,
+	{
+		"swap": {
+			"offer_asset": {
+				"info": {
+					"native_token": {
+						"denom": "axpla"
+					}
+				},
+				"amount": "1000000000000000000"
+			},
+			//"belief_price": Option<Decimal>,
+			//"max_spread": Option<Decimal>,
+			//"to": Option<HumanAddr>
+		}
+	},
+	[new Coin(
+		"axpla",
+		"1000000000000000000"
+	)],
+);
+```
+
+CW20 토큰을 XPLA로 교환할 때는 CW20 토큰 컨트랙트를 `execute` 했습니다. XPLA를 CW20 토큰으로 교환할 때는 반드시 <u>dezswap_pair_contract_address</u>를 `execute` 해야 합니다. 또, 컨트랙트 매개변수로 swap하고 싶은 XPLA 물량(`new Coin("axpla", "..")`)도 넣어줘야 합니다.
+
+</Details>
 
 ## 마무리
 
