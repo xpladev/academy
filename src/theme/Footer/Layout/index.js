@@ -27,7 +27,7 @@ const LinkList = [
     title: 'COMMUNITY',
     content: [
       {
-        description: 'TWITTER',
+        description: 'X',
         link: 'https://twitter.com/XPLA_Official'
       },
       {
