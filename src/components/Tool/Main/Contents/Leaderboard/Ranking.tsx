@@ -108,10 +108,10 @@ const Ranking = ({ rankinglist }: { rankinglist: RANKRESPONSE }) => {
         </div>
       ))}
 
-      {_.range(10 - rankinglist.ranking.length).map((idx) => (
+      {_.range((rankinglist.ranking.length <= 3 ? 7 : (10 - rankinglist.ranking.length))).map((idx) => (
         <div key={idx} className="flex gap-[7px] h-[26px]">
           <div className="w-[26px] flex justify-center items-center text-[12px] leading-[14px] font-bold bg-[#F5F4F4] text-[#555454]">
-            {rankinglist.ranking.length + idx + 1}
+            {rankinglist.ranking.length <= 3 ? 4 + idx : rankinglist.ranking.length + idx + 1}
           </div>
           <div className="flex flex-1 bg-[#F5F4F4] p-[6px] itmes-center justify-between leading-[12px] text-[#838383] text-[10px] font-bold">
             <span>-</span>
