@@ -36,7 +36,7 @@ export const GameArchitectureTutorial = () => {
       </div>
       <div className="border-solid border-1 w-full max-w-[494px] flex flex-col justify-center items-center ">
         <div className="w-full flex justify-center items-center border-solid border-0 border-b-[1px] font-semibold bg-black text-white">
-          Tutorial
+          START HERE
         </div>
         <Link
           target="_blank"
@@ -52,14 +52,14 @@ export const GameArchitectureTutorial = () => {
           <VerticalArrow isLong120 />
           {matches ? (
             <div className="bg-white/90 text-[14px] text-black border-solid border-[1px] p-[5px] text-center">
-              Wallet will be used on the tool page, <br />
+              Wallet will be used on the Web3 Gaming Ops. page,<br />
               so make sure to save your mnemonic well.
             </div>
           ) : (
             <>
               <Tagline />
               <WhiteTag
-                text={`Wallet will be used on the tool page, so make sure to save your mnemonic well.`}
+                text={`Wallet will be used on the Web3 Gaming Ops. page, so save your mnemonic well.`}
                 isTutorial
               />
             </>
@@ -146,7 +146,7 @@ export const GameArchitectureAdvanced = () => {
 
       <div className="border-solid border-1 w-full max-w-[494px] flex flex-col justify-center items-center ">
         <div className="w-full flex justify-center items-center border-solid border-0 border-b-[1px] font-semibold bg-black text-white">
-          Advanced
+          ADVANCED
         </div>
         <div
           className={clsx(
@@ -157,7 +157,7 @@ export const GameArchitectureAdvanced = () => {
         </div>
         {matches && (
           <div className="absolute max-[450px]:w-[200px] w-[400px] mt-[100px] bg-white/90 text-[14px] text-black border-solid border-[1px] p-[5px] text-center">
-            Move to the Tool Page in XPLA ACADEMY
+            Move to the Web3 Gaming Ops. Page in XPLA ACADEMY
           </div>
         )}
         <div className="relative flex justify-center items-center h-[30px]">
@@ -184,9 +184,10 @@ export const GameArchitectureAdvanced = () => {
                   <>
                     <Tagline className="mt-[110px]" />
                     <WhiteTag
-                      className="mt-[110px] absolute"
+                      className="mt-[110px] absolute "
                       isBetween
-                      text={`Move to the Tool Page in XPLA ACADEMY`}
+                      text={`Move to the Web3 Gaming Ops.`}
+                      enteredText={`Page in XPLA ACADEMY`}
                     />
                   </>
                 )}
@@ -299,19 +300,19 @@ export const GameArchitectureAdvanced = () => {
   );
 };
 
-export const ToolPageButton = () => {
+export const Web3GamingOpsPageButton = () => {
   return (
     <div className="w-full flex justify-center items-center">
       <Link
         target="_blank"
-        to="/tool"
+        to="/ops"
         className={clsx(
           styles.smallShadowButton,
           "px-[10px] py-[10px] bg-[#004FFF] text-[16px] font-semibold hover:no-underline text-center leading-[20px]"
         )}
       >
         <span className="text-[#FFE200]">Break The Bricks </span>
-        <span className="text-white">Tool Page</span>
+        <span className="text-white">Web3 Gaming Ops.</span>
       </Link>
     </div>
   );
@@ -323,11 +324,13 @@ const Tagline = ({ className = "" }: { className?: string }) => {
 
 const WhiteTag = ({
   text,
+  enteredText = '',
   isTutorial = false,
   isBetween = false,
   className = "",
 }: {
   text: string;
+  enteredText?: string;
   isTutorial?: boolean;
   isBetween?: boolean;
   className?: string;
@@ -353,6 +356,13 @@ const WhiteTag = ({
         }
       >
         {text}
+        {
+          enteredText !== '' &&
+          <>
+          <br/>
+          {enteredText}
+          </>
+        }
         <div />
       </div>
     </div>

@@ -8,9 +8,9 @@ import Details from '@theme/Details';
 
 ## Convert란 무엇인가요? {#what-is-convert}
 
-[Break The Bricks 게임](/#playgame)을 해보셨나요? 게임 플레이를 통해 게임 재화인 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" /> (Diamond)를 획득할 수 있습니다. 
+[Break The Bricks 게임](/#playgame)을 해보셨나요? 게임 플레이를 통해 게임 재화인 DIAMOND (<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />) 를 획득할 수 있습니다. 
 그러나 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />는 CW20 토큰이 아닌 단순 게임 데이터에 불과하고, 블록체인에서 사용할 수 없습니다.
-[Tool 페이지](/tool)에서 제공하는 Convert 기능을 통해, 유저들은 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />를 CW20 토큰인 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />(ACADEMY-TKN)으로 교환할 수 있습니다.
+[Web3 Gaming Ops. 페이지](/ops)에서 제공하는 Convert 기능을 통해, 유저들은 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />를 CW20 토큰인 ACADEMY-TKN (<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 교환할 수 있습니다.
 
 Convert 과정은 왜 필요할까요? 
 게임 플레이 보상으로 매번 CW20 토큰 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />을 나눠준다면, 항상 트랜잭션 실행을 위해 수수료가 발생하게 됩니다.
@@ -20,10 +20,10 @@ Convert 과정은 왜 필요할까요?
 <Details summary="게임 재화와 CW20 토큰은 무엇이 다른가요?">
 
 유저는 게임을 즐기면서 보상으로 게임 재화를 얻습니다. 
-[Break The Bricks](/#playgame)의 경우, 게임을 통해 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" /> (Diamond)를 획득할 수 있습니다. 
+[Break The Bricks](/#playgame)의 경우, 게임을 통해 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" /> (DIAMOND)를 획득할 수 있습니다. 
 게임 재화는 게임 제작사의 데이터베이스에 저장되어 있어, 블록체인 네트워크에서 사용할 수 없습니다.
 
-그러나 CW20 토큰은 블록체인 네트워크에서 소유자가 자유롭게 사용할 수 있습니다. 
+그러나 CW20 토큰은 블록체인에 기록되어 있기 때문에 블록체인 네트워크에서 사용할 수 있습니다.
 [Break The Bricks](/#playgame)에서 유저는 Convert 과정을 통해 CW20 토큰인 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />(ACADEMY-TKN)을 얻을 수 있습니다.
 
 </Details>
@@ -266,7 +266,7 @@ DB에서 전달받은 Sequence 값으로 트랜잭션에 게임 운영 지갑 �
 CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 운영 지갑의 서명이고, 유저의 서명은 수수료 지불을 위해 추가된 것입니다.
 만약 유저가 트랜잭션 수수료를 내지 않았다면, CW20 토큰을 Transfer하는 게임 운영 지갑의 서명만 있었으면 됩니다.
 
-[Cosmos SDK에서 수수료 지불자(Fee payer)가 추가되어도, 트랜잭션 서명 순서가 바뀌지는 않습니다.](https://github.com/xpladev/xpla/blob/main/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
+[Cosmos SDK에서 수수료 지불자(Fee payer)가 추가되어도, 트랜잭션 서명 순서가 바뀌지는 않습니다.](https://github.com/xpladev/xpla/blob/aa5c2e3cac00c2286f3ce4ba2526df6cddc3f550/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
 따라서 올바른 트랜잭션 서명 순서는 게임 운영 지갑 - 유저 지갑 순입니다.
 예제에서는 reverse 함수를 이용하여 서명 순서를 조정하였고, 트랜잭션 생성이 잘 되는 것을 확인할 수 있습니다.
 
@@ -486,7 +486,7 @@ User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를
 
 ## 마무리
 
-지금까지 Convert 기능 구현에 대해 자세히 살펴보았습니다. Convert 기능을 통해 유저들은 게임 재화와 CW20 토큰을 쉽게 교환할 수 있습니다. 게임과 블록체인을 연결해주는 Convert 기능을 여러분의 게임에 적용해보세요.
+지금까지 Convert 기능 구현에 대해 자세히 살펴보았습니다. Convert 기능을 통해 유저들은 게임 DB의 게임 재화와 블록체인 네트워크의 CW20 토큰을 교환할 수 있습니다. 게임과 블록체인을 연결해주는 Convert 기능을 여러분의 게임에 적용해보세요.
 
 <!--
 ## Prerequisite
