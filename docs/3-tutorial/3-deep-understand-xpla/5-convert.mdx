@@ -8,23 +8,23 @@ import Details from '@theme/Details';
 
 ## Convert란 무엇인가요? {#what-is-convert}
 
-[Break The Bricks 게임](/#playgame)을 해보셨나요? 게임 플레이를 통해 게임 재화인 DIAMOND(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 획득할 수 있습니다. 
-그러나 DIAMOND(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)는 CW20 토큰이 아닌 단순 게임 데이터에 불과하고, 블록체인에서 사용할 수 없습니다.
-[Web3 Gaming Ops. 페이지](/ops)에서 제공하는 Convert 기능을 통해, 유저들은 DIAMOND(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰인 ACADEMY-TKN(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 교환할 수 있습니다.
+[Break The Bricks 게임](/#playgame)을 해보셨나요? 게임 플레이를 통해 게임 재화인 DIAMOND(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 획득할 수 있습니다. 
+그러나 DIAMOND(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)는 CW20 토큰이 아닌 단순 게임 데이터에 불과하고, 블록체인에서 사용할 수 없습니다.
+[Web3 Gaming Ops. 페이지](/ops)에서 제공하는 Convert 기능을 통해, 유저들은 DIAMOND(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰인 ACADEMY-TKN(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 교환할 수 있습니다.
 
 Convert 과정은 왜 필요할까요? 
-게임 플레이 보상으로 매번 CW20 토큰인 ACADEMY-TKN(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 나눠준다면, 항상 트랜잭션 실행을 위해 수수료가 발생하게 됩니다.
-수수료 부담을 줄이기 위해 게임 플레이 보상으로 게임 재화인 DIAMOND(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 전달하고, **유저가 원할 때 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)와 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 교환**하는 **Convert** 방식을 도입했습니다.
+게임 플레이 보상으로 매번 CW20 토큰인 ACADEMY-TKN(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 나눠준다면, 항상 트랜잭션 실행을 위해 수수료가 발생하게 됩니다.
+수수료 부담을 줄이기 위해 게임 플레이 보상으로 게임 재화인 DIAMOND(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 전달하고, <b>유저가 원할 때 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)와 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 교환</b>하는 **Convert** 방식을 도입했습니다.
 이번 단계에서는 Convert 기능을 어떻게 구현하는지 살펴보겠습니다.
 
 <Details summary="게임 재화와 CW20 토큰은 무엇이 다른가요?">
 
 유저는 게임을 즐기면서 보상으로 게임 재화를 얻습니다. 
-[Break The Bricks](/#playgame)의 경우, 게임을 통해 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" /> (DIAMOND)를 획득할 수 있습니다. 
+[Break The Bricks](/#playgame)의 경우, 게임을 통해 DIAMOND(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 획득할 수 있습니다. 
 게임 재화는 게임 제작사의 데이터베이스에 저장되어 있어, 블록체인 네트워크에서 사용할 수 없습니다.
 
 그러나 CW20 토큰은 블록체인에 기록되어 있기 때문에 블록체인 네트워크에서 사용할 수 있습니다.
-[Break The Bricks](/#playgame)에서 유저는 Convert 과정을 통해 CW20 토큰인 <img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />(ACADEMY-TKN)을 얻을 수 있습니다.
+[Break The Bricks](/#playgame)에서 유저는 Convert 과정을 통해 CW20 토큰인 ACADEMY-TKN(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 얻을 수 있습니다.
 
 </Details>
 
@@ -32,16 +32,16 @@ Convert 과정은 왜 필요할까요?
 
 유저가 Convert를 요청하는 경우는 두 가지입니다. 
 
-[1. 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 바꾸려는 경우](/docs/tutorial/deep-understand-xpla/convert#convert-case1)
+[1. 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 바꾸려는 경우](/docs/tutorial/deep-understand-xpla/convert#convert-case1)
 
-[2. CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)로 바꾸려는 경우](/docs/tutorial/deep-understand-xpla/convert#convert-case2)
+[2. CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)로 바꾸려는 경우](/docs/tutorial/deep-understand-xpla/convert#convert-case2)
 
 ### 1. 게임 재화를 CW20 토큰으로 바꾸려는 경우 {#convert-case1}
 
 먼저 1번 과정을 자세히 살펴보겠습니다.
-유저가 보유한 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)의 양은, 게임을 운영하는 측의 데이터베이스에 기록되어 있습니다. 
-반면, CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)의 보유량은 XPLA 블록체인에 기록되어 있습니다.
-따라서 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 바꾸려면, 데이터베이스에 기록된 유저의 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />) 보유량을 감소시키고, 유저 지갑으로 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내주어야 합니다.
+유저가 보유한 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)의 양은, 게임을 운영하는 측의 데이터베이스에 기록되어 있습니다. 
+반면, CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)의 보유량은 XPLA 블록체인에 기록되어 있습니다.
+따라서 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)를 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)으로 바꾸려면, 데이터베이스에 기록된 유저의 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />) 보유량을 감소시키고, 유저 지갑으로 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내주어야 합니다.
 
 일반적으로 블록체인에서 토큰을 보낼 때는 보내는 지갑이 트랜잭션 수수료를 감당합니다. 그러나 Convert에서는 토큰을 받는 유저가 수수료를 냅니다.
 만약 게임을 운영하는 측이 Convert 수수료를 모두 부담한다면, Convert하려는 유저가 많아질수록 수수료 지출이 커져 게임 운영이 어려워지기 때문입니다.
@@ -310,7 +310,7 @@ User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를
 
 ### 2. CW20 토큰을 게임 재화로 바꾸려는 경우 {#convert-case2}
 
-2번 과정은 1번 과정보다 간단합니다. CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)로 바꾸려면, 유저 지갑이 게임 운영 지갑으로 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내주고, 데이터베이스에 기록된 유저의 게임 재화(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />) 보유량을 증가시키면 됩니다. 
+2번 과정은 1번 과정보다 간단합니다. CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />)로 바꾸려면, 유저 지갑이 게임 운영 지갑으로 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내주고, 데이터베이스에 기록된 유저의 게임 재화(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-diamond.svg" width="16" height="16" />) 보유량을 증가시키면 됩니다. 
 2번 과정을 구조도로 그리면 아래와 같습니다.
 
 ```mermaid
@@ -329,7 +329,7 @@ sequenceDiagram
 ```
 <br/>
 
-유저 지갑은 CW20 토큰(<img src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내면서, 트랜잭션 수수료도 지불합니다.
+유저 지갑은 CW20 토큰(<img style={{ marginBottom: -2}} src="/img/3-tutorial/3-deep-understand-xpla/5-convert/academy-token.svg" width="16" height="16" />)을 보내면서, 트랜잭션 수수료도 지불합니다.
 따라서 유저 지갑 서명만 있으면 Convert 트랜잭션 생성이 가능합니다.
 또한, 게임 운영 지갑이 서명할 필요가 없으므로, Sequence mismatch Error를 걱정하지 않아도 됩니다.
 
