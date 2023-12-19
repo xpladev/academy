@@ -77,6 +77,9 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/xpla-social-card.png',
+      metadata: [
+        {name: 'xpla-wallet'},
+      ],
       navbar: {
         items: [
           {
