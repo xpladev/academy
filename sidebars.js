@@ -11,7 +11,7 @@ const sidebars = {
       defaultStyle: true,
     },
     'overview/intro',
-    'overview/gameArchitecture',
+    'overview/demoGameOverview',
     {
       type: 'html',
       value: '<span class="sidebar-divider" />',
