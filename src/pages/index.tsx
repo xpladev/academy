@@ -102,7 +102,6 @@ export default function Home(): JSX.Element {
 
   useEffect(() => {
     if (window.location.hash === "#playgame") {
-      console.log(11);
       onMoveToPlaygameElement();
     }
   }, []);
