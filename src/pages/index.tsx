@@ -22,7 +22,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   return (
     <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
       <div className="max-w-[1180px] flex flex-1 justify-between items-center relative">
-        <div className="flex flex-col max-w-[576px] pb-[100px]">
+        <div className="flex flex-col max-w-[638px] pb-[5px]">
           <img
             className="mb-[30px]"
             src={`/img/Homepage/xpla-academy.svg`}
@@ -34,34 +34,38 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             {siteConfig.tagline}
           </span>
           <span className="text-[24px] font-normal leading-[29px]">
-            Master the world of XPLA step by step.
+          Educational content related to blockchain development,
           </span>
           <span className="text-[24px] font-normal leading-[29px]">
-            Your projects are just a click away!
+          smart contracts, and game tokenomic systems all provided!
           </span>
-          <div className="flex gap-[20px] mt-[40px]">
+          <div className="mt-[56px] font-medium text-[24px] leading-[29px] text-[#004FFF]">
+          Your projects are just a click away!
+          </div>
+          <div className="flex gap-[20px] mt-[19px]">
             <Link
               aria-label="open-tutorial"
               to="/docs/overview/intro"
               className="bg-[#C9FF00] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
-              <span className="font-medium text-[20px] ">Start Now</span>
+              <span className="font-medium text-[20px] ">Start Learning</span>
             </Link>
-            <div
-              className="bg-[#fff] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px]"
-              onClick={onMoveToElement}
+            <Link
+              aria-label="open-tutorial"
+              to="/playgame"
+              className="bg-[#fff] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
-              <span className="font-medium text-[20px]">Dev Resources</span>
-            </div>
+              <span className="font-medium text-[20px]">Play Game</span>
+            </Link>
           </div>
         </div>
         <img
           className={
-            "hidden lg:block lg:w-[40%] lg:static	lg:w-[50%] 2xl:top-[71px] 2xl:left-[618px] 2xl:absolute"
+            "hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:left-[634px] 2xl:absolute"
           }
           src={`/img/Homepage/explorer-play.svg`}
           alt="explorer-play"
-          sizes="(min-width: 1024px) 590px"
+          sizes="(min-width: 1024px) 674px"
         />
         <img
           className={styles.earth}
