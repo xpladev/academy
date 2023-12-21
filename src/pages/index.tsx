@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import HomepageFeatures from "@site/src/components/HomepageFeatures";
+import DiveInto from "@site/src/components/Homepage/DiveInto";
 
 import styles from "./index.module.css";
 import PlayGame from "../components/Homepage/PlayGame";
@@ -124,7 +124,7 @@ export default function Home(): JSX.Element {
     >
       <HomepageHeader onMoveToElement={onMoveTodevResourceElement} />
       <main>
-        <HomepageFeatures />
+        <DiveInto />
         <PlayGame moveToElement={playgameElement} />
         <IntroduceTutorial />
         <DevResource moveToElement={devResourceElement} />

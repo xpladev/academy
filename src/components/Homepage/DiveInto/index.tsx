@@ -11,20 +11,20 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    Svg: "/img/HomepageFeatures/easy-to-follow.svg",
+    Svg: "/img/DiveInto/easy-to-follow.svg",
     description: <>Easy to follow tutorials</>,
     rightBorder : true,
     sizes : "(max-width: 768px) 100px, 150px",
   },
   {
-    Svg: "/img/HomepageFeatures/freely-moddable.svg",
+    Svg: "/img/DiveInto/freely-moddable.svg",
     description: <>Flexible Modularity</>,
     rightBorder : true,
     sizes :"(max-width: 768px) 121px",
 
   },
   {
-    Svg: "/img/HomepageFeatures/game-developer-friendly.svg",
+    Svg: "/img/DiveInto/game-developer-friendly.svg",
     description: <>Game DEV-friendly</>,
     rightBorder : false,
     sizes : "(max-width: 768px) 158px",
@@ -47,18 +47,18 @@ function Feature({ Svg, description, rightBorder, sizes }: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function DiveInto(): JSX.Element {
   return (
     <section className="h-[812px] bg-[#004FFF] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.ellipsis}
-        src={`/img/HomepageFeatures/ellipsis.svg`}
+        src={`/img/DiveInto/ellipsis.svg`}
         alt="ellipsis"
         sizes="(min-width: 1780px) 303px"
       />
       <img
         className={styles.square}
-        src={`/img/HomepageFeatures/square.svg`}
+        src={`/img/DiveInto/square.svg`}
         alt="square"
         sizes="(min-width: 1780px) 308px"
       />
