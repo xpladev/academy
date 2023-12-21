@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
+import AboutXPLAAcademy from "@site/src/components/Homepage/AboutXPLAAcademy";
 import DiveInto from "@site/src/components/Homepage/DiveInto";
 
 import styles from "./index.module.css";
@@ -128,6 +129,7 @@ export default function Home(): JSX.Element {
     >
       <HomepageHeader onMoveToElement={onMoveTodevResourceElement} />
       <main>
+        <AboutXPLAAcademy />
         <DiveInto />
         <PlayGame moveToElement={playgameElement} />
         <IntroduceTutorial />

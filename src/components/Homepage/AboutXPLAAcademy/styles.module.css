@@ -1,0 +1,65 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
+
+.ellipsis {
+  position: absolute;
+  top: 39px;
+  left: 0;
+}
+
+
+.square {
+  position: absolute;
+  right: 0;
+  top: 145px;
+}
+
+.card {
+  aspect-ratio: 1 / 1;
+}
+
+.mobileImg {
+  height: 171px;
+}
+
+.rightBorder {
+  border-right: 1px solid white;
+}
+
+@media screen and (max-width : 1780px) {
+  .ellipsis {
+    display: none;
+  }
+
+  .square {
+    display: none;
+  }
+}
+
+@media screen and (max-width : 768px) {
+
+  .card {
+    height: 100px;
+    aspect-ratio: 3 / 1;
+  }
+
+  .mobileImg {
+    height: 100px;
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .rightBorder {
+    border-right: 0px;
+    border-bottom: 1px solid white;
+  }
+}
