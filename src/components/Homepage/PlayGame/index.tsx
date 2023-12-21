@@ -7,7 +7,7 @@ export default function PlayGame({
 } : {
   moveToElement: React.MutableRefObject<HTMLDivElement>;
 }): JSX.Element {
-  const matches = useMediaQuery("(max-width:768px)");
+  const matches = useMediaQuery("(max-width:996px)");
 
   return (
     <section 
