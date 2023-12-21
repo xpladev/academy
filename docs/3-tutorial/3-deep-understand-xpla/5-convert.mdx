@@ -71,7 +71,7 @@ sequenceDiagram
     end
     C->>U: Step 11
 
-%%{init:{'themeCSS':'.messageText:nth-of-type(1) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(2) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(3) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(4) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(5) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(7) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(8) { font-weight: bold !important; fill:#004FFF;}; g:nth-of-type(5) .note { stroke: #004FFF;fill: white; width:70px; height:30px; width:70px; height:30px; x:240; y:184;}; g:nth-of-type(5) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(6) .note { stroke: #004FFF;fill: white; width:70px; height:30px; x:40; y:286;}; g:nth-of-type(6) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(7) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .note { stroke: #004FFF;fill: white;  width:70px; height:30px; x:240; y:613;}; g:nth-of-type(8) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(9) .note { stroke: #004FFF;fill: white; width:70px; height:30px; x:240; y:664;}; g:nth-of-type(9) .noteText tspan { fill: #004FFF; font-weight:bold;};'}}%%
+%%{init:{'themeCSS':'.messageText:nth-of-type(1) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(2) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(3) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(4) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(5) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(7) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(8) { font-weight: bold !important; fill:#004FFF;}; g:nth-of-type(5) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(5) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(6) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(6) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(7) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(9) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(9) .noteText tspan { fill: #004FFF; font-weight:bold;};'}}%%
 ```
 <br/>
 
@@ -93,7 +93,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
-Step 1. User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px]">Step 1.</span> User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
 
 ```js {6} title="User Client App"
 import { useWallet } from "@xpla/wallet-provider";
@@ -114,7 +114,7 @@ const unsignedResponse = await axios.post(
 
 <br/>
 
-Step 2. Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
+<span className="text-[#004FFF] font-bold text-[17px]">Step 2.</span> Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
 
 ```js title="Convert Server"
 db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
@@ -124,7 +124,7 @@ Convert하려는 수량(amount)보다 많이 있을 때, 유저가 보유한 재
 
 <br/>
 
-Step 3. Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px]">Step 3.</span> Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
 ```js {6,17,29,31} title="Convert Server"
 import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
@@ -165,7 +165,7 @@ const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, 
 
 <br/>
 
-Step 4. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 4.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
 ```js title="Convert Server"
 const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
@@ -177,7 +177,7 @@ User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전�
     
 <br/>
 
-Step 5. User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
+<span className="text-[#004FFF] font-bold text-[17px]">Step 5.</span> User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
 
 ```js {9,12} title="User Client App"
 const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
@@ -200,7 +200,7 @@ const { result: signedTx, success } = await connectedWallet.sign({
 
 <br/>
 
-Step 6. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 6.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
 ```js {3,6,7} title="User Client App"
 const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
@@ -218,7 +218,7 @@ const res = await axios.post(
 
 <br/>
 
-Step 7. Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
+<span className="text-[#004FFF] font-bold text-[17px]">Step 7.</span> Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
 
 ```js {6,9} title="Convert Server"
 const game_opeartor_mk = new MnemonicKey({ mnemonic: opeartorMnemonicKey })
@@ -237,7 +237,7 @@ try {
 
 <br/>
 
-Step 8. Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
+<span className="text-[#004FFF] font-bold text-[17px]">Step 8.</span> Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
 
 ```js {9,12} title="Convert Server"
 try { // step 7
@@ -277,7 +277,7 @@ CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 �
 
 <br/>
 
-Step 9. Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px]">Step 9.</span> Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
 ```js title="Convert Server"
 txResult = await lcd.tx.broadcastSync(allSignedTx)      
@@ -287,7 +287,7 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
 
 <br/>
 
-Step 10. Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
+<span className="text-[#004FFF] font-bold text-[17px]">Step 10.</span> Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
 
 ```js title="Convert Server"
     await db.execute(`UPDATE operator_sequence SET sequence = ? WHERE accAddress = ?`, [operatorSeq+1, operatorWallet.key.accAddress])
@@ -300,7 +300,7 @@ Step 10. Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가�
 
 <br/>
 
-Step 11. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 11.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
 ```js title="Convert Server"
 return { txhash : txResult.txhash }
@@ -321,14 +321,16 @@ sequenceDiagram
     actor U as User Client App;
     participant C as Convert server;
     participant D as Database(DB);
-    U->>C: Step 1. CW20 토큰을 게임 재화로<br/> 바꾸는 Convert 요청 
-    Note over C: Step 2. 유저 지갑이 게임 운영 지갑으로<br/> CW20 토큰을 전송하는 unsigned 트랜잭션 생성
-    C->>U: Step 3. 유저에게 unsigned 트랜잭션을 전달
-    Note over U: Step 4. 유저는 unsigned 트랜잭션에 서명
-    U->>C: Step 5. 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
-    Note over C: Step 6. 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
-    C->>D: Step 7. 유저가 요청한 만큼 DB에 기록된<br/> 유저의 게임 재화 보유량을 증가시킴.
-    C->>U: Step 8. 트랜잭션 결과를 유저에게 전달
+    U->>C: Step 1
+    Note over C: Step 2
+    C->>U: Step 3
+    Note over U: Step 4
+    U->>C: Step 5
+    Note over C: Step 6
+    C->>D: Step 7
+    C->>U: Step 8
+
+%%{init:{'themeCSS':'.messageText:nth-of-type(1) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(2) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(3) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(4) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(5) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(7) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(8) { font-weight: bold !important; fill:#004FFF;}; g:nth-of-type(5) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(5) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(6) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(6) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(7) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(7) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(8) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(9) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(9) .noteText tspan { fill: #004FFF; font-weight:bold;};'}}%%
 ```
 <br/>
 
@@ -338,7 +340,7 @@ sequenceDiagram
 
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
-Step 1. User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px]">Step 1.</span> User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
 
 ```js {6} title="User Client App"
 import { useWallet } from "@xpla/wallet-provider";
@@ -359,7 +361,7 @@ const unsignedResponse = await axios.post(
 
 <br/>
 
-Step 2. Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px]">Step 2.</span> Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 
 ```js {7,18,31,33} title="Convert Server"
 import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
@@ -402,7 +404,7 @@ const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
 
 <br/>
 
-Step 3. Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 3.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 
 ```js title="Convert Server"
 const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
@@ -414,7 +416,7 @@ User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전�
 
 <br/>
 
-Step 4. User Client App : 유저는 unsigned 트랜잭션에 서명
+<span className="text-[#004FFF] font-bold text-[17px]">Step 4.</span> User Client App : 유저는 unsigned 트랜잭션에 서명
 
 ```js {9,12} title="User Client App"
 const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
@@ -437,7 +439,7 @@ const { result: signedTx, success } = await connectedWallet.sign({
 
 <br/>
 
-Step 5. User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 5.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 
 ```js {3,6,7} title="User Client App"
 const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
@@ -455,7 +457,7 @@ const res = await axios.post(
 
 <br/>
 
-Step 6. Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px]">Step 6.</span> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 
 ```js title="Convert Server"
 const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
@@ -467,7 +469,7 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
 
 <br/>
 
-Step 7. Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
+<span className="text-[#004FFF] font-bold text-[17px]">Step 7.</span> Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
 
 ```js title="Convert Server"
 db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
@@ -477,7 +479,7 @@ db.query('update user_info set game_currency = game_currency + ? where pid = ? '
 
 <br/>
 
-Step 8. Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px]">Step 8.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 
 ```js title="Convert Server"
 return { txhash : txResult.txhash }
