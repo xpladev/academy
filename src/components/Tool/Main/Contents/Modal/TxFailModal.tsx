@@ -51,12 +51,8 @@ export default function TxFailModal({
               <span className="min-w-[63px] text-[#3F3F3F] ">TX Fee</span>
               <span className="text-end w-full">
                 <span className="text-[14px]">
-                  {estimateFee.split(".")[0]}.
-                  <span className="text-[11px]">
-                    {estimateFee.split(".")[1]}
-                  </span>
+                  -
                 </span>
-                <span className="font-bold"> XPLA</span>
               </span>
             </div>
 
