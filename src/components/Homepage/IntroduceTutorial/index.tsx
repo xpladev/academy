@@ -110,15 +110,17 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/docs/tutorial/deep-understand-xpla/account-sequence",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Multi-Send
+              Learn about 
               <br />
-              <span className="font-bold text-[20px]"> $XPLA!</span>
+              <span className="font-bold text-[20px]">Account number <span className="font-semibold">and</span> Sequence!</span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Multi-Send
+              Learn about 
               <br />
-              <span className="font-bold text-[24px]">$XPLA!</span>
+              <span className="font-bold text-[24px]">Account number <span className="font-semibold">and</span></span>
+              <br />
+              <span className="font-bold text-[24px]">Sequence!</span>
             </div>
           ),
         },
@@ -261,7 +263,7 @@ const SliderItem = ({ title, color, contents }: SliderItemType) => {
               aria-label={"content-link" + content.link}
             >
               <img
-                className={clsx("w-12", styles.quotationMark)}
+                className={clsx("w-12 md:mb-[30px]", styles.quotationMark)}
                 src={`/img/IntroduceTutorial/quotationMark.svg`}
                 alt="questionMark"
                 width="48px"
