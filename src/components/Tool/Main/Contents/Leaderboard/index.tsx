@@ -239,9 +239,9 @@ const Leaderboard = () => {
           height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[24px]">
-          Check and record your best game score through 'MY BEST SCORE'!
-          <br /> The recorded score can be compared with scores and <br />
-          rankings from other users.
+        'MY BEST SCORE' lets you record
+          <br />your top game score in INFINITE MODE!<br />
+          Compare rankings and scores through blockchain.
         </div>
         <div className="w-full h-full flex gap-[20px] mt-[30px]">
           <div className="w-full h-full flex flex-1 flex-col border-[1px] border-solid bg-white">
@@ -251,7 +251,7 @@ const Leaderboard = () => {
             <div className="flex flex-col h-full justify-between px-[20px] py-[10px]">
               <div className="font-medium text-[10px] text-[#00B2FC] leading-[13px] text-center">
                 RANKING only shows the scores recoreded through '
-                <span className="font-semibold text-[#FF640C]">
+                <span className="text-[#FF640C]">
                   MY BEST SCORE
                 </span>
                 '.
@@ -323,9 +323,8 @@ const Leaderboard = () => {
             </div>
             <div className="flex flex-col h-full px-[20px] py-[16px]">
               <div className="leading-[13px] text-[#FF640C] text-[10px] font-medium text-center">
-                '<span className="font-semibold">MY BEST SCORE</span>' shows
-                your highest score. Use the RECORD button to immortalize your
-                score on the blockchain!
+              Check the best scores you've achieved in INFINITE MODE.<br/>
+              Hit [RECORD] to mark your score on blockchain!
               </div>
 
               <div className="border-solid border-0 border-b-[1px] border-[#FF640C] mt-[17px]" />
@@ -386,7 +385,7 @@ const Leaderboard = () => {
                   </div>
                 </div>
                 {rankinglist?.isRecoding === 1 && (
-                  <div className="absolute w-full h-full flex flex-col justify-center items-center opacity-80 bg-black">
+                  <div className="absolute w-full h-full flex flex-col justify-center items-center bg-[#000000CC]">
                     <span className="text-white font-normal text-[24px] leading-[26px]">
                       ALREADY
                     </span>
