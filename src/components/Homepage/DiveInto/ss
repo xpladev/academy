@@ -93,8 +93,8 @@ export default function DiveInto(): JSX.Element {
         sizes="(min-width: 1780px) 308px"
       />
       <div className="max-w-[1180px] h-full flex flex-1 justify-center items-center z-10">
-        <div className="flex flex-col max-[500px]:h-full flex-1 md:gap-[57px]">
-          <span className="text-[#000000] flex md:flex-1 justify-center font-bold text-[50px] leading-[60px]">
+        <div className="flex flex-col h-full flex-1 md:gap-[57px]">
+          <span className="text-[#000000] flex justify-center font-bold text-[50px] leading-[60px]">
             Dive into XPLA ACADEMY
           </span>
           <div className="flex-col md:flex-row flex flex-1 gap-[20px]">
