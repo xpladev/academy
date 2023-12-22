@@ -24,7 +24,7 @@ export default function IntroduceTutorial(): JSX.Element {
 
   const items: SliderItemType[] = [
     {
-      title: ["Straightforward", "Steps to Integrate XPLA!"],
+      title: ["Get to know Web3", "with XPLA!"],
       color: "#F93AC3",
       contents: [
         {
@@ -86,26 +86,9 @@ export default function IntroduceTutorial(): JSX.Element {
       ],
     },
     {
-      title: ["Straightforward", "Steps to Integrate XPLA!"],
+      title: ["Be a pro with", "ADVANCED COURSES!"],
       color: "#C9FF00",
       contents: [
-        {
-          link: "/docs/category/advanced---dive-deep-into-xpla-blockchain",
-          description: matches ? (
-            <span className="font-semibold text-[20px]">
-              Stand out with <br />
-              <span className="font-bold text-[20px]"> ADVANCED COURSES!</span>
-            </span>
-          ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
-              Stand out with <br />
-              <span className="font-bold text-[24px]">
-                ADVANCED <br />
-                COURSES!
-              </span>
-            </div>
-          ),
-        },
         {
           link: "/docs/tutorial/deep-understand-xpla/local-network",
           description: matches ? (
@@ -139,12 +122,6 @@ export default function IntroduceTutorial(): JSX.Element {
             </div>
           ),
         },
-      ],
-    },
-    {
-      title: ["Straightforward", "Steps to Integrate XPLA!"],
-      color: "#FFE200",
-      contents: [
         {
           link: "/docs/tutorial/deep-understand-xpla/walletprovider",
           description: matches ? (
@@ -163,6 +140,12 @@ export default function IntroduceTutorial(): JSX.Element {
             </div>
           ),
         },
+      ],
+    },
+    {
+      title: ["Add Web3 to your project", "with XPLA!"],
+      color: "#FFE200",
+      contents: [
         {
           link: "/docs/tutorial/deep-understand-xpla/write-contract",
           description: matches ? (
@@ -186,8 +169,7 @@ export default function IntroduceTutorial(): JSX.Element {
             <span className="font-semibold text-[20px]">
               Exchange Tokens with
               <br />
-              <span className="font-bold text-[20px]">CONVERT! </span>(Coming
-              Soon)
+              <span className="font-bold text-[20px]">CONVERT! </span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
@@ -196,8 +178,24 @@ export default function IntroduceTutorial(): JSX.Element {
               Tokens with
               <br />
               <span className="font-bold text-[24px]">CONVERT!</span>
+            </div>
+          ),
+        },
+        {
+          link: "/docs/tutorial/deep-understand-xpla/swap",
+          description: matches ? (
+            <span className="font-semibold text-[20px]">
+              Exchange Tokens
               <br />
-              (Coming Soon)
+              <span className=" text-[20px]">to $XPLA with <span className="font-bold">SWAP!</span></span>
+            </span>
+          ) : (
+            <div className="font-semibold text-[24px] h-[197px]">
+              Exchange
+              <br />
+              <span className="text-[24px]">Tokens to $XPLA with</span>
+              <br />
+              <span className="font-bold text-[24px]">SWAP!</span>
             </div>
           ),
         },
