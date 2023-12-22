@@ -1,29 +1,72 @@
 import React from "react";
 import Cocosgame from "../../Cocosgame";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import clsx from "clsx";
+import "./index.css";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Link from "@docusaurus/Link";
 
 export default function PlayGame({
-  moveToElement
-} : {
+  moveToElement,
+}: {
   moveToElement: React.MutableRefObject<HTMLDivElement>;
 }): JSX.Element {
-  const matches = useMediaQuery("(max-width:996px)");
+  const isMobile = useMediaQuery("(max-width:996px)");
 
   return (
-    <section 
-    ref={moveToElement}
-    className="h-[900px] md:h-[1272px] flex flex-col justify-center items-center gap-[78px] px-4">
-      <div className="flex flex-col items-center justify-center">
-        <div className="font-bold text-[50px] leading-[60px]">
-          Explore & Play the demo
+    <section
+      ref={moveToElement}
+      className={clsx(
+        "relative h-[900px] md:h-[1392px] flex flex-col bg-[#CBF0FF] justify-center items-center px-4"
+      )}
+    >
+      <img
+        src="/img/PlayGame/bgassets-left.svg"
+        alt="bgassets-left"
+        className="max-[800px]:hidden absolute mix-blend-luminosity bottom-[103px] left-[116px]"
+      />
+      <img
+        src="/img/PlayGame/bgassets-right.svg"
+        alt="bgassets-right"
+        className="max-[800px]:hidden absolute mix-blend-luminosity bottom-0 right-0"
+      />
+
+      <div className="flex flex-col items-center z-10">
+        <img
+          width="780px"
+          height="66px"
+          src="/img/PlayGame/gametitle.svg"
+          alt="gametitle"
+          className="mb-[20px]"
+        />
+        <div className="text-[#004FFF] font-semibold text-[50px] leading-[60px] mb-[56px]">
+          Play Demo Game
         </div>
-        {!matches && (
-          <div className="font-bold text-[50px] leading-[60px]">
-            Experience game building on XPLA
-          </div>
-        )}
+        <div className="mb-[51px]">
+          {isMobile ? (
+            <img src="/img/PlayGame/comingsoon.svg" />
+          ) : (
+            <Cocosgame />
+          )}
+        </div>
+        <div className="mb-[30px] text-center text-[29px] leading-[39px] font-medium">
+          Play <span className="font-bold">XPLA ACADEMY</span>'s Demo Game{" "}
+          <br />
+          Experience Game Building within XPLA
+        </div>
+        <Link
+          to="https://github.com/xpladev/academy"
+          className="font-medium text-[20px] leading-[24px] text-[#004FFF] flex items-center hover:text-[#004FFF] hover:no-underline"
+        >
+          Game code is open source on GitHub! ➔&nbsp;
+          <img
+            src="/img/PlayGame/githubwhite.svg"
+            alt="githubwhite"
+            width="30px"
+            height="30px"
+          />
+        </Link>
       </div>
-      {matches ? <img src="/img/PlayGame/comingsoon.svg" /> : <Cocosgame />}
     </section>
   );
 }
