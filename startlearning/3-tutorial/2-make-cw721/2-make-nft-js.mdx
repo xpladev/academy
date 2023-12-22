@@ -1,0 +1,376 @@
+---
+sidebar_position: 2
+---
+
+# Issue CW721 NFT (Javascript)
+
+import Details from '@theme/Details';
+import Ex06CW721 from "@site/src/components/Sandpack/Ex06-instantiate-cw721";
+import Ex07MintNFT from "@site/src/components/Sandpack/Ex07-mint-nft";
+
+You can use CW721 to easily create NFTs on the XPLA blockchain. Let's give making NFTs a shot by crafting them in your Vault and trying them out in a game!
+
+<Details summary="What is NFT?">
+
+NFT stands for `Non-Fungible Token`, which means it's a token that can't be replaced with something else. But what does `Non-Fungible` actually mean?
+
+Let's take the example of two $1 bills. They're both worth the same, $1 each, so one can replace the other. Now, think about a drawing of a Mona Lisa that Alice made and the actual Mona Lisa painting in the Louvre Museum. Even if Alice's drawing perfectly depicts every detail of the Mona Lisa, it can't replace the real Mona Lisa painting. This is because they're uniquely different and can't be swapped for each other. This is the idea behind NFTs - they're tokens for things that can't be replaced with something else.
+
+So, what can you do with NFTs? Imagine Alice creates a drawing and wants to use it as her profile picture. But what if someone copies Alice's drawing, claims it as their own, and uses it? What can Alice do? If Alice includes the main information about the drawing in an NFT, she can prove ownership of the drawing. This way, she can establish that she's the real owner of the drawing.
+
+</Details>
+
+<Details summary="What is CW721?">
+
+The XPLA blockchain uses a smart contract platform called `Cosmwasm`. Similar to Ethereum's ERC721, **CW721** is the standard for non-fungible tokens (NFTs) on `Cosmwasm`. Even though the name might sound similar to ERC721 from Ethereum, they actually work quite differently. If you want to know more details, you can check out the [official documentation](https://github.com/xpladev/cw-nfts).
+
+</Details>
+
+## Preview {#preview}
+
+First, here's the JavaScript code to create the CW721 contract. Replace mnemonic with yours, adjust the code as needed, and then run it. After a short while, you'll be able to see the results on the right side.
+
+<Ex06CW721 />
+
+<br/>
+
+<br/>
+
+Did you create the contract successfully? Now let's use the contract to mint an NFT. In the code below, please insert your mnemonic. Then assign the contract address you made earlier to the `myContractAddress` variable. After running the code, you'll be able to see the NFT minting result shortly.
+
+<Details summary="Where can you find the address of the created contract?">
+
+The easiest way is to use [XPLA Explorer](https://explorer.xpla.io/). Take the transaction hash that appears as the result of your execution and search for it on [XPLA Explorer](https://explorer.xpla.io/). After that, when you go to the `Event Logs` tab in the Transaction Details screen, you'll be able to see the address of the contract you created. You could find the example contract address [here](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs).
+
+</Details>
+
+<Ex07MintNFT />
+
+<br/>
+
+If you've fully understood the Preview Code, feel free to skip reading the [following](/startlearning/tutorial/make-cw721/make-nft-js#instantiate-runjs) and move on to the [next step](/startlearning/tutorial/make-cw721/query-cw721).
+
+<br/>
+
+## Create CW721 Contract with Javascript {#instantiate-runjs}
+
+Now let’s create CW721 contract. The Code ID for CW721 is `3` on both mainnet & testnet.
+
+<Details summary="Code ID?">
+
+Unlike EVM, the Code Deploy and Contract Creation do not go hand in hand in Cosmwasm. First, when you put your code onto the blockchain (StoreCode), you'll get a special number called a `Code ID` for that code. Afterward, you can use this `Code ID` to make a contract (InstantiateContract).
+
+All the contracts made with the same Code ID are based on the same original code. The only difference is that if you provide different starting values (init_msg) when making the contract, the specific details of the contract will be different. For more detailed information, you can take a look at the [XPLA Docs](https://docs.xpla.io/develop/develop/core-modules/wasm/#code-id).
+
+</Details>
+
+<br/>
+
+### Running the Code {#instantiate-runcode}
+
+1. Create a file named "example-6.js".
+
+2. Copy and paste the below code in the file above then save it!
+
+    ```js
+    const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
+        })
+
+        const wallet = lcd.wallet(mk);
+        const myWalletAddress = wallet.key.accAddress;
+
+        const init_msg = {
+            "name": "YourNFTName",
+            "symbol": "YNN",
+            "minter": myWalletAddress
+        }
+
+        const instantiate = new MsgInstantiateContract(
+            myWalletAddress, // sender
+            myWalletAddress, // admin
+            3, // MAINNET, TESTNET CW721 code id
+            init_msg,
+            {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+            'Input your label', // Enter the label you want to write.
+        );
+
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
+            msgs: [instantiate]
+        });
+
+        const txResult = await lcd.tx.broadcastSync(signedTx);
+        console.log(txResult.txhash);
+    }
+    main()
+    ```
+
+3. Change the mnemonic phrase in the 10th line with your own.
+
+4. Type in the below command in VSCode Terminal.
+
+  ```bash
+  node example-6.js
+  ```
+
+5. Check the results in the Terminal. You'll see that the CW721 contract is created, and you'll be able to verify the hash value of the transaction created.
+
+<br/>
+
+### Explanation {#instantiate-explaination}
+
+We haven't written the contract code for CW721. The code has already been deployed on the XPLA blockchain, and we've simply created a contract using the deployed code.
+
+First, we loaded the wallet with mnemonic words. You might have loaded your wallet using different mnemonic words.
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+})
+
+const wallet = lcd.wallet(mk);
+const myWalletAddress = wallet.key.accAddress;
+```
+
+<br/>
+
+We've set up initial values for creating the CW721 contract. Feel free to modify the values below as you want, and it's also a great idea to create your own unique NFT.
+
+```js
+const init_msg = {
+    "name": "YourNFTName",
+    "symbol": "YNN",
+    "minter": myWalletAddress
+}
+```
+
+<br/>
+
+Who is creating the contract (sender), who owns the contract (admin), the Code ID, initial values, and label - all of these are input to prepare for contract creation.
+
+```js
+const instantiate = new MsgInstantiateContract(
+    myWalletAddress, // sender
+    myWalletAddress, // admin
+    3, // MAINNET, TESTNET CW721 code id
+    init_msg,
+    {}, // XPLA token amount to send to the contract (leave empty for now, not needed at the moment).
+    'Input your label', // Enter the label you want to write.
+);
+```
+
+<br/>
+
+Using the `createAndSignTx` function, you generate and sign the transaction. 
+
+```js
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
+    msgs: [instantiate]
+});
+```
+
+<br/>
+
+Then, with the `broadcastSync` function, you send the created transaction to the network. If the transaction is successfully created on the XPLA blockchain, you'll be able to see the transaction hash as the result. 
+
+```js
+const txResult = await lcd.tx.broadcastSync(signedTx);
+console.log(txResult.txhash);
+```
+
+<br/>
+
+Let's confirm the created contract address on [XPLA Explorer](https://explorer.xpla.io/). Take the transaction hash from the result and search for it on [XPLA Explorer](https://explorer.xpla.io/). After that, in the Transaction Details screen, go to the `Event Logs` tab, and you'll find the address of the created contract. You can see that the example contract address [here](https://explorer.xpla.io/testnet/tx/CA0CDADB8F1A1AF807D76FD24A75E8468E884DA5ACEB9BE2FE33F802E5531C07#EventLogs) is `xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0`.
+
+<br/>
+
+## Issuing NFT with Created CW721 Contract {#makenft-runjs}
+
+So far, it was about creating a CW721 contract. Now, let's mint NFT with the contract!
+
+<br/>
+
+### Running the Code {#makenft-runcode}
+
+1. Create a file named "example-7.js".
+
+2. Copy and paste the code below into the "example-7.js" file, then save it.
+
+    ```js
+    const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
+        })
+
+        const wallet = lcd.wallet(mk);
+        const myWalletAddress = wallet.key.accAddress;
+        const myContractAddress = "xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0"; // Input your Contract Address
+
+        const time = new Date();
+        const mintJSON = {
+            mint: {
+                owner: myWalletAddress,
+                token_id: `token_id_${time.getTime()}`,
+                // token_uri: "https://your.token.uri.address", // input your token_uri
+                extension: {
+                    name : "My Test XPLA NFT",
+                    // image: "https://your.image.url", // input your nft image url
+                    attributes: [
+                        {
+                            value: 'Alice',
+                            trait_type: 'CharacterName',
+                        },
+                        {
+                            value: '100',
+                            trait_type: 'CP',
+                        },
+                        {
+                            value: '10',
+                            trait_type: 'HP',
+                        },
+                    ],
+                    description : "This is my First NFT in XPLA Blockchain!",
+                },
+            },
+        };
+        const mint = new MsgExecuteContract(
+            myWalletAddress,
+            myContractAddress,
+            mintJSON
+        );
+
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
+            msgs: [mint]
+        });
+
+        const txResult = await lcd.tx.broadcastSync(signedTx);
+        console.log(txResult.txhash);
+    }
+    main()
+    ```
+
+3. Modify the mnemonic words in the 10th line with your own mnemonic words.
+
+4. Assign the contract address you created earlier to the `myContractAddress` variable in the 15th line.
+
+5. Enter the command below in the VSCode Terminal.
+
+  ```bash
+  node example-7.js
+  ```
+
+6. Check the results in the Terminal. Your NFT should have been minted.
+
+<br/>
+
+### Explanation {#makenft-explaination}
+
+Let's skip the part about loading the wallet since it's the same as before.
+
+First, you need to decide what kind of NFT with important information (metadata) you want to mint. Let's imagine we're creating a character NFT named Alice in this example. This NFT character has a CP of 100 and an HP of 10.
+
+Feel free to change the values below to create your unique NFT.
+
+```js
+const time = new Date();
+const mintJSON = {
+    mint: {
+        owner: myWalletAddress,
+        token_id: `token_id_${time.getTime()}`,
+        // token_uri: "https://your.token.uri.address", // input your token_uri
+        extension: {
+            name : "My Test XPLA NFT",
+            // image: "https://your.image.url", // input your nft image url
+            attributes: [
+                {
+                    value: 'Alice',
+                    trait_type: 'CharacterName',
+                },
+                {
+                    value: '100',
+                    trait_type: 'CP',
+                },
+                {
+                    value: '10',
+                    trait_type: 'HP',
+                },
+            ],
+            description : "This is my First NFT in XPLA Blockchain!",
+        },
+    },
+};
+```
+
+<Details summary="What values should go into the important information (metadata)?">
+
+Here are the items that can be included in the important information (metadata):
+
+```js
+{
+    mint: {
+        owner: "Enter the address of the NFT Owner.",
+        token_id: "A unique identifier used for individual NFTs, known as Token ID.",
+        token_uri: "A URI provided in JSON format with the extension information. It follows the same format used by OpenSea.",
+        extension: { 
+            name : "The name of the NFT.",
+            description : "A description of the NFT.",
+            image : "A URL providing the NFT image. It's recommended to keep it around 40MB, with support for up to 100MB.", 
+            animation_url : "A URL providing an animation for the NFT. Recommended size is around 40MB, with support for up to 100MB.",
+            youtube_url : "A URL for a YouTube video, currently not supported.",
+            attributes: [   // Represents characteristics of the NFT.
+                {
+                    category : "NFT item category.",
+                    collection : "NFT Collection.",
+                    creator : "NFT creator or copyright holder.",
+                    provider : "Person with selling or distribution rights for the NFT.",
+                    thumbnail_url : "URL providing a thumbnail image for the NFT.",
+                    extension_url : "URL providing extension information in JSON format for the NFT.",
+
+                    // Additional NFT characteristics can be added like this.
+                    trait_type: "CharacterName",
+                    value: "Alice", 
+                },
+            ],
+        },
+    },
+};
+```
+
+If you want more details, you can explore the [CW721 GitHub](https://github.com/xpladev/cw-nfts/tree/main/contracts/cw721-metadata-onchain) or refer to other NFTs on [XPLA Explorer](https://explorer.xpla.io/). It's also good to read about the [OpenSea Metadata standard](https://docs.opensea.io/docs/metadata-standards).
+
+</Details>
+
+<br/>
+
+Use the written metadata to `Execute` the contract you created earlier.
+
+```js
+const mint = new MsgExecuteContract(
+    myWalletAddress,
+    myContractAddress,
+    mintJSON
+);
+```
+
+After that, there will be tasks such as generating the transaction, signing, and sending it over the network. If the transaction is successfully created on the blockchain, it means that the NFT minting has been successfully carried out.
+
+## Wrapping Up {#conclusion}
+
+That's how we've minted NFTs using the CW721 contract. Remember, NFTs are also tokens, so keep in mind that you're minting them through the contract. The key thing is that each token has its own unique metadata, which makes them distinct from other tokens created within the same contract.
+
+In the [next chapter](/startlearning/tutorial/make-cw721/query-cw721), we are going to retrieve the date of the NFT we made ourselves from the blockchain!

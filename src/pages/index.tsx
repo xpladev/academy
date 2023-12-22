@@ -46,7 +46,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
           <div className="flex gap-[20px] mt-[19px]">
             <Link
               aria-label="open-tutorial"
-              to="/docs/overview/intro"
+              to="/startlearning/overview/intro"
               className="bg-[#C9FF00] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
               <span className="font-medium text-[20px] ">Start Learning</span>

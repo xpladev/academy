@@ -2,17 +2,17 @@
 sidebar_position: 1
 ---
 
-# 지갑 만들기 (Vault)
+# Creating a Wallet (Vault)
 
 import Card from "@site/src/components/Card";
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-블록체인에서 지갑(wallet)은 유저의 토큰을 관리하는 소프트웨어를 의미하기도 하고, 유저의 계정(account) 자체를 의미하기도 합니다.
+In the world of blockchain, a wallet can mean software that takes care of a user's tokens or even the user's account itself.
 
-## Vault 설치 {#install-vault}
+## Installing Vault {#install-vault}
 
-Vault는 XPLA 블록체인에서 사용하는 대표적인 지갑 앱입니다. 앞으로 우리가 사용할 [Vault Chrome Extension](https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb)을 설치해봅시다.
+Vault is a prominent wallet application used within the XPLA blockchain! Let's go ahead and install the [Vault Chrome Extension](https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb), our tool of choice for this adventure.
 
 ```mdx-code-block
 <div className="grid sm:grid-cols-2 gap-4 grid-cols-1">
@@ -22,7 +22,7 @@ Vault는 XPLA 블록체인에서 사용하는 대표적인 지갑 앱입니다. 
     }
     imgSrc={"/img/2-settings/1-create-wallet/vault.jpg"}
     title={"Vault"}
-    description={`XPLA 블록체인 네트워크에서 사용합니다.`}
+    description={`Widely used on the XPLA blockchain network.`}
     />
     {/* <Card
     imgLink={
@@ -37,7 +37,7 @@ Vault는 XPLA 블록체인에서 사용하는 대표적인 지갑 앱입니다. 
 
 <br />
 
-Vault를 Chrome Extension으로 실행해보면 아래와 같은 화면을 볼 수 있습니다.
+Once you open up Vault as a Chrome Extension, you'll be greeted with a screen like the one below:
 
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
@@ -51,21 +51,21 @@ Vault를 Chrome Extension으로 실행해보면 아래와 같은 화면을 볼 �
 
 <br />
 
-## 지갑 생성하기 {#createwallet}
+## Creating a Wallet {#createwallet}
 
-Vault를 이용하면 다음과 같은 절차로, 지갑을 빠르게 만들 수 있습니다.
+Create a Wallet in just a few steps using Vault:
 
-1. [New wallet 선택](/startlearning/settings/create-wallet/create-wallet-with-vault#clicknewwallet)
+1. [Select "New wallet"](/startlearning/settings/create-wallet/create-wallet-with-vault#clicknewwallet)
 
-2. [지갑 정보 설정 및 니모닉(Mnemonic) 저장](/startlearning/settings/create-wallet/create-wallet-with-vault#savemnemonic)
+2. [Set up wallet info and securely store the mnemonic](/startlearning/settings/create-wallet/create-wallet-with-vault#savemnemonic)
 
-3. [니모닉 검증](/startlearning/settings/create-wallet/create-wallet-with-vault#verifymnemonic)
+3. [Verify the mnemonic](/startlearning/settings/create-wallet/create-wallet-with-vault#verifymnemonic)
 
-4. [생성한 지갑을 Vault에 연결](/startlearning/settings/create-wallet/create-wallet-with-vault#connectwallet)
+4. [Connect the created wallet to Vault](/startlearning/settings/create-wallet/create-wallet-with-vault#connectwallet)
 
-### 1. New Wallet 선택 {#clicknewwallet}
+### 1. Select "New wallet" {#clicknewwallet}
 
-Vault를 실행하고, `New wallet`을 선택하세요.
+Launch Vault and select `New wallet`.
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
@@ -76,17 +76,19 @@ Vault를 실행하고, `New wallet`을 선택하세요.
 </div>
 </BrowserWindow>
 
-### 2. 지갑 정보 설정 및 니모닉(Mnemonic) 저장 {#savemnemonic}
+### 2. Set up wallet info and securely store the mnemonic {#savemnemonic}
 
-지갑에서 사용할 이름과 비밀번호를 기입하시고, 니모닉 단어들을 안전한 곳에 저장해주세요.
+Fill in the wallet's desired name and password, and SECURELY STORE the mnemonic words. (Always keep it safe!!!!)
 
 :::caution
 
-니모닉은 지갑을 복구하기 위한 단어들입니다. 따라서 다른 사람에게 알려지거나, 도난되면 지갑의 모든 자금을 탈취당할 수 있습니다. 그러니 꼭 안전한 곳에 보관하시고, 어느 누구에게도 알려주면 안됩니다.
+The mnemonic is crucial for wallet recovery. That means you need to remember your mnemonic to get back into your account. 
+
+If anyone knows or steals your Wallet mnemonic, it could lead to a complete loss of your wallet assets, which we definitely want to prevent. Therefore, keep it in a safe place and never disclose it to anyone. (Not even to your favorite cat.) 
 
 :::
 
-이후 `Submit` 버튼을 클릭합니다.
+Then, hit the `Submit` button.
 
 <BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -95,9 +97,9 @@ Vault를 실행하고, `New wallet`을 선택하세요.
 </div>
 </BrowserWindow>
 
-### 3. 니모닉 검증 {#verifymnemonic}
+### 3. Verify the mnemonic {#verifymnemonic}
 
-저장한 니모닉을 참고하여 화면에 나온 순서의 단어를 선택해주세요.
+Please use the saved mnemonic and choose the words in the order displayed on the screen.
 
 <BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -106,9 +108,9 @@ Vault를 실행하고, `New wallet`을 선택하세요.
 </div>
 </BrowserWindow>
 
-### 4. 생성한 지갑을 Vault에 연결 {#connectwallet}
+### 4. Connect the created wallet to Vault {#connectwallet}
 
-지갑 생성이 완료되었습니다. `Connect`를 선택하여 생성한 지갑을 Vault에 연결하면 끝입니다.
+Ta-da! You just created a Wallet! Select `Connect` to link the newly generated wallet to `Vault`, and you're all set.
 
 <BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -117,7 +119,7 @@ Vault를 실행하고, `New wallet`을 선택하세요.
 </div>
 </BrowserWindow>
 
-이제 Vault Chrome Extension을 실행하면 생성한 지갑 정보를 바로 확인할 수 있습니다.
+Now you can access your wallet information directly from the Vault Chrome Extension.
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>

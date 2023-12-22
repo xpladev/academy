@@ -9,7 +9,7 @@ require('dotenv').config();
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'XPLA ACADEMY',
-  tagline: 'Easily navigate the quick guides!',
+  tagline: 'Master the DEV world of XPLA step by step!',
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
@@ -40,6 +40,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          path: 'startlearning',
+          routeBasePath: 'startlearning',
           sidebarPath: require.resolve('./sidebars.js'),
 
           // remarkPlugins: [
@@ -86,12 +88,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
-          },
-          {
-            to: 'tool',
-            label: 'Tool',
-            position: 'left',
+            label: 'Start Learning',
           },
           {
             href: 'https://github.com/xpladev',
