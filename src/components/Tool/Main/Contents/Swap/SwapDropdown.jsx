@@ -98,6 +98,7 @@ export default function SwapDropdown({
         "dropdown--hoverable",
         "p-0",
         "ml-2",
+        "dropdownArrow",
         {
           // 'dropdown--show': showDropdown,
         }

@@ -9,11 +9,11 @@
     margin: 0px;
 }
 
-.dropdownArrow>svg {
+.dropdownArrow>a>div>svg {
     transform: translate(7px, 0px) rotate(0deg);
 }
 
-.dropdownArrow:hover>svg {
+.dropdownArrow:hover>a>div>svg {
     transform: translate(7px, 0px) rotate(180deg);
 }
 

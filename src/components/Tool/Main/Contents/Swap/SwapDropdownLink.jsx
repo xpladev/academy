@@ -29,7 +29,7 @@ export default function SwapDropdownLink({
         children: (
           <div
             className={clsx(
-              "w-[180px] pb-[5px] flex justify-between items-center border-solid border-0 border-b-[1px] dropdownArrow"
+              "w-[180px] pb-[5px] flex justify-between items-center border-solid border-0 border-b-[1px] "
             )}
             style={{
               borderBottomColor: "#00B2FC",
