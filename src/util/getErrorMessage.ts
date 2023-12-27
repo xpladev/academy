@@ -9,13 +9,13 @@ const getErrorMessage = (returnCode: string) => {
         case "408":
             return ["Insufficient Currency to Convert", "Convert failed because of greater quantity input than what you own."];
         case "417":
-            return ["Purchase Conditions Not Met", "For NFT purchases, ensure sufficient ACADEMY-TKN matching the price and $XPLA for the transaction fee."];
+            return ["Purchase Conditions Not Met", "Have enough ACADEMY-TKN and $XPLA (as transaction fee) for NFT purchases."];
         case "498":
             return ["Transaction in Progress", "The transaction is currently in progress or has been completed. If there is no response for 2 minutes, please retry the transaction."];
         case "499":
             return ["Wallet Server Error", "An error during communication with the VAULT server halted the transaction. "];
         case "601":
-            return ["Insufficient Transaction Fee", "Ensure you have enough $XPLA for the transaction Fee, then try again."];
+            return ["Insufficient Transaction Fee", "Have enough $XPLA for the transaction fee, then try again."];
         case "602":
             return ["VAULT Connection Error", "Connection with XPLA Vault has been disconnected due to a session expiration. \n Please refresh the page using the F5 key!"];
         case "603":
