@@ -47,7 +47,7 @@ const InformationModal = ({
           </div>
           <div className="text-[#004FFF] font-bold text-[26px] leading-[28px]">
             About <br />
-            Web3 Gaming Ops.
+            Web3 Gaming Ops
           </div>
         </div>
         <div className="border-solid border-0 border-b-[1px] flex flex-1" />
@@ -121,14 +121,14 @@ const InfoDetail = ({ page }: { page: number }) => {
           />
           <div className="text-center flex flex-col gap-[25px]">
             <span className="text-[24px] leading-[30px] font-bold text-[#004FFF]">
-              Web3 Gaming Ops. is linked with the
+              Web3 Gaming Ops is linked with the
               <br />
               Break the Bricks Game and connected to
               <br />
               XPLA Vault for blockchain interaction.
             </span>
             <span className="font-normal text-[18px] leading-[26px]">
-              Web3 Gaming Ops.
+              Web3 Gaming Ops
               <br />
               allows Web2 gamers to enjoy game itself,
               <br />
@@ -220,7 +220,7 @@ const InfoDetail = ({ page }: { page: number }) => {
           </Link>
 
           <span className="font-bold text-[24px] leading-[28px] text-[#004FFF] text-center">
-            Break the Bricks Game & Web3 Gaming Ops.
+            Break the Bricks Game & Web3 Gaming Ops
             <br />
             Open-Source available on Github!
           </span>
@@ -252,12 +252,12 @@ const InfoDetail = ({ page }: { page: number }) => {
             height="97px"
           />
           <div className="font-normal text-[24px] leading-[28px] text-center">
-            <span className="font-bold text-[#004FFF]">Web3 Gaming Ops.</span>
+            <span className="font-bold text-[#004FFF]">Web3 Gaming Ops</span>
             <br />
             demonstrates integrated
             <br /> functions of games and XPLA.
             <br />{" "}
-            <span className="text-[#CCCCCC] text-[24px]">(on test-net!)</span>
+            <span className="text-[#CCCCCC] text-[24px]">(on Testnet!)</span>
           </div>
         </div>
       );

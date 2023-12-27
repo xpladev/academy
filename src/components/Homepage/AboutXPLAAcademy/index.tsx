@@ -42,7 +42,7 @@ export default function AboutXPLAAcademy(): JSX.Element {
             <div className="relative text-white text-[29px] leading-[34px] font-normal ">
               From Web3 Game Project to{" "}
               <span className="font-bold text-[#FAED00] inline-flex items-start">
-                Web3 Gaming Ops.
+                Web3 Gaming Ops
                 <span className="mt-[3px] font-normal text-[16px] leading-[16px]">
                   *&nbsp; 
                 </span>
