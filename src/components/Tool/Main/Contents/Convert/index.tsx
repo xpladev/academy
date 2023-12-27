@@ -138,11 +138,14 @@ const Convert = () => {
     }
   }
 
-  const getTxFee = async (amount: number, checkDia2tkn:boolean = dia2tkn) => {
+  const getTxFee = async (amount: number, checkDia2tkn: boolean = dia2tkn) => {
     try {
       if (
+        (checkDia2tkn && new BigNumber(userInfo.diamond).isLessThan(amount)) ||
         (checkDia2tkn &&
-          new BigNumber(userInfo.diamond).isLessThan(amount)) ||
+          new BigNumber(userInfo.convertMax - userInfo.convertValue).isLessThan(
+            amount
+          )) ||
         (!checkDia2tkn && new BigNumber(userInfo.token).isLessThan(amount))
       ) {
         throw Error("Insufficient Balanace");
@@ -341,10 +344,7 @@ const Convert = () => {
         </div>
         <button
           type="submit"
-          disabled={
-            !estimateFee ||
-            estimateFee === "-" 
-          }
+          disabled={!estimateFee || estimateFee === "-"}
           className={clsx(
             "border-0 relative mt-[37px] px-[133px] py-[17px] flex items-center text-white font-semibold leading-[30px] rounded-full",
             !estimateFee
@@ -353,20 +353,25 @@ const Convert = () => {
               ? styles.convertButtonOff
               : styles.convertButtonOn,
             estimateFee && estimateFee !== "-" && "hover:cursor-pointer",
-            (dia2tkn && new BigNumber(userInfo?.diamond).isLessThan(values.amount))
+            dia2tkn &&
+              new BigNumber(userInfo?.diamond).isLessThan(values.amount)
               ? "text-[16px]"
-              : (!dia2tkn &&
-                new BigNumber(userInfo?.token).isLessThan(values.amount))
+              : !dia2tkn &&
+                new BigNumber(userInfo?.token).isLessThan(values.amount)
               ? "text-[16px]"
               : "text-[24px]"
-
           )}
         >
-          {(dia2tkn && new BigNumber(userInfo?.diamond).isLessThan(values.amount))
+          {dia2tkn && new BigNumber(userInfo?.diamond).isLessThan(values.amount)
             ? "Insufficient DIAMOND Balance"
-            : (!dia2tkn &&
-              new BigNumber(userInfo?.token).isLessThan(values.amount))
+            : !dia2tkn &&
+              new BigNumber(userInfo?.token).isLessThan(values.amount)
             ? "Insufficient ACADEMY-TKN Balance"
+            : dia2tkn &&
+              new BigNumber(
+                userInfo.convertMax - userInfo.convertValue
+              ).isLessThan(values.amount)
+            ? "Over Daily Convertible Limit"
             : "CONVERT"}
           &nbsp;
           {loading && <CircularProgress size={18} style={{ color: "white" }} />}
