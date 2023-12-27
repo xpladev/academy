@@ -46,7 +46,7 @@ export default function GNBDropdown() {
       <ul className="dropdown__menu GNBDropdownMenu ulborder-0">
         <div className="h-[27px] mb-[1px] bg-black" />
         <Link
-          to="/#playgame"
+          to="/playgame"
           className="py-[16px] h-[44px] pl-[21px] hover:cursor-pointer flex items-center bg-black text-white hover:text-[#00ABFF] hover:no-underline"
         >
           <span className="leading-[18px] font-normal text-[15px]">

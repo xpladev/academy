@@ -166,25 +166,10 @@
   background: white;
 }
 
-.whitetag-inner div:after {
-  content: "";
-  position: absolute;
-  top: 12px;
-  left: 9px;
-  float: left;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
-}
-
-
 .whitetag-between {
   line-height: 24px;
   font-size: 14px;
-  left : 10px;
+  left : -23px;
   width: fit-content;
   text-align: center;
   -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0 50%);
@@ -201,40 +186,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 235px;
+  width: 300px;
   height: 44px;
   margin: auto;
   -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0 50%);
   clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0 50%);
   background: white;
-}
-
-.whitetag-between-inner div:after {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 12px;
-  float: left;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
-}
-
-.whitetag-between-inner div:before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  right: 12px;
-  float: right;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
 }
 
 .whitetag-tutorial {
@@ -250,7 +207,6 @@
   /* padding: 10px; */
 }
 
-
 .whitetag-tutorial-inner {
   position: relative;
   display: flex;
@@ -264,21 +220,6 @@
   clip-path: polygon( 5% 0%, 100% 0%, 100% 100%, 5% 100%, 5% 65%, 0 50%, 5% 35%);
   background: white;
 }
-
-.whitetag-tutorial-inner div:after {
-  content: "";
-  position: absolute;
-  top: 36px;
-  left: 9px;
-  float: left;
-  width: 4px;
-  height: 4px;
-
-  border-radius: 2px;
-  background: #fff;
-  box-shadow: -1px -1px 2px #004977;
-}
-
 
 .tagline {
   z-index: 1;
