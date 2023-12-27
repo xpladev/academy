@@ -35,8 +35,8 @@ const ConvertInput = ({
         onChange={async (e) => {
           const text = Number(e.target.value.replace(",", ""));
           if (!isNaN(text)) {
+            await getTxFee(text);
             setValue("amount",text );
-            getTxFee(text);
           }
         }}
         maxLength={7}

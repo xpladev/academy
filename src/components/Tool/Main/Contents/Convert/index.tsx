@@ -138,8 +138,15 @@ const Convert = () => {
     }
   }
 
-  const getTxFee = async (amount: number) => {
+  const getTxFee = async (amount: number, checkDia2tkn:boolean = dia2tkn) => {
     try {
+      if (
+        (checkDia2tkn &&
+          new BigNumber(userInfo.diamond).isLessThan(amount)) ||
+        (!checkDia2tkn && new BigNumber(userInfo.token).isLessThan(amount))
+      ) {
+        throw Error("Insufficient Balanace");
+      }
       const serverAdd = "xpla16rckux27qz5rv4etjk0rdm675ct26v9w8uk286";
       const cw20_contract =
         "xpla1shxdwyus9u6tgvu6kl5tdgem4d4at9vhanq0hxyqnm4ly3wd8awqkwlcj3";
@@ -279,7 +286,10 @@ const Convert = () => {
             </div>
             <div className="absolute left-[270px] h-full flex justify-center items-center">
               <div
-                onClick={() => setDia2tkn(!dia2tkn)}
+                onClick={async () => {
+                  await getTxFee(Number(values.amount), !dia2tkn);
+                  setDia2tkn(!dia2tkn);
+                }}
                 className={clsx(
                   "hover:cursor-pointer",
                   styles.convertChangeButton
@@ -331,18 +341,34 @@ const Convert = () => {
         </div>
         <button
           type="submit"
-          disabled={!estimateFee || estimateFee === "-"}
+          disabled={
+            !estimateFee ||
+            estimateFee === "-" 
+          }
           className={clsx(
-            "border-0 relative mt-[37px] px-[133px] py-[17px] flex items-center text-white font-semibold text-[24px] leading-[30px] rounded-full",
+            "border-0 relative mt-[37px] px-[133px] py-[17px] flex items-center text-white font-semibold leading-[30px] rounded-full",
             !estimateFee
               ? "bg-[#3F3F3F]"
               : estimateFee === "-"
               ? styles.convertButtonOff
               : styles.convertButtonOn,
-            estimateFee && estimateFee !== "-" && "hover:cursor-pointer"
+            estimateFee && estimateFee !== "-" && "hover:cursor-pointer",
+            (dia2tkn && new BigNumber(userInfo?.diamond).isLessThan(values.amount))
+              ? "text-[16px]"
+              : (!dia2tkn &&
+                new BigNumber(userInfo?.token).isLessThan(values.amount))
+              ? "text-[16px]"
+              : "text-[24px]"
+
           )}
         >
-          CONVERT &nbsp;
+          {(dia2tkn && new BigNumber(userInfo?.diamond).isLessThan(values.amount))
+            ? "Insufficient DIAMOND Balance"
+            : (!dia2tkn &&
+              new BigNumber(userInfo?.token).isLessThan(values.amount))
+            ? "Insufficient ACADEMY-TKN Balance"
+            : "CONVERT"}
+          &nbsp;
           {loading && <CircularProgress size={18} style={{ color: "white" }} />}
           <div className="absolute top-[7px] right-[7px] rounded-full bg-white aspect-square w-[51px] flex justify-center items-center">
             <CallMadeOutlinedIcon style={{ fill: "#3F3F3F", fontSize: 30 }} />
