@@ -6,14 +6,11 @@ import {
   useNavbarMobileSidebar,
 } from '@docusaurus/theme-common/internal';
 import NavbarItem from '@theme/NavbarItem';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
-import SearchBar from '@theme/SearchBar';
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
-import NavbarLogo from '@theme/Navbar/Logo';
-import NavbarSearch from '@theme/Navbar/Search';
 import styles from './styles.module.css';
 import clsx from 'clsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import GNBDropdown from "./GNBDropdown"
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -64,9 +61,10 @@ export default function NavbarContent() {
           </Link>
           {
             leftItems.map((leftItem, index) => {
-              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white ml-[78px]" : "text-white ml-[28px]"} />
+              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white text-medium ml-[78px]" : "text-white text-medium ml-[28px]"} />
             })
           }
+          <GNBDropdown />
           {/* <div className={clsx("font-semibold ml-10", styles.tool)} /> */}
         </>
       }
