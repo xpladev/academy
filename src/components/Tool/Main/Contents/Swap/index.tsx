@@ -443,7 +443,12 @@ const Swap = () => {
                             .dividedBy(10 ** 18)
                             .toFixed()
                         );
-                        await getSwapTxFee(e.target.value, tkn2xpla);
+                        await getSwapTxFee(
+                          new BigNumber(res.return_amount)
+                            .dividedBy(10 ** 18)
+                            .toFixed(),
+                          tkn2xpla
+                        );
                       } catch (e) {
                         setEstimateFee('-');
                         resetField("tknAmount");
@@ -481,7 +486,12 @@ const Swap = () => {
                             .dividedBy(10 ** 6)
                             .toFixed()
                         );
-                        await getSwapTxFee(e.target.value, tkn2xpla);
+                        await getSwapTxFee(
+                          new BigNumber(res.return_amount)
+                            .dividedBy(10 ** 6)
+                            .toFixed(),
+                          tkn2xpla
+                        );
                       } catch (e) {
                         setEstimateFee('-');
                         resetField("tknAmount");
