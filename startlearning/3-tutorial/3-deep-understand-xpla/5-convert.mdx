@@ -61,14 +61,11 @@ sequenceDiagram
     C->>U: Step 4
     Note over U: Step 5
     U->>C: Step 6
-    critical Sequence Mismatch 방지
-        Note over D: DB는 게임 운영 지갑의 <br/>Sequence 값을 저장
-        C->>D: Step 7
-        D->>C: Sequence 값 전달
-        Note over C: Step 8
-        Note over C: Step 9
-        C->>D: Step 10
-    end
+    C->>D: Step 7
+    D->>C: Sequence 값 전달
+    Note over C: Step 8
+    Note over C: Step 9
+    C->>D: Step 10
     C->>U: Step 11
 
 %%{init:{'themeCSS':'.messageText:nth-of-type(1) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(2) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(3) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(4) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(5) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(7) { font-weight: bold !important; fill:#004FFF;}; .messageText:nth-of-type(8) { font-weight: bold !important; fill:#004FFF;}; g:nth-of-type(5) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(5) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(6) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(6) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(7) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(8) .noteText tspan { fill: #004FFF; font-weight:bold;}; g:nth-of-type(9) .note { stroke: #004FFF;fill: white; }; g:nth-of-type(9) .noteText tspan { fill: #004FFF; font-weight:bold;};'}}%%
