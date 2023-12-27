@@ -12,7 +12,7 @@ export default function MainNavbar() {
     <div className="flex w-full bg-[#004FFF] flex items-center py-[11px] px-[20px]">
       <div className="flex max-w-[703px] flex-1 justify-between  px-[45px] py-[17px]">
         <Link
-          to="/tool#convert"
+          to="/ops#convert"
           className={clsx(
             "text-[18px] font-medium hover:text-[#FFE300FE] hover:cursor-pointer",
             (window.location.hash === "#convert" || window.location.hash === "")
@@ -27,7 +27,7 @@ export default function MainNavbar() {
           CONVERT
         </Link>
         <Link
-          to="/tool#swap"
+          to="/ops#swap"
           className={clsx(
             "text-[18px] font-medium hover:text-[#FFE300FE] hover:cursor-pointer",
             window.location.hash === "#swap" ? "text-[#FFE300FE]" : "text-white"
@@ -40,7 +40,7 @@ export default function MainNavbar() {
           SWAP
         </Link>
         <Link
-          to="/tool#nftshop"
+          to="/ops#nftshop"
           className={clsx(
             "text-[18px] font-medium hover:text-[#FFE300FE] hover:cursor-pointer",
             window.location.hash === "#nftshop"
@@ -55,7 +55,7 @@ export default function MainNavbar() {
           NFT SHOP
         </Link>
         <Link
-          to="/tool#leaderboard"
+          to="/ops#leaderboard"
           className={clsx(
             "text-[18px] font-medium hover:text-[#FFE300FE] hover:cursor-pointer",
             window.location.hash === "#leaderboard"
