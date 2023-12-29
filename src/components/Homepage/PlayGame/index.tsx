@@ -17,7 +17,7 @@ export default function PlayGame({
     <section
       ref={moveToElement}
       className={clsx(
-        "relative h-[900px] md:h-[1392px] flex flex-col bg-[#CBF0FF] justify-center items-center px-4"
+        "relative h-[1000px] md:h-[1392px] flex flex-col bg-[#CBF0FF] justify-center items-center px-4"
       )}
     >
       <img
@@ -49,23 +49,42 @@ export default function PlayGame({
             <Cocosgame />
           )}
         </div>
-        <div className="mb-[30px] text-center text-[29px] leading-[39px] font-medium">
+        <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
           Play <span className="font-bold">XPLA ACADEMY</span>'s Demo Game{" "}
           <br />
           Experience Game Building within XPLA
         </div>
-        <Link
-          to="https://github.com/xpladev/academy"
-          className="font-medium text-[20px] leading-[24px] text-[#004FFF] flex items-center hover:text-[#004FFF] hover:no-underline"
-        >
-          Game code is open source on GitHub! ➔&nbsp;
-          <img
-            src="/img/PlayGame/githubwhite.svg"
-            alt="githubwhite"
-            width="30px"
-            height="30px"
-          />
-        </Link>
+        <div className="flex justify-center items-center gap-[84px]">
+          <Link
+            to="https://github.com/xpladev/academy"
+            className="font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline"
+          >
+            <img
+              src="/img/PlayGame/githubwhite.svg"
+              alt="githubwhite"
+              width="40px"
+              height="40px"
+            />
+            Game code on
+            <br /> GitHub! ➔
+          </Link>
+
+          <div className="h-full border-solid border-[0px] border-r-[1.5px]"></div>
+
+          <Link
+            to="https://github.com/xpladev/academy"
+            className="font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline"
+          >
+            <img
+              src="/img/PlayGame/game-asset.svg"
+              alt="gameAsset"
+              width="114px"
+              height="40px"
+            />
+            About
+            <br />Break The Bricks ➔
+          </Link>
+        </div>
       </div>
     </section>
   );
