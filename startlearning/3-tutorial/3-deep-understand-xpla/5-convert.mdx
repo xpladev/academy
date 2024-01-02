@@ -75,7 +75,7 @@ Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되�
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step1">Step 1.</span> User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step1">Step 1.</span> User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
 </CustomHashLink>
 
 
@@ -99,7 +99,7 @@ const unsignedResponse = await axios.post(
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step2">Step 2.</span> Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step2">Step 2.</span> Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -111,7 +111,7 @@ Convert하려는 수량(amount)보다 많이 있을 때, 유저가 보유한 재
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step3">Step 3.</span> Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step3">Step 3.</span> Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 </CustomHashLink>
 
 ```js {6,17,29,31} title="Convert Server"
@@ -154,7 +154,7 @@ const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step4">Step 4.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step4">Step 4.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -168,7 +168,7 @@ User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전�
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step5">Step 5.</span> User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step5">Step 5.</span> User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
 </CustomHashLink>
 
 ```js {9,12} title="User Client App"
@@ -193,7 +193,7 @@ const { result: signedTx, success } = await connectedWallet.sign({
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step6">Step 6.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step6">Step 6.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 </CustomHashLink>
 
 ```js {3,6,7} title="User Client App"
@@ -213,7 +213,7 @@ const res = await axios.post(
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step7">Step 7.</span> Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step7">Step 7.</span> Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
 </CustomHashLink>
 
 ```js {6,9} title="Convert Server"
@@ -234,7 +234,7 @@ try {
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step8">Step 8.</span> Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step8">Step 8.</span> Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
 </CustomHashLink>
 
 ```js {9,12} title="Convert Server"
@@ -276,7 +276,7 @@ CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 �
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step9">Step 9.</span> Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step9">Step 9.</span> Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -288,7 +288,7 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step10">Step 10.</span> Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step10">Step 10.</span> Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -303,7 +303,7 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case1-step11">Step 11.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step11">Step 11.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -331,7 +331,7 @@ User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를
 각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step1">Step 1.</span> User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step1">Step 1.</span> User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
 </CustomHashLink>
 
 ```js {6} title="User Client App"
@@ -354,7 +354,7 @@ const unsignedResponse = await axios.post(
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step2">Step 2.</span> Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step2">Step 2.</span> Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
 </CustomHashLink>
 
 ```js {7,18,31,33} title="Convert Server"
@@ -399,7 +399,7 @@ const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step3">Step 3.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step3">Step 3.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -413,7 +413,7 @@ User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전�
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step4">Step 4.</span> User Client App : 유저는 unsigned 트랜잭션에 서명
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step4">Step 4.</span> User Client App : 유저는 unsigned 트랜잭션에 서명
 </CustomHashLink>
 
 ```js {9,12} title="User Client App"
@@ -438,7 +438,7 @@ const { result: signedTx, success } = await connectedWallet.sign({
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step5">Step 5.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step5">Step 5.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
 </CustomHashLink>
 
 ```js {3,6,7} title="User Client App"
@@ -458,7 +458,7 @@ const res = await axios.post(
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step6">Step 6.</span> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step6">Step 6.</span> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -472,7 +472,7 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step7">Step 7.</span> Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step7">Step 7.</span> Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -484,7 +484,7 @@ db.query('update user_info set game_currency = game_currency + ? where pid = ? '
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px]" id="case2-step8">Step 8.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step8">Step 8.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
 </CustomHashLink>
 
 ```js title="Convert Server"

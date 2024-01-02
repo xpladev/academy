@@ -179,6 +179,6 @@ html[data-theme='dark'] .sidebar-divider {
   justify-content: center;
 }
 
-.textDecoration-xpla:hover {
+.textDecoration-xpla {
   text-decoration: underline;
 }
