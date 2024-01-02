@@ -72,7 +72,7 @@ export default function PlayGame({
           <div className="h-full border-solid border-[0px] border-r-[1.5px]"></div>
 
           <Link
-            to="/playgame"
+            to="/playgame#aboutGame"
             className="font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline"
           >
             <img

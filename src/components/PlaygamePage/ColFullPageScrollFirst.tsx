@@ -64,6 +64,12 @@ const ColFullPageScrollFirst = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash === "#aboutGame") {
+      scrollDown();
+    }
+  }, []);
+
   return (
     <div
       ref={outerDivRef}
