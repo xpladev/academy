@@ -1,0 +1,54 @@
+.slickSet>div {
+    height: 100%;
+    width: 500px;
+}
+
+.slickSet>div>div {
+    height: 100%;
+    width: 500px;
+}
+
+.slickSet>div>div>div {
+    height: 100%;
+    width: 500px;
+}
+
+.slickSet>div>div>div>div {
+    height: 100%;
+    width: 500px;
+}
+
+
+.slickSet>div>div>div>div>div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    width: 500px;
+}
+
+.dotsCustom>div>ul {
+    bottom: -43px;
+    right: -193px;
+    float: right;
+}
+
+.dotsCustom>div>ul>li {
+    margin: 0px 7px !important;
+    width: 18px;
+    height: 18px;
+}
+
+.dotsCustom>div>ul>li>button::before {
+    color: white !important;
+    border-radius: 50px;
+    border: 1px solid white;
+    content: '' !important;
+    opacity: 1 !important;
+    width: 16px;
+    height: 16px;
+}
+
+.dotsCustom>div>ul>li:hover {
+    background-color: white;
+    border-radius: 50px;
+}

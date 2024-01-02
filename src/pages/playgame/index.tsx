@@ -4,6 +4,7 @@ import RowFullPageScroll from "@site/src/components/PlaygamePage/RowFullPageScro
 import ColFullPageScrollFirst from "@site/src/components/PlaygamePage/ColFullPageScrollFirst";
 import ColFullPageScrollSecond from "@site/src/components/PlaygamePage/ColFullPageScrollSecond";
 import MainGame from "@site/src/components/PlaygamePage/MainGame";
+import AboutGame from "@site/src/components/PlaygamePage/AboutGame";
 import Footer from "@theme/Footer";
 
 export default function Playgame(): JSX.Element {
@@ -17,6 +18,7 @@ export default function Playgame(): JSX.Element {
       <ColFullPageScrollFirst>
       <MainGame />
         <RowFullPageScroll>
+          <AboutGame />
           <div className={`h-full min-w-[100vw] bg-[#123411]`}></div>
           <ColFullPageScrollSecond>
             <div className={`h-full min-w-[100vw] bg-[#652131]`}></div>
