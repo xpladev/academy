@@ -10,7 +10,7 @@ const ShowLinkCard = () => {
     <div
       className={`min-w-[100vw] bg-[#F5F4F4] flex flex-col gap-[65px] justify-center items-center relative px-[20px] py-[140px] overflow-hidden`}
     >
-      <div className="grid grid-cols-3 gap-[30px]">
+      <div className="grid grid-cols-3 gap-[30px] w-full max-w-[1170px]">
         <Link
           target="_blank"
           to="https://github.com/xpladev/academy"

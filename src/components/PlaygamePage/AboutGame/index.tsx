@@ -10,7 +10,7 @@ const AboutGame = () => {
     <div
       className={`h-full min-w-[100vw] bg-[#7300FF] flex justify-center items-center relative px-[10px] overflow-hidden`}
     >
-      <div className="flex justify-center items-start gap-[172px]">
+      <div className="w-full max-w-[1180px] flex justify-between items-start ">
         <div className="flex flex-col gap-[57px] text-white text-[26px] leading-[36px] font-normal">
           <img
             width="460px"
@@ -22,7 +22,7 @@ const AboutGame = () => {
             <div className="mb-[30px]">
               Break the Bricks serves as a<br />{" "}
               <span className="font-bold">demo game project</span> for
-              <br /> <span className="font-bold">XPLA ACADEMY!</span>
+              <br /> XPLA ACADEMY!
             </div>
             <div>
               You will have an interactive

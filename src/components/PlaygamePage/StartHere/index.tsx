@@ -10,7 +10,7 @@ const StartHere = () => {
     <div
       className={`h-full min-w-[100vw] bg-[#FF640C] flex justify-center items-center relative px-[20px] overflow-hidden`}
     >
-      <div className="flex justify-center items-start gap-[34px]">
+      <div className="relative w-full max-w-[1180px] flex justify-start items-start z-10">
         <div className="flex flex-col gap-[64px] text-white text-[26px] leading-[36px] font-normal">
           <img
             width="609px"
@@ -29,7 +29,7 @@ const StartHere = () => {
               Complete START HERE to continue playing <br />
               ADVANCED.
             </div>
-            <div className="px-[40px] py-[28px] border-[1px] border-black border-solid flex flex-col gap-[15px] bg-[#FFFFFF80] max-w-[480px]">
+            <div className="px-[40px] py-[28px] border-[1px] border-black border-solid flex flex-col gap-[15px] bg-[#FFFFFF80] max-w-[480px] backdropfilter1px">
               <span className="font-semibold text-[25px] leading-[30px]">
                 Related contents
               </span>
@@ -100,7 +100,7 @@ const StartHere = () => {
             height="492px"
             src="/img/PlayGamePage/starthere-img.svg"
             alt="starthere-img"
-            className="mt-[12px]"
+            className="mt-[12px] absolute right-[-71px] max-[1325px]:w-[500px] max-[1325px]:right-0"
           />
         )}
       </div>

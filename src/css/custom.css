@@ -201,3 +201,8 @@ html[data-theme='dark'] .sidebar-divider {
   box-shadow: none;
   transform: translate(10px, 10px);
 }
+
+.backdropfilter1px {
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
