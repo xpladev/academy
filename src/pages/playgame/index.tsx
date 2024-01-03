@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Layout from "@theme/Layout";
 import RowFullPageScroll from "@site/src/components/PlaygamePage/RowFullPageScroll";
 import ColFullPageScrollFirst from "@site/src/components/PlaygamePage/ColFullPageScrollFirst";
@@ -11,6 +11,15 @@ import ShowLinkCard from "@site/src/components/PlaygamePage/ShowLinkCard";
 import Footer from "@theme/Footer";
 
 export default function Playgame(): JSX.Element {
+  const ColFirstOuterDivRef = useRef<HTMLDivElement>(null);
+  const ColFirstCurrentPage = useRef<number>(0);
+
+  const RowOuterDivRef = useRef<HTMLDivElement>(null);
+  const RowCurrentPage = useRef<number>(0);
+
+  const ColSecondOuterDivRef = useRef<HTMLDivElement>(null);
+  const ColSecondCurrentPage = useRef<number>(0);
+
   return (
     <Layout
       title={`XPLA ACADEMY`}
@@ -18,15 +27,46 @@ export default function Playgame(): JSX.Element {
       wrapperClassName="overflow-y-hidden overflow-x-hidden"
       noFooter
     >
-      <ColFullPageScrollFirst>
-      <MainGame />
-        <RowFullPageScroll>
+      <ColFullPageScrollFirst
+        outerDivRef={ColFirstOuterDivRef}
+        currentPage={ColFirstCurrentPage}
+      >
+        <MainGame />
+        <RowFullPageScroll
+          outerDivRef={RowOuterDivRef}
+          currentPage={RowCurrentPage}
+        >
           <AboutGame />
           <StartHere />
-          <ColFullPageScrollSecond>
+          <ColFullPageScrollSecond
+            outerDivRef={ColSecondOuterDivRef}
+            currentPage={ColSecondCurrentPage}
+          >
             <Advanced />
             <ShowLinkCard />
-            <Footer />
+            <Footer
+              scrollToTop={async () => {
+                await ColSecondOuterDivRef.current.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+                ColFirstCurrentPage.current = 0;
+                await RowOuterDivRef.current.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+                RowCurrentPage.current = 0;
+
+                await ColFirstOuterDivRef.current.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+                ColSecondCurrentPage.current = 0;
+              }}
+            />
           </ColFullPageScrollSecond>
         </RowFullPageScroll>
       </ColFullPageScrollFirst>

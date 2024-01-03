@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const ColFullPageScrollFirst = ({ children }) => {
-  const outerDivRef = useRef<HTMLDivElement>(null);
-  const currentPage = useRef<number>(0);
+const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
   const canScroll = useRef<boolean>(true);
 
   const scrollDown = () => {

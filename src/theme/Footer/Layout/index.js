@@ -93,7 +93,7 @@ const LinkList = [
 ];
 
 
-export default function FooterLayout({ style, links, logo, copyright }) {
+export default function FooterLayout({ style, links, logo, copyright, scrollToTop = undefined }) {
   const matches = useMediaQuery('(max-width:768px)');
 
   return (
@@ -123,7 +123,13 @@ export default function FooterLayout({ style, links, logo, copyright }) {
           }
           {
             !matches &&
-          <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          <div onClick={async () => {
+            if (scrollToTop) {
+              await scrollToTop();
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
           className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
             <NorthIcon sx={{ fontSize: 50 }} />
           </div>
