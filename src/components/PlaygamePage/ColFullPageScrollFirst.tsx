@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
-  const canScroll = useRef<boolean>(true);
+const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage, canScroll, scrollDelay }) => {
   const timer = useRef(null);
   const delay = 300;
 
@@ -16,7 +15,7 @@ const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 1200);
+      }, scrollDelay);
       if (outerDivRef.current.childElementCount - 1 > currentPage.current)
         currentPage.current++;
     }
@@ -33,7 +32,7 @@ const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 1200);
+      }, scrollDelay);
       if (currentPage.current > 0) currentPage.current--;
     }
   };

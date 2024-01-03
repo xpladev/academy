@@ -20,6 +20,9 @@ export default function Playgame(): JSX.Element {
   const ColSecondOuterDivRef = useRef<HTMLDivElement>(null);
   const ColSecondCurrentPage = useRef<number>(0);
 
+  const canScroll = useRef<boolean>(true);
+  const scrollDelay = 1200;
+
   return (
     <Layout
       title={`XPLA ACADEMY`}
@@ -30,17 +33,23 @@ export default function Playgame(): JSX.Element {
       <ColFullPageScrollFirst
         outerDivRef={ColFirstOuterDivRef}
         currentPage={ColFirstCurrentPage}
+        canScroll={canScroll}
+        scrollDelay={scrollDelay}
       >
         <MainGame />
         <RowFullPageScroll
           outerDivRef={RowOuterDivRef}
           currentPage={RowCurrentPage}
+          canScroll={canScroll}
+          scrollDelay={scrollDelay}
         >
           <AboutGame />
           <StartHere />
           <ColFullPageScrollSecond
             outerDivRef={ColSecondOuterDivRef}
             currentPage={ColSecondCurrentPage}
+            canScroll={canScroll}
+            scrollDelay={scrollDelay}
           >
             <Advanced />
             <ShowLinkCard />

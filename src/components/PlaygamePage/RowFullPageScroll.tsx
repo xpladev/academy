@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
-  const canScroll = useRef<boolean>(true);
+const RowFullPageScroll = ({ children, outerDivRef, currentPage, canScroll, scrollDelay }) => {
   const timer = useRef(null);
   const delay = 300;
 
@@ -16,7 +15,7 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 1200);
+      }, scrollDelay);
       if (outerDivRef.current.childElementCount - 1 > currentPage.current)
         currentPage.current++;
     }
@@ -24,7 +23,7 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
 
   const scrollUp = () => {
     const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
-    if (outerDivRef.current && pageWidth) {
+    if (currentPage.current > 0 && outerDivRef.current && pageWidth) {
       outerDivRef.current.scrollTo({
         left: pageWidth * (currentPage.current - 1),
         top: 0,
@@ -33,7 +32,7 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 1200);
+      }, scrollDelay);
       if (currentPage.current > 0) currentPage.current--;
     }
   };
