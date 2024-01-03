@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@theme/Layout";
-import ToolPage from "@site/src/components/Tool"
+import OpsPage from "@site/src/components/OpsPage"
 
 export default function Tool(): JSX.Element {
   return (
@@ -8,7 +8,7 @@ export default function Tool(): JSX.Element {
       title={`XPLA ACADEMY`}
       description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
-      <ToolPage />
+      <OpsPage />
     </Layout>
   );
 }

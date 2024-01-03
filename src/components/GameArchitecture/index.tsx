@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../Tool/index.module.css";
+import styles from "../OpsPage/index.module.css";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useMediaQuery from "@mui/material/useMediaQuery";

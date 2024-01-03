@@ -110,7 +110,7 @@ const StartHere = () => {
       </div>
       <img
         className="absolute bottom-0 w-screen h-auto"
-        src={`/img/tool/Login/floor.svg`}
+        src={`/img/opspage/Login/floor.svg`}
         alt="LoginPageFloor"
         width="2748px"
         height="402px"
