@@ -98,8 +98,8 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
 
   return (
     <footer
-      className={clsx('bg-[#000000] md:h-[510px] flex flex-col py-0 items-center px-4 overflow-hidden')}>
-      <div className="max-w-[1180px] w-[100%] py-10">
+      className={clsx('bg-[#000000] md:h-[510px] flex flex-col py-0 items-center overflow-hidden')}>
+      <div className="max-w-[1212px] w-[100%] px-4 py-10">
 
 
         <div className="md:flex md:justify-between grid grid-cols-2 gap-8">
@@ -139,7 +139,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
       </div>
       <div className={clsx(styles.footerBorder)} />
       
-      <div className="max-w-[1180px] w-[100%] mt-10 flex justify-between flex-col md:flex-row py-5 md:py-0">
+      <div className="max-w-[1212px] px-4 w-[100%] mt-10 flex justify-between flex-col md:flex-row py-5 md:py-0">
         <div className="flex gap-5 md:gap-[80px] items-start flex-col md:flex-row">
           <Link aria-label='xpla.io' href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
           <div className="flex flex-col gap-[18px]">
