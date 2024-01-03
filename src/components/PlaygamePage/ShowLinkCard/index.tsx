@@ -12,6 +12,7 @@ const ShowLinkCard = () => {
     >
       <div className="grid grid-cols-3 gap-[30px]">
         <Link
+          target="_blank"
           to="https://github.com/xpladev/academy"
           className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
@@ -55,6 +56,7 @@ const ShowLinkCard = () => {
           </div>
         </Link>
         <Link
+          target="_blank"
           to="/startlearning/overview/intro"
           className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
@@ -100,6 +102,7 @@ const ShowLinkCard = () => {
           </div>
         </Link>
         <Link
+          target="_blank"
           to="/ops"
           className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
