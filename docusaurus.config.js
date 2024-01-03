@@ -91,19 +91,19 @@ const config = {
             label: 'Start Learning',
           },
           {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/xpladev',
             className: 'header-github-link',
             position: 'right',
             'aria-label': 'GitHub repository',
           },
           {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
             type: 'search',
             position : 'right'
-          }
+          },
         ],
       },
       footer: {

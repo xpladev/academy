@@ -6,6 +6,7 @@ import {useLocation} from '@docusaurus/router';
 import DropdownNavbarItem from '../DropdownNavbarItem';
 import styles from './styles.module.css';
 import LanguageIcon from '@mui/icons-material/Language';
+
 export default function LocaleDropdownNavbarItem({
   mobile,
   dropdownItemsBefore,
@@ -51,15 +52,17 @@ export default function LocaleDropdownNavbarItem({
         description: 'The label for the mobile language switcher dropdown',
       })
     : localeConfigs[currentLocale].label;
-  return (
+  return (<div className='mr-[11px] mt-[10px]'>
     <DropdownNavbarItem
       {...props}
+      disable = {!window.location.pathname.startsWith('/startlearning')}
       arrow={false}
       mobile={mobile}
       label={
-        <LanguageIcon className={styles.iconLanguage} sx={{fontSize: 28}}/>
+        <LanguageIcon sx={{fontSize: 29, color : window.location.pathname.startsWith('/startlearning') ? 'white': '#FFFFFF33'}}/>
       }
       items={items}
-    />
+      />
+      </div>
   );
 }
