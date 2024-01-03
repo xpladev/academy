@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from "react";
 
 const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
-  // const outerDivRef = useRef<HTMLDivElement>(null);
-  // const currentPage = useRef<number>(0);
   const canScroll = useRef<boolean>(true);
+  const timer = useRef(null);
+  const delay = 300;
 
   const scrollDown = () => {
     const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
     if (outerDivRef.current && pageWidth) {
-      canScroll.current = false;
       outerDivRef.current.scrollTo({
         left: pageWidth * (currentPage.current + 1),
         top: 0,
         behavior: "smooth",
       });
+      canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
       }, 500);
@@ -25,12 +25,12 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
   const scrollUp = () => {
     const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
     if (outerDivRef.current && pageWidth) {
-      canScroll.current = false;
       outerDivRef.current.scrollTo({
         left: pageWidth * (currentPage.current - 1),
         top: 0,
         behavior: "smooth",
       });
+      canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
       }, 500);
@@ -57,12 +57,16 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
   };
 
   const resizeHandler = (e: Event) => {
-    const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
-    outerDivRef.current.scrollTo({
-      left: pageWidth * (currentPage.current),
-      top: 0,
-      behavior: "smooth",
-    });
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(function () {
+      const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
+      outerDivRef.current.scrollTo({
+        left: pageWidth * currentPage.current,
+        top: 0,
+        behavior: "smooth",
+      });
+    }, delay);
+
   }
 
   useEffect(() => {

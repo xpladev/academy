@@ -8,7 +8,7 @@ const AboutGame = () => {
 
   return (
     <div
-      className={`h-full min-w-[100vw] bg-[#7300FF] flex justify-center items-center relative px-[10px]`}
+      className={`h-full min-w-[100vw] bg-[#7300FF] flex justify-center items-center relative px-[10px] overflow-hidden`}
     >
       <div className="flex justify-center items-start gap-[172px]">
         <div className="flex flex-col gap-[57px] text-white text-[26px] leading-[36px] font-normal">

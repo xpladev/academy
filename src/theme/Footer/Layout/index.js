@@ -98,7 +98,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
 
   return (
     <footer
-      className={clsx('bg-[#000000] md:h-[510px] flex flex-col py-0 items-center px-4')}>
+      className={clsx('bg-[#000000] md:h-[510px] flex flex-col py-0 items-center px-4 overflow-hidden')}>
       <div className="max-w-[1180px] w-[100%] py-10">
 
 

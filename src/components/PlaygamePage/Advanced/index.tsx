@@ -8,7 +8,7 @@ const Advanced = () => {
 
   return (
     <div
-      className={`h-full min-w-[100vw] bg-[#F93AC3] flex justify-center items-center relative px-[10px]`}
+      className={`h-full min-w-[100vw] bg-[#F93AC3] flex justify-center items-center relative px-[20px] overflow-hidden`}
     >
       <div className="flex justify-center items-start gap-[78px]">
         <div className="flex flex-col gap-[64px] text-white text-[26px] leading-[36px] font-normal">

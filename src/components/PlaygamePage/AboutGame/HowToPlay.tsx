@@ -31,6 +31,7 @@ const HowToPlay = () => {
           height="500px"
           src="/img/PlayGamePage/howtoplay-1.svg"
           alt="howtoplay-1"
+          className="hover:cursor-pointer"
           onClick={() => goTo(1)}
         />
         <img
@@ -38,6 +39,7 @@ const HowToPlay = () => {
           height="500px"
           src="/img/PlayGamePage/howtoplay-2.svg"
           alt="howtoplay-2"
+          className="hover:cursor-pointer"
           onClick={() => goTo(2)}
         />
         <img
@@ -45,6 +47,7 @@ const HowToPlay = () => {
           height="500px"
           src="/img/PlayGamePage/howtoplay-3.svg"
           alt="howtoplay-3"
+          className="hover:cursor-pointer"
           onClick={() => goTo(3)}
         />
         <img
@@ -52,6 +55,7 @@ const HowToPlay = () => {
           height="500px"
           src="/img/PlayGamePage/howtoplay-4.svg"
           alt="howtoplay-4"
+          className="hover:cursor-pointer"
           onClick={() => goTo(0)}
         />
       </Slider>

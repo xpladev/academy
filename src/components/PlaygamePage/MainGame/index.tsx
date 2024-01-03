@@ -8,7 +8,7 @@ const MainGame = () => {
 
   return (
     <div
-      className={`h-full min-w-[100vw] flex justify-center items-center relative px-[10px]`}
+      className={`h-full min-w-[100vw] flex justify-center items-center relative px-[10px] overflow-hidden`}
     >
       <div className="maingame-bg" />
       {isMobile ? <img 

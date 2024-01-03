@@ -2,16 +2,18 @@ import React, { useEffect, useRef } from "react";
 
 const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
   const canScroll = useRef<boolean>(true);
+  const timer = useRef(null);
+  const delay = 300;
 
   const scrollDown = () => {
     const pageHeight = outerDivRef.current?.children.item(0)?.clientHeight;
     if (outerDivRef.current && pageHeight) {
-      canScroll.current = false;
       outerDivRef.current.scrollTo({
         top: pageHeight * (currentPage.current + 1),
         left: 0,
         behavior: "smooth",
       });
+      canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
       }, 500);
@@ -23,12 +25,12 @@ const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
   const scrollUp = () => {
     const pageHeight = outerDivRef.current?.children.item(0)?.clientHeight;
     if (outerDivRef.current && pageHeight) {
-      canScroll.current = false;
       outerDivRef.current.scrollTo({
         top: pageHeight * (currentPage.current - 1),
         left: 0,
         behavior: "smooth",
       });
+      canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
       }, 500);
@@ -52,12 +54,15 @@ const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
   };
 
   const resizeHandler = (e: Event) => {
-    const pageHeight = outerDivRef.current?.children.item(0)?.clientHeight;
-    outerDivRef.current.scrollTo({
-      top: pageHeight * (currentPage.current),
-      left: 0,
-      behavior: "smooth",
-    });
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(function(){
+      const pageHeight = outerDivRef.current?.children.item(0)?.clientHeight;
+      outerDivRef.current.scrollTo({
+        top: pageHeight * (currentPage.current),
+        left: 0,
+        behavior: "smooth",
+      });
+    }, delay);
   }
 
   useEffect(() => {

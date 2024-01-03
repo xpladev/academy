@@ -8,12 +8,12 @@ const ShowLinkCard = () => {
 
   return (
     <div
-      className={`h-[70%] min-w-[100vw] bg-[#F5F4F4] flex flex-col gap-[65px] justify-center items-center relative px-[20px]`}
+      className={`min-w-[100vw] bg-[#F5F4F4] flex flex-col gap-[65px] justify-center items-center relative px-[20px] py-[140px] overflow-hidden`}
     >
-      <div className="flex gap-[30px]">
+      <div className="grid grid-cols-3 gap-[30px]">
         <Link
           to="https://github.com/xpladev/academy"
-          className=" font-medium text-[24px] leading-[34px] min-[996px]:w-[300px] min-[1200px]:w-[370px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
+          className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
           aria-label={"xpla-academy-github"}
         >
@@ -33,6 +33,7 @@ const ShowLinkCard = () => {
               height="21"
               viewBox="0 0 53 21"
               xmlns="http://www.w3.org/2000/svg"
+              className="absolute right-[50px] bottom-[50px] max-[996px]:hidden"
             >
               <g clipPath="url(#clip0_122_241)">
                 <path
@@ -55,7 +56,7 @@ const ShowLinkCard = () => {
         </Link>
         <Link
           to="/startlearning/overview/intro"
-          className="font-medium text-[24px] leading-[34px] min-[996px]:w-[300px] min-[1200px]:w-[370px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
+          className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
           aria-label={"xpla-academy-github"}
         >
@@ -77,6 +78,7 @@ const ShowLinkCard = () => {
               height="21"
               viewBox="0 0 53 21"
               xmlns="http://www.w3.org/2000/svg"
+              className="absolute right-[50px] bottom-[50px] max-[996px]:hidden"
             >
               <g clipPath="url(#clip0_122_241)">
                 <path
@@ -99,7 +101,7 @@ const ShowLinkCard = () => {
         </Link>
         <Link
           to="/ops"
-          className="relative font-medium text-[24px] leading-[34px] min-[996px]:w-[300px] min-[1200px]:w-[370px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
+          className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
           aria-label={"xpla-academy-github"}
         >
@@ -123,7 +125,7 @@ const ShowLinkCard = () => {
               height="21"
               viewBox="0 0 53 21"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute right-[50px] bottom-[50px]"
+              className="absolute right-[50px] bottom-[50px] max-[996px]:hidden"
             >
               <g clipPath="url(#clip0_122_241)">
                 <path
