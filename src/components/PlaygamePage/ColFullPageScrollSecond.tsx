@@ -16,7 +16,7 @@ const ColFullPageScrollSecond = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 500);
+      }, 1200);
       if (outerDivRef.current.childElementCount - 1 > currentPage.current)
         currentPage.current++;
     }
@@ -33,7 +33,7 @@ const ColFullPageScrollSecond = ({ children, outerDivRef, currentPage }) => {
       canScroll.current = false;
       setTimeout(() => {
         canScroll.current = true;
-      }, 500);
+      }, 1200);
       if (currentPage.current > 0) currentPage.current--;
     }
   };
