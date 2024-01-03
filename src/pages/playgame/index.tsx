@@ -7,6 +7,7 @@ import MainGame from "@site/src/components/PlaygamePage/MainGame";
 import AboutGame from "@site/src/components/PlaygamePage/AboutGame";
 import StartHere from "@site/src/components/PlaygamePage/StartHere";
 import Advanced from "@site/src/components/PlaygamePage/Advanced";
+import ShowLinkCard from "@site/src/components/PlaygamePage/ShowLinkCard";
 import Footer from "@theme/Footer";
 
 export default function Playgame(): JSX.Element {
@@ -24,7 +25,7 @@ export default function Playgame(): JSX.Element {
           <StartHere />
           <ColFullPageScrollSecond>
             <Advanced />
-            <div className={`h-[70%] min-w-[100vw] bg-[#234651]`}></div>
+            <ShowLinkCard />
             <Footer />
           </ColFullPageScrollSecond>
         </RowFullPageScroll>

@@ -1,0 +1,3 @@
+.svgHoverWhite:hover > div > svg > g > path {
+    fill:white;
+}

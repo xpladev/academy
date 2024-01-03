@@ -188,3 +188,16 @@ html[data-theme='dark'] .sidebar-divider {
     display: none;
   }
 }
+
+.buttonShadow10px {
+  box-shadow: 10px 10px 0px black;
+  border: 1px solid black;
+  transition: all 200ms;
+
+}
+
+.buttonShadow10px:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: translate(10px, 10px);
+}
