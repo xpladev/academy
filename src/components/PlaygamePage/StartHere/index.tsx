@@ -1,8 +1,11 @@
 import React from "react";
 import SouthIcon from "@mui/icons-material/South";
 import Link from "@docusaurus/Link";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const StartHere = () => {
+  const isDesktop = useMediaQuery("(min-width:996px)");
+
   return (
     <div
       className={`h-full min-w-[100vw] bg-[#FF640C] flex justify-center items-center relative px-[10px]`}
@@ -91,13 +94,15 @@ const StartHere = () => {
             </div>
           </div>
         </div>
-        <img
-          width="586px"
-          height="492px"
-          src="/img/PlayGamePage/starthere-img.svg"
-          alt="starthere-img"
-          className="mt-[12px]"
-        />
+        {isDesktop && (
+          <img
+            width="586px"
+            height="492px"
+            src="/img/PlayGamePage/starthere-img.svg"
+            alt="starthere-img"
+            className="mt-[12px]"
+          />
+        )}
       </div>
 
       <div className="absolute bottom-[47px] arrow-hidden ">

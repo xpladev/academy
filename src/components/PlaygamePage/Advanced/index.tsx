@@ -1,8 +1,11 @@
 import React from "react";
 import SouthIcon from "@mui/icons-material/South";
 import Link from "@docusaurus/Link";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Advanced = () => {
+  const isDesktop = useMediaQuery("(min-width:996px)");
+
   return (
     <div
       className={`h-full min-w-[100vw] bg-[#F93AC3] flex justify-center items-center relative px-[10px]`}
@@ -33,9 +36,7 @@ const Advanced = () => {
               </span>
               <Link
                 target="_blank"
-                to={
-                  "/startlearning/category/utilize-tokens-cw20"
-                }
+                to={"/startlearning/category/utilize-tokens-cw20"}
                 className={
                   "flex items-center justify-between px-[20px] bg-[#C9FF00] py-[10px] text-[#000000] hover:text-[#000000] buttonShadow font-medium text-[20px] leading-[24px]"
                 }
@@ -71,7 +72,9 @@ const Advanced = () => {
               </Link>
               <Link
                 target="_blank"
-                to={"/startlearning/tutorial/deep-understand-xpla/write-contract"}
+                to={
+                  "/startlearning/tutorial/deep-understand-xpla/write-contract"
+                }
                 className={
                   "flex items-center justify-between px-[20px] bg-[#C9FF00] py-[10px] text-[#000000] hover:text-[#000000] buttonShadow font-medium text-[20px] leading-[24px]"
                 }
@@ -89,13 +92,15 @@ const Advanced = () => {
             </div>
           </div>
         </div>
-        <img
-          width="614px"
-          height="556px"
-          src="/img/PlayGamePage/advanced-img.svg"
-          alt="advanced-img"
-          className="mt-[-19px]"
-        />
+        {isDesktop && (
+          <img
+            width="614px"
+            height="556px"
+            src="/img/PlayGamePage/advanced-img.svg"
+            alt="advanced-img"
+            className="mt-[-19px]"
+          />
+        )}
       </div>
 
       <div className="absolute bottom-[47px] arrow-hidden ">

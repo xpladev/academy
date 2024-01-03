@@ -1,8 +1,11 @@
 import React from "react";
 import SouthIcon from "@mui/icons-material/South";
 import HowToPlay from "./HowToPlay";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const AboutGame = () => {
+  const isDesktop = useMediaQuery("(min-width:996px)");
+
   return (
     <div
       className={`h-full min-w-[100vw] bg-[#7300FF] flex justify-center items-center relative px-[10px]`}
@@ -29,7 +32,7 @@ const AboutGame = () => {
             </div>
           </div>
         </div>
-        <HowToPlay />
+        {isDesktop && <HowToPlay />}
       </div>
 
       <div className="absolute bottom-[47px] arrow-hidden ">

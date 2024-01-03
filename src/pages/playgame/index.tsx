@@ -46,25 +46,24 @@ export default function Playgame(): JSX.Element {
             <ShowLinkCard />
             <Footer
               scrollToTop={async () => {
+                ColSecondCurrentPage.current = 0;
+                RowCurrentPage.current = 0;
+                ColFirstCurrentPage.current = 0;
                 await ColSecondOuterDivRef.current.scrollTo({
                   top: 0,
                   left: 0,
                   behavior: "smooth",
                 });
-                ColFirstCurrentPage.current = 0;
                 await RowOuterDivRef.current.scrollTo({
                   top: 0,
                   left: 0,
                   behavior: "smooth",
                 });
-                RowCurrentPage.current = 0;
-
                 await ColFirstOuterDivRef.current.scrollTo({
                   top: 0,
                   left: 0,
                   behavior: "smooth",
                 });
-                ColSecondCurrentPage.current = 0;
               }}
             />
           </ColFullPageScrollSecond>
