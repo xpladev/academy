@@ -51,14 +51,25 @@ const ColFullPageScrollFirst = ({ children, outerDivRef, currentPage }) => {
     e.preventDefault();
   };
 
+  const resizeHandler = (e: Event) => {
+    const pageHeight = outerDivRef.current?.children.item(0)?.clientHeight;
+    outerDivRef.current.scrollTo({
+      top: pageHeight * (currentPage.current),
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+
   useEffect(() => {
     const outer = outerDivRef.current;
     if (!outer) return;
     outer.addEventListener("wheel", wheelHandler);
     outer.addEventListener("scroll", scrollHandler);
+    window.addEventListener("resize", resizeHandler);
     return () => {
       outer.removeEventListener("wheel", wheelHandler);
       outer.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("resize", resizeHandler);
     };
   }, []);
 

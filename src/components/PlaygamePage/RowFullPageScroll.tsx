@@ -56,14 +56,25 @@ const RowFullPageScroll = ({ children, outerDivRef, currentPage }) => {
     e.preventDefault();
   };
 
+  const resizeHandler = (e: Event) => {
+    const pageWidth = outerDivRef.current?.children.item(0)?.clientWidth;
+    outerDivRef.current.scrollTo({
+      left: pageWidth * (currentPage.current),
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   useEffect(() => {
     const outer = outerDivRef.current;
     if (!outer) return;
     outer.addEventListener("wheel", wheelHandler);
     outer.addEventListener("scroll", scrollHandler);
+    window.addEventListener("resize", resizeHandler);
     return () => {
       outer.removeEventListener("wheel", wheelHandler);
       outer.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("resize", resizeHandler);
     };
   }, []);
 
