@@ -54,7 +54,7 @@ const Advanced = () => {
               <Link
                 target="_blank"
                 to={
-                  "/startlearning/settings/create-testnet-transaction/check-tx-in-explorer"
+                  "/startlearning/category/utilize-nftcw721"
                 }
                 className={
                   "flex items-center justify-between px-[20px] bg-[#C9FF00] py-[10px] text-[#000000] hover:text-[#000000] buttonShadow font-medium text-[20px] leading-[24px]"
