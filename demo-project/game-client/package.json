@@ -1,0 +1,10 @@
+{
+  "name": "break-the-bricks",
+  "uuid": "defb89d4-0d75-450e-b888-178cffe6ba5b",
+  "creator": {
+    "version": "3.7.3"
+  },
+  "dependencies": {
+    "@xpla/xpla.js": "^0.3.1"
+  }
+}

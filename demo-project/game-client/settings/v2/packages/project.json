@@ -1,0 +1,59 @@
+{
+  "__version__": "1.0.4",
+  "general": {
+    "designResolution": {
+      "width": 900,
+      "height": 750,
+      "fitHeight": false,
+      "fitWidth": true
+    }
+  },
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "BALL"
+      },
+      {
+        "index": 2,
+        "name": "ITEM"
+      },
+      {
+        "index": 3,
+        "name": "BRICK"
+      },
+      {
+        "index": 4,
+        "name": "BULLET"
+      },
+      {
+        "index": 5,
+        "name": "PADDLE"
+      },
+      {
+        "index": 6,
+        "name": "ENEMY_BALL"
+      },
+      {
+        "index": 7,
+        "name": "BRICK_ALLY"
+      },
+      {
+        "index": 8,
+        "name": "ITEM_BOMB"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 383,
+      "1": 169,
+      "2": 33,
+      "3": 187,
+      "4": 9,
+      "5": 335,
+      "6": 161,
+      "7": 330,
+      "8": 161
+    }
+  },
+  "custom_joint_texture_layouts": []
+}
