@@ -11,7 +11,8 @@ import BrowserWindow from '@site/src/components/BrowserWindow';
 
 The data recorded on the blockchain is referred to as transactions. For instance, creating a transaction where `Alice sends 1 XPLA to Bob` can be recorded on the blockchain.
 
-When creating a transaction on the XPLA blockchain, you need to pay fees in XPLA coins. Since you received testnet XPLA coins in the [previous step](/startlearning/settings/create-wallet/get-testnet-xpla), you can create transactions on the testnet without worrying about fees.
+When creating a transaction on the XPLA blockchain, you need to pay fees in $XPLA coins.
+Since you received testnet $XPLA coins in the [previous step](/startlearning/settings/create-wallet/get-testnet-xpla), there's no need to worry about fees!.
 
 <Details summary="Why do we need to pay fees to create transactions on the blockchain?">
 
@@ -27,17 +28,17 @@ Furthermore, fees prevent malicious attackers from generating an excessive numbe
 
 ## Preview {#preview}
 
-Below is the JavaScript code to create a transaction. Modify the code with your mnemonic words and run it. You'll see the execution result on the right side after a while. 
+Below is the JavaScript code to create a transaction. Modify the code with your mnemonic words and run it. You'll see the execution result on the right side after a little while. 
 
 <Ex02 />
 
 <br/>
 
-If you've understood the Preview Code, you may move on to the [next step](/startlearning/settings/create-testnet-transaction/check-tx-in-explorer) with out reading [the below](/startlearning/settings/create-testnet-transaction/send-tx#runjs).
+If you've mastered the Preview Code, you may move on to the [next step](/startlearning/settings/create-testnet-transaction/check-tx-in-explorer) with out reading [the below](/startlearning/settings/create-testnet-transaction/send-tx#runjs).
 
 ## Creating Transactions with JavaScript {#runjs}
 
-In the [previous step](/startlearning/settings/create-wallet/get-testnet-xpla), you received XPLA coins from the Faucet wallet. This time, let's create a transaction to send XPLA coins from our wallet to the Faucet wallet. The amount being sent is 25aXPLA (0.000000000000000025XPLA). Let's run the code.
+In the [previous step](/startlearning/settings/create-wallet/get-testnet-xpla), you received $XPLA coins from the Faucet wallet. This time, let's create a transaction to send $XPLA coins from our wallet to the Faucet wallet. The amount being sent is 25aXPLA (0.000000000000000025XPLA). Let's run the code.
 
 :::tip
 
@@ -110,11 +111,11 @@ The transaction we created contains various data such as `the height of the bloc
 
 ## Wallet Check {#checkvault}
 
-If you successfully created the transaction, check your wallet in the Vault. You'll see a lower amount than the 100 XPLA you received from the Faucet.
+If you successfully created the transaction, check your balance in the Vault. You'll see a lower amount than the 100 XPLA you received from the Faucet.
 
-This is because you sent 25aXPLA to another wallet and paid a fee to create the transaction.
+This is because you sent 25aXPLA to another wallet and paid a transaction fee.
 
-By seeing that XPLA coins were spent, you can indirectly confirm that the transaction was successfully created. 
+By seeing that $XPLA coins were spent, you can indirectly confirm that the transaction was successfully created. 
 
 <BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
     <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
@@ -127,7 +128,7 @@ By seeing that XPLA coins were spent, you can indirectly confirm that the transa
 
 ## Explanation {#explaination}
 
-First, you loaded the wallet using the mnemonic words. You might have used different mnemonic words to load your own wallet. 
+First, you loaded the wallet using the mnemonic words. You might have used your own mnemonic words to load your wallet. 
 
 ```js
 const mk = new MnemonicKey({
@@ -181,6 +182,6 @@ console.log("Your Transaction Hash: " + txResult.txhash);
 
 ## Wrapping Up {#conclusion}
 
-But how can we examine transaction data in more detail? One way is to use the [XPLA Explorer](https://explorer.xpla.io/), where you can look at all the transaction records of XPLA. Another method is to directly fetch transaction data values using code.
+But how can we examine transaction data in more detail? One way is to use the [XPLA Explorer](https://explorer.xpla.io/), where you can look at all the transaction records of $XPLA. Another method is to directly fetch transaction data values using code.
 
 We will explore each step in the [next section](/startlearning/settings/create-testnet-transaction/check-tx-in-explorer).

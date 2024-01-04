@@ -63,7 +63,6 @@ Convert 과정은 왜 필요할까요?
 :::
 
 
-위 구조도에서 Sequence mismatch를 방지하기 위해 데이터베이스(DB)에 Lock을 거는 부분이 중요합니다. 
 다수의 유저들이 동시에 Convert 요청을 보내는 상황을 가정해봅시다. 
 모든 요청을 빠르게 처리하기 위해, 게임 운영 지갑도 Convert 트랜잭션 여러 개를 한번에 생성하려 한다면 어떻게 될까요? 
 Sequence가 중복된 트랜잭션은 블록체인에 기록될 수 없기 때문에, Sequence Mismatch Error가 발생하고 트랜잭션 생성이 원활히 되지 않을 것입니다.
@@ -237,7 +236,7 @@ try {
 <span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step8">Step 8.</span> Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
 </CustomHashLink>
 
-```js {9,12} title="Convert Server"
+```js {9,12,14,15} title="Convert Server"
 try { // step 7
     const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]); // step 7
     const operatorSeq = data[0].sequence // step 7

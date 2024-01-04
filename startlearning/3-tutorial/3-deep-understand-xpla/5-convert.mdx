@@ -7,18 +7,20 @@ import {DIAMOND, ACADEMYTKN} from "@site/src/components/TokenImg";
 import {ConvertCase1, ConvertCase2} from "@site/src/util/ConvertSvg";
 import CustomHashLink from "@site/src/util/CustomHashLink";
 
-# Convert 기능 이해하기
+# Design Convert System
 
-## Convert란 무엇인가요? {#what-is-convert}
+## What is 'Convert'? {#what-is-convert}
 
-[Break The Bricks 게임](/#playgame)을 해보셨나요? 게임 플레이를 통해 게임 재화인 DIAMOND(<DIAMOND />)를 획득할 수 있습니다. 
-그러나 DIAMOND(<DIAMOND />)는 CW20 토큰이 아닌 단순 게임 데이터에 불과하고, 블록체인에서 사용할 수 없습니다.
-[Web3 Gaming Ops 페이지](/ops)에서 제공하는 Convert 기능을 통해, 유저들은 DIAMOND(<DIAMOND />)를 CW20 토큰인 ACADEMY-TKN(<ACADEMYTKN />)으로 교환할 수 있습니다.
+Have you played [🎮Break The Bricks](/#playgame)? (If not, go ahead and try out now!👾) In the game, you can earn $DIAMOND(<DIAMOND />) through gameplay.
 
-Convert 과정은 왜 필요할까요? 
-게임 플레이 보상으로 매번 CW20 토큰인 ACADEMY-TKN(<ACADEMYTKN />)을 나눠준다면, 항상 트랜잭션 실행을 위해 수수료가 발생하게 됩니다.
-수수료 부담을 줄이기 위해 게임 플레이 보상으로 게임 재화인 DIAMOND(<DIAMOND />)를 전달하고, <b>유저가 원할 때 게임 재화(<DIAMOND />)와 CW20 토큰(<ACADEMYTKN />)을 교환</b>하는 **Convert** 방식을 도입했습니다.
-이번 단계에서는 Convert 기능을 어떻게 구현하는지 살펴보겠습니다.
+🤯Did you know that $DIAMOND(<DIAMOND />) is just game data, not a CW20 token for the blockchain?
+
+💡However, through the 'convert' feature on the [Web3 Gaming Ops](/ops) page, you can exchange your $DIAMOND(<DIAMOND />) for $ACADEMY-TKN(<ACADEMYTKN />), the CW20 token.💸😎
+
+Why use the 'Convert' process?
+Distributing CW20 tokens ($ACADEMY-TKN(<ACADEMYTKN />)) directly as game rewards would lead to transaction fees every time. Which could be a pain in the butt for both gamers and game developers at some point. 😬
+
+💡To reduce fees, XPLA ACADEMY TEAM suggests designing in-game currency ($DIAMOND(<DIAMOND />)) as rewards, letting users exchange $DIAMOND(<DIAMOND />) for CW20 tokens ($ACADEMY-TKN(<ACADEMYTKN />)) when they want! In this lesson, we'll look at how the Convert feature can be implemented.
 
 <Details summary="게임 재화와 CW20 토큰은 무엇이 다른가요?">
 
@@ -31,26 +33,27 @@ Convert 과정은 왜 필요할까요?
 
 </Details>
 
-## Convert 과정 살펴보기 {#convert-process}
+## Learn how Convert works! {#convert-process}
 
-유저가 Convert를 요청하는 경우는 두 가지입니다. 
+There are two scenarios when a user requests Convert:
 
-[1. 게임 재화(<DIAMOND />)를 CW20 토큰(<ACADEMYTKN />)으로 바꾸려는 경우](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)
+[1. 🙋‍♂️I want to change in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)
 
-[2. CW20 토큰(<ACADEMYTKN />)을 게임 재화(<DIAMOND />)로 바꾸려는 경우](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)
+[2. 🙋‍♀️I want to change CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)
 
-### 1. 게임 재화를 CW20 토큰으로 바꾸려는 경우 {#convert-case1}
+### Changing in-game currency to CW20 {#convert-case1}
 
-먼저 1번 과정을 자세히 살펴보겠습니다.
-유저가 보유한 게임 재화(<DIAMOND />)의 양은, 게임을 운영하는 측의 데이터베이스에 기록되어 있습니다. 
-반면, CW20 토큰(<ACADEMYTKN />)의 보유량은 XPLA 블록체인에 기록되어 있습니다.
-따라서 게임 재화(<DIAMOND />)를 CW20 토큰(<ACADEMYTKN />)으로 바꾸려면, 데이터베이스에 기록된 유저의 게임 재화(<DIAMOND />) 보유량을 감소시키고, 유저 지갑으로 CW20 토큰(<ACADEMYTKN />)을 보내주어야 합니다.
+Let’s look at the first scenario. 
+The user's amount of in-game currency(<DIAMOND />) is tracked in the game's database, while the ownership of CW20(<ACADEMYTKN />) is recorded on the XPLA blockchain.
+To convert in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />), the game database needs to decrease the user's in-game currency(<DIAMOND />) balance, and CW20(<ACADEMYTKN />) must be sent to the user's wallet.
 
-일반적으로 블록체인에서 토큰을 보낼 때는 보내는 지갑이 트랜잭션 수수료를 감당합니다. 그러나 Convert에서는 토큰을 받는 유저가 수수료를 냅니다.
-만약 게임을 운영하는 측이 Convert 수수료를 모두 부담한다면, Convert하려는 유저가 많아질수록 수수료 지출이 커져 게임 운영이 어려워지기 때문입니다.
-그러므로 Convert 트랜잭션은 <u>CW20 토큰을 보내는 게임 운영 지갑의 서명</u>이 필요하고, <u>트랜잭션 수수료를 지불하기 위해 토큰을 받는 유저 지갑의 서명</u> 모두가 필요합니다.
+Normally, when you send tokens on the blockchain, the sender pays the fees. But in Convert, the user getting the tokens pays the fees. 
 
-1번 과정 전체 구조를 그림으로 그려보면 아래와 같습니다. 복잡해보이지만, 하나하나씩 살펴보면 어렵지 않습니다.
+😰If the game developer pays all Convert fees, it's going to be tough to manage as more users Convert, causing higher expenses. 
+Therefore, a Convert transaction needs signatures from both <u>the game developer's wallet, for sending CW20 tokens</u>, and <u>the user's wallet, for covering the fees</u>. 🤝📝 (* By "game developer," it could be the game operator, company, etc.)
+
+The first scenario can be represented in a diagram as shown below. 
+It might seem complicated, but taking it step by step makes it easy to grasp.
 
 <ConvertCase1 />
 
@@ -58,24 +61,22 @@ Convert 과정은 왜 필요할까요?
 
 :::danger
 
-예제는 단순히 Convert 기능의 구현 방법 중 한 가지일 뿐이며, 예외 처리 등 생략된 부분도 많습니다. 하나의 정형화된 방법이 있는 것이 아니며, API나 데이터베이스 설계 등은 게임 종류에 따라 달라질 수 있습니다. 따라서 예제 코드를 참고하여, 여러분의 기호대로 수정하시기 바랍니다.
+The example is just one way to set up Convert, missing some details like error handling. There's no one-size-fits-all method; how you design things like API or DB depends on the type of game. 
+
+So, use the example code as a guide and adjust it to fit your preferences!
 
 :::
 
+If multiple users send Convert requests simultaneously and the game DEV tries to create several Convert transactions at once, there's a problem. 
+Transactions with the same Sequence value can't be recorded on the blockchain, causing a Sequence Mismatch Error and may disrupt this process.
+To avoid this, each transaction should have a unique Sequence value, written in the order of the requests.
 
-위 구조도에서 Sequence mismatch를 방지하기 위해 데이터베이스(DB)에 Lock을 거는 부분이 중요합니다. 
-다수의 유저들이 동시에 Convert 요청을 보내는 상황을 가정해봅시다. 
-모든 요청을 빠르게 처리하기 위해, 게임 운영 지갑도 Convert 트랜잭션 여러 개를 한번에 생성하려 한다면 어떻게 될까요? 
-Sequence가 중복된 트랜잭션은 블록체인에 기록될 수 없기 때문에, Sequence Mismatch Error가 발생하고 트랜잭션 생성이 원활히 되지 않을 것입니다.
-따라서 요청 순서대로 Sequence 값을 다르게 작성하여 트랜잭션을 생성해야 합니다.
+If you use a Load Balancer for the game server, be cautious to avoid Sequence mismatch errors. If you're unsure about Sequence mismatch, check the [Decode Account Number and Sequences in transactions](/startlearning/tutorial/deep-understand-xpla/account-sequence) lesson for clarification.
 
-특히 게임 서버 운영을 위해 Load Balancer를 사용하신다면, Sequence mismatch Error가 일어나지 않도록 주의하셔야 합니다.
-Sequence mismatch 개념을 모르시거나 관련 내용이 잘 이해가 되지 않으신다면, [트랜잭션에서 AccountNumber와 Sequence 항목 이해하기](/startlearning/tutorial/deep-understand-xpla/account-sequence) 단계를 읽고 오시기 바랍니다.
-
-각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
+Let's see how it works with the following Pseudo code. (The code won't directly run as is because it's Pseudo code.)
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step1">Step 1.</span> User Client App -> Convert Server : 게임 재화를 CW20 토큰으로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step1">Step 1.</span> User Client App -> Convert Server : Convert request to change in-game currency to CW20
 </CustomHashLink>
 
 
@@ -94,24 +95,26 @@ const unsignedResponse = await axios.post(
 ); 
 ```
 
-유저가 게임 재화를 CW20 토큰으로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 Convert하려는 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
+User wants to change in-game currency to CW20. 
+The User Client App sends a POST request to the Convert Server, including the user's wallet address (userAddress) and the desired in-game currency amount (amount).
+
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step2">Step 2.</span> Convert Server -> Database(DB) : DB에서 유저가 적절한 게임 재화를 보유하고 있는지 확인 후, 요청 수량만큼 유저가 보유한 재화를 감소시킴.
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step2">Step 2.</span> Convert Server -> Database (DB) : Check if the user has enough in-game currency and subtract it by the requested amount
 </CustomHashLink>
 
 ```js title="Convert Server"
 db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
 ```
 
-Convert하려는 수량(amount)보다 많이 있을 때, 유저가 보유한 재화량을 감소시킵니다. 
+If the user has enough, subtract the requested Convert amount from their balance.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step3">Step 3.</span> Convert Server : 게임 운영 지갑이 유저 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step3">Step 3.</span> Convert Server : Generate an unsigned transaction for the game DEV to send CW20 to user's wallet
 </CustomHashLink>
 
 ```js {6,17,29,31} title="Convert Server"
@@ -148,13 +151,14 @@ const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), req.body.u
 const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, options
 ```
 
-트랜잭션 예상 수수료(simul_fee)를 계산하고, 게임 운영 지갑(game_operator_address)이 유저 지갑(userAddress)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
-이때 fee 변수를 초기화할 때, payer parameter로 userAddress 변수를 전달하여 유저 지갑이 수수료 지불자가 되도록 설정합니다.
+Calculate the estimated transaction fee (simul_fee) and create a transaction for the game DEV's wallet (game_operator_address) to send CW20 to the user's wallet (userAddress). 
+
+When setting up the fee variable, make the user's wallet the fee payer by passing it as the payer parameter.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step4">Step 4.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step4">Step 4.</span> Convert Server -> User Client App : Send unsigned transaction to the user
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -163,12 +167,12 @@ const result = { unsignedTx : unsignedTx }
 return result
 ```
 
-User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
+Respond to the User Client's POST request by sending the unsigned transaction.
     
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step5">Step 5.</span> User Client App : 유저는 unsigned 트랜잭션에 서명(트랜잭션 수수료 부담에 동의)
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step5">Step 5.</span> User Client App : User signs unsigned transaction. (agreeing to cover fees)
 </CustomHashLink>
 
 ```js {9,12} title="User Client App"
@@ -187,13 +191,12 @@ const { result: signedTx, success } = await connectedWallet.sign({
 });
 ```
 
-유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
-[1번 과정](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)의 Convert 트랜잭션은 유저 지갑 서명과 게임 운영 지갑 서명이 필요한 [다중 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명하는 것이 중요합니다. 
+The user client signs the unsigned transaction (unsignedResponse) from the Convert Server. For the [multi-signature](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers) Convert transaction in [our first scenario](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1), use the **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** variable.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step6">Step 6.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step6">Step 6.</span> User Client App -> Convert Server : Return the transaction with the user's signature
 </CustomHashLink>
 
 ```js {3,6,7} title="User Client App"
@@ -208,12 +211,12 @@ const res = await axios.post(
 );
 ```
 
-유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
+The user client sends a POST request to the Convert Server with the transaction info (userSignedTx), including the user wallet address (userAddress) and signature.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step7">Step 7.</span> Convert Server -> Database(DB) : DB에 Lock을 걸고, Sequence 값을 요청
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step7">Step 7.</span> Convert Server -> Database(DB) : Lock DB,  request Sequence Data
 </CustomHashLink>
 
 ```js {6,9} title="Convert Server"
@@ -229,15 +232,15 @@ try {
     const operatorSeq = data[0].sequence
 ```
 
-예제에서는 beginTransaction 함수를 이용하여 DB에 Lock을 걸고, 쿼리를 통해 게임 운영 지갑의 Sequence 값을 전달받습니다.
+In the example, `beginTransaction` locks the DB, fetching the game operator wallet's Sequence with a query.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step8">Step 8.</span> Convert Server : Sequence 값을 이용하여 트랜잭션에 게임 운영 지갑 서명 추가
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step8">Step 8.</span> Convert Server : Sign transaction with the game DEV’s wallet using Sequence Data
 </CustomHashLink>
 
-```js {9,12} title="Convert Server"
+```js {9,12,14,15} title="Convert Server"
 try { // step 7
     const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]); // step 7
     const operatorSeq = data[0].sequence // step 7
@@ -256,39 +259,36 @@ try { // step 7
     ...
 ```
 
-DB에서 전달받은 Sequence 값으로 트랜잭션에 게임 운영 지갑 서명을 추가합니다. 
-이때도 **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** 변수로 서명해주어야 합니다.
+Add game DEV's wallet signature to the transaction using the received Sequence Data from DB. 
+Sign with **SignMode.SIGN_MODE_LEGACY_AMINO_JSON**.
 
-<Details summary="마지막 부분에서 signatures와 signer_infos의 reverse() 함수를 사용하는 이유는 무엇인가요?">
+<Details summary="Why use reverse() method of signatures and signer_infos in the last part?">
 
-지금까지 트랜잭션 수수료 지불을 위해 유저 지갑의 서명을 먼저 받고, CW20 토큰 전달의 주체인 게임 운영 지갑의 서명을 나중에 받았습니다.
-현재 트랜잭션(allSignedTx 변수) 내 서명 순서가 유저 지갑 - 게임 운영 지갑 순입니다.
+We got the user wallet's signature for fees and later received the game DEV wallet's signature for CW20 token transfer. The current order of signatures in the transaction (variable `allSignedTx`) is user wallet followed by the game DEV wallet. 
 
-CW20 토큰을 전달하는 트랜잭션 Execute에 필요한 서명은 게임 운영 지갑의 서명이고, 유저의 서명은 수수료 지불을 위해 추가된 것입니다.
-만약 유저가 트랜잭션 수수료를 내지 않았다면, CW20 토큰을 Transfer하는 게임 운영 지갑의 서명만 있었으면 됩니다.
+Game DEV wallet’s signature is needed for the Execute transaction. User’s signature is added for approval of fee payment. If the user didn't pay the fee, only the game DEV wallet's token transfer signature is needed.
 
-[Cosmos SDK에서 수수료 지불자(Fee payer)가 추가되어도, 트랜잭션 서명 순서가 바뀌지는 않습니다.](https://github.com/xpladev/xpla/blob/aa5c2e3cac00c2286f3ce4ba2526df6cddc3f550/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
-따라서 올바른 트랜잭션 서명 순서는 게임 운영 지갑 - 유저 지갑 순입니다.
-예제에서는 reverse 함수를 이용하여 서명 순서를 조정하였고, 트랜잭션 생성이 잘 되는 것을 확인할 수 있습니다.
+[Despite adding a fee payer in Cosmos SDK, the signature order remains the same: game DEV wallet followed by the user wallet.](https://github.com/xpladev/xpla/blob/aa5c2e3cac00c2286f3ce4ba2526df6cddc3f550/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
+The reverse function in the example adjusts the signature order for successful transaction creation.
 
 </Details>
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step9">Step 9.</span> Convert Server : 유저 지갑 서명과 게임 운영 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step9">Step 9.</span> Convert Server : Execute transaction with both signatures on the XPLA network
 </CustomHashLink>
 
 ```js title="Convert Server"
 txResult = await lcd.tx.broadcastSync(allSignedTx)      
 ```
 
-트랜잭션을 XPLA 네트워크에 전파합니다.
+Execute transaction on the XPLA network!!
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step10">Step 10.</span> Convert Server -> Database(DB) : DB의 Sequence 값을 1만큼 증가시키고 Lock을 해제함
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step10">Step 10.</span> Convert Server -> Database(DB) :  Send user transaction result
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -298,40 +298,39 @@ txResult = await lcd.tx.broadcastSync(allSignedTx)
     db.release();
 ```
 
-트랜잭션 생성이 제대로 이루어지면, DB 내 저장된 게임 운영 지갑의 Sequence 값을 수정하고, DB에 걸려 있는 Lock을 해제합니다.
+For a successful  transaction, update the game DEV wallet's Sequence Data in the DB and release the lock.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step11">Step 11.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step11">Step 11.</span> Convert Server -> User Client App :  Increase the Sequence Data on DB by 1 and unlock it
 </CustomHashLink>
 
 ```js title="Convert Server"
 return { txhash : txResult.txhash }
 ```
 
-User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
+In response to the User Client's Post request, the transaction propagation result is provided.
 
 <br/>
 
 
-### 2. CW20 토큰을 게임 재화로 바꾸려는 경우 {#convert-case2}
+### 2. Changing CW20 to in-game currency {#convert-case2}
 
-2번 과정은 1번 과정보다 간단합니다. CW20 토큰(<ACADEMYTKN />)을 게임 재화(<DIAMOND />)로 바꾸려면, 유저 지갑이 게임 운영 지갑으로 CW20 토큰(<ACADEMYTKN />)을 보내주고, 데이터베이스에 기록된 유저의 게임 재화(<DIAMOND />) 보유량을 증가시키면 됩니다. 
-2번 과정을 구조도로 그리면 아래와 같습니다.
+The second scenario is simpler!
+To convert CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />), the user wallet sends CW20(<ACADEMYTKN />) to the game DEV wallet and increases the user's in-game currency(<DIAMOND />) amount in the DB.
+The process is outlined below.
 
 <ConvertCase2 />
 
 <br/>
 
-유저 지갑은 CW20 토큰(<ACADEMYTKN />)을 보내면서, 트랜잭션 수수료도 지불합니다.
-따라서 유저 지갑 서명만 있으면 Convert 트랜잭션 생성이 가능합니다.
-또한, 게임 운영 지갑이 서명할 필요가 없으므로, Sequence mismatch Error를 걱정하지 않아도 됩니다.
-
-각 과정이 어떻게 구현되는지 아래 Pseudo 코드로 알아봅시다. (Pseudo 코드이기 때문에 코드 그대로 실행은 되지 않습니다.)
+The user wallet sends CW20(<ACADEMYTKN />) and covers the transaction fee, making Convert transaction creation simple with only the user's signature. 
+No need for the game DEV wallet signature! ㅡ Meaning, no need to worry about Sequence mismatch Errors.
+Let's see how it works with the following Pseudo code. (The code won't directly run as is because it's Pseudo code.)
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step1">Step 1.</span> User Client App -> Convert Server : CW20 토큰을 게임 재화로 바꾸는 Convert 요청 
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step1">Step 1.</span> User Client App -> Convert Server : Request to Convert CW20 to In-Game Currency
 </CustomHashLink>
 
 ```js {6} title="User Client App"
@@ -349,12 +348,12 @@ const unsignedResponse = await axios.post(
 ); 
 ```
 
-유저가 CW20 토큰을 게임 재화로 교환하려고 합니다. 유저 클라이언트 앱은 유저 지갑 주소(userAddress)와 받고 싶은 게임 재화량(amount)을 담아, Convert Server에 Post 요청을 보냅니다.
+The user wants to exchange CW20 for in-game currency. The user client app sends a Post request to the Convert Server with the user's wallet address and the desired in-game currency amount.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step2">Step 2.</span> Convert Server : 유저 지갑이 게임 운영 지갑으로 CW20 토큰을 전송하는 unsigned 트랜잭션 생성
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step2">Step 2.</span> Convert Server : Generate an unsigned transaction where the user wallet sends CW20 to the game DEV wallet
 </CustomHashLink>
 
 ```js {7,18,31,33} title="Convert Server"
@@ -393,13 +392,13 @@ const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
 const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
 ```
 
-트랜잭션 예상 수수료(simul_fee)를 계산하고, 유저 지갑(userAddress)이 게임 운영 지갑(game_operator_address)으로 CW20 토큰을 전송하는 트랜잭션을 생성합니다. 
-이번에는 fee 변수를 초기화할 때, payer parameter에 아무 값도 입력하지 않습니다.
+Calculate the estimated fee (simul_fee) and create a transaction. 
+The user wallet (userAddress) sends CW20 to the game DEV wallet (game_operator_address) without specifying a payer in the fee variable.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step3">Step 3.</span> Convert Server -> User Client App: 유저에게 unsigned 트랜잭션을 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step3">Step 3.</span> Convert Server -> User Client App : Send the unsigned transaction to the user
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -408,12 +407,12 @@ const result = { unsignedTx : unsignedTx }
 return result
 ```
 
-User Client의 Post 요청에 대한 응답으로, unsigned 트랜잭션을 전달합니다.
+Respond to the User Client's POST request with an unsigned transaction.
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step4">Step 4.</span> User Client App : 유저는 unsigned 트랜잭션에 서명
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step4">Step 4.</span> User Client App : The user signs the unsigned transaction
 </CustomHashLink>
 
 ```js {9,12} title="User Client App"
@@ -432,13 +431,12 @@ const { result: signedTx, success } = await connectedWallet.sign({
 });
 ```
 
-유저 클라이언트는 Convert Server 응답(unsignedResponse)으로 받은 unsigned 트랜잭션에 서명을 진행합니다. 
-[2번 과정](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)의 Convert 트랜잭션은 유저 지갑 서명만 필요한 [단일 서명](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers)이기 때문에, **SignMode.SIGN_MODE_DIRECT** 변수로 진행합니다. 
+The User Client signs the unsigned transaction (unsignedResponse) for the Convert Server using SignMode.SIGN_MODE_DIRECT. (Since the Convert transaction in [second scenario](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2) requires [single signature](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers))
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step5">Step 5.</span> User Client App -> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 다시 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step5">Step 5.</span> User Client App -> Convert Server :  Re-send the transaction with the user's signature
 </CustomHashLink>
 
 ```js {3,6,7} title="User Client App"
@@ -453,12 +451,12 @@ const res = await axios.post(
 );
 ```
 
-유저 클라이언트가 유저 지갑 주소(userAddress)와 유저 지갑 서명을 추가한 트랜잭션 정보(userSignedTx)를 담아, Convert Server에 Post 요청을 보냅니다. 
+The User Client sends a POST request to the Convert Server with the user wallet address (userAddress) and the signed transaction (userSignedTx).
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step6">Step 6.</span> Convert Server : 유저 지갑 서명이 포함된 트랜잭션을 XPLA 네트워크에 전파
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step6">Step 6.</span> Convert Server : Execute the transaction with the user's wallet signature to the XPLA network
 </CustomHashLink>
 
 ```js title="Convert Server"
@@ -467,44 +465,36 @@ const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
 txResult = await lcd.tx.broadcastSync(allSignedTx)      
 ```
 
-트랜잭션을 XPLA 네트워크에 전파합니다.
+Execute transaction on the XPLA network!!!
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step7">Step 7.</span> Convert Server -> Database(DB) : 유저가 요청한 만큼 DB에 기록된 유저의 게임 재화 보유량을 증가시킴.
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step7">Step 7.</span> Convert Server -> Database(DB) : Increase recorded in-game currency in user's DB as requested
 </CustomHashLink>
 
 ```js title="Convert Server"
 db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
 ```
 
-유저가 받고 싶은 게임 재화량(req.body.amount)만큼 증가시킵니다.
+Increase the requested in-game currency amount (req.body.amount).
 
 <br/>
 
 <CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
-<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step8">Step 8.</span> Convert Server -> User Client App : 트랜잭션 결과를 유저에게 전달
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step8">Step 8.</span> Convert Server -> User Client App :  Send the transaction result to the user
 </CustomHashLink>
 
 ```js title="Convert Server"
 return { txhash : txResult.txhash }
 ```
 
-User Client의 Post 요청에 대한 응답으로, 트랜잭션 전파 결과를 전달합니다.
+In response to the User Client's Post request, let the user know the transaction result!🎉
 
 <br/>
 
-## 마무리
+## Wrapping Up
 
-지금까지 Convert 기능 구현에 대해 자세히 살펴보았습니다. Convert 기능을 통해 유저들은 게임 DB의 게임 재화와 블록체인 네트워크의 CW20 토큰을 교환할 수 있습니다. 게임과 블록체인을 연결해주는 Convert 기능을 여러분의 게임에 적용해보세요.
-
-<!--
-## Prerequisite
-
-Chrome Extension Vault가 1.2.0 이상이어야 합니다.
-
-npm install @xpla/xpla.js 랑 express 설치도 진행하셔야 합니다. 
-
-중간중간에 api 요청이 실패했거나, 네트워크 오류로 인한 트랜잭션 생성이 실패했을 때 오류 처리는 생략하겠습니다.
--->
+How were the details of implementing the Convert feature? 
+With Convert, users can easily exchange in-game currency and CW20. 
+Try out adding a Convert system to your project! 😉

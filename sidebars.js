@@ -40,7 +40,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: 'Time to Make Transactions!',
-        description: `Let's use the $XPLA testnet tokens to leave a mark in the blockchain!`
+        description: `Let's use the $XPLA testnet coins to leave a mark in the blockchain!`
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
     },

@@ -8,7 +8,7 @@ import Details from '@theme/Details';
 import Ex04 from "@site/src/components/Sandpack/Ex04-make-cw20";
 import Ex05 from "@site/src/components/Sandpack/Ex05-send-cw20";
 
-Using CW20 makes it easier to connect the gaming ecosystem with the XPLA blockchain. This time, let's write code directly to issue tokens.
+Using CW20 makes it easier to connect a gaming ecosystem with the XPLA blockchain. This time, let's write code directly to issue tokens.
 
 <Details summary="But I have zero idea what CW20 is!">
 
@@ -164,7 +164,7 @@ const init_msg = {
 
 :::info
 
-You can freely set the `decimals` value when issuing tokens. In the example initial values, we've set the `decimals` field to **6**. Just to let you know, in the case of **XPLA**, the `decimals` value is **18**. This means that 10<sup>18</sup> **aXPLA** is equal to 1 **XPLA**.
+You can freely set the `decimals` value when issuing tokens. In the example initial values, we've set the `decimals` field to **6**. Just to let you know, in the case of **$XPLA**, the `decimals` value is **18**. This means that 10<sup>18</sup> **aXPLA** is equal to 1 **XPLA**.
 
 :::
 
@@ -363,7 +363,7 @@ Let's go ahead and transfer the CW20 tokens that we issued earlier. Token transf
 
 ### Explanation {#send-cw20-explaination}
 
-Sending CW20 tokens works differently from sending XPLA coins. While XPLA coin transfers use the `MsgSend` method, CW20 token transfers are done by **executing** the `transfer` function of the CW20 contract. This is why we use the `MsgExecuteContract` method.
+Sending CW20 tokens works differently from sending $XPLA coins. While $XPLA coin transfers use the `MsgSend` method, CW20 token transfers are done by **executing** the `transfer` function of the CW20 contract. This is why we use the `MsgExecuteContract` method.
 
 First, you've loaded the wallet with your mnemonic words. You might have used different mnemonic words to load your wallet.
 

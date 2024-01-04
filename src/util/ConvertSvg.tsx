@@ -454,7 +454,7 @@ export const ConvertCase1 = () => {
           y={442}
           x={375}
         >
-          Sequence 값 전달
+          Pass Sequence number
         </text>
         <line
           style={{ fill: "none" }}

@@ -5,54 +5,52 @@ sidebar_position: 6
 import Details from '@theme/Details';
 import {TESTNETXPLA, ACADEMYTKN} from "@site/src/components/TokenImg";
 
-# Swap 기능 구현하기
+# Design Swap System
 
-Swap 기능을 통해 CW20 토큰 (<ACADEMYTKN />)과 XPLA (<TESTNETXPLA />)를 교환하거나, 혹은 CW20 토큰끼리도 쉽게 교환할 수 있습니다. 
+💱 The swap system facilitates easy token exchanges, allowing for the seamless swapping of CW20 tokens(<ACADEMYTKN />) for $XPLA(<TESTNETXPLA />), as well as for other CW20 tokens!
 
-[Break The Bricks 게임](/#playgame)에서 사용하는 CW20 토큰과 XPLA를 교환하는 Swap을 하기 위해서는 [Pair](https://explorer.xpla.io/testnet/address/xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2)가 필요합니다. 
-Swap의 실제 기능은 Web3 Gaming Ops에서 체험해 볼 수 있습니다.
-이번 단계에서는 CW20 토큰과 XPLA 간 Swap 기능을 어떻게 구현하는지 살펴보겠습니다.
+🙀 Can't wait to try out the swap feature? 
+You can do so at [Web3 Gaming Ops](/ops)! 
+In this lesson, we'll delve into the mechanics of how swapping is structured between CW20 tokens(<ACADEMYTKN />) and $XPLA(<TESTNETXPLA />). 
+But first, let's refresh our understanding of what a [Pair](https://explorer.xpla.io/testnet/address/xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2) is and how it forms the foundation of the swap feature.
 
-<Details summary="Pair란 무엇인가요?">
-
-Pair란 Swap을 위해 토큰과 코인들을 모아둔 스마트 컨트랙트를 의미합니다. 
-Alice가 A 코인을 B 코인으로 교환하는 Swap을 Pair 컨트랙트에 요청한다고 가정합시다.
-Pair 컨트랙트는 Alice에게 A 코인을 받는 대신, Pair 컨트랙트 내에 있는 B 코인을 Alice에게 전달합니다.
-위와 같은 방식으로 Swap이 진행되고, 이를 위해선 Pair가 꼭 필요합니다.
+<Details summary="What is Pair?">
+Pair is a smart contract that stores coins and tokens for swap. 
+Let's assume that Alice requests a Swap in the Pair contract, exchanging her coin A for coin B. 
+In this process, the Pair contract will give Alice B coin from its reserves in exchange for her A coin. 
+This is how a Swap is carried out, and it's important to note that Pair is essential for this operation.
 
 </Details>
 
 :::info
 
-이번 단계에서 Pair를 만들기 위해 [Dezswap Contract](https://github.com/dezswap)를 사용하였습니다. 
-Dezswap Contract는 [Automated Market-Maker(AMM) 프로토콜](https://docs.dezswap.io/docs/introduction/mechanism/)을 이용합니다.
-더 자세한 정보는 [Dezswap Docs](https://docs.dezswap.io/)를 참고해보세요. 
-여러분들은 새로 Contract를 개발하여 Pair를 만드셔도 좋고, 예제처럼 Dezswap을 이용하셔도 좋습니다.
+In this lesson, we are using the [Dezswap Contract](https://github.com/dezswap) to create the Pair.
+This contract employs the [Automated Market-Maker (AMM) protocol](https://docs.dezswap.io/docs/introduction/mechanism/). 
+For more detailed information, please refer to the [Dezswap Docs](https://docs.dezswap.io/). 
+You are welcome to develop a new contract to create your own Pair, or you can use Dezswap as demonstrated in the example.
 
 :::
 
 
-## 목차
+## Table of Contents
 
-다음과 같은 절차로 Swap 기능을 구현해보겠습니다.
+The Swap feature is designed in the following steps.
 
-0. [CW20 토큰 준비](/startlearning/tutorial/deep-understand-xpla/swap#make-cw20)
+0. [Prepare CW20 Tokens](/startlearning/tutorial/deep-understand-xpla/swap#make-cw20)
 
-1. [Pair 생성](/startlearning/tutorial/deep-understand-xpla/swap#create-swap-pool)
+1. [Create Pair](/startlearning/tutorial/deep-understand-xpla/swap#create-swap-pool)
 
 2. [Increase Allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance)
 
-3. [유동성 공급 (Provide Liquidity)](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity)
+3. [Provide Liquidity](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity)
 
-4. [Swap 진행 (Execute Swap)](/startlearning/tutorial/deep-understand-xpla/swap#execute-swap)
+4. [Execute Swap](/startlearning/tutorial/deep-understand-xpla/swap#execute-swap)
 
-### 0. CW20 토큰 준비 {#make-cw20}
+### 0. Prepare CW20 Tokens {#make-cw20}
 
-먼저 예제에서 사용할 `ACAD`란 이름의 CW20 토큰을 생성하였습니다. 
-컨트랙트 주소는 [xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax](https://explorer.xpla.io/testnet/address/xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax)입니다.
+For the example, we have created a CW20 token named `ACAD`. The contract address for this token is [xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax](https://explorer.xpla.io/testnet/address/xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax).
 
-CW20 토큰을 생성하는 Javascript 코드는 아래와 같습니다. 
-[토큰(CW20) 발행 및 전송하기 (Javascript)](/startlearning/tutorial/make-cw20/make-cw20-with-js) 단계에서 사용한 코드 중 name과 symbol만 수정하였습니다.
+Below is the JavaScript code used to create the CW20 token. This code is similar to the one used in [Issue and Transfer Tokens (CW20) using JavaScript](/startlearning/tutorial/make-cw20/make-cw20-with-js), with modifications only to the name and symbol:
 
 ```js {17,18}
 const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
@@ -99,13 +97,13 @@ const main = async () => {
 main()
 ```
 
-### 1. Pair 생성 {#create-swap-pool}
+### 1. Create Pair {#create-swap-pool}
 
-예제에서는 Dezswap의 [dezswap_factory 컨트랙트](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory)를 실행시켜 Pair를 생성할 것입니다.
-factory 컨트랙트는 토큰 Pair를 관리하는 기능을 수행합니다.
-dezswap_factory 컨트랙트 주소는 Mainnet의 경우 `xpla1j33xdql0h4kpgj2mhggy4vutw655u90z7nyj4afhxgj4v5urtadq44e3vd`이고, Testnet은 `xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2`입니다.
+For the example, we will use Dezswap's [dezswap_factory contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory) to create a Pair. 
+Factory contract performs the function of managing token Pair.
+The contract address for dezswap_factory is `xpla1j33xdql0h4kpgj2mhggy4vutw655u90z7nyj4afhxgj4v5urtadq44e3vd` on the Mainnet and `xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2` on the Testnet.
 
-dezswap_factory 컨트랙트의 [create_pair 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory#create_pair)를 Execute하는 Javascript 코드는 아래와 같습니다. 
+The JavaScript code to Execute the [create_pair function](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory#create_pair) of the dezswap_factory contract is as follows:
 
 ```js {16,27,35}
 const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
@@ -162,18 +160,17 @@ const main = async () => {
 main()
 ```
 
-위 코드를 실행하여 Testnet에서 Pair를 생성하였습니다. 
-트랜잭션 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/1b6f0d98e79b3232cb2f8c9df6b46f4859b70820facf063a66710f90c158b642#Messages)에서 확인할 수 있습니다.
-여러분은 실행하실 때 `contract_addr` 항목에 여러분이 만든 CW20 토큰 컨트랙트 주소를 기입해야 합니다.
+After executing the above code, we created a Pair on the Testnet! 
+The transaction can be found on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/1b6f0d98e79b3232cb2f8c9df6b46f4859b70820facf063a66710f90c158b642#Messages). 
+When you executing this code, remember to fill in the `contract_addr` field with the address of the CW20 token contract you created.
 
-[Event Logs](https://explorer.xpla.io/testnet/tx/1B6F0D98E79B3232CB2F8C9DF6B46F4859B70820FACF063A66710F90C158B642#EventLogs)를 확인해보면, 새로운 컨트랙트가 `instantiate`된 것을 알 수 있습니다. 
-이 중 `code_id`가 369인 컨트랙트는 [dezswap_pair Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair)이고, `code_id`가 110인 컨트랙트는 [dezswap_token Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_token)입니다(`code_id`는 Testnet기준이며, Mainnet의 `code_id`는 다릅니다.).
-예제에서 dezswap_pair Contract는 [xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns](https://explorer.xpla.io/testnet/address/xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns#InitMsg), dezswap_token Contract는 [xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057](https://explorer.xpla.io/testnet/address/xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057#InitMsg)입니다.
+Upon reviewing the [Event Logs](https://explorer.xpla.io/testnet/tx/1B6F0D98E79B3232CB2F8C9DF6B46F4859B70820FACF063A66710F90C158B642#EventLogs), you can see that new contracts have been instantiated. 
+Among these, the contract with `code_id` 369 is the [dezswap_pair Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair), and the one with code_id 110 is the [dezswap_token Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_token) (note that these `code_ids` are based on Testnet, and the `code_ids` on Mainnet will be different). 
+In this example, the dezswap_pair Contract is at [xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns](https://explorer.xpla.io/testnet/address/xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns#InitMsg), and the dezswap_token Contract is at [xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057](https://explorer.xpla.io/testnet/address/xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057#InitMsg).
 
+<Details summary="How can I go about creating a Pair for exchanging between CW20 tokens?">
 
-<Details summary="CW20-CW20끼리 교환하는 Pair를 만들고 싶다면 어떻게 해야 하나요?">
-
-위 코드에서 createPairMsg 변수를 아래와 같이 입력하면 됩니다.
+In the code mentioned earlier, you can define the createPairMsg variable as follows:
 
 ```js {7-14}
 const createPairMsg = new MsgExecuteContract(
@@ -208,10 +205,10 @@ const createPairMsg = new MsgExecuteContract(
 
 ### 2. Increase Allowance {#increase-allowance}
 
-[3. 유동성 공급](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 CW20 토큰과 XPLA를 dezswap_pair Contract로 공급해주어야 합니다.
-이때 [dezpswap_pair Contract는 CW20 토큰의 TransferFrom 함수를 Execute](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366)하여, 토큰을 공급하는 지갑으로부터 CW20 토큰을 가져옵니다.
-유동성 공급이 잘 이루어지기 위해, dezswap_pair Contract가 CW20 토큰을 가져갈 수 있도록 허용해주어야 합니다.
-따라서 CW20 토큰 Contract의 [IncreaseAllowance](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) 함수를 실행해주겠습니다.
+First, you need to supply CW20 tokens and $XPLA to the dezswap_pair Contract in the [3. Provide Liquidity step](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity).
+Here, [the dezswap_pair Contract executes the TransferFrom function of the CW20 token](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366) to retrieve the CW20 tokens from the wallet providing them. 
+To ensure a smooth liquidity provision, you must allow the dezswap_pair contract to take the CW20 tokens. 
+Therefore, we will execute the [IncreaseAllowance](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) function of the CW20 token Contract.
 
 ```js {16,23,24}
 const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
@@ -252,13 +249,14 @@ const main = async () => {
 main()
 ```
 
-위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/0f19ff4c0d8592addd567c5eb7ae63d0869b6b2f8007b42a49b765bcca6189b7#Messages)에서 확인할 수 있습니다.
-여러분은 실행하실 때 `cw20_contract_address` 변수에 여러분이 만든 CW20 토큰 컨트랙트 주소를 기입해야 하고, `spender` 항목에 여러분이 만든 dezpswap_pair 컨트랙트 주소를 넣어야 합니다.
-예제에서는 amount 값을 `10000000000`으로 주었습니다. `ACAD` CW20토큰의 decimals 값이 6이므로, 최대 10,000개의 `ACAD`를 공급할 수 있습니다.
+The result of the above can be checked on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/0f19ff4c0d8592addd567c5eb7ae63d0869b6b2f8007b42a49b765bcca6189b7#Messages). 
+When you run it, you need to enter the address of your CW20 token contract into the `cw20_contract_address` variable and the address of the dezswap_pair contract you created into the `spender` field. 
+In the example, we set the amount value to `10000000000`. 
+Since the decimals value of the `ACAD` CW20 token is 6, this allows for the provision of up to 10,000 `ACAD` tokens.
 
-### 3. 유동성 공급 {#provide-liquidity}
+### 3. Provide Liquidity {#provide-liquidity}
 
-1번에서 생성한 Pair에 유동성 공급을 위해 dezswap_pair Contract의 [provide_liquidity 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format)를 실행하겠습니다.
+To provide liquidity to the Pair created in step 1, we will execute the [provide_liquidity function](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format) of the dezswap_pair Contract.
 
 ```js {16,30,38,43,44,45}
 const { LCDClient, MnemonicKey, MsgExecuteContract, Coin } = require("@xpla/xpla.js");
@@ -319,17 +317,17 @@ const main = async () => {
 main()
 ```
 
-위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/2e5c9c1e142599784df050437e3f97ca84d0dc082bd86d3ba82be6b3b5402e08#Messages)에서 확인할 수 있습니다.
-XPLA와 CW20 토큰 각각 amount 항목에 공급하고 싶은 수량을 기입했습니다. 
-따라서 총 10 XPLA와 10,000 `ACAD`를 공급하였습니다.
+You can check the outcome of running this code on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/2e5c9c1e142599784df050437e3f97ca84d0dc082bd86d3ba82be6b3b5402e08#Messages). 
+For both the XPLA and CW20 token, we specified the quantities we wanted to supply in the amount field. 
+As a result, we provided a total of 10 XPLA and 10,000 `ACAD`.
 
-provideLiquidityMsg 변수를 만들 때, 이전과는 달리 마지막 parameter로 axpla 값을 기입해주는 것이 중요합니다.
-이를 통해 트랜잭션 실행과 동시에 dezswap_pair Contract에 XPLA를 공급할 수 있습니다. 
-CW20 토큰 공급은 [2. Increase-allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance) 단계에서 알아본 대로, dezswap_pair 컨트랙트가 CW20 토큰을 가져왔습니다.
+When creating the provideLiquidityMsg variable, it's important to note a key difference from previous steps: you need to input the axpla value as the last parameter. 
+This enables the simultaneous supply of XPLA to the dezswap_pair Contract at the time of transaction execution. 
+As for the CW20 token provision, it was retrieved by the dezswap_pair Contract, as explored in the [2. Increase allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance) stage.
 
-### 4. Swap 진행 (Execute Swap) {#execute-swap}
+### 4. Execute Swap {#execute-swap}
 
-이제 Swap을 진행해보겠습니다. 예제에서는 `ACAD` 토큰 1개를 XPLA로 교환할 것입니다. Contract Execute를 위한 Msg 형식은 [dezswap Github](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap)을 참고했습니다. 
+Now let's proceed with a Swap. In this example, we will exchange 1 `ACAD` token for XPLA. The format for the Contract Execute message was referenced from the [dezswap GitHub](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap).
 
 ```js {16,23}
 const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
@@ -377,22 +375,24 @@ const main = async () => {
 main()
 ```
 
-위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/02f8495b6df3526dc5ce9d149129788ae1683d89167d14b5336e092e403bc31c#TokenTransfers)에서 확인할 수 있습니다.
-`token_contract_address` 변수에는 CW20 컨트랙트 주소를, msg 내에 `contract` 항목에는 dezswap_pair 컨트랙트 주소를 기입해야 합니다.
-XPLA를 CW20 토큰으로 교환할 때는 실행해야 하는 컨트랙트가 다르니 유의하셔야 합니다.
-자세한 사항은 [dezswap Github](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap)을 살펴보세요.
+You can verify the results of running the above code on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/02f8495b6df3526dc5ce9d149129788ae1683d89167d14b5336e092e403bc31c#TokenTransfers). 
+You need to input the CW20 contract address in the `token_contract_address` variable and the dezswap_pair contract address in the `contract` field within the msg. 
+It's important to note that the contract to be executed differs when exchanging XPLA for CW20 tokens. 
+For more details, please refer to the [dezswap GitHub](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap).
 
-`ACAD` 토큰 1개를 넣었는데, 왜 XPLA를 약 0.0001개를 받았을까요? 
-[3. 유동성 공급](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 Pair에 총 10 XPLA와 10,000 ACAD를 공급하였습니다.
-즉, Pair 내 토큰 개수의 곱은 항상 10 × 10000 = 100,000 만큼 유지되어야 합니다([CPMM 방식](https://docs.dezswap.io/docs/introduction/mechanism/)).
-`ACAD` 토큰 1개를 넣은 경우, Pair 내 토큰 개수 곱은 (10 - XPLA_out)  × (10000 + 1) = 100,000이 되어야 합니다.
-또한 dezswap에서는 swap을 할 때 [유동성 공급을 해준 사람에게 LP Commission을 0.3%만큼 지급](https://docs.dezswap.io/docs/introduction/trading-fees/)해야 합니다.
-따라서 0.3%만큼 수수료를 냈을 때, 남은 XPLA 0.0001개를 받게 됩니다.
-더 자세한 사항은 [dezswap Docs](https://docs.dezswap.io/docs/introduction/mechanism/)를 참고해보세요.
 
-<Details summary="XPLA를 CW20 토큰으로 교환하려면 어떻게 해야 하나요?">
+Now, you might wonder why, after putting in 1 `ACAD` token, you received about 0.0001 XPLA. 
+This is because, during the [3. Provide Liquidity](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) stage, a total of 10 XPLA and 10,000 ACAD were supplied to the Pair. 
+Therefore, the product of the number of tokens in the Pair should always be maintained at 10 × 10,000 = 100,000([CPMM](https://docs.dezswap.io/docs/introduction/mechanism/)). 
+When 1 `ACAD` token is added, the product of the token numbers in the Pair should be (10 - XPLA_out) × (10,000 + 1) = 100,000. 
 
-위 코드에서 swapMsg를 아래와 같이 입력하면 됩니다.
+Also, with dezswap, there's a [LP Commission of 0.3% given to the liquidity provider](https://docs.dezswap.io/docs/introduction/trading-fees/)during a swap. 
+After accounting for this 0.3% fee, you end up receiving about 0.0001 XPLA. 
+For a more detailed explanation, you can consult the [dezswap Docs](https://docs.dezswap.io/docs/introduction/mechanism/).
+
+<Details summary="How do I exchange XPLA for CW20 tokens?">
+
+In the code above, you can enter the swapMsg as follows:
 
 ```js {3,19-22}
 const swapMsg = new MsgExecuteContract(
@@ -420,11 +420,11 @@ const swapMsg = new MsgExecuteContract(
 );
 ```
 
-CW20 토큰을 XPLA로 교환할 때는 CW20 토큰 컨트랙트를 `execute` 했습니다. XPLA를 CW20 토큰으로 교환할 때는 반드시 <u>dezswap_pair_contract_address</u>를 `execute` 해야 합니다. 또, 컨트랙트 매개변수로 swap하고 싶은 XPLA 물량(`new Coin("axpla", "..")`)도 넣어줘야 합니다.
+When exchanging CW20 tokens for XPLA, you executed the CW20 token contract. 
+However, to exchange XPLA for CW20 tokens, you must execute the <u>dezswap_pair_contract_address</u>. Additionally, you need to include the amount of XPLA you want to swap as a contract parameter, using the `new Coin("axpla", "..")` format.
 
 </Details>
 
-## 마무리
+## Conclusion
 
-지금까지 Dezswap 컨트랙트를 이용하여 Swap 기능을 개발해보았습니다.
-여러분이 개발한 게임의 CW20 토큰과 XPLA를 Swap 컨트랙트를 통해 연결해보세요.
+We have explored how to develop a Swap feature using the Dezswap contract. Now, try connecting the CW20 token from your developed game with XPLA through the Swap contract. 

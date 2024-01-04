@@ -8,7 +8,7 @@ import Details from '@theme/Details';
 import VaultImgCard from "@site/src/components/VaultImgCard";
 import BrowserWindow from '@site/src/components/BrowserWindow';
 
-You can easily connect the gaming ecosystem to the XPLA Chain using CW20! Let's issue tokens and transfer using XPLA Vault wallet. Refer to the [previous stage](/startlearning/settings/create-wallet/create-wallet-with-vault) for downloading and creating the wallet.
+You can easily connect a gaming ecosystem to the XPLA Chain using CW20! Let's issue tokens and transfer using XPLA Vault wallet. Refer to the [previous stage](/startlearning/settings/create-wallet/create-wallet-with-vault) for downloading and creating the wallet.
 
 <Details summary="But I have zero idea what CW20 is!">
 
@@ -112,7 +112,7 @@ Click on `Instantiate`
 
 <br />
 
-`Admin` here is the owner wallet address of the contract. The wallet address used In the instance below is `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`.
+`Admin` here is the owner wallet address of the contract. The wallet address used in the instance below is `xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk`.
 
 <BrowserWindow url="https://vault.xpla.io/contract/instantiate" bodyStyle={{padding: 0}}>
 <div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
@@ -178,13 +178,13 @@ For the example, please input in the following format. **You should put your own
 
 :::info
 
-You can freely set the `decimals` value when issuing tokens. In the example initial values, we've set the `decimals` field to **6**. Just to let you know, in the case of **XPLA**, the standard `decimals` value is **18**. This means that 10<sup>18</sup> **aXPLA** is equal to **1 XPLA**.
+You can freely set the `decimals` value when issuing tokens. In the example initial values, we've set the `decimals` field to **6**. Just to let you know, in the case of **$XPLA**, the standard `decimals` value is **18**. This means that 10<sup>18</sup> **aXPLA** is equal to **1 XPLA**.
 
 :::
 
 <br />
 
-The `Amount` refers to the amount of XPLA you want to send to the contract when carrying out the contract `instantiate`. Since the CW20 contract doesn't need to hold XPLA coins, you can skip this part.
+The `Amount` refers to the amount of $XPLA you want to send to the contract when carrying out the contract `instantiate`. Since the CW20 contract doesn't need to hold $XPLA coins, you can skip this part.
 
 The `Label` is a description of the contract's function. In the example, we will write `My CW20 Token` as the label. Then, please proceed by clicking the "Submit" button.
 

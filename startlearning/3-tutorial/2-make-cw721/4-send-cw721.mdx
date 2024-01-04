@@ -7,29 +7,29 @@ sidebar_position: 4
 import Details from '@theme/Details';
 import Ex11 from "@site/src/components/Sandpack/Ex11-send-cw721";
 
-CW721 컨트랙트를 이용해서 NFT를 다른 지갑으로 전송해봅시다.
+Let us send an NFT to another wallet using our tool called, CW721contract!
 
 ## Preview {#preview}
 
-Javascript로 NFT를 전송하는 코드는 아래와 같습니다. 
-10번째 줄에 여러분의 니모닉 단어를 넣고, 15, 16번째 줄에는 각각 이전 단계에서 만든 컨트랙트 주소와 token_id 값을 대입해주세요. 
-코드를 수정하고 조금만 기다리시면 우측에서 실행 결과를 볼 수 있습니다.
+The code for transferring NFTs using JavaScript is provided below. 
+Insert your mnemonic phrase on line 10, and on lines 15 and 16, input the contract address and token_id value created in the previous step, respectively. 
+After modifying the code, just wait a moment, and you'll be able to see the execution results on the right.
 
 <Ex11 />
 
 <br />
 
-Preview Code를 이해하셨다면, [아래 내용](/startlearning/tutorial/make-cw721/send-cw721#run-js)을 읽지 않고 바로 [다음 단계](/startlearning/tutorial/deep-understand-xpla/local-network)로 넘어가셔도 좋습니다.
+If you have grasped the concept of the Preview Code, feel free to skip the [following details](/startlearning/tutorial/make-cw721/send-cw721#run-js) and proceed directly to the [next step](/startlearning/tutorial/deep-understand-xpla/local-network).
 
-## Javascript로 NFT 전송하기 {#run-js}
+## Sending NFTs with Javascript {#run-js}
 
-Javascript 코드로 NFT를 다른 지갑으로 전송해봅시다.
+Let's try transferring an NFT to another wallet using JavaScript code.
 
-### 코드 실행 {#runcode}
+### Run Code {#runcode}
 
-1. example-send-cw721.js 파일을 생성해주세요.
+1. Please create a file named example-send-cw721.js.
 
-2. 아래 코드를 복사하여 example-send-cw721.js 파일에 붙여넣고 저장합니다.
+2. Copy the code below and paste it into the example-send-cw721.js file, then save it.
 
     ```js {10,15,16}
     const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
@@ -70,19 +70,19 @@ Javascript 코드로 NFT를 다른 지갑으로 전송해봅시다.
     main()
     ```
 
-3. 10번째 줄의 니모닉 단어들을 여러분의 니모닉 단어로 수정해주세요. 15번째 줄 `myContractAddress`에 여러분이 만든 CW721 컨트랙트 주소를, 16번째 줄 `myTokenId` 변수에는 전송하고 싶은 NFT token_id 값을 대입해주세요. 
+3. Please update the mnemonic words on line 10 with your own mnemonic words. On line 15, replace `myContractAddress` with the CW721 contract address you created, and on line 16, assign the NFT token_id value you want to transfer to the `myTokenId` variable.
 
-4. VSCode Terminal에서 아래 명령어를 입력합니다.
+4. Enter the following command in the VSCode Terminal.
 
   ```bash
   node example-send-cw721.js
   ```
 
-5. Terminal에서 결과를 확인합니다. NFT를 전송하는 트랜잭션 해시값을 확인할 수 있습니다.
+5. In the Terminal, check the results. You will be able to see the transaction hash value for the NFT transfer.
 
-## 설명 {#explaination}
+## Explanation {#explaination}
 
-먼저 니모닉 단어로 지갑을 불러왔습니다. 여러분은 다른 니모닉 단어를 이용하여 여러분의 지갑을 불러오셨을 것입니다.
+First, we loaded the wallet using mnemonic words. Make sure to load it with your own mnemonic words!
 
 ```js
 const mk = new MnemonicKey({
@@ -95,9 +95,9 @@ const myWalletAddress = wallet.key.accAddress;
 
 <br/>
 
-NFT를 전송하려면 CW721 컨트랙트의 `transfer_nft` 함수를 실행(MsgExecuteContract)해야 합니다. 
-따라서 `transfer_nft` 함수에 필요한 변수들을 입력하였습니다.
-여러분은 직접 만든 CW721 컨트랙트 주소와 token_id를 각각 `myContractAddress`와 `myTokenId` 변수에 대입하셨을 것입니다.
+To transfer an NFT, it's necessary to execute the `transfer_nft` function of the CW721 contract (MsgExecuteContract). 
+Hence, we input the required variables for the `transfer_nft` function. 
+You likely assigned your own CW721 contract address and token_id to the `myContractAddress` and `myTokenId` variables, respectively.
 
 ```js
 const myContractAddress = "xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0"; // Input your Contract Address
@@ -115,16 +115,16 @@ const transferMsg = new MsgExecuteContract(
 );
 ```
 
-<Details summary="transfer_nft 함수 실행에 필요한 데이터는 어디서 확인할 수 있나요?">
+<Details summary="Where can I find the data needed to execute the transfer_nft function?">
 
-[CW721 github](https://github.com/CosmWasm/cw-nfts/blob/main/packages/cw721/README.md)에서 `transfer_nft` 함수 실행을 위해 필요한 데이터가 무엇인지 확인할 수 있습니다.
-또, CW721 컨트랙트로 실행할 수 있는 다른 함수들(Approve, Revoke 등) 정보도 확인할 수 있습니다.
+You can find the data required to execute the `transfer_nft` function on the [CW721 GitHub](https://github.com/CosmWasm/cw-nfts/blob/main/packages/cw721/README.md). 
+Additionally, you can also find information about other functions (like Approve, Revoke, etc.) that can be executed through the CW721 contract.
 
 </Details>
 
 <br/>
 
-`createAndSignTx` 함수를 이용하여 트랜잭션을 생성하고, 서명까지 진행합니다. 
+The `createAndSignTx` function is used to generate a transaction and proceed with its signing.
 
 ```js
 const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
@@ -134,7 +134,7 @@ const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing 
 
  <br/>
 
-`broadcastSync` 함수를 이용하여 생성한 트랜잭션을 네트워크에 송신합니다. 트랜잭션이 XPLA 블록체인에 잘 생성되었다면, 트랜잭션 해시값을 결과로 확인할 수 있을 것입니다.
+The `broadcastSync` function is then used to transmit the created transaction to the network. If the transaction is successfully created on the XPLA blockchain, you should be able to see the transaction hash value as a result.
 
 ```js
 const txResult = await lcd.tx.broadcastSync(signedTx);
@@ -143,8 +143,8 @@ console.log(txResult.txhash);
 
 <br />
 
-트랜잭션 해시값이 잘 나왔나요? [XPLA Explorer](https://explorer.xpla.io/testnet/tx/53617a3baa568b3fd05528e0cea7f6c994ee9d32ab9c4b0fc94fb2acadbffcaf)를 이용하여 NFT 전송 결과를 확인해보세요.
+Did the transaction hash value appear correctly? Use the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/53617a3baa568b3fd05528e0cea7f6c994ee9d32ab9c4b0fc94fb2acadbffcaf) to check the results of the NFT transfer.
 
 ## 마무리 {#conclusion}
 
-지금까지 CW721 컨트랙트로 NFT 전송을 알아보았습니다. 여러분의 게임에 맞게 CW721 컨트랙트를 사용하고, 유저들이 NFT로 게임을 더 즐길 수 있게 만들어봅시다.
+we have explored transferring NFTs using the CW721 contract. Let's utilize the CW721 contract to suit your game and create an environment where users can enjoy the game even more with NFTs.
