@@ -1,0 +1,430 @@
+---
+sidebar_position: 6
+---
+
+import Details from '@theme/Details';
+import {TESTNETXPLA, ACADEMYTKN} from "@site/src/components/TokenImg";
+
+# Swap 기능 구현하기
+
+Swap 기능을 통해 CW20 토큰 (<ACADEMYTKN />)과 XPLA (<TESTNETXPLA />)를 교환하거나, 혹은 CW20 토큰끼리도 쉽게 교환할 수 있습니다. 
+
+[Break The Bricks 게임](/#playgame)에서 사용하는 CW20 토큰과 XPLA를 교환하는 Swap을 하기 위해서는 [Pair](https://explorer.xpla.io/testnet/address/xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2)가 필요합니다. 
+Swap의 실제 기능은 Web3 Gaming Ops에서 체험해 볼 수 있습니다.
+이번 단계에서는 CW20 토큰과 XPLA 간 Swap 기능을 어떻게 구현하는지 살펴보겠습니다.
+
+<Details summary="Pair란 무엇인가요?">
+
+Pair란 Swap을 위해 토큰과 코인들을 모아둔 스마트 컨트랙트를 의미합니다. 
+Alice가 A 코인을 B 코인으로 교환하는 Swap을 Pair 컨트랙트에 요청한다고 가정합시다.
+Pair 컨트랙트는 Alice에게 A 코인을 받는 대신, Pair 컨트랙트 내에 있는 B 코인을 Alice에게 전달합니다.
+위와 같은 방식으로 Swap이 진행되고, 이를 위해선 Pair가 꼭 필요합니다.
+
+</Details>
+
+:::info
+
+이번 단계에서 Pair를 만들기 위해 [Dezswap Contract](https://github.com/dezswap)를 사용하였습니다. 
+Dezswap Contract는 [Automated Market-Maker(AMM) 프로토콜](https://docs.dezswap.io/docs/introduction/mechanism/)을 이용합니다.
+더 자세한 정보는 [Dezswap Docs](https://docs.dezswap.io/)를 참고해보세요. 
+여러분들은 새로 Contract를 개발하여 Pair를 만드셔도 좋고, 예제처럼 Dezswap을 이용하셔도 좋습니다.
+
+:::
+
+
+## 목차
+
+다음과 같은 절차로 Swap 기능을 구현해보겠습니다.
+
+0. [CW20 토큰 준비](/startlearning/tutorial/deep-understand-xpla/swap#make-cw20)
+
+1. [Pair 생성](/startlearning/tutorial/deep-understand-xpla/swap#create-swap-pool)
+
+2. [Increase Allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance)
+
+3. [유동성 공급 (Provide Liquidity)](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity)
+
+4. [Swap 진행 (Execute Swap)](/startlearning/tutorial/deep-understand-xpla/swap#execute-swap)
+
+### 0. CW20 토큰 준비 {#make-cw20}
+
+먼저 예제에서 사용할 `ACAD`란 이름의 CW20 토큰을 생성하였습니다. 
+컨트랙트 주소는 [xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax](https://explorer.xpla.io/testnet/address/xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax)입니다.
+
+CW20 토큰을 생성하는 Javascript 코드는 아래와 같습니다. 
+[토큰(CW20) 발행 및 전송하기 (Javascript)](/startlearning/tutorial/make-cw20/make-cw20-with-js) 단계에서 사용한 코드 중 name과 symbol만 수정하였습니다.
+
+```js {17,18}
+const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const init_msg = {
+		name: "CW20 Contract for Swap Tutorial", 
+		symbol: "ACAD", 
+		decimals: 6,
+		initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], 
+		mint: { 
+			minter: myWalletAddress
+		}
+	};
+
+	const instantiate = new MsgInstantiateContract(
+		myWalletAddress, 
+		myWalletAddress, 
+		1,
+		init_msg,
+		{},
+		'Example for Swap',
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({ 
+		msgs: [instantiate]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+### 1. Pair 생성 {#create-swap-pool}
+
+예제에서는 Dezswap의 [dezswap_factory 컨트랙트](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory)를 실행시켜 Pair를 생성할 것입니다.
+factory 컨트랙트는 토큰 Pair를 관리하는 기능을 수행합니다.
+dezswap_factory 컨트랙트 주소는 Mainnet의 경우 `xpla1j33xdql0h4kpgj2mhggy4vutw655u90z7nyj4afhxgj4v5urtadq44e3vd`이고, Testnet은 `xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2`입니다.
+
+dezswap_factory 컨트랙트의 [create_pair 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory#create_pair)를 Execute하는 Javascript 코드는 아래와 같습니다. 
+
+```js {16,27,35}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const testnet_dezswap_factory = "xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2";
+
+	const createPairMsg = new MsgExecuteContract(
+		myWalletAddress,
+		testnet_dezswap_factory,
+		{
+			"create_pair": {
+				"assets": [
+					{
+						"info": {
+							"native_token": {
+								"denom": "axpla"
+							}
+						},
+						"amount": "0"
+					},
+					{
+						"info": {
+							"token": {
+								"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address
+							}
+						},
+						"amount": "0"
+					}
+				]
+			}
+		}
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [createPairMsg]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+위 코드를 실행하여 Testnet에서 Pair를 생성하였습니다. 
+트랜잭션 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/1b6f0d98e79b3232cb2f8c9df6b46f4859b70820facf063a66710f90c158b642#Messages)에서 확인할 수 있습니다.
+여러분은 실행하실 때 `contract_addr` 항목에 여러분이 만든 CW20 토큰 컨트랙트 주소를 기입해야 합니다.
+
+[Event Logs](https://explorer.xpla.io/testnet/tx/1B6F0D98E79B3232CB2F8C9DF6B46F4859B70820FACF063A66710F90C158B642#EventLogs)를 확인해보면, 새로운 컨트랙트가 `instantiate`된 것을 알 수 있습니다. 
+이 중 `code_id`가 369인 컨트랙트는 [dezswap_pair Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair)이고, `code_id`가 110인 컨트랙트는 [dezswap_token Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_token)입니다(`code_id`는 Testnet기준이며, Mainnet의 `code_id`는 다릅니다.).
+예제에서 dezswap_pair Contract는 [xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns](https://explorer.xpla.io/testnet/address/xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns#InitMsg), dezswap_token Contract는 [xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057](https://explorer.xpla.io/testnet/address/xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057#InitMsg)입니다.
+
+
+<Details summary="CW20-CW20끼리 교환하는 Pair를 만들고 싶다면 어떻게 해야 하나요?">
+
+위 코드에서 createPairMsg 변수를 아래와 같이 입력하면 됩니다.
+
+```js {7-14}
+const createPairMsg = new MsgExecuteContract(
+	myWalletAddress,
+	testnet_dezswap_factory,
+	{
+		"create_pair": {
+			"assets": [
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address1
+						}
+					},
+					"amount": "0"
+				},
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address2
+						}
+					},
+					"amount": "0"
+				}
+			]
+		}
+	}
+);
+```
+
+</Details>
+
+### 2. Increase Allowance {#increase-allowance}
+
+[3. 유동성 공급](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 CW20 토큰과 XPLA를 dezswap_pair Contract로 공급해주어야 합니다.
+이때 [dezpswap_pair Contract는 CW20 토큰의 TransferFrom 함수를 Execute](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366)하여, 토큰을 공급하는 지갑으로부터 CW20 토큰을 가져옵니다.
+유동성 공급이 잘 이루어지기 위해, dezswap_pair Contract가 CW20 토큰을 가져갈 수 있도록 허용해주어야 합니다.
+따라서 CW20 토큰 Contract의 [IncreaseAllowance](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) 함수를 실행해주겠습니다.
+
+```js {16,23,24}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const cw20_contract_address = "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax"; // Your CW20 Contract Address
+
+	const increaseAllowanceMsg = new MsgExecuteContract(
+		myWalletAddress,
+		cw20_contract_address,
+		{
+			"increase_allowance": {
+			  "amount": "10000000000",
+			  "spender": "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns" // dezswap_pair Contract Address
+			}
+		  }
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [increaseAllowanceMsg]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/0f19ff4c0d8592addd567c5eb7ae63d0869b6b2f8007b42a49b765bcca6189b7#Messages)에서 확인할 수 있습니다.
+여러분은 실행하실 때 `cw20_contract_address` 변수에 여러분이 만든 CW20 토큰 컨트랙트 주소를 기입해야 하고, `spender` 항목에 여러분이 만든 dezpswap_pair 컨트랙트 주소를 넣어야 합니다.
+예제에서는 amount 값을 `10000000000`으로 주었습니다. `ACAD` CW20토큰의 decimals 값이 6이므로, 최대 10,000개의 `ACAD`를 공급할 수 있습니다.
+
+### 3. 유동성 공급 {#provide-liquidity}
+
+1번에서 생성한 Pair에 유동성 공급을 위해 dezswap_pair Contract의 [provide_liquidity 함수](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format)를 실행하겠습니다.
+
+```js {16,30,38,43,44,45}
+const { LCDClient, MnemonicKey, MsgExecuteContract, Coin } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const dezswap_pair_contract_address = "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns"; // dezswap_pair Contract Address
+
+	const provideLiquidityMsg = new MsgExecuteContract(
+		myWalletAddress,
+		dezswap_pair_contract_address,
+		{
+			"provide_liquidity": {
+				"assets": [
+					{
+						"info": {
+							"native_token": {
+								"denom": "axpla"
+							}
+						},
+						"amount": "10000000000000000000"
+					},
+					{
+						"info": {
+							"token": {
+								"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address
+							}
+						},
+						"amount": "10000000000"
+					}
+				]
+			}
+		},
+		[new Coin(
+			"axpla",
+			"10000000000000000000"
+		)],
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [provideLiquidityMsg],
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/2e5c9c1e142599784df050437e3f97ca84d0dc082bd86d3ba82be6b3b5402e08#Messages)에서 확인할 수 있습니다.
+XPLA와 CW20 토큰 각각 amount 항목에 공급하고 싶은 수량을 기입했습니다. 
+따라서 총 10 XPLA와 10,000 `ACAD`를 공급하였습니다.
+
+provideLiquidityMsg 변수를 만들 때, 이전과는 달리 마지막 parameter로 axpla 값을 기입해주는 것이 중요합니다.
+이를 통해 트랜잭션 실행과 동시에 dezswap_pair Contract에 XPLA를 공급할 수 있습니다. 
+CW20 토큰 공급은 [2. Increase-allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance) 단계에서 알아본 대로, dezswap_pair 컨트랙트가 CW20 토큰을 가져왔습니다.
+
+### 4. Swap 진행 (Execute Swap) {#execute-swap}
+
+이제 Swap을 진행해보겠습니다. 예제에서는 `ACAD` 토큰 1개를 XPLA로 교환할 것입니다. Contract Execute를 위한 Msg 형식은 [dezswap Github](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap)을 참고했습니다. 
+
+```js {16,23}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const token_contract_address = "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax"; // Your Contract Address
+	
+	const swapMsg = new MsgExecuteContract(
+		myWalletAddress,
+		token_contract_address,
+		{
+			"send": {
+				"contract": "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns", // dezswap_pair Contract Address
+				"amount": "1000000",
+				"msg": btoa(JSON.stringify({
+					"swap": {
+						// "belief_price": Option<Decimal>,
+						// "max_spread": Option<Decimal>,
+						// "to": Option<HumanAddr>
+					}
+				}))
+			}
+		}
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [swapMsg],
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+위 코드를 실행한 결과는 [XPLA Explorer](https://explorer.xpla.io/testnet/tx/02f8495b6df3526dc5ce9d149129788ae1683d89167d14b5336e092e403bc31c#TokenTransfers)에서 확인할 수 있습니다.
+`token_contract_address` 변수에는 CW20 컨트랙트 주소를, msg 내에 `contract` 항목에는 dezswap_pair 컨트랙트 주소를 기입해야 합니다.
+XPLA를 CW20 토큰으로 교환할 때는 실행해야 하는 컨트랙트가 다르니 유의하셔야 합니다.
+자세한 사항은 [dezswap Github](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap)을 살펴보세요.
+
+`ACAD` 토큰 1개를 넣었는데, 왜 XPLA를 약 0.0001개를 받았을까요? 
+[3. 유동성 공급](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) 단계에서 Pair에 총 10 XPLA와 10,000 ACAD를 공급하였습니다.
+즉, Pair 내 토큰 개수의 곱은 항상 10 × 10000 = 100,000 만큼 유지되어야 합니다([CPMM 방식](https://docs.dezswap.io/docs/introduction/mechanism/)).
+`ACAD` 토큰 1개를 넣은 경우, Pair 내 토큰 개수 곱은 (10 - XPLA_out)  × (10000 + 1) = 100,000이 되어야 합니다.
+또한 dezswap에서는 swap을 할 때 [유동성 공급을 해준 사람에게 LP Commission을 0.3%만큼 지급](https://docs.dezswap.io/docs/introduction/trading-fees/)해야 합니다.
+따라서 0.3%만큼 수수료를 냈을 때, 남은 XPLA 0.0001개를 받게 됩니다.
+더 자세한 사항은 [dezswap Docs](https://docs.dezswap.io/docs/introduction/mechanism/)를 참고해보세요.
+
+<Details summary="XPLA를 CW20 토큰으로 교환하려면 어떻게 해야 하나요?">
+
+위 코드에서 swapMsg를 아래와 같이 입력하면 됩니다.
+
+```js {3,19-22}
+const swapMsg = new MsgExecuteContract(
+	myWalletAddress,
+	dezswap_pair_contract_address,
+	{
+		"swap": {
+			"offer_asset": {
+				"info": {
+					"native_token": {
+						"denom": "axpla"
+					}
+				},
+				"amount": "1000000000000000000"
+			},
+			//"belief_price": Option<Decimal>,
+			//"max_spread": Option<Decimal>,
+			//"to": Option<HumanAddr>
+		}
+	},
+	[new Coin(
+		"axpla",
+		"1000000000000000000"
+	)],
+);
+```
+
+CW20 토큰을 XPLA로 교환할 때는 CW20 토큰 컨트랙트를 `execute` 했습니다. XPLA를 CW20 토큰으로 교환할 때는 반드시 <u>dezswap_pair_contract_address</u>를 `execute` 해야 합니다. 또, 컨트랙트 매개변수로 swap하고 싶은 XPLA 물량(`new Coin("axpla", "..")`)도 넣어줘야 합니다.
+
+</Details>
+
+## 마무리
+
+지금까지 Dezswap 컨트랙트를 이용하여 Swap 기능을 개발해보았습니다.
+여러분이 개발한 게임의 CW20 토큰과 XPLA를 Swap 컨트랙트를 통해 연결해보세요.
