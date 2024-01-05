@@ -50,7 +50,6 @@ function DropdownNavbarItemDesktop({
       document.removeEventListener('focusin', handleClickOutside);
     };
   }, [dropdownRef]);
-  console.log(props.disable)
   return (
     <div
       ref={dropdownRef}
