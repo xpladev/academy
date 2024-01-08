@@ -11,25 +11,26 @@ import CustomHashLink from "@site/src/util/CustomHashLink";
 
 ## What is 'Convert'? {#what-is-convert}
 
-Have you played [🎮Break The Bricks](/#playgame)? (If not, go ahead and try out now!👾) In the game, you can earn $DIAMOND(<DIAMOND />) through gameplay.
+Have you played [🎮Break The Bricks](/#playgame)? (If not, go ahead and try out now!👾) In the game, you can earn DIAMOND(<DIAMOND />) through gameplay.
 
-🤯Did you know that $DIAMOND(<DIAMOND />) is just game data, not a CW20 token for the blockchain?
+🤯Did you know that DIAMOND(<DIAMOND />) is just game data, not a CW20 token for the blockchain?
 
-💡However, through the 'convert' feature on the [Web3 Gaming Ops](/ops) page, you can exchange your $DIAMOND(<DIAMOND />) for $ACADEMY-TKN(<ACADEMYTKN />), the CW20 token.💸😎
+However, through the 'convert' feature on the [Web3 Gaming Ops](/ops) page, you can exchange your DIAMOND(<DIAMOND />) for ACADEMY-TKN(<ACADEMYTKN />), the CW20 token.💸😎
 
 Why use the 'Convert' process?
-Distributing CW20 tokens ($ACADEMY-TKN(<ACADEMYTKN />)) directly as game rewards would lead to transaction fees every time. Which could be a pain in the butt for both gamers and game developers at some point. 😬
+Distributing CW20 tokens (<ACADEMYTKN />) directly as game rewards would lead to transaction fees every time. Which could be a pain in the butt for both gamers and game developers at some point. 😬
 
-💡To reduce fees, XPLA ACADEMY TEAM suggests designing in-game currency ($DIAMOND(<DIAMOND />)) as rewards, letting users exchange $DIAMOND(<DIAMOND />) for CW20 tokens ($ACADEMY-TKN(<ACADEMYTKN />)) when they want! In this lesson, we'll look at how the Convert feature can be implemented.
+To reduce fees, XPLA ACADEMY TEAM suggests designing in-game currency (<DIAMOND />) as rewards, letting users exchange DIAMOND(<DIAMOND />) for CW20 tokens (<ACADEMYTKN />) when they want! In this lesson, we'll look at how the Convert feature can be implemented.
 
-<Details summary="게임 재화와 CW20 토큰은 무엇이 다른가요?">
+<Details summary="CW20 tokens vs. In-Game Currency">
 
-유저는 게임을 즐기면서 보상으로 게임 재화를 얻습니다. 
-[Break The Bricks](/#playgame)의 경우, 게임을 통해 DIAMOND(<DIAMOND />)를 획득할 수 있습니다. 
-게임 재화는 게임 제작사의 데이터베이스에 저장되어 있어, 블록체인 네트워크에서 사용할 수 없습니다.
+|Icon IMG|Name|Type|Storage Location|
+|:---:|:---:|:---:|:---:|
+|<DIAMOND />|DIAMOND|In-game currency|on Game DB as a game data|
+|<ACADEMYTKN />|ACADEMY-TKN|CW20 tokens|on XPLA Blockchain Network|
 
-그러나 CW20 토큰은 블록체인에 기록되어 있기 때문에 블록체인 네트워크에서 사용할 수 있습니다.
-[Break The Bricks](/#playgame)에서 유저는 Convert 과정을 통해 CW20 토큰인 ACADEMY-TKN(<ACADEMYTKN />)을 얻을 수 있습니다.
+In-game currency is most likely game data, like DIAMOND(<DIAMOND />). 
+If it's game data, it's unlikely to be saved on the blockchain network.
 
 </Details>
 
@@ -37,9 +38,9 @@ Distributing CW20 tokens ($ACADEMY-TKN(<ACADEMYTKN />)) directly as game rewards
 
 There are two scenarios when a user requests Convert:
 
-[1. 🙋‍♂️I want to change in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)
+[1. I want to change in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)
 
-[2. 🙋‍♀️I want to change CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)
+[2. I want to change CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)
 
 ### Changing in-game currency to CW20 {#convert-case1}
 
