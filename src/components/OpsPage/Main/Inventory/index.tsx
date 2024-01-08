@@ -84,9 +84,7 @@ export default function Inventory() {
       <div
         className={clsx(
           "grid  gap-[8px] w-full mt-[16px] min-h-[165px]",
-          nftlistRes?.tokenList.tokens.length === 0
-            ? "grid-cols-1"
-            : "grid-cols-4"
+             "grid-cols-4"
         )}
       >
         {userNft?.map((tokenId) => (
