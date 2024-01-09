@@ -28,7 +28,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#F93AC3",
       contents: [
         {
-          link: "/docs/category/lets-get-your-wallet-ready",
+          link: "/startlearning/category/lets-get-your-wallet-ready",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Experience the TESTNET! <br />
@@ -50,7 +50,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/category/utilize-tokens-cw20",
+          link: "/startlearning/category/utilize-tokens-cw20",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Play with your Creation!
@@ -66,7 +66,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/category/utilize-nftcw721",
+          link: "/startlearning/category/utilize-nftcw721",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Play with your Creation!
@@ -90,7 +90,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#C9FF00",
       contents: [
         {
-          link: "/docs/tutorial/deep-understand-xpla/local-network",
+          link: "/startlearning/tutorial/deep-understand-xpla/local-network",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Make your own space!
@@ -107,7 +107,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/tutorial/deep-understand-xpla/account-sequence",
+          link: "/startlearning/tutorial/deep-understand-xpla/account-sequence",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Learn about 
@@ -125,7 +125,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/tutorial/deep-understand-xpla/walletprovider",
+          link: "/startlearning/tutorial/deep-understand-xpla/walletprovider",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Integrate
@@ -149,7 +149,7 @@ export default function IntroduceTutorial(): JSX.Element {
       color: "#FFE200",
       contents: [
         {
-          link: "/docs/tutorial/deep-understand-xpla/write-contract",
+          link: "/startlearning/tutorial/deep-understand-xpla/write-contract",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Deploy your own
@@ -184,7 +184,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
-          link: "/docs/tutorial/deep-understand-xpla/swap",
+          link: "/startlearning/tutorial/deep-understand-xpla/swap",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               Exchange Tokens
