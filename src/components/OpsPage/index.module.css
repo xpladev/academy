@@ -178,7 +178,8 @@
   /* Safari and Chrome */
   -o-animation: convertButtonOn 500ms;
   /* Opera */
-  animation-fill-mode: forwards;
+    background-color: #6600FF;
+    animation-fill-mode: forwards;
 }
 
 @keyframes convertButtonOn {
@@ -235,7 +236,8 @@
   /* Safari and Chrome */
   -o-animation: convertButtonOff 500ms;
   /* Opera */
-  animation-fill-mode: forwards;
+    background-color: #3F3F3F;
+    animation-fill-mode: forwards;
 }
 
 @keyframes convertButtonOff {
@@ -292,7 +294,8 @@
   /* Safari and Chrome */
   -o-animation: swapButtonOn 500ms;
   /* Opera */
-  animation-fill-mode: forwards;
+    background-color: #F93AC3;
+    animation-fill-mode: forwards;
 }
 
 @keyframes swapButtonOn {
@@ -349,7 +352,8 @@
   /* Safari and Chrome */
   -o-animation: swapButtonOff 500ms;
   /* Opera */
-  animation-fill-mode: forwards;
+    background-color: #3F3F3F;
+    animation-fill-mode: forwards;
 }
 
 @keyframes swapButtonOff {
