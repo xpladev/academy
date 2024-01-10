@@ -26,26 +26,10 @@ export default function LoginConnectWallet() {
     }
 
     try {
-
-      const available = availableConnections.filter(
-        (connection) => connection.type === ConnectType.EXTENSION
-      );
-      available.map((a) => {
-        if (
-          a.icon === "https://assets.xpla.io/icon/extension/icon-c2xvault.png"
-        ) {
-          return {
-            type: "EXTENSION",
-            name: "XPLA Vault Wallet",
-            icon: "https://assets.xpla.io/icon/extension/icon.png",
-            identifier: "xplavault",
-          };
-        } else {
-          return a;
-        }
-      });
       const selected = await selectConnection(
-        available
+        availableConnections.filter(
+          (connection) => connection.type === ConnectType.EXTENSION
+        )
       );
       
       if (!selected) {
