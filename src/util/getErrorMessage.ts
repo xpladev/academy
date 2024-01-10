@@ -1,4 +1,7 @@
 const getErrorMessage = (returnCode: string) => {
+    if (returnCode && returnCode.includes("insufficient funds")) {
+        return ["Insufficient Transaction Fee", "Have enough $XPLA for the transaction fee, then try again."];
+    }
     switch (returnCode) {
         case "401":
             return ["Failed to Get User Information", "Failed to retrieve the required User Information during server communication."];
