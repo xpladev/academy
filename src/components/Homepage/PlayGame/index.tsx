@@ -1,9 +1,7 @@
 import React from "react";
 import Cocosgame from "../../Cocosgame";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import clsx from "clsx";
 import "./index.css";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@docusaurus/Link";
 
 export default function PlayGame({
@@ -11,7 +9,6 @@ export default function PlayGame({
 }: {
   moveToElement: React.MutableRefObject<HTMLDivElement>;
 }): JSX.Element {
-  const isMobile = useMediaQuery("(max-width:996px)");
 
   return (
     <section
@@ -43,11 +40,11 @@ export default function PlayGame({
           Play Demo Game
         </div>
         <div className="mb-[51px]">
-          {isMobile ? (
-            <img src="/img/PlayGame/comingsoon.svg" />
-          ) : (
-            <Cocosgame />
-          )}
+          <img
+            className="min-[921px]:hidden"
+            src="/img/PlayGame/comingsoon.svg"
+          />
+          <Cocosgame />
         </div>
         <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
           Play <span className="font-bold">XPLA ACADEMY</span>'s Demo Game{" "}
@@ -82,7 +79,8 @@ export default function PlayGame({
               height="40px"
             />
             About
-            <br />Break The Bricks ➔
+            <br />
+            Break The Bricks ➔
           </Link>
         </div>
       </div>
