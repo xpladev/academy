@@ -1,5 +1,4 @@
 import React from "react";
-import { USERINFO } from "@site/src/hooks/Store/useUserInfo";
 
 import UserStatus from "./UserStatus";
 import Inventory from "./Inventory";
@@ -11,8 +10,8 @@ import Leaderboard from "./Contents/Leaderboard";
 
 export default function Main() {
   return (
-    <div className="relative flex justify-center w-full">
-      <div className="flex gap-[20px] max-w-[1180px] py-[30px] w-full mx-[20px]">
+    <div className="relative flex justify-center max-[1180px]:justify-start w-full overflow-x-scroll">
+      <div className="flex gap-[20px] max-w-[1180px] max-[1180px]:min-w-[1180px] py-[30px] w-full mx-[20px]">
         <div className="border-solid border-[1px] w-full max-w-[380px] bg-[#EAF8FF] min-w-[278px]">
           <UserStatus />
           <Inventory />
