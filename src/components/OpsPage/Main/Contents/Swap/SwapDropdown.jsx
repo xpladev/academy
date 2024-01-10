@@ -1,34 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import clsx from "clsx";
-import {
-  isRegexpStringMatch,
-  useCollapsible,
-  Collapsible,
-} from "@docusaurus/theme-common";
-import {
-  isSamePath,
-  useLocalPathname,
-} from "@docusaurus/theme-common/internal";
-import NavbarNavLink from "@theme/NavbarItem/NavbarNavLink";
-import NavbarItem from "@theme/NavbarItem";
 import "./SwapDropdown.css";
 import SwapDropdownLink from "./SwapDropdownLink";
 
-function isItemActive(item, localPathname) {
-  if (isSamePath(item.to, localPathname)) {
-    return true;
-  }
-  if (isRegexpStringMatch(item.activeBaseRegex, localPathname)) {
-    return true;
-  }
-  if (item.activeBasePath && localPathname.startsWith(item.activeBasePath)) {
-    return true;
-  }
-  return false;
-}
-function containsActiveItems(items, localPathname) {
-  return items.some((item) => isItemActive(item, localPathname));
-}
 export default function SwapDropdown({
   isfrom,
   nowXPLASelected,
@@ -93,15 +67,11 @@ export default function SwapDropdown({
     <div
       ref={dropdownRef}
       className={clsx(
-        "navbar__item",
         "dropdown",
         "dropdown--hoverable",
         "p-0",
         "ml-2",
         "dropdownArrow",
-        {
-          // 'dropdown--show': showDropdown,
-        }
       )}
     >
       <SwapDropdownLink
@@ -111,12 +81,6 @@ export default function SwapDropdown({
         className={clsx("swap_navbar__link-custom", className)}
         {...props}
         onClick={props.to ? undefined : (e) => e.preventDefault()}
-        // onKeyDown={(e) => {
-        //   if (e.key === 'Enter') {
-        //     e.preventDefault();
-        //     setShowDropdown(!showDropdown);
-        //   }
-        // }}
         imgsrc={nowXPLASelected ? xplaImgsrc : tokenImgsrc}
       />
       <ul className="dropdown__menu swapDropdownMenu">
