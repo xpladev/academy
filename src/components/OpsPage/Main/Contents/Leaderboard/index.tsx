@@ -239,8 +239,10 @@ const Leaderboard = () => {
           height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[24px]">
-        'MY BEST SCORE' lets you record
-          <br />your top game score in INFINITE MODE!<br />
+          'MY BEST SCORE' lets you record
+          <br />
+          your top game score in INFINITE MODE!
+          <br />
           Compare rankings and scores through blockchain.
         </div>
         <div className="w-full h-full flex gap-[20px] mt-[30px]">
@@ -251,9 +253,7 @@ const Leaderboard = () => {
             <div className="flex flex-col h-full justify-between px-[20px] py-[10px]">
               <div className="font-medium text-[10px] text-[#00B2FC] leading-[13px] text-center">
                 RANKING only shows the scores recoreded through '
-                <span className="text-[#FF640C]">
-                  MY BEST SCORE
-                </span>
+                <span className="text-[#FF640C]">MY BEST SCORE</span>
                 '.
                 <br />
                 Check the scores of the top 10 in the ecosystem
@@ -323,8 +323,9 @@ const Leaderboard = () => {
             </div>
             <div className="flex flex-col h-full px-[20px] py-[16px]">
               <div className="leading-[13px] text-[#FF640C] text-[10px] font-medium text-center">
-              Check the best scores you've achieved in INFINITE MODE.<br/>
-              Hit [RECORD] to mark your score on blockchain!
+                Check the best scores you've achieved in INFINITE MODE.
+                <br />
+                Hit [RECORD] to mark your score on blockchain!
               </div>
 
               <div className="border-solid border-0 border-b-[1px] border-[#FF640C] mt-[17px]" />
@@ -384,6 +385,17 @@ const Leaderboard = () => {
                     )}
                   </div>
                 </div>
+                {rankinglist?.returnMsg === "success" &&
+                  rankinglist?.score?.toString() === "0" && (
+                    <div className="absolute w-full h-full flex flex-col justify-center items-center bg-[#000000CC]">
+                      <span className="text-white font-normal text-[24px] leading-[26px]">
+                        No
+                      </span>
+                      <span className="text-[#FF640C] font-bold text-[28px] leading-[26px]">
+                        "DATA"
+                      </span>
+                    </div>
+                  )}
                 {rankinglist?.isRecoding === 1 && (
                   <div className="absolute w-full h-full flex flex-col justify-center items-center bg-[#000000CC]">
                     <span className="text-white font-normal text-[24px] leading-[26px]">
