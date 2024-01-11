@@ -410,10 +410,15 @@ const Leaderboard = () => {
               <button
                 type="submit"
                 onClick={onSubmit}
-                disabled={rankinglist?.isRecoding === 1}
+                disabled={
+                  rankinglist?.isRecoding === 1 ||
+                  (rankinglist?.returnMsg === "success" &&
+                    rankinglist?.score?.toString() === "0")
+                }
                 className={clsx(
                   "border-0 relative justify-center py-[17px] flex items-center text-white font-semibold text-[24px] leading-[30px] rounded-full",
-                  rankinglist?.isRecoding === 1
+                  (rankinglist?.isRecoding === 1 ||  (rankinglist?.returnMsg === "success" &&
+                  rankinglist?.score?.toString() === "0"))
                     ? "bg-[#3F3F3F]"
                     : "bg-[#FF640C] hover:cursor-pointer"
                 )}
