@@ -3,6 +3,7 @@ import Cocosgame from "../../Cocosgame";
 import clsx from "clsx";
 import "./index.css";
 import Link from "@docusaurus/Link";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
 export default function PlayGame({
   moveToElement,
@@ -40,11 +41,11 @@ export default function PlayGame({
           Play Demo Game
         </div>
         <div className="mb-[51px]">
-          <img
-            className="min-[921px]:hidden"
-            src="/img/PlayGame/comingsoon.svg"
-          />
-          <Cocosgame />
+        <BrowserOnly>
+      {
+        () => <Cocosgame />
+      }
+      </BrowserOnly>
         </div>
         <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
           Play <span className="font-bold">XPLA ACADEMY</span>'s Demo Game{" "}
