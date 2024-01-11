@@ -224,7 +224,7 @@ const Convert = () => {
           Experience a special exchange system <br />
           between tokens and in-game items.
           <br />
-          Furthermore, acquire tokens needed to mint Paddle NFT!
+          Furthermore, acquire the tokens needed to mint Paddle NFT!
         </div>
         <div>
           <div className="mt-[27px] flex items-center justify-center gap-[20px] relative w-full">

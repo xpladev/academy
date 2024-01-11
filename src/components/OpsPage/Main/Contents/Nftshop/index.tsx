@@ -46,7 +46,7 @@ const Nftshop = () => {
           height="28px"
         />
         <div className="text-center font-normal text-[20px] leading-[28px]">
-          Gather ACADEMY-TKN by playing game,
+          Gather ACADEMY-TKN by playing the game,
           <br />
           and mint your own special Paddle NFT!
           <br />
