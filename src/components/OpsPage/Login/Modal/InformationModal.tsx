@@ -130,7 +130,7 @@ const InfoDetail = ({ page }: { page: number }) => {
             <span className="font-normal text-[18px] leading-[26px]">
               Web3 Gaming Ops
               <br />
-              allows Web2 gamers to enjoy game itself,
+              allows Web2 gamers to enjoy game itself and
               <br />
               allows DEVs to playfully interact with blockchain functions.
             </span>
@@ -182,8 +182,8 @@ const InfoDetail = ({ page }: { page: number }) => {
                 className="h-[28px]"
               />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
-                <span>Provide NFT Minting function using</span>
-                <span>ACADEMY-TKN as a minting fee.</span>
+                <span>NFT SHOP provides an NFT Minting function</span>
+                <span>using ACADEMY-TKN as a minting fee.</span>
               </div>
             </div>
             <div className="flex items-center gap-[12px] h-[32px]">
@@ -195,8 +195,8 @@ const InfoDetail = ({ page }: { page: number }) => {
                 className="h-[28px]"
               />
               <div className="flex flex-col leading-[14px] font-medium text-[12px] justify-between gap-[2px]">
-                <span>Provides a TOP 10 list and the function to</span>
-                <span>record one's latest score on the blockchain.</span>
+                <span>Leaderboard offers a TOP 10 list and</span>
+                <span>the function to record one's latest score on the blockchain.</span>
               </div>
             </div>
           </div>

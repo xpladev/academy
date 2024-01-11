@@ -243,7 +243,7 @@ const Leaderboard = () => {
           <br />
           your top game score in INFINITE MODE!
           <br />
-          Compare rankings and scores through blockchain.
+          Compare rankings and scores through the blockchain.
         </div>
         <div className="w-full h-full flex gap-[20px] mt-[30px]">
           <div className="w-full h-full flex flex-1 flex-col border-[1px] border-solid bg-white">
