@@ -1,11 +1,13 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql, Mysql } from "../../system/mysql";
+import { walletMysql } from "../../system/mysql";
 import { URL, chainID, cw20MnemonicKey, cw20_contract, cw721MnemonicKey, cw721_contract,
   tokenDecimal, seqMsg, publisherNftInit, walletLog, 
   ipfsCnf, ipfsPortCnf, ipfsClusterCnf, ipfsClusterPortCnf, ipfsGetUrlCnf } from './serverInfo'
 
 import ipfsAPI from 'ipfs-api'
 import ipfsCluster from 'ipfs-cluster-api'
+
+var userInfo = require('../server/userInfo');
 
 const fs = require("fs")
 const lcd = new LCDClient({	chainID,	URL });
@@ -25,16 +27,18 @@ module.exports =  async function(req) {
 
   try {
 
-    const [userInfoRow, ] = await Mysql.connect((con) => con.query(
-      `SELECT * FROM user_info WHERE wallet = ?`, [wallet]))()
-    if(userInfoRow.length <= 0) {          
-      result.returnCode = '401'
-      result.returnMsg = "Failed to Get User Information"
+    const req: { [key: string]: any } = {};
+    req.body = {wallet}
+    const gameResult = await userInfo(req)
+    if( gameResult.returnCode != 0 ){
+      result.returnCode = gameResult.returnCode
+      result.returnMsg = gameResult.returnMsg
 
-      return result 
+      return result
     }
-    const playerId = userInfoRow[0].pid
-    const highStage = userInfoRow[0].high_stage
+
+    const playerId = gameResult.pid
+    const highStage = gameResult.high_stage
 
     let [shopRow, ] = await walletMysql.connect((con) => con.query(
       `SELECT * FROM nft_shop where idx = ?`, [shopNo]))()

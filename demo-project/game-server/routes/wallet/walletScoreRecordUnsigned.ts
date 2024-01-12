@@ -1,7 +1,9 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql, Mysql } from "../../system/mysql";
+import { walletMysql } from "../../system/mysql";
 import { URL, chainID, cw20MnemonicKey, cw20_contract, cw721MnemonicKey, cw20_scoreContract,
   seqMsg, publisherNftInit, walletLog } from './serverInfo'
+
+var userInfo = require('../server/userInfo');
 
 const lcd = new LCDClient({	chainID,	URL });
 
@@ -16,19 +18,21 @@ module.exports =  async function(req) {
 
   try {
 
-    const [userInfoRow, ] = await Mysql.connect((con) => con.query(
-      `SELECT * FROM user_info WHERE wallet = ?`, [wallet]))()
-    if(userInfoRow.length <= 0) {          
-      result.returnCode = '401'
-      result.returnMsg = "Failed to Get User Information"
-
+    const req: { [key: string]: any } = {};
+    req.body = {wallet}
+    const gameResult = await userInfo(req)
+    if( gameResult.returnCode != 0 ){
+      result.returnCode = gameResult.returnCode
+      result.returnMsg = gameResult.returnMsg
+      
       return result 
     }
-    const playerId = userInfoRow[0].pid
+
+    const playerId = gameResult.pid
     const groupId = "0"  
-    const score = userInfoRow[0].high_score
-    const id = userInfoRow[0].id
-    const scoreDate = Math.floor(new Date(userInfoRow[0].high_score_date).getTime() / 1000);
+    const id = gameResult.id
+    const score = gameResult.high_score
+    const scoreDate = Math.floor(new Date(gameResult.high_score_date).getTime() / 1000);
 
     const minterMk = new MnemonicKey({ mnemonic: cw721MnemonicKey })
     const minterWallet = lcd.wallet(minterMk);
@@ -40,7 +44,7 @@ module.exports =  async function(req) {
     const sender = minterWallet.key.accAddress // wallet    
 
     const [db, ] = await walletMysql.connect((con) => con.query(
-      'insert into txhash values (null, ?, ?, ?, 3, ?, ?, ?, 1, ?, now())',
+      'insert into txhash values (null, ?, ?, ?, 4, ?, ?, ?, 0, ?, now())',
       [wallet, playerId, groupId, 0, 0, '', 0]))()
     if(db.length <= 0) {          
       result.returnCode = '499'
@@ -64,7 +68,6 @@ module.exports =  async function(req) {
       }
     );
 
-    console.log("log1:")
     const tx_api = new TxAPI(lcd)
     const simul_fee = await tx_api.estimateFee(
       [
@@ -77,7 +80,6 @@ module.exports =  async function(req) {
     )
     const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), wallet);
 
-    console.log("log2:")
     const tx = await lcd.tx.create([], {msgs: [transferMsg], fee } )
     const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
 

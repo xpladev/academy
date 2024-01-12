@@ -1,6 +1,8 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql, Mysql } from "../../system/mysql";
-import { URL, chainID, cw20MnemonicKey, cw20_contract, tokenDecimal, unsignedTimeOut, publisherTokenInit, seqMsg } from './serverInfo'
+import { walletMysql } from "../../system/mysql";
+import { URL, chainID, cw20MnemonicKey, cw20_contract, tokenDecimal, unsignedTimeOut, publisherTokenInit, seqMsg, walletLog } from './serverInfo'
+
+var userInfo = require('../server/userInfo');
 
 const lcd = new LCDClient({	chainID,	URL });
 
@@ -21,15 +23,17 @@ module.exports =  async function(req) {
 
   try {
 
-    const [userInfoRow, ] = await Mysql.connect((con) => con.query(
-      `SELECT * FROM user_info WHERE wallet = ?`, [wallet]))()
-    if(userInfoRow.length <= 0) {          
-      result.returnCode = '401'
-      result.returnMsg = "Failed to Get User Information"
+    const req: { [key: string]: any } = {};
+    req.body = {wallet}
+    const gameResult = await userInfo(req)
+    if( gameResult.returnCode != 0 ){
+      result.returnCode = gameResult.returnCode
+      result.returnMsg = gameResult.returnMsg
 
-      return result 
+      return result
     }
-    const playerId = userInfoRow[0].pid
+
+    const playerId = gameResult.pid
 
     const serverKey = new MnemonicKey({mnemonic: cw20MnemonicKey})
     const serverWallet = lcd.wallet(serverKey);

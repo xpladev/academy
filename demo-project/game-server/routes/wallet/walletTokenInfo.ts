@@ -1,5 +1,6 @@
 import { LCDClient } from "@xpla/xpla.js"
 import { URL, chainID, cw20_contract, xplaDecimal, tokenDecimal } from './serverInfo'
+import { BigNumber } from 'bignumber.js'
 
 const lcd = new LCDClient({	chainID,	URL });
 
@@ -18,7 +19,9 @@ module.exports =  async function(req) {
 
     let tokenInfo : { [key: string]: any } = {};
     for( let j = 0; j< balanceRet.length; ++j ) {
-      tokenInfo.xpla = `${Number(balanceRet[j].amount)/xplaDecimal}`
+      const num = new BigNumber(balanceRet[j].amount)
+      const numResult = num.dividedBy(xplaDecimal)
+      tokenInfo.xpla = numResult.toString()
     }
 
     const tokenBalance: any= await lcd.wasm.contractQuery(cw20_contract, { balance: { address: wallet } })
