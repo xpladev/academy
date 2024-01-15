@@ -38,3 +38,6 @@ Step into the world of [XPLA ACADEMY](https://academy.xpla.dev/). Your first ste
 
 ## Web3 Gaming Ops
 [Web3 Gaming Ops](https://academy.xpla.dev/ops)
+
+※ We created a basic logic using a timer to demonstrate the process of requesting BroadcastSync in the blockchain and receiving transaction results.
+For more efficiency, consider setting up a separate daemon to confirm transaction results or implement logic that asks the client for confirmation until it's completed
