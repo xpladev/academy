@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import clsx from "clsx";
-import "./GNBDropdown.css";
+import "./TryDemoDropdown.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Link from "@docusaurus/Link";
 
-export default function GNBDropdown() {
+export default function TryDemoDropdown() {
   const dropdownRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -30,7 +30,7 @@ export default function GNBDropdown() {
         "dropdown",
         "dropdown--hoverable",
         "p-0",
-        "ml-[33px]",
+        "ml-[74px] max-[1220px]:ml-[35px]",
         "dropdownArrow"
       )}
     >
@@ -44,7 +44,7 @@ export default function GNBDropdown() {
         />
       </div>
       <ul className="dropdown__menu GNBDropdownMenu ulborder-0">
-        <div className="h-[27px] mb-[1px] bg-black" />
+        <div className="max-[1068px]:h-[14px] h-[27px] mb-[1px] bg-black" />
         <Link
           to="/playgame"
           className="py-[16px] h-[44px] pl-[21px] hover:cursor-pointer flex items-center bg-black text-white hover:text-[#00ABFF] hover:no-underline"

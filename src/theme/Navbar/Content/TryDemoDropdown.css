@@ -1,0 +1,16 @@
+.dropdownArrow>div>svg {
+    transform: translate(7px, 0px) rotate(0deg);
+}
+
+.dropdownArrow:hover>div>svg {
+    transform: translate(7px, 0px) rotate(180deg);
+}
+
+.GNBDropdownMenu {
+    min-width: 172px !important;
+    background-color: transparent;
+    margin-left: -21px;
+    border-radius: 0px;
+    padding: 0px;
+    box-shadow: none;
+}

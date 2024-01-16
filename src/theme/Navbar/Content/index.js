@@ -10,7 +10,8 @@ import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
 import styles from './styles.module.css';
 import clsx from 'clsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import GNBDropdown from "./GNBDropdown"
+import TryDemoDropdown from "./TryDemoDropdown"
+import ContactUs from "./ContactUs"
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -38,7 +39,7 @@ ${JSON.stringify(item, null, 2)}`,
 }
 function NavbarContentLayout({left, right}) {
   return (
-    <div className="navbar__inner max-w-[1180px]">
+    <div className="navbar__inner max-w-[1180px] h-[61px]">
       <div className="navbar__items">{left}</div>
       <div className="navbar__items navbar__items--right">{right}</div>
     </div>
@@ -61,11 +62,11 @@ export default function NavbarContent() {
           </Link>
           {
             leftItems.map((leftItem, index) => {
-              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white text-medium ml-[78px]" : "text-white text-medium ml-[28px]"} />
+              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white text-medium ml-[84px] max-[1220px]:ml-[60px]" : "text-white text-medium ml-[28px]"} />
             })
           }
-          <GNBDropdown />
-          {/* <div className={clsx("font-semibold ml-10", styles.tool)} /> */}
+          <TryDemoDropdown />
+          <ContactUs />
         </>
       }
       right={
