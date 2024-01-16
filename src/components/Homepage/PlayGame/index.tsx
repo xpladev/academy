@@ -5,6 +5,7 @@ import "./index.css";
 import Link from "@docusaurus/Link";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import CustomTranslation from "@site/src/util/CustomTranslation";
+import i18n from "@generated/i18n";
 
 export default function PlayGame({
   moveToElement,
@@ -60,7 +61,13 @@ export default function PlayGame({
         <div className="flex justify-center items-center gap-[84px]">
           <Link
             to="https://github.com/xpladev/academy"
-            className="font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline"
+            className={clsx(
+              "font-medium  leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
+              {
+                "text-[20px]": i18n.currentLocale === "en",
+                "text-[18px]": i18n.currentLocale === "ko-kr",
+              }
+            )}
           >
             <img
               src="/img/PlayGame/githubwhite.svg"
@@ -68,15 +75,23 @@ export default function PlayGame({
               width="40px"
               height="40px"
             />
-            Game code on
-            <br /> GitHub! ➔
+
+            <CustomTranslation en="Game code on" kr="GitHub에서 소스코드를" />
+            <br />
+            <CustomTranslation en="GitHub! ➔" kr="확인하세요" />
           </Link>
 
           <div className="h-full border-solid border-[0px] border-r-[1.5px]"></div>
 
           <Link
             to="/playgame#aboutGame"
-            className="font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline"
+            className={clsx(
+              "font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
+              {
+                "text-[20px]": i18n.currentLocale === "en",
+                "text-[18px]": i18n.currentLocale === "ko-kr",
+              }
+            )}
           >
             <img
               src="/img/PlayGame/game-asset.svg"
@@ -84,9 +99,10 @@ export default function PlayGame({
               width="114px"
               height="40px"
             />
-            About
+            <CustomTranslation en="About" kr="Break The Bricks란" />
             <br />
-            Break The Bricks ➔
+
+            <CustomTranslation en="Break The Bricks ➔" kr="무엇일까요?" />
           </Link>
         </div>
       </div>

@@ -33,22 +33,27 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             width="564px"
             height="55px"
           />
-          <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
+          <span className={clsx("font-semibold leading-[36px] mb-[10px]", {
+            "text-[29px]" : i18n.currentLocale === "en",
+            "text-[28px]" : i18n.currentLocale === "ko-kr",
+          })}>
             <CustomTranslation
               en={siteConfig.tagline}
               kr="XPLA에서 Web3 프로젝트 개발을 시작하세요!"
             />
           </span>
-          <span className={clsx("text-[24px] font-normal leading-[29px]", {
-            "tracking-tight" : i18n.currentLocale === "ko-kr",
+          <span className={clsx("font-normal leading-[29px]", {
+            "tracking-tight text-[20px]" : i18n.currentLocale === "ko-kr",
+            "text-[24px]" : i18n.currentLocale === "en"
           })}>
             <CustomTranslation
               en="Educational content related to blockchain development,"
               kr="XPLA ACADEMY는 게임에 특화된 XPLA만의 기술과 노하우를"
             />
           </span>
-          <span className={clsx("text-[24px] font-normal leading-[29px]", {
-            "tracking-tight" : i18n.currentLocale === "ko-kr",
+          <span className={clsx("font-normal leading-[29px]", {
+            "tracking-tight text-[20px]" : i18n.currentLocale === "ko-kr",
+            "text-[24px]" : i18n.currentLocale === "en"
           })}>
             <CustomTranslation
               en="smart contracts, and game tokenomic systems all provided!"

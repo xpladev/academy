@@ -19,7 +19,7 @@ const FeatureList: FeatureItem[] = [
       <>
         <CustomTranslation
           en="A step-by-step curriculum for understanding"
-          kr="초보자부터 최상급자까지 고려한"
+          kr="초보자부터 상급자까지 고려한"
         />
         <br />
         <CustomTranslation

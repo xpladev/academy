@@ -29,7 +29,7 @@ export default function IntroduceTutorial(): JSX.Element {
     {
       title: [
         i18n.currentLocale === "en" ? "Get to know Web3" : "XPLA를 통해",
-        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 기본기 진입하기",
+        i18n.currentLocale === "en" ? "with XPLA!" : "기본 Web3 학습하기",
       ],
       color: "#F93AC3",
       contents: [
@@ -119,7 +119,7 @@ export default function IntroduceTutorial(): JSX.Element {
         i18n.currentLocale === "en" ? "Be a pro with" : "실전에 바로 쓰는",
         i18n.currentLocale === "en"
           ? "ADVANCED COURSES!"
-          : "심화 정보 파악하기",
+          : "심화 기술 알아보기",
       ],
       color: "#C9FF00",
       contents: [
@@ -141,9 +141,12 @@ export default function IntroduceTutorial(): JSX.Element {
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              <CustomTranslation en="Make your own" kr="XPLA Local Network를" />
+              <CustomTranslation en="Make your own" kr="XPLA Local Network로" />
+              {
+                i18n.currentLocale ==="en" &&
               <br />
-              <CustomTranslation en="space!" kr="활용하여" />
+              }
+              <CustomTranslation en="space!" kr="" />
               <br />
               <span className="font-bold text-[24px]">
                 {" "}
@@ -224,8 +227,8 @@ export default function IntroduceTutorial(): JSX.Element {
       title: [
         i18n.currentLocale === "en"
           ? "Add Web3 to your project"
-          : "XPLA와 연결되는",
-        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 프로젝트 시작하기",
+          : "내 프로젝트",
+        i18n.currentLocale === "en" ? "with XPLA!" : "XPLA와 연결하기",
       ],
       color: "#FFE200",
       contents: [
