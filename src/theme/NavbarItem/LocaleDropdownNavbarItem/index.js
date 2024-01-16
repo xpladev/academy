@@ -57,12 +57,12 @@ export default function LocaleDropdownNavbarItem({
       () => (<div className='mr-[11px] mt-[10px]'>
         <DropdownNavbarItem
           {...props}
-          disable={!window.location.pathname.startsWith('/startlearning')}
+          disable={!(window.location.pathname.startsWith('/startlearning') || window.location.pathname.startsWith('/ko-kr/startlearning') || window.location.pathname === "/" || window.location.pathname === "/ko-kr/")}
           arrow={false}
           mobile={mobile}
           label={
-            <LanguageIcon sx={{ fontSize: 29, color: window.location.pathname.startsWith('/startlearning') ? 'white' : '#FFFFFF33' }} />
-        }
+            <LanguageIcon sx={{ fontSize: 29, color: (window.location.pathname.startsWith('/startlearning') || window.location.pathname.startsWith('/ko-kr/startlearning') || window.location.pathname === "/" || window.location.pathname === "/ko-kr/") ? 'white' : '#FFFFFF33' }} />
+          }
           items={items}
         />
       </div>
