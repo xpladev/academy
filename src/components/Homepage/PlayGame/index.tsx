@@ -44,7 +44,7 @@ export default function PlayGame({
           <BrowserOnly>{() => <Cocosgame />}</BrowserOnly>
         </div>
         <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
-          <CustomTranslation en="Play" kr="" />
+          <CustomTranslation en="Play " kr="" />
           <span className="font-bold">XPLA ACADEMY</span>
           <CustomTranslation
             en="'s Demo Game"
