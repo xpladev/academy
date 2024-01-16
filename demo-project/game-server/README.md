@@ -22,7 +22,7 @@ npm install
 
 4. Register in the generated contract and mnemonic server_info table
    
-ex) ![image](https://github.com/xpladev/academy-game-server/assets/95893422/b5837ba6-80b1-435f-9a13-ca60267dd3e4)
+ex) ![image](./serverImg.png)
 
 5. Server Start
 ```
@@ -32,12 +32,12 @@ npm start port(number)
 ***
 
 ## XPLA ACADEMY
-Step into the world of [XPLA ACADEMY](https://academy.xpla.dev/). Your first step into the world of XPLA blockchain development has begun! XPLA ACADEMY warmly welcomes beginners who are willing to embark on their web3.0 development journey.
+[XPLA ACADEMY](https://academy.xpla.dev/) provides resources, tutorials, and educational content related to blockchain development, smart contracts, and game tokenomic systems! Master the world of XPLA step by step from XPLA ACADEMY.
 
 ***
 
 ## Web3 Gaming Ops
-[Web3 Gaming Ops](https://academy.xpla.dev/ops)
+[Web3 Gaming Ops](https://academy.xpla.dev/ops) showcases the integrated functionalities of games and XPLA on test-net! Explore how Convert, Swap, NFT shop, and Leaderboard are linked with the sample game 'Break the Bricks.'
 
 ***
 

@@ -34,9 +34,9 @@ npm run start
 ***
 
 ## XPLA ACADEMY
-Step into the world of [XPLA ACADEMY](https://academy.xpla.dev/). Your first step into the world of XPLA blockchain development has begun! XPLA ACADEMY warmly welcomes beginners who are willing to embark on their web3.0 development journey.
+[XPLA ACADEMY](https://academy.xpla.dev/) provides resources, tutorials, and educational content related to blockchain development, smart contracts, and game tokenomic systems! Master the world of XPLA step by step from XPLA ACADEMY.
 
 ***
 
 ## Web3 Gaming Ops
-[Web3 Gaming Ops](https://academy.xpla.dev/ops)
+[Web3 Gaming Ops](https://academy.xpla.dev/ops) showcases the integrated functionalities of games and XPLA on test-net! Explore how Convert, Swap, NFT shop, and Leaderboard are linked with the sample game 'Break the Bricks.'
