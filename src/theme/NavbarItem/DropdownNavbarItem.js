@@ -53,7 +53,7 @@ function DropdownNavbarItemDesktop({
   return (
     <div
       ref={dropdownRef}
-      className={clsx('navbar__item', 'dropdown',  'p-0', 'ml-2', {
+      className={clsx('navbar__item', 'dropdown', 'ml-2', {
         'dropdown--right': position === 'right',
         'dropdown--show': showDropdown,
         'dropdown--hoverable': !props.disable,
