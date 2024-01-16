@@ -9,9 +9,7 @@ export default function Submit(): JSX.Element {
     >
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSeFPRrhXfwlQ7qNOnrP0H7jsJ-zdwLeROeBTUTXe0CPxbxLng/viewform?embedded=true"
-
-        className="w-full h-[1120px] my-[20px]"
-        
+        className="w-full h-[1130px] my-[20px] overflow-hidden"
         frameborder="0"
         marginheight="0"
         marginwidth="0"
