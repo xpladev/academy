@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import clsx from "clsx";
+import CustomTranslation from "@site/src/util/CustomTranslation";
 
 type FeatureItem = {
   Svg: string;
@@ -16,9 +17,15 @@ const FeatureList: FeatureItem[] = [
     title: <>Try the easy tutorials</>,
     description: (
       <>
-        A step-by-step curriculum for understanding
+        <CustomTranslation
+          en="A step-by-step curriculum for understanding"
+          kr="초보자부터 최상급자까지 고려한"
+        />
         <br />
-        and applying Web3 — for everyone.
+        <CustomTranslation
+          en="and applying Web3 — for everyone."
+          kr="단계별 커리큘럼으로 Web3 세계에 입문하세요."
+        />
       </>
     ),
     rightBorder: true,
@@ -29,8 +36,15 @@ const FeatureList: FeatureItem[] = [
     title: <>Use the free codes</>,
     description: (
       <>
-        Feel free to use the example code for anything!<br />
-        Check final output examples in Try Demo menu.
+        <CustomTranslation
+          en="Feel free to use the example code for anything!"
+          kr="모든 예제는 오픈 소스로 제공됩니다."
+        />
+        <br />
+        <CustomTranslation
+          en="Check final output examples in Try Demo menu."
+          kr="프로젝트 구축에 필요한 리소스들을 마음껏 활용하세요."
+        />
       </>
     ),
     rightBorder: true,
@@ -41,8 +55,15 @@ const FeatureList: FeatureItem[] = [
     title: <>We want to help you</>,
     description: (
       <>
-        Building Web3 games can be tough.<br />
-        Share questions in the comments for help any time!
+        <CustomTranslation
+          en="Building Web3 games can be tough."
+          kr="각 세션의 댓글을 통해 서로 묻고 답하며"
+        />
+        <br />
+        <CustomTranslation
+          en="Share questions in the comments for help any time!"
+          kr="Web3 게임을 함께 만들어요."
+        />
       </>
     ),
     rightBorder: false,
@@ -69,8 +90,12 @@ function Feature({ Svg, title, description, rightBorder, sizes }: FeatureItem) {
           />
         </div>
         <div>
-          <div className="font-bold text-[26px] leading-[31px] text-black text-center md:mb-[16px]">{title}</div>
-          <div className="font-medium text-[14px] leading-[24px] text-black text-center">{description}</div>
+          <div className="font-bold text-[26px] leading-[31px] text-black text-center md:mb-[16px]">
+            {title}
+          </div>
+          <div className="font-medium text-[14px] leading-[24px] text-black text-center">
+            {description}
+          </div>
         </div>
       </div>
     </div>

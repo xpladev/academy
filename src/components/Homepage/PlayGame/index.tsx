@@ -4,13 +4,13 @@ import clsx from "clsx";
 import "./index.css";
 import Link from "@docusaurus/Link";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import CustomTranslation from "@site/src/util/CustomTranslation";
 
 export default function PlayGame({
   moveToElement,
 }: {
   moveToElement: React.MutableRefObject<HTMLDivElement>;
 }): JSX.Element {
-
   return (
     <section
       ref={moveToElement}
@@ -41,16 +41,21 @@ export default function PlayGame({
           Play Demo Game
         </div>
         <div className="mb-[51px]">
-        <BrowserOnly>
-      {
-        () => <Cocosgame />
-      }
-      </BrowserOnly>
+          <BrowserOnly>{() => <Cocosgame />}</BrowserOnly>
         </div>
         <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
-          Play <span className="font-bold">XPLA ACADEMY</span>'s Demo Game{" "}
+          <CustomTranslation en="Play" kr="" />
+          <span className="font-bold">XPLA ACADEMY</span>
+          <CustomTranslation
+            en="'s Demo Game"
+            kr="에서 제공하는 데모 게임을 통해"
+          />
+
           <br />
-          Experience Game Building within XPLA
+          <CustomTranslation
+            en="Experience Game Building within XPLA"
+            kr="XPLA에 연결된 게임 서비스를 체험해보세요!"
+          />
         </div>
         <div className="flex justify-center items-center gap-[84px]">
           <Link

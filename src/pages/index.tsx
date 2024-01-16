@@ -10,20 +10,22 @@ import PlayGame from "../components/Homepage/PlayGame";
 import DevResource from "../components/Homepage/DevResource";
 import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import ContactUs from "../components/Homepage/ContactUs";
+import CustomTranslation from "@site/src/util/CustomTranslation";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
 
 import {
   WalletControllerChainOptions,
   getChainOptions,
 } from "@xpla/wallet-provider";
+import clsx from "clsx";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig, i18n } = useDocusaurusContext();
 
   return (
     <header className="h-[800px] flex justify-center px-[16px] bg-[#F5F4F4]">
       <div className="max-w-[1180px] flex flex-1 justify-between items-center relative">
-        <div className="flex flex-col max-w-[638px] pb-[5px]">
+        <div className="flex flex-col max-w-[670px] pb-[5px]">
           <img
             className="mb-[30px]"
             src={`/img/Homepage/xpla-academy.svg`}
@@ -32,16 +34,32 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             height="55px"
           />
           <span className="text-[29px] font-semibold leading-[36px] mb-[10px]">
-            {siteConfig.tagline}
+            <CustomTranslation
+              en={siteConfig.tagline}
+              kr="XPLA에서 Web3 프로젝트 개발을 시작하세요!"
+            />
           </span>
-          <span className="text-[24px] font-normal leading-[29px]">
-          Educational content related to blockchain development,
+          <span className={clsx("text-[24px] font-normal leading-[29px]", {
+            "tracking-tight" : i18n.currentLocale === "ko-kr",
+          })}>
+            <CustomTranslation
+              en="Educational content related to blockchain development,"
+              kr="XPLA ACADEMY는 게임에 특화된 XPLA만의 기술과 노하우를"
+            />
           </span>
-          <span className="text-[24px] font-normal leading-[29px]">
-          smart contracts, and game tokenomic systems all provided!
+          <span className={clsx("text-[24px] font-normal leading-[29px]", {
+            "tracking-tight" : i18n.currentLocale === "ko-kr",
+          })}>
+            <CustomTranslation
+              en="smart contracts, and game tokenomic systems all provided!"
+              kr="단계별로 제공합니다. 지금 바로 XPLA의 개발 환경을 확인하세요."
+            />
           </span>
           <div className="mt-[56px] font-medium text-[24px] leading-[29px] text-[#004FFF]">
-          Your projects are just a click away!
+            <CustomTranslation
+              en="Your projects are just a click away!"
+              kr="당신의 프로젝트를 간편하게 구축해보세요!"
+            />
           </div>
           <div className="flex gap-[20px] mt-[19px]">
             <Link
@@ -62,7 +80,12 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
         </div>
         <img
           className={
-            "hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:left-[634px] 2xl:absolute"
+            clsx("hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:absolute", 
+            {
+               "2xl:left-[634px]" : i18n.currentLocale === "en",
+               "2xl:left-[660px]" : i18n.currentLocale === "ko-kr",
+            }
+            )
           }
           src={`/img/Homepage/explorer-play.svg`}
           alt="explorer-play"

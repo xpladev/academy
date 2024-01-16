@@ -7,6 +7,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import clsx from "clsx";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CustomTranslation from "@site/src/util/CustomTranslation";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 interface SliderItemType {
   title: string[];
@@ -21,31 +23,44 @@ export default function IntroduceTutorial(): JSX.Element {
   const ref = useRef(null);
   const sliderRef = useRef();
   const matches = useMediaQuery("(max-width:768px)");
+  const { i18n } = useDocusaurusContext();
 
   const items: SliderItemType[] = [
     {
-      title: ["Get to know Web3", "with XPLA!"],
+      title: [
+        i18n.currentLocale === "en" ? "Get to know Web3" : "XPLA를 통해",
+        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 기본기 진입하기",
+      ],
       color: "#F93AC3",
       contents: [
         {
           link: "/startlearning/category/lets-get-your-wallet-ready",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Experience the TESTNET! <br />
-              Create a WALLET, Make your first
+              <CustomTranslation
+                en="Experience the TESTNET!"
+                kr="Wallet을 만들고 Testnet에서"
+              />
+              <br />
+              <CustomTranslation
+                en="Create a WALLET, Make your first"
+                kr="Transaction 실행시키기"
+              />
               <span className="font-bold text-[20px]"> TRANSACTIONS!</span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Experience the
+              <CustomTranslation en="Experience the" kr="Wallet을 만들고," />
               <br />
-              TESTNET!
+              <CustomTranslation en="TESTNET!" kr="Testnet에서" />
               <br />
-              Create a WALLET
+              <CustomTranslation en="Create a WALLET" kr="Transaction" />
               <br />
-              Make your first
+              <CustomTranslation en="Make your first" kr="실행시키기" />
               <br />
-              <span className="font-bold text-[24px]">TRANSACTIONS!</span>
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="TRANSACTIONS!" kr="" />
+              </span>
             </div>
           ),
         },
@@ -53,15 +68,22 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/startlearning/category/utilize-tokens-cw20",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Play with your Creation!
+              <CustomTranslation en="Play with your Creation!" kr="나만의" />
               <br />
-              Issue <span className="font-bold text-[20px]">TOKENS</span>
+              <CustomTranslation en="Issue" kr="토큰 만들기" />
+              <span className="font-bold text-[20px]">
+                {" "}
+                <CustomTranslation en=" TOKENS" kr="" />
+              </span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Play with your Creation!
+              <CustomTranslation en="Play with your Creation!" kr="나만의" />
               <br />
-              Issue <span className="font-bold text-[24px]">TOKENS</span>
+              <CustomTranslation en="Issue" kr="토큰 만들기" />
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en=" TOKENS" kr="" />
+              </span>
             </div>
           ),
         },
@@ -69,40 +91,68 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/startlearning/category/utilize-nftcw721",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Play with your Creation!
+              <CustomTranslation en="Play with your Creation!" kr="나만의" />
               <br />
-              Issue <span className="font-bold text-[20px]">NFT</span>
+              <CustomTranslation en="Issue" kr="NFT 만들기" />
+              <span className="font-bold text-[20px]">
+                {" "}
+                <CustomTranslation en=" NFT" kr="" />
+              </span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Play with your
+              <CustomTranslation en="Play with your" kr="나만의" />
               <br />
-              Creation!
+              <CustomTranslation en="Creation!" kr="NFT 만들기" />
               <br />
-              Issue <span className="font-bold text-[24px]">NFT</span>
+              <CustomTranslation en="Issue" kr="" />
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en=" NFT" kr="" />
+              </span>
             </div>
           ),
         },
       ],
     },
     {
-      title: ["Be a pro with", "ADVANCED COURSES!"],
+      title: [
+        i18n.currentLocale === "en" ? "Be a pro with" : "실전에 바로 쓰는",
+        i18n.currentLocale === "en"
+          ? "ADVANCED COURSES!"
+          : "심화 정보 파악하기",
+      ],
       color: "#C9FF00",
       contents: [
         {
           link: "/startlearning/tutorial/deep-understand-xpla/local-network",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Make your own space!
+              <CustomTranslation
+                en="Make your own space!"
+                kr="XPLA Local Network로"
+              />
               <br />
-              <span className="font-bold text-[20px]"> XPLA Local Network</span>
+              <span className="font-bold text-[20px]">
+                <CustomTranslation
+                  en="XPLA Local Network"
+                  kr="나만의 개발 환경 구축하기"
+                />
+              </span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Make your own <br />
-              space!
+              <CustomTranslation en="Make your own" kr="XPLA Local Network를" />
               <br />
-              <span className="font-bold text-[24px]">XPLA </span>Local Network
+              <CustomTranslation en="space!" kr="활용하여" />
+              <br />
+              <span className="font-bold text-[24px]">
+                {" "}
+                <CustomTranslation en="XPLA " kr="" />
+              </span>
+              <CustomTranslation
+                en="Local Network"
+                kr="나만의 개발 환경 구축하기"
+              />
             </div>
           ),
         },
@@ -110,17 +160,35 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/startlearning/tutorial/deep-understand-xpla/account-sequence",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Learn about 
+              <CustomTranslation en="Learn about" kr="" />
               <br />
-              <span className="font-bold text-[20px]">Account number <span className="font-semibold">and</span> Sequence!</span>
+              <span className="font-bold text-[20px]">
+                Account number{" "}
+                <span className="font-semibold">
+                  {" "}
+                  <CustomTranslation en="and" kr="&" />
+                </span>{" "}
+                <CustomTranslation en="Sequence!" kr="Sequence" />
+              </span>
+              <CustomTranslation en="" kr=" 알아보기" />
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Learn about 
+              <CustomTranslation en="Learn about" kr="" />
+              {i18n.currentLocale === "en" && <br />}
+              <span className="font-bold text-[24px]">
+                Account number{" "}
+                <span className="font-semibold">
+                  {" "}
+                  <CustomTranslation en="and" kr="&" />
+                </span>
+              </span>
               <br />
-              <span className="font-bold text-[24px]">Account number <span className="font-semibold">and</span></span>
-              <br />
-              <span className="font-bold text-[24px]">Sequence!</span>
+              <span className="font-bold text-[24px]">
+                {" "}
+                <CustomTranslation en="Sequence!" kr="Sequence" />
+              </span>
+              <CustomTranslation en="" kr=" 알아보기" />
             </div>
           ),
         },
@@ -128,58 +196,89 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/startlearning/tutorial/deep-understand-xpla/walletprovider",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Integrate
+              <CustomTranslation en="Integrate" kr="Wallet Connect" />
               <br />
-              <span className="font-bold text-[20px]">WALLET CONNECT!</span>
+              <span className="font-bold text-[20px]">
+                <CustomTranslation en="WALLET CONNECT!" kr="" />
+              </span>
+              <CustomTranslation en="" kr="도입하기" />
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Integrate
+              <CustomTranslation en="Integrate" kr="Wallet Connect" />
               <br />
-              <span className="font-bold text-[24px]">WALLET</span>
-              <br />
-              <span className="font-bold text-[24px]">CONNECT!</span>
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="WALLET " kr="" />
+              </span>
+              {i18n.currentLocale === "en" && <br />}
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="CONNECT!" kr="" />
+              </span>
+              <CustomTranslation en="" kr="도입하기" />
             </div>
           ),
         },
       ],
     },
     {
-      title: ["Add Web3 to your project", "with XPLA!"],
+      title: [
+        i18n.currentLocale === "en"
+          ? "Add Web3 to your project"
+          : "XPLA와 연결되는",
+        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 프로젝트 빌드하기",
+      ],
       color: "#FFE200",
       contents: [
         {
           link: "/startlearning/tutorial/deep-understand-xpla/write-contract",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Deploy your own
+              <CustomTranslation
+                en="Deploy your own"
+                kr="나만의 Contract 작성하고"
+              />
               <br />
-              <span className="font-bold text-[20px]">CONTRACT on XPLA</span>
+              <span className="font-bold text-[20px]">
+                <CustomTranslation en="CONTRACT on XPLA" kr="" />
+              </span>
+              <CustomTranslation en="" kr="XPLA에서 실행하기" />
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Deploy your own
+              <CustomTranslation en="Deploy your own" kr="나만의" />
               <br />
-              <span className="font-bold text-[24px]">CONTRACT </span>on
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="CONTRACT" kr="" />{" "}
+              </span>
+              <CustomTranslation en="on" kr="Contract 작성하고" />
               <br />
-              <span className="font-bold text-[24px]">XPLA</span>
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="XPLA" kr="" />
+              </span>
+              <CustomTranslation en="" kr="XPLA에서 실행하기" />
             </div>
           ),
         },
         {
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Exchange Tokens with
+              <CustomTranslation en="Exchange Tokens with" kr="CONVERT" />
               <br />
-              <span className="font-bold text-[20px]">CONVERT! </span>
+              <span className="font-bold text-[20px]">
+                <CustomTranslation en="CONVERT!" kr="" />
+              </span>
+              <CustomTranslation en="" kr="알아보기" />
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Exchange
+              <CustomTranslation en="Exchange" kr="CONVERT" />
+              {i18n.currentLocale === "en" && <br />}
+              <CustomTranslation en="Tokens with" kr="" />
               <br />
-              Tokens with
-              <br />
-              <span className="font-bold text-[24px]">CONVERT!</span>
+              <span className="font-bold text-[24px]">
+                <CustomTranslation en="CONVERT!" kr="" />
+              </span>
+              <CustomTranslation en="" kr="알아보기" />
             </div>
           ),
         },
@@ -187,17 +286,25 @@ export default function IntroduceTutorial(): JSX.Element {
           link: "/startlearning/tutorial/deep-understand-xpla/swap",
           description: matches ? (
             <span className="font-semibold text-[20px]">
-              Exchange Tokens
+              <CustomTranslation en="Exchange Tokens" kr="SWAP" />
               <br />
-              <span className=" text-[20px]">to $XPLA with <span className="font-bold">SWAP!</span></span>
+              <span className=" text-[20px]">
+                <CustomTranslation en="to $XPLA with" kr="알아보기" />
+                <span className="font-bold">
+                  <CustomTranslation en="SWAP!" kr="" />
+                </span>
+              </span>
             </span>
           ) : (
             <div className="font-semibold text-[24px] h-[197px]">
-              Exchange
+              <CustomTranslation en="Exchange" kr="SWAP" />
+              {i18n.currentLocale === "en" && <br />}
+              <CustomTranslation en="Tokens to $XPLA with" kr="" />
               <br />
-              <span className="text-[24px]">Tokens to $XPLA with</span>
-              <br />
-              <span className="font-bold text-[24px]">SWAP!</span>
+              <span className="font-bold">
+                <CustomTranslation en="SWAP!" kr="" />
+              </span>
+              <CustomTranslation en="" kr="알아보기" />
             </div>
           ),
         },
