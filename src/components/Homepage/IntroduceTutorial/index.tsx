@@ -225,7 +225,7 @@ export default function IntroduceTutorial(): JSX.Element {
         i18n.currentLocale === "en"
           ? "Add Web3 to your project"
           : "XPLA와 연결되는",
-        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 프로젝트 빌드하기",
+        i18n.currentLocale === "en" ? "with XPLA!" : "Web3 프로젝트 시작하기",
       ],
       color: "#FFE200",
       contents: [
