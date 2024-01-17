@@ -34,6 +34,8 @@ Overview
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/tutorial/deep-understand-xpla/account-sequence">Decode Account Numbers and Sequences in transactions</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/tutorial/deep-understand-xpla/walletprovider">Connect react with XPLA Vault wallet via wallet provider</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/tutorial/deep-understand-xpla/write-contract">Write and build Cosmwasm contracts</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/tutorial/deep-understand-xpla/convert">Design Convert System</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/tutorial/deep-understand-xpla/swap">Design Swap System</a>
 <br/></pre>
 <br />
 
