@@ -263,6 +263,7 @@ export default function IntroduceTutorial(): JSX.Element {
           ),
         },
         {
+          link: "/startlearning/tutorial/deep-understand-xpla/convert",
           description: matches ? (
             <span className="font-semibold text-[20px]">
               <CustomTranslation en="Exchange Tokens with" kr="CONVERT" />
