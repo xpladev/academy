@@ -8,8 +8,8 @@ export default function Feedback(): JSX.Element {
       description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
       <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSdku5qmCiqNG9Dfc4L4ojkxsbTblzVsg0ZWcm6MmYU_3sR29Q/viewform?embedded=true"
-        className="w-full h-[1418px] my-[20px]"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSeDXnL_uOOSBJY4B_swG4sVf7hrtrQAh68aPLKXMVzRMaGBbg/viewform?embedded=true"
+        className="w-full h-[1500px] my-[20px]"
         frameborder="0"
         marginheight="0"
         marginwidth="0"
