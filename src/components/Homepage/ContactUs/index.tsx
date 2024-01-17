@@ -26,7 +26,7 @@ export default function ContactUs() {
           <span className="text-[#000000] font-semibold text-[30px] md:text-[42px] text-center">
             Interested in Collaborating?
           </span>
-            <a href="mailto:xpla_official@xpla.io" className={clsx(
+            <a href="mailto:academy@xpla.io" className={clsx(
               "w-fit bg-[#00B2FC] flex items-center justify-center py-[5px] px-[36px] text-[#000000] hover:text-[#000000] hover:no-underline",
               styles.contactButton
             )}>
