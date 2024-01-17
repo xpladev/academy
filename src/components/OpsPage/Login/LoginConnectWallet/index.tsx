@@ -1,4 +1,4 @@
-import { ConnectType, useWallet, WalletStatus } from "@xpla/wallet-provider";
+import { Connection, ConnectType, useWallet, WalletStatus } from "@xpla/wallet-provider";
 import React, { useEffect } from "react";
 import { selectConnection } from "../../../../components/Wallet/ConnectModal";
 import clsx from "clsx";
@@ -16,20 +16,51 @@ export default function LoginConnectWallet() {
   const isMobile = useMediaQuery("(max-width:996px)");
 
   const clickConnect = async () => {
-    if (
-      availableConnections.filter(
-        (connection) => connection.type === ConnectType.EXTENSION
-      ).length === 0
-    ) {
-      setLoginModalOpen(MODALTYPE.OPENWITHSESSIONERROR);
-      return;
-    }
-
     try {
+      const available: Connection[] = availableConnections.filter(
+        (connection) => connection.type === ConnectType.EXTENSION
+      );
+
+      available.map((a) => {
+        if (a.icon === 'https://assets.xpla.io/icon/extension/icon-c2xvault.png') {
+          return {type: 'EXTENSION', name: 'XPLA Vault Wallet', icon: 'https://assets.xpla.io/icon/extension/icon.png', identifier: 'xplavault'};
+        } else {
+          return a
+        }
+      })
+      console.log(available)
+
+      if (
+        available.filter((c) => c.name === "XPLA Vault Wallet").length === 0
+        ) {
+
+          available.unshift({
+            type: ConnectType.READONLY,
+            name: "XPLA Vault Wallet",
+            icon: "https://assets.xpla.io/icon/extension/icon.png",
+            identifier: "https://download-vault.xpla.io",
+          } as Connection);
+        }
+        if (
+          available.filter((c) => c.name === "XPLA GAMES Wallet").length === 0
+        ) {
+          available.splice(1, 0, {
+            type: ConnectType.READONLY,
+            name: "XPLA GAMES Wallet",
+            icon: "https://assets.xpla.io/icon/extension/icon.png",
+            identifier: "https://xpla.games/download",
+          } as Connection);
+        }
+
       const selected = await selectConnection(
-        availableConnections.filter(
-          (connection) => connection.type === ConnectType.EXTENSION
-        )
+        available.filter((connection) => {
+          if (connection.name === "XPLA GAMES Wallet") {
+            connection.icon = "https://xpla.events/img/xplagames.svg";
+            return connection;
+          } else {
+            return connection;
+          }
+        })
       );
       
       if (!selected) {
@@ -37,6 +68,11 @@ export default function LoginConnectWallet() {
       } else {
         const type = selected[0];
         const identifier = selected[1] || "";
+        if (type === ConnectType.READONLY) {
+          window.open(identifier);
+          return;
+        }
+
         connect(type, identifier);
         setLoginLoading(true);
       }
