@@ -85,12 +85,7 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
         </div>
         <img
           className={
-            clsx("hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:absolute", 
-            {
-               "2xl:left-[634px]" : i18n.currentLocale === "en",
-               "2xl:left-[660px]" : i18n.currentLocale === "ko-kr",
-            }
-            )
+            clsx("hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:absolute 2xl:left-[610px]")
           }
           src={`/img/Homepage/explorer-play.svg`}
           alt="explorer-play"
