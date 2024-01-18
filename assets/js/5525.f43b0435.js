@@ -1,0 +1,1 @@
+(self.webpackChunkxpla_academy=self.webpackChunkxpla_academy||[]).push([[5525],{15525:()=>{}}]);
