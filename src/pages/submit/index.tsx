@@ -8,7 +8,7 @@ export default function Submit(): JSX.Element {
       description="Tutorials & Guides for Integrating XPLA into your project! Master the world of XPLA step by step."
     >
       <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLScgrORlPZ9Hjnx4oIUqX3UHFaidEEDrYUMtmOu4_14Le9l8NQ/viewform?embedded=true"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfYJ7cizoWyPFv9ISw4S2uyIutn_WaEIVX1YQA6nRrJrRi0Eg/viewform?embedded=true"
         className="w-full h-[1200px] my-[20px] overflow-hidden"
         frameborder="0"
         marginheight="0"
