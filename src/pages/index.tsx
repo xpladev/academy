@@ -12,12 +12,14 @@ import IntroduceTutorial from "../components/Homepage/IntroduceTutorial";
 import ContactUs from "../components/Homepage/ContactUs";
 import CustomTranslation from "@site/src/util/CustomTranslation";
 import JoinCommunity from "../components/Homepage/JoinCommunity";
+import Modal from "@site/src/components/Modal";
 
 import {
   WalletControllerChainOptions,
   getChainOptions,
 } from "@xpla/wallet-provider";
 import clsx from "clsx";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig, i18n } = useDocusaurusContext();
@@ -163,6 +165,11 @@ export default function Home(): JSX.Element {
         <JoinCommunity />
         <ContactUs />
       </main>
+      <BrowserOnly>
+      {
+        () => <Modal />
+      }
+      </BrowserOnly>
     </Layout>
   );
 }

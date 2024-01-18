@@ -3,18 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 
 const Modal = () => {
-  const localModal = localStorage.getItem("modal");
-  const [modalOpen, setModalOpen] = useState<boolean>(
-    localModal && Number(localModal) + 1 === window.history.length
-      ? false
-      : true
-  );
-  
-  useEffect(() => {
-    if (localModal && Number(localModal) + 1 === window.history.length) {
-      localStorage.setItem("modal", Number(localModal) + 1);
-    }
-  }, []);
+  const [modalOpen, setModalOpen] = useState<boolean>(true);
 
   return (
     <MuiModal open={modalOpen}>
@@ -51,7 +40,6 @@ const Modal = () => {
         </div>
         <button
           onClick={() => {
-            localStorage.setItem("modal", window.history.length);
             setModalOpen(false);
           }}
           className="buttonShadow bg-[#004FFF] text-white font-medium text-center text-[20px] leading-[24px] w-full max-w-[185px] py-[10px]"

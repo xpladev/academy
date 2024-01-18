@@ -173,11 +173,6 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
           </Link>
         </div> */}
       </div>
-      <BrowserOnly>
-      {
-        () => <Modal />
-      }
-      </BrowserOnly>
     </footer>
   );
 }
