@@ -161,7 +161,7 @@ const Leaderboard = () => {
     }
   }
 
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
     if (
       modalOpen !== TXMODALTYPE.NOWINCONFIRMATION &&
       modalOpen !== TXMODALTYPE.TXINPROGRESS
@@ -169,6 +169,12 @@ const Leaderboard = () => {
       setModalOpen(TXMODALTYPE.NOTOPEN);
       setRequestError(null);
       setTxhash(null);
+      await queryClient.invalidateQueries({
+        queryKey: ["useUserInfo", userAddress],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["useRankingInfo", userAddress],
+      });
     }
   };
 
