@@ -19,7 +19,7 @@ const Modal = () => {
   return (
     <MuiModal open={modalOpen}>
       <div
-        className="p-[20px] m-[20px] w-[500px] h-[400px] modal-bg border-[1px] border-solid bg-white text-center"
+        className="p-[20px]  max-[540px]:w-[300px] w-[500px] h-[400px] modal-bg border-[1px] border-solid bg-white text-center"
         style={{
           position: "absolute",
           top: "50%",
