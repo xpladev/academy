@@ -49,7 +49,12 @@ export default function IntroduceTutorial(): JSX.Element {
               <span className="font-bold text-[20px]"> TRANSACTIONS!</span>
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx(" text-[24px] h-[197px]", {
+                "font-semibold": i18n.currentLocale === "en",
+                "font-bold": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Experience the" kr="Wallet을 만들고," />
               <br />
               <CustomTranslation en="TESTNET!" kr="Testnet에서" />
@@ -77,7 +82,12 @@ export default function IntroduceTutorial(): JSX.Element {
               </span>
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx("text-[24px] h-[197px]", {
+                "font-semibold": i18n.currentLocale === "en",
+                "font-bold": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Play with your Creation!" kr="나만의" />
               <br />
               <CustomTranslation en="Issue" kr="토큰 만들기" />
@@ -100,7 +110,12 @@ export default function IntroduceTutorial(): JSX.Element {
               </span>
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx("text-[24px] h-[197px]", {
+                "font-semibold": i18n.currentLocale === "en",
+                "font-bold": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Play with your" kr="나만의" />
               <br />
               <CustomTranslation en="Creation!" kr="NFT 만들기" />
@@ -140,12 +155,14 @@ export default function IntroduceTutorial(): JSX.Element {
               </span>
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx("text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Make your own" kr="XPLA Local Network로" />
-              {
-                i18n.currentLocale ==="en" &&
-              <br />
-              }
+              {i18n.currentLocale === "en" && <br />}
               <CustomTranslation en="space!" kr="" />
               <br />
               <span className="font-bold text-[24px]">
@@ -176,13 +193,20 @@ export default function IntroduceTutorial(): JSX.Element {
               <CustomTranslation en="" kr=" 알아보기" />
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx("text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Learn about" kr="" />
               {i18n.currentLocale === "en" && <br />}
-              <span className={clsx("text-[24px]", {
-                "font-bold" :  i18n.currentLocale === "en",
-                "font-semibold" :  i18n.currentLocale === "ko-kr",
-              })}>
+              <span
+                className={clsx("text-[24px]", {
+                  "font-bold": i18n.currentLocale === "en",
+                  "font-semibold": i18n.currentLocale === "ko-kr",
+                })}
+              >
                 Account number{" "}
                 <span className="font-semibold">
                   {" "}
@@ -190,10 +214,12 @@ export default function IntroduceTutorial(): JSX.Element {
                 </span>
               </span>
               <br />
-              <span className={clsx("text-[24px]", {
-                "font-bold" :  i18n.currentLocale === "en",
-                "font-semibold" :  i18n.currentLocale === "ko-kr",
-              })}>
+              <span
+                className={clsx("text-[24px]", {
+                  "font-bold": i18n.currentLocale === "en",
+                  "font-semibold": i18n.currentLocale === "ko-kr",
+                })}
+              >
                 {" "}
                 <CustomTranslation en="Sequence!" kr="Sequence" />
               </span>
@@ -213,7 +239,12 @@ export default function IntroduceTutorial(): JSX.Element {
               <CustomTranslation en="" kr="도입하기" />
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx(" text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Integrate" kr="Wallet Connect" />
               <br />
               <span className="font-bold text-[24px]">
@@ -253,7 +284,12 @@ export default function IntroduceTutorial(): JSX.Element {
               <CustomTranslation en="" kr="XPLA에서 실행하기" />
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx(" text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Deploy your own" kr="나만의" />
               <br />
               <span className="font-bold text-[24px]">
@@ -280,7 +316,12 @@ export default function IntroduceTutorial(): JSX.Element {
               <CustomTranslation en="" kr="알아보기" />
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx(" text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Exchange" kr="CONVERT" />
               {i18n.currentLocale === "en" && <br />}
               <CustomTranslation en="Tokens with" kr="" />
@@ -306,7 +347,12 @@ export default function IntroduceTutorial(): JSX.Element {
               </span>
             </span>
           ) : (
-            <div className="font-semibold text-[24px] h-[197px]">
+            <div
+              className={clsx(" text-[24px] h-[197px]", {
+                "font-semibold ": i18n.currentLocale === "en",
+                "font-bold ": i18n.currentLocale === "ko-kr",
+              })}
+            >
               <CustomTranslation en="Exchange" kr="SWAP" />
               {i18n.currentLocale === "en" && <br />}
               <CustomTranslation en="Tokens to $XPLA with" kr="" />
