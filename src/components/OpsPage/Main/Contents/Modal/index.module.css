@@ -1,0 +1,10 @@
+.rotateIcon {
+  animation: rotate_image 3s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
+}

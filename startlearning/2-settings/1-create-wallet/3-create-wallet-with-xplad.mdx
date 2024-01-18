@@ -1,0 +1,216 @@
+---
+sidebar_position: 4
+---
+
+# Creating a Wallet (CLI)
+
+import Details from '@theme/Details';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import Admonition from '@theme/Admonition';
+import Link from "@docusaurus/Link";
+
+Installing xplad enables you to easily create a Wallet even through the command-line interface (CLI).
+If you're not familiar with the CLI or encounter difficulties with installing xplad, feel free to proceed to the [next step](/startlearning/settings/create-wallet/get-testnet-xpla) directly. (Come again later!)
+
+<Details summary="What is xplad?">
+
+xplad is a CLI for direct interaction with the XPLA Chain.
+
+With xplad, you can accomplish a variety of tasks. You can send queries, create transactions, and even use it for running a [Full-node](https://docs.xpla.io/full-node/full-node/run-a-full-node/overview/).
+
+For more details about xplad, check the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/install-xplad/) or [Github](https://github.com/xpladev/xpla).
+
+</Details>
+
+## Installing xplad {#installxplad}
+
+Let's start by installing xplad. You can also refer to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/install-xplad/) for installation.
+
+<Tabs groupId="operating-systems">
+
+  <TabItem value="win" label="Windows">
+    1. To use Linux in a Windows environment,<Link to="https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview"> WSL(Windows Subsystem for Linux)</Link> is required. Please install and run WSL.
+    <br />
+    <br />
+    2. Install <Link to="https://go.dev/">Golang</Link> in WSL Environment.
+    <CodeBlock language="bash"> 
+{
+    `sudo apt-get update
+wget https://golang.org/dl/go1.18.1.linux-amd64.tar.gz tar -xvf go1.18.1.linux-amd64.tar.gz
+rm -f go1.18.1.linux-amd64.tar.gz
+mkdir app
+mkdir app/bin
+mkdir app/pkg`
+}
+</CodeBlock>
+    <br/>
+    3. Set up the GOPATH and GOBIN environment variables. Open .profile with vim Editor.
+    <CodeBlock language="bash"> 
+{
+    `vim .profile`
+}
+</CodeBlock>
+    <br/>
+    Fix .profile according to the contents below.
+    <br/>
+    <CodeBlock language="bash"> 
+    {
+    `export GOROOT=$HOME/go
+export GOPATH=$HOME/app
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH`
+}
+</CodeBlock>
+<br/>
+Change the settings with .profile.
+    <CodeBlock language="bash"> 
+    {
+    `source .profile`
+}
+</CodeBlock>
+    <br/>
+    4. Clone the source code of xplad in <a target="_blank" href="https://github.com/xpladev/xpla">Github</a>.
+    <br/>
+    <CodeBlock language="bash">
+{
+    `git clone https://github.com/xpladev/xpla
+cd xpla`
+}
+    </CodeBlock>
+    <br/>
+    5. Build xplad for execution.
+    <br/>
+    <CodeBlock language="bash">
+    {
+        `make install`
+    }
+    </CodeBlock>
+    <br/>
+    6. Confirm that xplad is installed correctly.
+    <CodeBlock language="bash">
+    {
+        `xplad version --long`
+    }
+    </CodeBlock>
+    If you see results similar to the following, xplad is installed properly. 
+    <CodeBlock language="bash">
+{
+    `name: xpla
+server_name: xplad
+version: v0.0.5
+commit: d947adaefadda0f29c92f18e8b33f769816f3c33
+build_tags: netgo,ledger
+go: go version go1.18.4 darwin/amd64`
+}
+    </CodeBlock>
+    <br/>
+    <Admonition type="danger" title="If you encounter an error…">
+    If you encounter an  <code>xplad: command not found</code> error message, try executing the command below and then proceed with step 4 once again.
+        <CodeBlock language="bash">
+        {
+            `export PATH=$PATH:$(go env GOPATH)/bin`
+        }
+        </CodeBlock>
+    </Admonition>
+  </TabItem>
+
+  <TabItem value="mac" label="macOS">
+    1. Click on the latest release version on <a target="_blank" href="https://github.com/xpladev/xpla/tags">
+        Github
+        </a>.
+    <br/>
+    <br/>
+    2. Click on <code>
+    Source code (tar.gz)
+    </code> 
+     &nbsp;to download the&nbsp; 
+    <code>
+    {`xpla_<latest-version-here>.tar.gz`}
+    </code> file.
+    <br/>
+    <br/>
+    3. Double-click the downloaded file to extract the contents.
+    <br/>
+    <br/>
+    4. Set the extracted folder as your working directory.
+    <CodeBlock language="bash">
+    {
+        `cd Downloads/xpla_<downloaded-version>/`
+    }
+    </CodeBlock>
+    5. Copy <code>
+    libwasmvm.dylib
+    </code>&nbsp;to&nbsp;
+    <code>
+    /lib
+    </code>
+     &nbsp;directory.
+    <CodeBlock language="bash">
+    {
+        `sudo cp libwasmvm.dylib /usr/local/lib`
+    }
+    </CodeBlock>
+    <Admonition type="danger" title="If you encounter an error…">
+    For M1 Mac users, create the <code>/lib</code> and <code>/bin</code> folders inside the <code>/usr/local</code> directory.
+        <CodeBlock language="bash">
+{
+    `sudo cd /usr/local
+sudo mkdir lib
+sudo mkdir bin`
+}
+        </CodeBlock>
+    </Admonition>
+    6. Add  <code>
+    xplad
+    </code> to your PATH.
+    <CodeBlock language="bash">
+    {
+        `sudo cp xplad /usr/local/bin`
+    }
+    </CodeBlock>
+    7. Verify that xplad is installed correctly.
+    <CodeBlock language="bash">
+    {
+        `xplad version --long`
+    }
+    </CodeBlock>
+
+
+  </TabItem>
+</Tabs>
+
+## Creating a Wallet with xplad {#makewallet}
+
+Is xplad all set up and ready to go? Now, let's use xplad to create a Wallet.
+
+You can create a wallet using the following command.
+
+```bash
+xplad keys add <your-key-name>
+```
+
+Replace `<your-key-name>` with the name you want to give your wallet. For example, you could run `xplad keys add test1`.
+
+You'll receive results similar to the ones shown below.
+
+```bash
+$ xplad keys add test1
+Enter keyring passphrase:
+
+- name: test1
+  type: local
+  address: xpla1z92x0yghmyz4k755d8f3vcm478se5rl5zl7sqr
+  pubkey: '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"AgTUIN8fbHKx9O26MkdWIsV+97/trkIbLD/cqU7m4s6N"}'
+  mnemonic: ""
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+state wall exist drum depart between debate inject scorpion truly equip smile height window rural install crystal crumble lock begin inform blur since army
+```
+
+Your mnemonic words and wallet address will be displayed in the CLI. Your wallet has been successfully created! Remember to SECURELY STORE your mnemonic words.
+
+For more details about the wallet creation command (`xplad keys add`), refer to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/subcommands/#keys-add). You can also explore more commands that xplad has to offer by referring to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/commands/).

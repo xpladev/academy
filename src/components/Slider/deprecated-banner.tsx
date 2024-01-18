@@ -74,7 +74,7 @@ const Banner = () => {
     <div className={`w-full mb-10`}>
       <Slider {...settings} ref={bannerRef}>
         {sponsers.map((sponser) => (
-          <SponserItem url={sponser.url} imgsrc={sponser.imgsrc} />
+          <SponserItem key={sponser.url} url={sponser.url} imgsrc={sponser.imgsrc} />
         ))}
       </Slider>
     </div>

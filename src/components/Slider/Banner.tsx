@@ -61,14 +61,14 @@ const Banner = () => {
         className={`z-0 overflow-hidden w-full whitespace-nowrap slide-left absolute ${isHover ? 'pause' : ''}`}
       >
         {sponsers.map((sponser) => (
-          <SponserItem url={sponser.url} imgsrc={sponser.imgsrc} />
+          <SponserItem key={sponser.url} url={sponser.url} imgsrc={sponser.imgsrc} />
         ))}
       </div>
       <div
         className={`z-0 overflow-hidden w-full whitespace-nowrap slide-right absolute ${isHover ? 'pause' : ''}`}
       >
         {sponsers.map((sponser) => (
-          <SponserItem url={sponser.url} imgsrc={sponser.imgsrc} />
+          <SponserItem key={sponser.url} url={sponser.url} imgsrc={sponser.imgsrc} />
         ))}
       </div>
     </div>
@@ -77,7 +77,7 @@ const Banner = () => {
 
 const SponserItem = ({ url, imgsrc }: SponserItemType) => {
   return (
-    <Link className="w-[180px] h-[100px]" to={url}>
+    <Link className="w-[180px] h-[100px]" to={url} aria-label="sponser-link">
       <img className="w-[180px] h-[100px]" src={imgsrc} />
     </Link>
   );

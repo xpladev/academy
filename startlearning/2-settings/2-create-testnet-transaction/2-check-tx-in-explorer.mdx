@@ -1,0 +1,122 @@
+---
+sidebar_position: 2
+---
+
+# Check Transactions (Explorer)
+
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+Using [XPLA Explorer](https://explorer.xpla.io/), you can explore transactions more in detail. Let's go through the following steps to check the transaction we created in the [previous section](/startlearning/settings/create-testnet-transaction/send-tx):
+
+1. Access the [XPLA Explorer](https://explorer.xpla.io/).
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/go-explorer.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+2. Change the network to `testnet`.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/select-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+3. Search for the hash value you obtained as a result when you executed the example code in the [previous step](/startlearning/settings/create-testnet-transaction/send-tx). If you didn't record the hash value, you can use an [alternative method below](/startlearning/settings/create-testnet-transaction/check-tx-in-explorer#checkwallet).
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/search-tx.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+4. Find the transaction details as the result!
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-tx.png" />
+</div>
+</BrowserWindow>
+
+## Exploring Wallet Information {#checkwallet}
+
+1. Copy your wallet address from Vault.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/copy-address.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+2. Access the [XPLA Explorer](https://explorer.xpla.io/).
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/go-explorer.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+3. Change the network to `testnet`.
+
+<BrowserWindow url="https://explorer.xpla.io/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/select-testnet.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+4. Search for the copied wallet address.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/search-account.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+5. You can see wallet-related information such as wallet balance and transaction history. You can view both the transaction where you received 100 XPLA from the Faucet and the transaction where you sent 25aXPLA.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-account.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+6. Click on the transaction hash value to view the transaction details.
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/address/xpla1f6hcc3hpxyg8rst9d5sg393e5jaj7453t0xmz8" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/click-tx.png" />
+</div>
+</BrowserWindow>
+
+<BrowserWindow url="https://explorer.xpla.io/testnet/tx/ECDBC35B66384DEE25987AA0DDAE8CF946D1F4907B04A0E77939988474013353" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <VaultImgCard style={{zIndex : 1, maxWidth : "100%"}} imgSrc="/img/2-settings/2-create-testnet-transaction/check-tx-in-explorer/see-tx.png" />
+</div>
+</BrowserWindow>
+
+<br/>
+
+By using [XPLA Explorer](https://explorer.xpla.io/), you can thoroughly inspect transactions. Moreover, you can also have a quick overview of real-time transactions and information about the XPLA blockchain, including whether contracts are created and more.
+

@@ -1,13 +1,41 @@
 diff --git a/node_modules/@xpla/wallet-controller/controller.js b/node_modules/@xpla/wallet-controller/controller.js
-index 3e1390a..3912df1 100644
+index 3e1390a..c1b99e2 100644
 --- a/node_modules/@xpla/wallet-controller/controller.js
 +++ b/node_modules/@xpla/wallet-controller/controller.js
-@@ -517,7 +517,7 @@ export class WalletController {
-                             case WalletConnectSessionStatus.CONNECTED:
-                                 this.updateStates({
-                                     status: WalletStatus.WALLET_CONNECTED,
--                                    network: (_a = this.options.walletConnectChainIds[status.chainId]) !== null && _a !== void 0 ? _a : this.options.defaultNetwork,
-+                                    network: this.options.defaultNetwork,
-                                     wallets: [
-                                         {
-                                             connectType: ConnectType.WALLETCONNECT,
+@@ -39,7 +39,35 @@ const EMPTY_SUPPORT_FEATURES = new Set();
+ export class WalletController {
+     constructor(options) {
+         var _a;
+-        this.options = options;
++        this.options = JSON.stringify(options) === "{}" ? {
++            "defaultNetwork": {
++                "name": "mainnet",
++                "chainID": "dimension_37-1",
++                "lcd": "https://dimension-lcd.xpla.dev",
++                "ecd": "https://dimension-evm-rpc.xpla.dev",
++                "api": "https://dimension-api.xpla.io",
++                "walletconnectID": 1
++            },
++            "walletConnectChainIds": {
++                "0": {
++                    "name": "testnet",
++                    "chainID": "cube_47-5",
++                    "lcd": "https://cube-lcd.xpla.dev",
++                    "ecd": "https://cube-evm-rpc.xpla.dev",
++                    "api": "https://cube-api.xpla.io",
++                    "walletconnectID": 0
++                },
++                "1": {
++                    "name": "mainnet",
++                    "chainID": "dimension_37-1",
++                    "lcd": "https://dimension-lcd.xpla.dev",
++                    "ecd": "https://dimension-evm-rpc.xpla.dev",
++                    "api": "https://dimension-api.xpla.io",
++                    "walletconnectID": 1
++                }
++            }
++        } : options;
++
+         this.extension = null;
+         this.walletConnect = null;
+         this.readonlyWallet = null;

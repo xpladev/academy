@@ -16,17 +16,17 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 다음과 같은 절차로 Local Network를 알아볼 것입니다.
 
-1. [Prerequisite](/docs/tutorial/deep-understand-xpla/local-network#prerequisite)
+1. [Prerequisite](/startlearning/tutorial/deep-understand-xpla/local-network#prerequisite)
 
-2. [Local Network 실행](/docs/tutorial/deep-understand-xpla/local-network#run-local-network)
+2. [Local Network 실행](/startlearning/tutorial/deep-understand-xpla/local-network#run-local-network)
 
-3. [Local Network에서 xplad 사용하기](/docs/tutorial/deep-understand-xpla/local-network#use-xplad)
+3. [Local Network에서 xplad 사용하기](/startlearning/tutorial/deep-understand-xpla/local-network#use-xplad)
 
-4. [RPC 네트워크 이용하기](/docs/tutorial/deep-understand-xpla/local-network#use-rpc)
+4. [RPC 네트워크 이용하기](/startlearning/tutorial/deep-understand-xpla/local-network#use-rpc)
 
-5. [Swagger 이용하기](/docs/tutorial/deep-understand-xpla/local-network#use-swagger)
+5. [Swagger 이용하기](/startlearning/tutorial/deep-understand-xpla/local-network#use-swagger)
 
-6. [Javascript로 Local Network에 트랜잭션 생성하기](/docs/tutorial/deep-understand-xpla/local-network#use-js)
+6. [Javascript로 Local Network에 트랜잭션 생성하기](/startlearning/tutorial/deep-understand-xpla/local-network#use-js)
 
 ## Prerequisite {#prerequisite}
 
@@ -38,7 +38,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
 1. **Dockerfile** 이라는 이름으로 파일을 생성해주세요.
 
-2. 아래 코드를 복사하여 **Dockerfile** 파일에 붙여넣고 저장합니다. xplad를 설치하는 과정을 아래 **Dockerfile**을 통해 간편화한 것입니다. xplad에 관한 자세한 정보는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/install-xplad/)나 [Github](https://github.com/xpladev/xpla)을 참고해보세요.
+2. 아래 코드를 복사하여 **Dockerfile** 파일에 붙여넣고 저장합니다. xplad를 설치하는 과정을 아래 **Dockerfile**을 통해 간편화한 것입니다. xplad에 관한 자세한 정보는 [Docs](https://docs.xpla.io/develop/develop/tools/xplad/install-xplad/)나 [Github](https://github.com/xpladev/xpla)을 참고해보세요.
 
     ```dockerfile
     ########
@@ -137,7 +137,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     블록체인에서 첫번째로 만들어지는 블록을 Genesis 블록이라 부릅니다. Genesis 블록에 들어갈 데이터들을 저장한 파일이 Genesis 파일입니다. 같은 블록체인 네트워크에 참가하는 모든 노드들은 동일한 Genesis 파일을 가지고 블록 생성을 시작해야 합니다. 따라서 첫번째 블록부터 모두 똑같은 데이터를 가지게 되고, 각 노드들의 블록 해시값도 서로 일치하게 됩니다.
 
-    [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1)과 [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5)도 Genesis 파일이 있고, 모두 Github에서 확인하실 수 있습니다. 만약 Mainnet과 동일한 Genesis 파일을 사용한다면, 여러분도 Mainnet [Full Node(블록체인의 모든 정보를 저장하고 있는 노드)](https://docs.xpla.io/docs/full-node/run-a-full-node/overview/)를 운영할 수 있습니다. Mainnet과 Testnet의 Full Node를 운영하는 더 자세한 방법은 [Docs](https://docs.xpla.io/docs/full-node/run-a-full-node/join-a-network/#join-a-public-network)를 참고해보세요.
+    [Mainnet](https://github.com/xpladev/mainnet/tree/main/dimension_37-1)과 [Testnet](https://github.com/xpladev/testnets/tree/main/cube_47-5)도 Genesis 파일이 있고, 모두 Github에서 확인하실 수 있습니다. 만약 Mainnet과 동일한 Genesis 파일을 사용한다면, 여러분도 Mainnet [Full Node(블록체인의 모든 정보를 저장하고 있는 노드)](https://docs.xpla.io/full-node/full-node/run-a-full-node/overview/)를 운영할 수 있습니다. Mainnet과 Testnet의 Full Node를 운영하는 더 자세한 방법은 [Docs](https://docs.xpla.io/full-node/full-node/run-a-full-node/join-a-network/#join-a-public-network)를 참고해보세요.
 
     예제에서는 Mainnet도, Testnet도 아닌, Local Network를 운영할 것이기 때문에 직접 Genesis 파일을 만들어 볼 것입니다.
 
@@ -178,7 +178,7 @@ XPLA 블록체인에는 누구나 참여할 수 있는 Public Network가 존재�
 
     검증자(Validator)에게 일정 물량의 XPLA를 맡기는 행위를 Delegate라고 부르고, 맡긴 사람을 Delegator라고 합니다. Proof of State(PoS) 형식의 XPLA 블록체인에서 검증자는 블록 생성을 통해 수수료를 얻습니다. Delegator들은 검증자들이 블록 생성으로 얻는 수수료를, 각자 Delegate한 XPLA의 비율만큼 얻을 수 있습니다.
 
-    검증자들은 자신에게 Delegate된 총 XPLA 물량(Weight)에 따라 얼마나 자주 블록을 생성할 것인지 결정됩니다. Weight가 높은 검증자일수록 블록 생성 비율이 높아지게 됩니다. 더 자세한 내용은 [Docs](https://docs.xpla.io/docs/full-node/manage-a-validator/validator-faq/#what-is-staking)를 참고해보세요.
+    검증자들은 자신에게 Delegate된 총 XPLA 물량(Weight)에 따라 얼마나 자주 블록을 생성할 것인지 결정됩니다. Weight가 높은 검증자일수록 블록 생성 비율이 높아지게 됩니다. 더 자세한 내용은 [Docs](https://docs.xpla.io/full-node/full-node/manage-a-validator/validator-faq/#what-is-staking)를 참고해보세요.
 
     </Details>
 
@@ -383,7 +383,7 @@ container의 bash 환경에서 xplad를 사용해봅시다.
     xplad query tx <txhash>
     ```
 
-지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/docs/develop/tools/xplad/commands/)를 참고해보시거나, `xplad -h` command를 입력해보세요.    
+지금까지 xplad를 활용하여 Local Network 블록체인이 잘 동작하는 것을 확인하였습니다. 더 많은 xplad 명령어는 [Docs](https://docs.xpla.io/develop/develop/tools/xplad/commands/)를 참고해보시거나, `xplad -h` command를 입력해보세요.    
 
 ## RPC 네트워크 이용하기 {#use-rpc}
 
@@ -425,7 +425,7 @@ Send occured!
 }
 ```
 
-WebSocket을 활용하여 RPC 네트워크에 접근하고, 블록체인의 트랜잭션 생성을 감지하였습니다. [Docs](https://docs.xpla.io/docs/develop/tools/xpla-js/websockets/)와 [Github](https://github.com/xpladev/xpla.js/blob/main/src/client/WebSocketClient.ts)을 참고하여 WebSocket으로 더 다양한 작업을 진행해보세요.
+WebSocket을 활용하여 RPC 네트워크에 접근하고, 블록체인의 트랜잭션 생성을 감지하였습니다. [Docs](https://docs.xpla.io/develop/develop/tools/xpla-js/websockets/)와 [Github](https://github.com/xpladev/xpla.js/blob/main/src/client/WebSocketClient.ts)을 참고하여 WebSocket으로 더 다양한 작업을 진행해보세요.
 
 ## Swagger 이용하기 {#use-swagger}
 
@@ -493,7 +493,7 @@ main()
 
 결과로 나온 트랜잭션 해시값을 xplad를 이용하여 검색해보세요. 트랜잭션 데이터를 잘 가져올 수 있습니다.
 
-위 코드는 [이전 단계](/docs/settings/create-testnet-transaction/send-tx)에서 테스트넷에 전송 트랜잭션을 생성하는 코드와 크게 다르지 않습니다. 달라진 점은 LCDClient의 초깃값입니다. chainID와 URL 값을 Local Network에 맞게 변경해주었을 뿐입니다. 따라서 지금까지 Javascript로 진행한 모든 코드들도 LCDClient 초깃값만 수정하면 동일하게 Local Network에서 수행할 수 있습니다.
+위 코드는 [이전 단계](/startlearning/settings/create-testnet-transaction/send-tx)에서 테스트넷에 전송 트랜잭션을 생성하는 코드와 크게 다르지 않습니다. 달라진 점은 LCDClient의 초깃값입니다. chainID와 URL 값을 Local Network에 맞게 변경해주었을 뿐입니다. 따라서 지금까지 Javascript로 진행한 모든 코드들도 LCDClient 초깃값만 수정하면 동일하게 Local Network에서 수행할 수 있습니다.
 
 ## 마무리 {#conclusion}
 

@@ -1,0 +1,131 @@
+---
+sidebar_position: 1
+---
+
+# Creating a Wallet (Vault)
+
+import Card from "@site/src/components/Card";
+import VaultImgCard from "@site/src/components/VaultImgCard";
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
+In the world of blockchain, a wallet can mean software that takes care of a user's tokens or even the user's account itself.
+
+## Installing Vault {#install-vault}
+
+Vault is a prominent wallet application used within the XPLA blockchain! Let's go ahead and install the [Vault Chrome Extension](https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb), our tool of choice for this adventure.
+
+```mdx-code-block
+<div className="grid sm:grid-cols-2 gap-4 grid-cols-1">
+    <Card
+    imgLink={
+        "https://chrome.google.com/webstore/detail/xpla-vault-wallet/ocjobpilfplciaddcbafabcegbilnbnb"
+    }
+    imgSrc={"/img/2-settings/1-create-wallet/vault.jpg"}
+    title={"Vault"}
+    description={`Widely used on the XPLA blockchain network.`}
+    />
+    {/* <Card
+    imgLink={
+        "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
+    }
+    imgSrc={"/img/2-settings/1-create-wallet/metamask.jpg"}
+    title={"Metamask"}
+    description={`Ethereum 블록체인 네트워크에서 사용합니다.`}
+    /> */}
+ </div>
+```
+
+<br />
+
+Once you open up Vault as a Chrome Extension, you'll be greeted with a screen like the one below:
+
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/img/2-settings/1-create-wallet/google.png" />
+    </div>
+    <div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+        <VaultImgCard imgSrc="/img/2-settings/1-create-wallet/install-vault.png" />
+    </div>
+</BrowserWindow>
+
+<br />
+
+## Creating a Wallet {#createwallet}
+
+Create a Wallet in just a few steps using Vault:
+
+1. [Select "New wallet"](/startlearning/settings/create-wallet/create-wallet-with-vault#clicknewwallet)
+
+2. [Set up wallet info and securely store the mnemonic](/startlearning/settings/create-wallet/create-wallet-with-vault#savemnemonic)
+
+3. [Verify the mnemonic](/startlearning/settings/create-wallet/create-wallet-with-vault#verifymnemonic)
+
+4. [Connect the created wallet to Vault](/startlearning/settings/create-wallet/create-wallet-with-vault#connectwallet)
+
+### 1. Select "New wallet" {#clicknewwallet}
+
+Launch Vault and select `New wallet`.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/img/2-settings/1-create-wallet/select-newwallet.png" />
+</div>
+</BrowserWindow>
+
+### 2. Set up wallet info and securely store the mnemonic {#savemnemonic}
+
+Fill in the wallet's desired name and password, and SECURELY STORE the mnemonic words. (Always keep it safe!!!!)
+
+:::caution
+
+The mnemonic is crucial for wallet recovery. That means you need to remember your mnemonic to get back into your account. 
+
+If anyone knows or steals your Wallet mnemonic, it could lead to a complete loss of your wallet assets, which we definitely want to prevent. Therefore, keep it in a safe place and never disclose it to anyone. (Not even to your favorite cat.) 
+
+:::
+
+Then, hit the `Submit` button.
+
+<BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '58px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/img/2-settings/1-create-wallet/save-mnemonic.png" />
+</div>
+</BrowserWindow>
+
+### 3. Verify the mnemonic {#verifymnemonic}
+
+Please use the saved mnemonic and choose the words in the order displayed on the screen.
+
+<BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '55px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/img/2-settings/1-create-wallet/verify-mnemonic.png" />
+</div>
+</BrowserWindow>
+
+### 4. Connect the created wallet to Vault {#connectwallet}
+
+Ta-da! You just created a Wallet! Select `Connect` to link the newly generated wallet to `Vault`, and you're all set.
+
+<BrowserWindow url="chrome-extension://vault.xpla.io" bodyStyle={{padding: 0}}>
+<div className="flex justify-center" style={{backgroundColor : 'hsl(240, 20%, 97%)', position : 'relative'}}>
+    <div style={{position : 'absolute', backgroundColor : '#031435', height : '53px', width : '100%', top : 0, zIndex : 0}} />
+    <VaultImgCard style={{zIndex : 1}} imgSrc="/img/2-settings/1-create-wallet/connect-wallet.png" />
+</div>
+</BrowserWindow>
+
+Now you can access your wallet information directly from the Vault Chrome Extension.
+
+<BrowserWindow url="google.com" bodyStyle={{padding: "0px 0px 16px 0px", position : 'relative'}}>
+    <div className="flex justify-center" style={{width : '100%', height : '100%', top : 0, zIndex : 0, position: 'absolute' }}>
+        <img  style={{height : '100%'}} src="/img/2-settings/1-create-wallet/google.png" />
+    </div>
+<div className="flex justify-end" style={{zIndex : 1,position:'relative'}}>
+    <VaultImgCard imgSrc="/img/2-settings/1-create-wallet/create-success.png" />
+</div>
+</BrowserWindow>

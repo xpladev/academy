@@ -1,0 +1,9 @@
+.setWithWidth {
+    width: calc(100vw - 20px);
+    height: calc((100vw - 20px) * 75 / 90);
+}
+
+.setWithHeight {
+    height: calc(100vh - 100px);
+    width: calc((100vh - 100px) * 90 / 75);
+}

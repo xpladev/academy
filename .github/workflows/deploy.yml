@@ -22,6 +22,7 @@ jobs:
         run: |
           echo "GTAG=${{ secrets.GTAG }}" >> .env
           echo "GTM=${{ secrets.GTM }}" >> .env
+          echo "REACT_APP_SERVERURL=${{ secrets.REACT_APP_SERVERURL }}" >> .env
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2

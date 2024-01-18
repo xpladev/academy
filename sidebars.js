@@ -11,6 +11,7 @@ const sidebars = {
       defaultStyle: true,
     },
     'overview/intro',
+    'overview/demoGameOverview',
     {
       type: 'html',
       value: '<span class="sidebar-divider" />',
@@ -39,7 +40,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: 'Time to Make Transactions!',
-        description: `Let's use the $XPLA testnet tokens to leave a mark in the blockchain!`
+        description: `Let's use the $XPLA testnet coins to leave a mark in the blockchain!`
       },
       items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
     },
@@ -73,7 +74,7 @@ const sidebars = {
         title: 'Utilize NFT(CW721)',
         // description: ''
       },
-      items: ['tutorial/make-cw721/make-nft-vault', 'tutorial/make-cw721/make-nft-js', 'tutorial/make-cw721/query-cw721'],
+      items: ['tutorial/make-cw721/make-nft-vault', 'tutorial/make-cw721/make-nft-js', 'tutorial/make-cw721/query-cw721', 'tutorial/make-cw721/send-cw721'],
     },
     {
       type: 'category',
@@ -83,7 +84,7 @@ const sidebars = {
         title: 'Advanced - Dive deep into XPLA blockchain',
         // description: ''
       },
-      items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract'],
+      items: ['tutorial/deep-understand-xpla/local-network', 'tutorial/deep-understand-xpla/account-sequence', 'tutorial/deep-understand-xpla/walletprovider', 'tutorial/deep-understand-xpla/write-contract', 'tutorial/deep-understand-xpla/convert', 'tutorial/deep-understand-xpla/swap'],
     },
   ],
 };

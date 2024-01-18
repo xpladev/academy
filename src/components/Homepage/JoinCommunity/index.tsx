@@ -25,6 +25,7 @@ export default function JoinCommunity(): JSX.Element {
           to="https://6tpnthyk0ch.typeform.com/XPLATrailBlazer"
           className="w-fit"
           style={{ textDecoration: "none" }}
+          aria-label="xpla-trailblazer-link"
         >
           <span className={styles.registerNow}>Register Now</span>
         </Link>

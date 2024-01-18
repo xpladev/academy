@@ -1,15 +1,15 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 // const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const math = require('remark-math');
-const katex = require('rehype-katex');
+// const math = require('remark-math');
+// const katex = require('rehype-katex');
 
 require('dotenv').config();
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'XPLA ACADEMY',
-  tagline: 'Easily navigate the quick guides!',
+  tagline: 'Master the DEV world of XPLA step by step!',
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
@@ -40,13 +40,15 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          path: 'startlearning',
+          routeBasePath: 'startlearning',
           sidebarPath: require.resolve('./sidebars.js'),
 
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-            math
-          ],
-          rehypePlugins: [katex],
+          // remarkPlugins: [
+          //   [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          //   math
+          // ],
+          // rehypePlugins: [katex],
         },
         blog: {
           showReadingTime: true,
@@ -63,27 +65,34 @@ const config = {
       }),
     ],
   ],
-  stylesheets: [
-    {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-      type: 'text/css',
-      integrity:
-        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-      crossorigin: 'anonymous',
-    },
-  ],
+  // stylesheets: [
+  //   {
+  //     href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+  //     type: 'text/css',
+  //     integrity:
+  //       'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+  //     crossorigin: 'anonymous',
+  //   },
+  // ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       image: 'img/xpla-social-card.png',
+      metadata: [
+        {name: 'xpla-wallet'},
+      ],
       navbar: {
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Start Learning',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/xpladev',
@@ -92,8 +101,8 @@ const config = {
             'aria-label': 'GitHub repository',
           },
           {
-            type: 'localeDropdown',
-            position: 'right',
+            type: 'search',
+            position : 'right'
           },
         ],
       },
@@ -173,11 +182,25 @@ const config = {
         containerId: process.env.GTM,
       },
     ],
+    [
+      "docusaurus2-dotenv",
+      {
+        systemvars: true,
+      },
+    ],
   ],
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', [
+    "@easyops-cn/docusaurus-search-local",
+    /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+    ({
+      indexDocs: false,
+      hashed: true,
+      language: ["en", "ko"],
+    }),
+  ]],
   scripts: [
     {
       src: './pretendardFont.js',

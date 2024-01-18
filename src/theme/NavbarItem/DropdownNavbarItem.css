@@ -8,3 +8,6 @@
     margin : 0px;
 }
 
+.navbar__item {
+    padding : 0px !important;
+}

@@ -1,0 +1,501 @@
+---
+sidebar_position: 5
+---
+
+import Details from '@theme/Details';
+import {DIAMOND, ACADEMYTKN} from "@site/src/components/TokenImg";
+import {ConvertCase1, ConvertCase2} from "@site/src/util/ConvertSvg";
+import CustomHashLink from "@site/src/util/CustomHashLink";
+
+# Design Convert System
+
+## What is 'Convert'? {#what-is-convert}
+
+Have you played [🎮Break The Bricks](/#playgame)? (If not, go ahead and try out now!👾) In the game, you can earn DIAMOND(<DIAMOND />) through gameplay.
+
+🤯Did you know that DIAMOND(<DIAMOND />) is just game data, not a CW20 token for the blockchain?
+
+However, through the 'convert' feature on the [Web3 Gaming Ops](/ops) page, you can exchange your DIAMOND(<DIAMOND />) for ACADEMY-TKN(<ACADEMYTKN />), the CW20 token.💸😎
+
+Why use the 'Convert' process?
+Distributing CW20 tokens (<ACADEMYTKN />) directly as game rewards would lead to transaction fees every time. Which could be a pain in the butt for both gamers and game developers at some point. 😬
+
+To reduce fees, XPLA ACADEMY TEAM suggests designing in-game currency (<DIAMOND />) as rewards, letting users exchange DIAMOND(<DIAMOND />) for CW20 tokens (<ACADEMYTKN />) when they want! In this lesson, we'll look at how the Convert feature can be implemented.
+
+<Details summary="CW20 tokens vs. In-Game Currency">
+
+|Icon IMG|Name|Type|Storage Location|
+|:---:|:---:|:---:|:---:|
+|<DIAMOND />|DIAMOND|In-game currency|on Game DB as a game data|
+|<ACADEMYTKN />|ACADEMY-TKN|CW20 tokens|on XPLA Blockchain Network|
+
+In-game currency is most likely game data, like DIAMOND(<DIAMOND />). 
+If it's game data, it's unlikely to be saved on the blockchain network.
+
+</Details>
+
+## Learn how Convert works! {#convert-process}
+
+There are two scenarios when a user requests Convert:
+
+[1. I want to change in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1)
+
+[2. I want to change CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />)](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2)
+
+### Changing in-game currency to CW20 {#convert-case1}
+
+Let’s look at the first scenario. 
+The user's amount of in-game currency(<DIAMOND />) is tracked in the game's database, while the ownership of CW20(<ACADEMYTKN />) is recorded on the XPLA blockchain.
+To convert in-game currency(<DIAMOND />) to CW20(<ACADEMYTKN />), the game database needs to decrease the user's in-game currency(<DIAMOND />) balance, and CW20(<ACADEMYTKN />) must be sent to the user's wallet.
+
+Normally, when you send tokens on the blockchain, the sender pays the fees. But in Convert, the user getting the tokens pays the fees. 
+
+😰If the game developer pays all Convert fees, it's going to be tough to manage as more users Convert, causing higher expenses. 
+Therefore, a Convert transaction needs signatures from both <u>the game developer's wallet, for sending CW20 tokens</u>, and <u>the user's wallet, for covering the fees</u>. 🤝📝 (* By "game developer," it could be the game operator, company, etc.)
+
+The first scenario can be represented in a diagram as shown below. 
+It might seem complicated, but taking it step by step makes it easy to grasp.
+
+<ConvertCase1 />
+
+<br/>
+
+:::danger
+
+The example is just one way to set up Convert, missing some details like error handling. There's no one-size-fits-all method; how you design things like API or DB depends on the type of game. 
+
+So, use the example code as a guide and adjust it to fit your preferences!
+
+:::
+
+If multiple users send Convert requests simultaneously and the game DEV tries to create several Convert transactions at once, there's a problem. 
+Transactions with the same Sequence value can't be recorded on the blockchain, causing a Sequence Mismatch Error and may disrupt this process.
+To avoid this, each transaction should have a unique Sequence value, written in the order of the requests.
+
+If you use a Load Balancer for the game server, be cautious to avoid Sequence mismatch errors. If you're unsure about Sequence mismatch, check the [Decode Account Number and Sequences in transactions](/startlearning/tutorial/deep-understand-xpla/account-sequence) lesson for clarification.
+
+Let's see how it works with the following Pseudo code. (The code won't directly run as is because it's Pseudo code.)
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step1">Step 1.</span> User Client App -> Convert Server : Convert request to change in-game currency to CW20
+</CustomHashLink>
+
+
+```js {6} title="User Client App"
+import { useWallet } from "@xpla/wallet-provider";
+
+const { wallets } = useWallet();
+const userAddress = wallets[0].xplaAddress;
+
+const unsignedResponse = await axios.post(
+    "https://convertserver.com/gamecurrency-to-coin-unsigned", 
+    {
+        userAddress: userAddress, 
+        amount : 1,
+    }
+); 
+```
+
+User wants to change in-game currency to CW20. 
+The User Client App sends a POST request to the Convert Server, including the user's wallet address (userAddress) and the desired in-game currency amount (amount).
+
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step2">Step 2.</span> Convert Server -> Database (DB) : Check if the user has enough in-game currency and subtract it by the requested amount
+</CustomHashLink>
+
+```js title="Convert Server"
+db.query('update user_info set game_currency = game_currency - ? where pid = ? ', [req.body.amount, playerId]);
+```
+
+If the user has enough, subtract the requested Convert amount from their balance.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step3">Step 3.</span> Convert Server : Generate an unsigned transaction for the game DEV to send CW20 to user's wallet
+</CustomHashLink>
+
+```js {6,17,29,31} title="Convert Server"
+import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
+
+const lcd = new LCDClient({	chainID, URL });
+const tx_api = new TxAPI(lcd);
+
+const cw20TransferMsg = new MsgExecuteContract(
+        game_operator_address,
+        cw20_contract_address, 
+        {
+            transfer: {
+                recipient : req.body.userAddress,
+                amount: String(req.body.amount)
+            }
+        }
+    )
+
+const simul_fee = await tx_api.estimateFee(
+    [        
+    { 
+        sequenceNumber: game_operator_address_sequence, 
+        publicKey: game_operator_address_pubKey 
+    }
+    ],
+    {
+    msgs: [cw20TransferMsg],
+    gasAdjustment: 1.5,			
+    }
+);
+const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), req.body.userAddress); // gas_limit, amount, payer
+
+const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee }) // signers, options
+```
+
+Calculate the estimated transaction fee (simul_fee) and create a transaction for the game DEV's wallet (game_operator_address) to send CW20 to the user's wallet (userAddress). 
+
+When setting up the fee variable, make the user's wallet the fee payer by passing it as the payer parameter.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step4">Step 4.</span> Convert Server -> User Client App : Send unsigned transaction to the user
+</CustomHashLink>
+
+```js title="Convert Server"
+const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+const result = { unsignedTx : unsignedTx }
+return result
+```
+
+Respond to the User Client's POST request by sending the unsigned transaction.
+    
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step5">Step 5.</span> User Client App : User signs unsigned transaction. (agreeing to cover fees)
+</CustomHashLink>
+
+```js {9,12} title="User Client App"
+const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
+const unsignedTx = unsignedResponse.data.unsignedTx;
+
+if (unsignedTx === undefined) {
+    throw new Error("Response is undefined!");
+}
+const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+
+const { result: signedTx, success } = await connectedWallet.sign({
+    msgs: decodedTx.body.messages,
+    fee: decodedTx.auth_info.fee,
+    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+});
+```
+
+The user client signs the unsigned transaction (unsignedResponse) from the Convert Server. For the [multi-signature](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers) Convert transaction in [our first scenario](/startlearning/tutorial/deep-understand-xpla/convert#convert-case1), use the **SignMode.SIGN_MODE_LEGACY_AMINO_JSON** variable.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step6">Step 6.</span> User Client App -> Convert Server : Return the transaction with the user's signature
+</CustomHashLink>
+
+```js {3,6,7} title="User Client App"
+const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
+
+const res = await axios.post(
+    "https://convertserver.com/gamecurrency-to-coin-signed", 
+    {
+        wallet: userAddress,
+        userSignedTx: userSignedTx,
+    }
+);
+```
+
+The user client sends a POST request to the Convert Server with the transaction info (userSignedTx), including the user wallet address (userAddress) and signature.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step7">Step 7.</span> Convert Server -> Database(DB) : Lock DB,  request Sequence Data
+</CustomHashLink>
+
+```js {6,9} title="Convert Server"
+const game_opeartor_mk = new MnemonicKey({ mnemonic: opeartorMnemonicKey })
+const operatorWallet = lcd.wallet(game_opeartor_mk);
+const operatorState = await operatorWallet.accountNumberAndSequence()
+const operatorAccNum = operatorState.account_number   
+
+await db.beginTransaction()
+let txResult; 
+try {
+    const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]);
+    const operatorSeq = data[0].sequence
+```
+
+In the example, `beginTransaction` locks the DB, fetching the game operator wallet's Sequence with a query.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step8">Step 8.</span> Convert Server : Sign transaction with the game DEV’s wallet using Sequence Data
+</CustomHashLink>
+
+```js {9,12,14,15} title="Convert Server"
+try { // step 7
+    const [data, ] = await db.query('SELECT sequence FROM operator_sequence WHERE accAddress = ? FOR UPDATE', [operatorWallet.key.accAddress]); // step 7
+    const operatorSeq = data[0].sequence // step 7
+
+    const signOption: SignOptions = {
+    chainID: chainID,
+    accountNumber: operatorAccNum,
+    sequence: operatorSeq,
+    signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON
+    }
+    
+    const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
+    const allSignedTx = await operatorWallet.key.signTx(tx, signOption, false)
+    allSignedTx.signatures.reverse()
+    allSignedTx.auth_info.signer_infos.reverse()
+    ...
+```
+
+Add game DEV's wallet signature to the transaction using the received Sequence Data from DB. 
+Sign with **SignMode.SIGN_MODE_LEGACY_AMINO_JSON**.
+
+<Details summary="Why use reverse() method of signatures and signer_infos in the last part?">
+
+We got the user wallet's signature for fees and later received the game DEV wallet's signature for CW20 token transfer. The current order of signatures in the transaction (variable `allSignedTx`) is user wallet followed by the game DEV wallet. 
+
+Game DEV wallet’s signature is needed for the Execute transaction. User’s signature is added for approval of fee payment. If the user didn't pay the fee, only the game DEV wallet's token transfer signature is needed.
+
+[Despite adding a fee payer in Cosmos SDK, the signature order remains the same: game DEV wallet followed by the user wallet.](https://github.com/xpladev/xpla/blob/aa5c2e3cac00c2286f3ce4ba2526df6cddc3f550/third_party/proto/cosmos/tx/v1beta1/tx.proto#L174C1-L176C96)
+The reverse function in the example adjusts the signature order for successful transaction creation.
+
+</Details>
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step9">Step 9.</span> Convert Server : Execute transaction with both signatures on the XPLA network
+</CustomHashLink>
+
+```js title="Convert Server"
+txResult = await lcd.tx.broadcastSync(allSignedTx)      
+```
+
+Execute transaction on the XPLA network!!
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step10">Step 10.</span> Convert Server -> Database(DB) :  Send user transaction result
+</CustomHashLink>
+
+```js title="Convert Server"
+    await db.execute(`UPDATE operator_sequence SET sequence = ? WHERE accAddress = ?`, [operatorSeq+1, operatorWallet.key.accAddress])
+
+    await db.commit(); 
+    db.release();
+```
+
+For a successful  transaction, update the game DEV wallet's Sequence Data in the DB and release the lock.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case1-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case1-step11">Step 11.</span> Convert Server -> User Client App :  Increase the Sequence Data on DB by 1 and unlock it
+</CustomHashLink>
+
+```js title="Convert Server"
+return { txhash : txResult.txhash }
+```
+
+In response to the User Client's Post request, the transaction propagation result is provided.
+
+<br/>
+
+
+### 2. Changing CW20 to in-game currency {#convert-case2}
+
+The second scenario is simpler!
+To convert CW20(<ACADEMYTKN />) to in-game currency(<DIAMOND />), the user wallet sends CW20(<ACADEMYTKN />) to the game DEV wallet and increases the user's in-game currency(<DIAMOND />) amount in the DB.
+The process is outlined below.
+
+<ConvertCase2 />
+
+<br/>
+
+The user wallet sends CW20(<ACADEMYTKN />) and covers the transaction fee, making Convert transaction creation simple with only the user's signature. 
+No need for the game DEV wallet signature! ㅡ Meaning, no need to worry about Sequence mismatch Errors.
+Let's see how it works with the following Pseudo code. (The code won't directly run as is because it's Pseudo code.)
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step1">Step 1.</span> User Client App -> Convert Server : Request to Convert CW20 to In-Game Currency
+</CustomHashLink>
+
+```js {6} title="User Client App"
+import { useWallet } from "@xpla/wallet-provider";
+
+const { wallets } = useWallet();
+const userAddress = wallets[0].xplaAddress;
+
+const unsignedResponse = await axios.post(
+    "https://convertserver.com/coin-to-gamecurrency-unsigned", 
+    {
+        userAddress: userAddress, 
+        amount : 1,
+    }
+); 
+```
+
+The user wants to exchange CW20 for in-game currency. The user client app sends a Post request to the Convert Server with the user's wallet address and the desired in-game currency amount.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step2">Step 2.</span> Convert Server : Generate an unsigned transaction where the user wallet sends CW20 to the game DEV wallet
+</CustomHashLink>
+
+```js {7,18,31,33} title="Convert Server"
+import { LCDClient, MsgExecuteContract, TxAPI, Fee } from "@xpla/xpla.js"
+
+const lcd = new LCDClient({ chainID, URL });
+const tx_api = new TxAPI(lcd);
+const userAccountInfo = await lcd.auth.accountInfo(req.body.userAddress);
+
+const cw20TransferMsg = new MsgExecuteContract(
+    req.body.userAddress,
+    cw20_contract_address, 
+    {
+        transfer: {
+            recipient : game_operator_address,
+            amount: String(req.body.amount)
+        }
+    }
+)
+
+const simul_fee = await tx_api.estimateFee(
+    [        
+        { 
+            sequenceNumber: userAccountInfo.getSequenceNumber(), 
+            publicKey: userAccountInfo.getPublicKey()
+        }
+    ],
+    {
+        msgs: [cw20TransferMsg],
+        gasAdjustment: 1.5,         
+    }
+);
+
+const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+
+const tx = await lcd.tx.create([], {msgs: [cw20TransferMsg], fee } )
+```
+
+Calculate the estimated fee (simul_fee) and create a transaction. 
+The user wallet (userAddress) sends CW20 to the game DEV wallet (game_operator_address) without specifying a payer in the fee variable.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step3">Step 3.</span> Convert Server -> User Client App : Send the unsigned transaction to the user
+</CustomHashLink>
+
+```js title="Convert Server"
+const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+const result = { unsignedTx : unsignedTx }
+return result
+```
+
+Respond to the User Client's POST request with an unsigned transaction.
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step4">Step 4.</span> User Client App : The user signs the unsigned transaction
+</CustomHashLink>
+
+```js {9,12} title="User Client App"
+const unsignedResponse = await axios.post(unsignedUrl, unsignedPost);
+const unsignedTx = unsignedResponse.data.unsignedTx;
+
+if (unsignedTx === undefined) {
+    throw new Error("Response is undefined!");
+}
+const decodedTx = Tx.fromBuffer(Buffer.from(unsignedTx, "base64"));
+
+const { result: signedTx, success } = await connectedWallet.sign({
+    msgs: decodedTx.body.messages,
+    fee: decodedTx.auth_info.fee,
+    signMode: SignMode.SIGN_MODE_DIRECT,
+});
+```
+
+The User Client signs the unsigned transaction (unsignedResponse) for the Convert Server using SignMode.SIGN_MODE_DIRECT. (Since the Convert transaction in [second scenario](/startlearning/tutorial/deep-understand-xpla/convert#convert-case2) requires [single signature](https://docs.cosmos.network/main/user/run-node/txs#signing-with-multiple-signers))
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step5">Step 5.</span> User Client App -> Convert Server :  Re-send the transaction with the user's signature
+</CustomHashLink>
+
+```js {3,6,7} title="User Client App"
+const userSignedTx = Buffer.from(signedTx.toBytes()).toString("base64");
+
+const res = await axios.post(
+    "https://convertserver.com/coin-to-gamecurrency-signed", 
+    {
+        wallet: userAddress,
+        userSignedTx: userSignedTx,
+    }
+);
+```
+
+The User Client sends a POST request to the Convert Server with the user wallet address (userAddress) and the signed transaction (userSignedTx).
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step6">Step 6.</span> Convert Server : Execute the transaction with the user's wallet signature to the XPLA network
+</CustomHashLink>
+
+```js title="Convert Server"
+const tx = Tx.fromBuffer(Buffer.from(String(req.body.userSignedTx), 'base64'))
+
+txResult = await lcd.tx.broadcastSync(allSignedTx)      
+```
+
+Execute transaction on the XPLA network!!!
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step7">Step 7.</span> Convert Server -> Database(DB) : Increase recorded in-game currency in user's DB as requested
+</CustomHashLink>
+
+```js title="Convert Server"
+db.query('update user_info set game_currency = game_currency + ? where pid = ? ', [req.body.amount, playerId]);
+```
+
+Increase the requested in-game currency amount (req.body.amount).
+
+<br/>
+
+<CustomHashLink to="/startlearning/tutorial/deep-understand-xpla/convert#case2-pic" className="text-black">
+<span className="text-[#004FFF] font-bold text-[17px] textDecoration-xpla" id="case2-step8">Step 8.</span> Convert Server -> User Client App :  Send the transaction result to the user
+</CustomHashLink>
+
+```js title="Convert Server"
+return { txhash : txResult.txhash }
+```
+
+In response to the User Client's Post request, let the user know the transaction result!🎉
+
+<br/>
+
+## Wrapping Up
+
+How were the details of implementing the Convert feature? 
+With Convert, users can easily exchange in-game currency and CW20. 
+Try out adding a Convert system to your project! 😉

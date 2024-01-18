@@ -30,11 +30,11 @@ XPLA 블록체인은 스마트 컨트랙트 플랫폼인 `Cosmwasm`을 이용합
 
 다음과 같은 절차로 Vault를 통해 CW721 컨트랙트를 생성하고, NFT를 민팅할 수 있습니다.
 
-1. [Vault 접속](/docs/tutorial/make-cw721/make-nft-vault#accessvault)
+1. [Vault 접속](/startlearning/tutorial/make-cw721/make-nft-vault#accessvault)
 
-2. [CW721 컨트랙트 생성](/docs/tutorial/make-cw721/make-nft-vault#instantiate)
+2. [CW721 컨트랙트 생성](/startlearning/tutorial/make-cw721/make-nft-vault#instantiate)
 
-3. [NFT 민팅하기](/docs/tutorial/make-cw721/make-nft-vault#mint-nft)
+3. [NFT 민팅하기](/startlearning/tutorial/make-cw721/make-nft-vault#mint-nft)
 
 ### Vault 접속 {#accessvault}
 
@@ -135,7 +135,7 @@ CW721 컨트랙트의 `Code ID`는 `3`이므로, `Code ID`에는 `3`을 입력�
 
 EVM과 달리, Cosmwasm에서는 코드 배포(Code Deploy)와 컨트랙트 생성이 한번에 이뤄지지 않습니다. 먼저 코드를 블록체인에 배포(StoreCode)하면 해당 코드의 `Code ID`를 발급 받습니다. 이후 `Code ID`를 기반으로 컨트랙트를 생성(InstantiateContract)할 수 있습니다.
 
-똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/docs/develop/core-modules/wasm/#code-id)를 참고해보세요.
+똑같은 Code ID로 생성된 컨트랙트들은 모두 같은 코드 기반입니다. 다만 컨트랙트를 생성할 때 입력하는 초깃값(init_msg)이 다르면, 컨트랙트의 세부 사항도 달라집니다. 더 자세한 사항은 [XPLA Docs](https://docs.xpla.io/develop/develop/core-modules/wasm/#code-id)를 참고해보세요.
 
 </Details>
 

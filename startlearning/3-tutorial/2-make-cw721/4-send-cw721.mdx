@@ -1,0 +1,150 @@
+---
+sidebar_position: 4
+---
+
+# Send CW721 NFT (Javascript)
+
+import Details from '@theme/Details';
+import Ex11 from "@site/src/components/Sandpack/Ex11-send-cw721";
+
+Let us send an NFT to another wallet using our tool called, CW721contract!
+
+## Preview {#preview}
+
+The code for transferring NFTs using JavaScript is provided below. 
+Insert your mnemonic phrase on line 10, and on lines 15 and 16, input the contract address and token_id value created in the previous step, respectively. 
+After modifying the code, just wait a moment, and you'll be able to see the execution results on the right.
+
+<Ex11 />
+
+<br />
+
+If you have grasped the concept of the Preview Code, feel free to skip the [following details](/startlearning/tutorial/make-cw721/send-cw721#run-js) and proceed directly to the [next step](/startlearning/tutorial/deep-understand-xpla/local-network).
+
+## Sending NFTs with Javascript {#run-js}
+
+Let's try transferring an NFT to another wallet using JavaScript code.
+
+### Run Code {#runcode}
+
+1. Please create a file named example-send-cw721.js.
+
+2. Copy the code below and paste it into the example-send-cw721.js file, then save it.
+
+    ```js {10,15,16}
+    const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+    const lcd = new LCDClient({
+        chainID: 'cube_47-5',
+        URL: 'https://cube-lcd.xpla.dev'
+    });
+
+    const main = async () => {
+        const mk = new MnemonicKey({
+            mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // Replace with your mnemonic words
+        })
+
+        const wallet = lcd.wallet(mk);
+        const myWalletAddress = wallet.key.accAddress;
+        const myContractAddress = "xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0"; // Input your Contract Address
+        const myTokenId = 'token_id_1703034376454'; // Input your token_id
+
+        const transferMsg = new MsgExecuteContract(
+            myWalletAddress,
+            myContractAddress,
+            {
+                transfer_nft: {
+                    token_id: myTokenId,
+                    recipient: 'xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk'
+                }
+            }
+        );
+
+        const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
+            msgs: [transferMsg]
+        });
+
+        const txResult = await lcd.tx.broadcastSync(signedTx);
+        console.log(txResult.txhash);
+    }
+    main()
+    ```
+
+3. Please update the mnemonic words on line 10 with your own mnemonic words. On line 15, replace `myContractAddress` with the CW721 contract address you created, and on line 16, assign the NFT token_id value you want to transfer to the `myTokenId` variable.
+
+4. Enter the following command in the VSCode Terminal.
+
+  ```bash
+  node example-send-cw721.js
+  ```
+
+5. In the Terminal, check the results. You will be able to see the transaction hash value for the NFT transfer.
+
+## Explanation {#explaination}
+
+First, we loaded the wallet using mnemonic words. Make sure to load it with your own mnemonic words!
+
+```js
+const mk = new MnemonicKey({
+    mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle',
+})
+
+const wallet = lcd.wallet(mk);
+const myWalletAddress = wallet.key.accAddress;
+```
+
+<br/>
+
+To transfer an NFT, it's necessary to execute the `transfer_nft` function of the CW721 contract (MsgExecuteContract). 
+Hence, we input the required variables for the `transfer_nft` function. 
+You likely assigned your own CW721 contract address and token_id to the `myContractAddress` and `myTokenId` variables, respectively.
+
+```js
+const myContractAddress = "xpla10r58td65tgvpaqngg7802rtpg5l6as8my2unnlnpa8en894qqstshxq0u0"; // Input your Contract Address
+const myTokenId = 'token_id_1703034376454'; // Input your token_id
+
+const transferMsg = new MsgExecuteContract(
+    myWalletAddress,
+    myContractAddress,
+    {
+        transfer_nft: {
+            token_id: myTokenId,
+            recipient: 'xpla1cwduqw0z8y66mnfpev2mvrzzzu98tuexepmwrk'
+        }
+    }
+);
+```
+
+<Details summary="Where can I find the data needed to execute the transfer_nft function?">
+
+You can find the data required to execute the `transfer_nft` function on the [CW721 GitHub](https://github.com/CosmWasm/cw-nfts/blob/main/packages/cw721/README.md). 
+Additionally, you can also find information about other functions (like Approve, Revoke, etc.) that can be executed through the CW721 contract.
+
+</Details>
+
+<br/>
+
+The `createAndSignTx` function is used to generate a transaction and proceed with its signing.
+
+```js
+const signedTx = await lcd.wallet(mk).createAndSignTx({ // Creating and signing the transaction
+    msgs: [transferMsg]
+});
+```
+
+ <br/>
+
+The `broadcastSync` function is then used to transmit the created transaction to the network. If the transaction is successfully created on the XPLA blockchain, you should be able to see the transaction hash value as a result.
+
+```js
+const txResult = await lcd.tx.broadcastSync(signedTx);
+console.log(txResult.txhash);
+```
+
+<br />
+
+Did the transaction hash value appear correctly? Use the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/53617a3baa568b3fd05528e0cea7f6c994ee9d32ab9c4b0fc94fb2acadbffcaf) to check the results of the NFT transfer.
+
+## 마무리 {#conclusion}
+
+we have explored transferring NFTs using the CW721 contract. Let's utilize the CW721 contract to suit your game and create an environment where users can enjoy the game even more with NFTs.

@@ -10,7 +10,7 @@ import Execute571 from "@site/src/components/Sandpack/Execute571";
 import Query571 from "@site/src/components/Sandpack/Query571";
 import Details from '@theme/Details';
 
-이전 예제에서 [CW20](/docs/tutorial/make-cw20/make-cw20-with-vault)과 [CW721](/docs/tutorial/make-cw721/make-nft-vault) 컨트랙트를 Instantiate, Execute, Query까지 진행해보았습니다. 
+이전 예제에서 [CW20](/startlearning/tutorial/make-cw20/make-cw20-with-vault)과 [CW721](/startlearning/tutorial/make-cw721/make-nft-vault) 컨트랙트를 Instantiate, Execute, Query까지 진행해보았습니다. 
 CW20과 CW721 컨트랙트는 모두 Cosmwasm 모듈을 이용하고, Rust 언어로 이루어져 있습니다. 두 컨트랙트는 표준 컨트랙트이기 때문에 XPLA 블록체인에 이미 배포되어 있었습니다.
 
 |Contract|Github|CodeId|
@@ -25,13 +25,13 @@ Web3 게임을 개발할 때 CW20, CW721 컨트랙트 기능만이 아닌, 다�
 
 다음과 같은 절차로 Cosmwasm 컨트랙트 작성을 알아볼 것입니다.
 
-1. [Prerequisite](/docs/tutorial/deep-understand-xpla/write-contract#prerequisite)
+1. [Prerequisite](/startlearning/tutorial/deep-understand-xpla/write-contract#prerequisite)
 
-2. [컨트랙트 생성 순서](/docs/tutorial/deep-understand-xpla/write-contract#order-of-storecode)
+2. [컨트랙트 생성 순서](/startlearning/tutorial/deep-understand-xpla/write-contract#order-of-storecode)
 
-3. [코드 제공 및 빌드](/docs/tutorial/deep-understand-xpla/write-contract#build-contract)
+3. [코드 제공 및 빌드](/startlearning/tutorial/deep-understand-xpla/write-contract#build-contract)
 
-4. [컨트랙트 생성하고, 사용하기](/docs/tutorial/deep-understand-xpla/write-contract#use-contract)
+4. [컨트랙트 생성하고, 사용하기](/startlearning/tutorial/deep-understand-xpla/write-contract#use-contract)
 
 ## Prerequisite {#prerequisite}
 
@@ -46,7 +46,7 @@ Coswmasm 컨트랙트는 Rust 언어로 작성합니다. 여러분의 운영체�
 |Cosmwasm book|[https://book.cosmwasm.com/basics/entry-points.html](https://book.cosmwasm.com/basics/entry-points.html)|
 |Learn X in Y minutes|[https://learnxinyminutes.com/docs/rust/](https://learnxinyminutes.com/docs/rust/)|
 |CosmWasm Starter Pack|[https://github.com/CosmWasm/cw-template](https://github.com/CosmWasm/cw-template)|
-|XPLA Docs|[https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/)|
+|XPLA Docs|[https://docs.xpla.io/develop/develop/smart-contract-guide/wasm/writing-the-contract/](https://docs.xpla.io/develop/develop/smart-contract-guide/wasm/writing-the-contract/)|
 
 Rust에 대해 완벽하게 알지 못해도 괜찮습니다. 일단 아래 내용을 읽고 따라해보는 것도 좋은 선택입니다. 여러분이 원하시는 대로 학습을 진행해주세요.
 
@@ -319,7 +319,7 @@ Query는 [Explorer Contract Details의 InitMsg 탭](https://explorer.xpla.io/tes
 
 <br />
 
-앞서 last_stage, game_gold 값을 10으로, high_score 값을 100으로, 넣어 **save_data** Method를 Execute했습니다. Query 결과도 Execute 입력을 바탕으로 잘 나오는 것을 확인할 수 있습니다. 예제 코드의 Query 결과는 game_gold 값이 10보다 클텐데, 이것은 game_gold 값이 Execute를 실행할 때마다 축적되기 때문입니다. 앞서 [Execute](/docs/tutorial/deep-understand-xpla/write-contract#execute)에 관한 코드에서 game_gold 값을 어떻게 저장하는지 다시 한 번 살펴보세요. 
+앞서 last_stage, game_gold 값을 10으로, high_score 값을 100으로, 넣어 **save_data** Method를 Execute했습니다. Query 결과도 Execute 입력을 바탕으로 잘 나오는 것을 확인할 수 있습니다. 예제 코드의 Query 결과는 game_gold 값이 10보다 클텐데, 이것은 game_gold 값이 Execute를 실행할 때마다 축적되기 때문입니다. 앞서 [Execute](/startlearning/tutorial/deep-understand-xpla/write-contract#execute)에 관한 코드에서 game_gold 값을 어떻게 저장하는지 다시 한 번 살펴보세요. 
 
 Cosmwasm 컨트랙트에 Query를 보낼 때, 컨트랙트 코드가 어떻게 동작하는지 살펴봅시다. 먼저 **queryMsg**는 아래와 같이 입력하였습니다.
 
@@ -375,4 +375,4 @@ fn game_data(
 
 ## 마무리 {#conclusion}
 
-지금까지 Cosmwasm 컨트랙트 코드를 분석해보면서, Instantiate, Execute, Query가 어떻게 진행되는지 살펴보았습니다. 예제를 활용하여 여러분만의 Cosmwasm 컨트랙트를 개발해보세요. Cosmwasm 컨트랙트 개발에 관한 다른 예제는 [Docs](https://docs.xpla.io/docs/develop/smart-contract-guide/wasm/writing-the-contract/)와 [CosmWasm Starter Pack](https://github.com/CosmWasm/cw-template)에도 있습니다.
+지금까지 Cosmwasm 컨트랙트 코드를 분석해보면서, Instantiate, Execute, Query가 어떻게 진행되는지 살펴보았습니다. 예제를 활용하여 여러분만의 Cosmwasm 컨트랙트를 개발해보세요. Cosmwasm 컨트랙트 개발에 관한 다른 예제는 [Docs](https://docs.xpla.io/develop/develop/smart-contract-guide/wasm/writing-the-contract/)와 [CosmWasm Starter Pack](https://github.com/CosmWasm/cw-template)에도 있습니다.

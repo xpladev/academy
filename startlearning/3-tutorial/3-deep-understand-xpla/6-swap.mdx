@@ -1,0 +1,430 @@
+---
+sidebar_position: 6
+---
+
+import Details from '@theme/Details';
+import {TESTNETXPLA, ACADEMYTKN} from "@site/src/components/TokenImg";
+
+# Design Swap System
+
+The swap system facilitates easy token exchanges, allowing for the seamless swapping of CW20 tokens(<ACADEMYTKN />) for $XPLA(<TESTNETXPLA />), as well as for other CW20 tokens!
+
+🙀 Can't wait to try out the swap feature? 
+You can do so at [Web3 Gaming Ops](/ops)! 
+In this lesson, we'll delve into the mechanics of how swapping is structured between CW20 tokens(<ACADEMYTKN />) and $XPLA(<TESTNETXPLA />). 
+But first, let's refresh our understanding of what a [Pair](https://explorer.xpla.io/testnet/address/xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2) is and how it forms the foundation of the swap feature.
+
+<Details summary="What is Pair?">
+Pair is a smart contract that stores coins and tokens for swap. 
+Let's assume that Alice requests a Swap in the Pair contract, exchanging her coin A for coin B. 
+In this process, the Pair contract will give Alice B coin from its reserves in exchange for her A coin. 
+This is how a Swap is carried out, and it's important to note that Pair is essential for this operation.
+
+</Details>
+
+:::info
+
+In this lesson, we are using the [Dezswap Contract](https://github.com/dezswap) to create the Pair.
+This contract employs the [Automated Market-Maker (AMM) protocol](https://docs.dezswap.io/docs/introduction/mechanism/). 
+For more detailed information, please refer to the [Dezswap Docs](https://docs.dezswap.io/). 
+You are welcome to develop a new contract to create your own Pair, or you can use Dezswap as demonstrated in the example.
+
+:::
+
+
+## Table of Contents
+
+The Swap feature is designed in the following steps.
+
+0. [Prepare CW20 Tokens](/startlearning/tutorial/deep-understand-xpla/swap#make-cw20)
+
+1. [Create Pair](/startlearning/tutorial/deep-understand-xpla/swap#create-swap-pool)
+
+2. [Increase Allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance)
+
+3. [Provide Liquidity](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity)
+
+4. [Execute Swap](/startlearning/tutorial/deep-understand-xpla/swap#execute-swap)
+
+### 0. Prepare CW20 Tokens {#make-cw20}
+
+For the example, we have created a CW20 token named `ACAD`. The contract address for this token is [xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax](https://explorer.xpla.io/testnet/address/xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax).
+
+Below is the JavaScript code used to create the CW20 token. This code is similar to the one used in [Issue and Transfer Tokens (CW20) using JavaScript](/startlearning/tutorial/make-cw20/make-cw20-with-js), with modifications only to the name and symbol:
+
+```js {17,18}
+const { LCDClient, MnemonicKey, MsgInstantiateContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle' // 여러분의 니모닉 단어로 바꿔주세요.
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const init_msg = {
+		name: "CW20 Contract for Swap Tutorial", 
+		symbol: "ACAD", 
+		decimals: 6,
+		initial_balances: [{ address: myWalletAddress, amount: "2000000000000000" }], 
+		mint: { 
+			minter: myWalletAddress
+		}
+	};
+
+	const instantiate = new MsgInstantiateContract(
+		myWalletAddress, 
+		myWalletAddress, 
+		1,
+		init_msg,
+		{},
+		'Example for Swap',
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({ 
+		msgs: [instantiate]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+### 1. Create Pair {#create-swap-pool}
+
+For the example, we will use Dezswap's [dezswap_factory contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory) to create a Pair. 
+Factory contract performs the function of managing token Pair.
+The contract address for dezswap_factory is `xpla1j33xdql0h4kpgj2mhggy4vutw655u90z7nyj4afhxgj4v5urtadq44e3vd` on the Mainnet and `xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2` on the Testnet.
+
+The JavaScript code to Execute the [create_pair function](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_factory#create_pair) of the dezswap_factory contract is as follows:
+
+```js {16,27,35}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const testnet_dezswap_factory = "xpla1j4kgjl6h4rt96uddtzdxdu39h0mhn4vrtydufdrk4uxxnrpsnw2qug2yx2";
+
+	const createPairMsg = new MsgExecuteContract(
+		myWalletAddress,
+		testnet_dezswap_factory,
+		{
+			"create_pair": {
+				"assets": [
+					{
+						"info": {
+							"native_token": {
+								"denom": "axpla"
+							}
+						},
+						"amount": "0"
+					},
+					{
+						"info": {
+							"token": {
+								"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address
+							}
+						},
+						"amount": "0"
+					}
+				]
+			}
+		}
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [createPairMsg]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+After executing the above code, we created a Pair on the Testnet! 
+The transaction can be found on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/1b6f0d98e79b3232cb2f8c9df6b46f4859b70820facf063a66710f90c158b642#Messages). 
+When you executing this code, remember to fill in the `contract_addr` field with the address of the CW20 token contract you created.
+
+Upon reviewing the [Event Logs](https://explorer.xpla.io/testnet/tx/1B6F0D98E79B3232CB2F8C9DF6B46F4859B70820FACF063A66710F90C158B642#EventLogs), you can see that new contracts have been instantiated. 
+Among these, the contract with `code_id` 369 is the [dezswap_pair Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair), and the one with code_id 110 is the [dezswap_token Contract](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_token) (note that these `code_ids` are based on Testnet, and the `code_ids` on Mainnet will be different). 
+In this example, the dezswap_pair Contract is at [xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns](https://explorer.xpla.io/testnet/address/xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns#InitMsg), and the dezswap_token Contract is at [xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057](https://explorer.xpla.io/testnet/address/xpla1ntr800lgjg59d79tr9c78kxjv9v9wm04hjdyq945663juf23hvqq0xy057#InitMsg).
+
+<Details summary="How can I go about creating a Pair for exchanging between CW20 tokens?">
+
+In the code mentioned earlier, you can define the createPairMsg variable as follows:
+
+```js {7-14}
+const createPairMsg = new MsgExecuteContract(
+	myWalletAddress,
+	testnet_dezswap_factory,
+	{
+		"create_pair": {
+			"assets": [
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address1
+						}
+					},
+					"amount": "0"
+				},
+				{
+					"info": {
+						"token": {
+							"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address2
+						}
+					},
+					"amount": "0"
+				}
+			]
+		}
+	}
+);
+```
+
+</Details>
+
+### 2. Increase Allowance {#increase-allowance}
+
+First, you need to supply CW20 tokens and $XPLA to the dezswap_pair Contract in the [3. Provide Liquidity step](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity).
+Here, [the dezswap_pair Contract executes the TransferFrom function of the CW20 token](https://github.com/dezswap/dezswap-contracts/blob/main/contracts/dezswap_pair/src/contract.rs#L366) to retrieve the CW20 tokens from the wallet providing them. 
+To ensure a smooth liquidity provision, you must allow the dezswap_pair contract to take the CW20 tokens. 
+Therefore, we will execute the [IncreaseAllowance](https://github.com/CosmWasm/cw-plus/blob/main/packages/cw20/README.md#messages-1) function of the CW20 token Contract.
+
+```js {16,23,24}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const cw20_contract_address = "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax"; // Your CW20 Contract Address
+
+	const increaseAllowanceMsg = new MsgExecuteContract(
+		myWalletAddress,
+		cw20_contract_address,
+		{
+			"increase_allowance": {
+			  "amount": "10000000000",
+			  "spender": "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns" // dezswap_pair Contract Address
+			}
+		  }
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [increaseAllowanceMsg]
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+The result of the above can be checked on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/0f19ff4c0d8592addd567c5eb7ae63d0869b6b2f8007b42a49b765bcca6189b7#Messages). 
+When you run it, you need to enter the address of your CW20 token contract into the `cw20_contract_address` variable and the address of the dezswap_pair contract you created into the `spender` field. 
+In the example, we set the amount value to `10000000000`. 
+Since the decimals value of the `ACAD` CW20 token is 6, this allows for the provision of up to 10,000 `ACAD` tokens.
+
+### 3. Provide Liquidity {#provide-liquidity}
+
+To provide liquidity to the Pair created in step 1, we will execute the [provide_liquidity function](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#request-format) of the dezswap_pair Contract.
+
+```js {16,30,38,43,44,45}
+const { LCDClient, MnemonicKey, MsgExecuteContract, Coin } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const dezswap_pair_contract_address = "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns"; // dezswap_pair Contract Address
+
+	const provideLiquidityMsg = new MsgExecuteContract(
+		myWalletAddress,
+		dezswap_pair_contract_address,
+		{
+			"provide_liquidity": {
+				"assets": [
+					{
+						"info": {
+							"native_token": {
+								"denom": "axpla"
+							}
+						},
+						"amount": "10000000000000000000"
+					},
+					{
+						"info": {
+							"token": {
+								"contract_addr": "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax" // Your Contract Address
+							}
+						},
+						"amount": "10000000000"
+					}
+				]
+			}
+		},
+		[new Coin(
+			"axpla",
+			"10000000000000000000"
+		)],
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [provideLiquidityMsg],
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+You can check the outcome of running this code on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/2e5c9c1e142599784df050437e3f97ca84d0dc082bd86d3ba82be6b3b5402e08#Messages). 
+For both the XPLA and CW20 token, we specified the quantities we wanted to supply in the amount field. 
+As a result, we provided a total of 10 XPLA and 10,000 `ACAD`.
+
+When creating the provideLiquidityMsg variable, it's important to note a key difference from previous steps: you need to input the axpla value as the last parameter. 
+This enables the simultaneous supply of XPLA to the dezswap_pair Contract at the time of transaction execution. 
+As for the CW20 token provision, it was retrieved by the dezswap_pair Contract, as explored in the [2. Increase allowance](/startlearning/tutorial/deep-understand-xpla/swap#increase-allowance) stage.
+
+### 4. Execute Swap {#execute-swap}
+
+Now let's proceed with a Swap. In this example, we will exchange 1 `ACAD` token for XPLA. The format for the Contract Execute message was referenced from the [dezswap GitHub](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap).
+
+```js {16,23}
+const { LCDClient, MnemonicKey, MsgExecuteContract } = require("@xpla/xpla.js");
+
+const lcd = new LCDClient({
+	chainID: 'cube_47-5',
+	URL: 'https://cube-lcd.xpla.dev'
+});
+
+const main = async () => {
+	const mk = new MnemonicKey({
+		mnemonic: 'myth snow ski simple century dad gun dolphin sail lawsuit fringe image toast betray frown keep harbor flash table prevent isolate panic tag vehicle'
+	})
+
+	const wallet = lcd.wallet(mk);
+	const myWalletAddress = wallet.key.accAddress;
+
+	const token_contract_address = "xpla13mxqv7yqedcpm67fw7yz7p4s32rlsdkaae3ecmc0tram72ewefts2uu3ax"; // Your Contract Address
+	
+	const swapMsg = new MsgExecuteContract(
+		myWalletAddress,
+		token_contract_address,
+		{
+			"send": {
+				"contract": "xpla1hzmcz38u28g6duy4gmur705e8qrdq7uvzsue4d8hdvclxz79uppsw3hfns", // dezswap_pair Contract Address
+				"amount": "1000000",
+				"msg": btoa(JSON.stringify({
+					"swap": {
+						// "belief_price": Option<Decimal>,
+						// "max_spread": Option<Decimal>,
+						// "to": Option<HumanAddr>
+					}
+				}))
+			}
+		}
+	);
+
+	const signedTx = await lcd.wallet(mk).createAndSignTx({
+		msgs: [swapMsg],
+	});
+
+	const txResult = await lcd.tx.broadcastSync(signedTx);
+	console.log(txResult.txhash);
+}
+main()
+```
+
+You can verify the results of running the above code on the [XPLA Explorer](https://explorer.xpla.io/testnet/tx/02f8495b6df3526dc5ce9d149129788ae1683d89167d14b5336e092e403bc31c#TokenTransfers). 
+You need to input the CW20 contract address in the `token_contract_address` variable and the dezswap_pair contract address in the `contract` field within the msg. 
+It's important to note that the contract to be executed differs when exchanging XPLA for CW20 tokens. 
+For more details, please refer to the [dezswap GitHub](https://github.com/dezswap/dezswap-contracts/tree/main/contracts/dezswap_pair#swap).
+
+
+Now, you might wonder why, after putting in 1 `ACAD` token, you received about 0.0001 XPLA. 
+This is because, during the [3. Provide Liquidity](/startlearning/tutorial/deep-understand-xpla/swap#provide-liquidity) stage, a total of 10 XPLA and 10,000 ACAD were supplied to the Pair. 
+Therefore, the product of the number of tokens in the Pair should always be maintained at 10 × 10,000 = 100,000([CPMM](https://docs.dezswap.io/docs/introduction/mechanism/)). 
+When 1 `ACAD` token is added, the product of the token numbers in the Pair should be (10 - XPLA_out) × (10,000 + 1) = 100,000. 
+
+Also, with dezswap, there's a [LP Commission of 0.3% given to the liquidity provider](https://docs.dezswap.io/docs/introduction/trading-fees/)during a swap. 
+After accounting for this 0.3% fee, you end up receiving about 0.0001 XPLA. 
+For a more detailed explanation, you can consult the [dezswap Docs](https://docs.dezswap.io/docs/introduction/mechanism/).
+
+<Details summary="How do I exchange XPLA for CW20 tokens?">
+
+In the code above, you can enter the swapMsg as follows:
+
+```js {3,19-22}
+const swapMsg = new MsgExecuteContract(
+	myWalletAddress,
+	dezswap_pair_contract_address,
+	{
+		"swap": {
+			"offer_asset": {
+				"info": {
+					"native_token": {
+						"denom": "axpla"
+					}
+				},
+				"amount": "1000000000000000000"
+			},
+			//"belief_price": Option<Decimal>,
+			//"max_spread": Option<Decimal>,
+			//"to": Option<HumanAddr>
+		}
+	},
+	[new Coin(
+		"axpla",
+		"1000000000000000000"
+	)],
+);
+```
+
+When exchanging CW20 tokens for XPLA, you executed the CW20 token contract. 
+However, to exchange XPLA for CW20 tokens, you must execute the <u>dezswap_pair_contract_address</u>. Additionally, you need to include the amount of XPLA you want to swap as a contract parameter, using the `new Coin("axpla", "..")` format.
+
+</Details>
+
+## Conclusion
+
+We have explored how to develop a Swap feature using the Dezswap contract. Now, try connecting the CW20 token from your developed game with XPLA through the Swap contract. 

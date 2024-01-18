@@ -18,10 +18,8 @@
 
 .earth {
   position: absolute;
-  top: 560px;
-  left: -130px;
-
-
+  bottom: 0px;
+  left: -122px;
 }
 
 @media screen and (max-width : 1536px) {

@@ -7,8 +7,8 @@ module.exports = {
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
         "./src/*.{js,jsx,ts,tsx}",
-        "./docs/**/*.mdx",
-        "./docs/*.mdx"
+        "./startlearning/**/*.mdx",
+        "./startlearning/*.mdx"
     ],
     darkMode: ['class', '[data-theme="dark"]'], // hooks into docusaurus' dark mode settigns
     theme: {

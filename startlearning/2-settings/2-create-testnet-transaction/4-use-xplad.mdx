@@ -1,0 +1,81 @@
+---
+sidebar_position: 4
+---
+
+# Create and Check Transactions (CLI)
+
+import Details from '@theme/Details';
+
+You can use xplad in the command-line interface (CLI) to create transactions and send queries. If you haven't installed xplad in the previous steps, feel free to move on to the [next step](/startlearning/tutorial/make-cw20/make-cw20-with-vault).
+
+## Creating Transactions with xplad {#maketx}
+
+If you've installed xplad and successfully created a wallet in the previous steps, let's proceed with the following instructions.
+
+1. To create a transaction, you'll need some [testnet $XPLA](/startlearning/settings/create-wallet/get-testnet-xpla) in your wallet. Enter your wallet address in the [Faucet](https://faucet.xpla.io/) and receive testnet $XPLA.
+
+2. You can generate a transaction that transfers XPLA using the command below.
+```bash
+xplad tx bank send <from-key-or-address> <to-address> <coins> --chain-id=<chain-id> --fees=<fee> --node https://cube-rpc.xpla.dev:443  
+```
+
+In the example, the wallet name was `test1`. Therefore, the command to send 1 aXPLA to the Faucet address `xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv` would be as follows.
+
+```bash
+xplad tx bank send test1 xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv 1axpla --chain-id=cube_47-5 --fees=170000000000000000axpla --node https://cube-rpc.xpla.dev:443 
+```
+
+<Details summary="What is the address https://cube-rpc.xpla.dev:443?">
+
+This address is the testnet RPC address. This address allows communication with the XPLA blockchain testnet.
+
+For the mainnet, you should input `--node https://dimension-rpc.xpla.dev:443`.
+
+</Details>
+
+3.  After entering the command in step 2, you'll be prompted to enter a passphrase as shown below in the CLI. Enter the passphrase you set when creating the wallet.
+```bash
+Enter keyring passphrase:
+```
+
+4.  When transaction information is displayed in the CLI, confirm the transaction creation by entering `y`. 
+```
+{"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"xpla1z92x0yghmyz4k755d8f3vcm478se5rl5zl7sqr","to_address":"xpla1a8f3wnn7qwvwdzxkc9w849kfzhrr6gdvy4c8wv","amount":[{"denom":"axpla","amount":"1"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"axpla","amount":"170000000000000000"}],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]:
+```
+
+5. You'll see the generated transaction hash value.
+```bash
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: '[]'
+timestamp: ""
+tx: null
+txhash: A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373
+```
+
+Did you receive the transaction hash value? Use the [XPLA Explorer](https://explorer.xpla.io/) to check the transaction data.
+
+## Sending Queries with xplad {#sendquery}
+
+Sending queries and retrieving transaction data using xplad is simple. Just input the command below.
+
+```bash
+xplad query tx <txhash> --node https://cube-rpc.xpla.dev:443 
+```
+
+In the example, the transaction hash value was `A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373`. Therefore, you can use the command below to obtain transaction data in the example.
+
+```bash
+xplad query tx A8FA5E9E6B54DF2E52C088CF860B6F9BA82D0497AEE1790DE5564CAFA2FD9373 --node https://cube-rpc.xpla.dev:443 
+```
+
+This way, you've used xplad to create transactions and retrieve transaction data. If you want to learn more about xplad, you can refer to the [Docs](https://docs.xpla.io/develop/develop/tools/xplad/about-xplad/).

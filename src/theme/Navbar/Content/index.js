@@ -6,13 +6,13 @@ import {
   useNavbarMobileSidebar,
 } from '@docusaurus/theme-common/internal';
 import NavbarItem from '@theme/NavbarItem';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
-import SearchBar from '@theme/SearchBar';
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
-import NavbarLogo from '@theme/Navbar/Logo';
-import NavbarSearch from '@theme/Navbar/Search';
 import styles from './styles.module.css';
 import clsx from 'clsx';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import TryDemoDropdown from "./TryDemoDropdown"
+import ContactUs from "./ContactUs"
+
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
   return useThemeConfig().navbar.items;
@@ -39,7 +39,7 @@ ${JSON.stringify(item, null, 2)}`,
 }
 function NavbarContentLayout({left, right}) {
   return (
-    <div className="navbar__inner max-w-[1180px]">
+    <div className="navbar__inner max-w-[1180px] h-[61px]">
       <div className="navbar__items">{left}</div>
       <div className="navbar__items navbar__items--right">{right}</div>
     </div>
@@ -49,6 +49,7 @@ export default function NavbarContent() {
   const mobileSidebar = useNavbarMobileSidebar();
   const items = useNavbarItems();
   const [leftItems, rightItems] = splitNavbarItems(items);
+  const isMobile = useMediaQuery('(max-width:996px)');
   
   return (
     <NavbarContentLayout
@@ -56,22 +57,23 @@ export default function NavbarContent() {
         // TODO stop hardcoding items?
         <>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
-          <Link to="/" className={clsx("flex items-center", styles.LogoAcademyLetter)}>
+          <Link aria-label="open-root" to="/" className={clsx("flex items-center max-[270px]:hidden", styles.LogoAcademyLetter)}>
             <div />
           </Link>
           {
-            leftItems.map((leftItem) => {
-              return <NavbarItem {...leftItem} className="text-white ml-[78px]" />
+            leftItems.map((leftItem, index) => {
+              return <NavbarItem key={index} {...leftItem} className={index === 0 ? "text-white text-medium ml-[84px] max-[1220px]:ml-[60px]" : "text-white text-medium ml-[28px]"} />
             })
           }
-          <div className={clsx("font-semibold ml-10", styles.tool)} />
+          <TryDemoDropdown />
+          <ContactUs />
         </>
       }
       right={
         // TODO stop hardcoding items?
         // Ask the user to add the respective navbar items => more flexible
         <>
-          <NavbarItems items={rightItems} />
+          <NavbarItems items={isMobile ? rightItems.filter((item) => item.type !== 'search') : rightItems} />
           {/* <NavbarColorModeToggle className={styles.colorModeToggle} /> */}
 
         </>

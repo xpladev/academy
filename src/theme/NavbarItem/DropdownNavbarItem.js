@@ -53,16 +53,20 @@ function DropdownNavbarItemDesktop({
   return (
     <div
       ref={dropdownRef}
-      className={clsx('navbar__item', 'dropdown', 'dropdown--hoverable', 'p-0', 'ml-2', {
+      className={clsx('navbar__item', 'dropdown', 'ml-2', {
         'dropdown--right': position === 'right',
         'dropdown--show': showDropdown,
+        'dropdown--hoverable': !props.disable,
+        
       })}>
       <NavbarNavLink
         aria-haspopup="true"
         aria-expanded={showDropdown}
         role="button"
         href={props.to ? undefined : '#'}
-        className={clsx('navbar__link-custom', className)}
+        className={clsx('navbar__link-custom', className, {
+          'hover:cursor-not-allowed' : props.disable,
+        })}
         {...props}
         onClick={props.to ? undefined : (e) => e.preventDefault()}
         onKeyDown={(e) => {
