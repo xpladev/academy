@@ -1,12 +1,21 @@
 import { Modal as MuiModal } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 
 const Modal = () => {
   const localModal = localStorage.getItem("modal");
   const [modalOpen, setModalOpen] = useState<boolean>(
-    localModal ? false : true
+    localModal && Number(localModal) + 1 === window.history.length
+      ? false
+      : true
   );
+  
+  useEffect(() => {
+    if (localModal && Number(localModal) + 1 === window.history.length) {
+      localStorage.setItem("modal", Number(localModal) + 1);
+    }
+  }, []);
+
   return (
     <MuiModal open={modalOpen}>
       <div
@@ -31,7 +40,7 @@ const Modal = () => {
           may be temporarily unavailable.
         </div>
         <img
-          src="/img/modalimg.svg"
+          src="/xpla-academy-dev/img/modalimg.svg"
           alt="modal-img"
           width="127px"
           height="72px"
@@ -42,7 +51,7 @@ const Modal = () => {
         </div>
         <button
           onClick={() => {
-            localStorage.setItem("modal", "true");
+            localStorage.setItem("modal", window.history.length);
             setModalOpen(false);
           }}
           className="buttonShadow bg-[#004FFF] text-white font-medium text-center text-[20px] leading-[24px] w-full max-w-[185px] py-[10px]"
