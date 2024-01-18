@@ -6,6 +6,7 @@ import { useLocation } from '@docusaurus/router';
 import DropdownNavbarItem from '../DropdownNavbarItem';
 import LanguageIcon from '@mui/icons-material/Language';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function LocaleDropdownNavbarItem({
   mobile,
@@ -17,6 +18,8 @@ export default function LocaleDropdownNavbarItem({
     i18n: { currentLocale, locales, localeConfigs },
   } = useDocusaurusContext();
   const alternatePageUtils = useAlternatePageUtils();
+  const isMobile = useMediaQuery("(max-width:996px)");
+
   const { search, hash } = useLocation();
   const localeItems = locales.map((locale) => {
     const baseTo = `pathname://${alternatePageUtils.createUrl({
@@ -61,7 +64,7 @@ export default function LocaleDropdownNavbarItem({
           arrow={false}
           mobile={mobile}
           label={
-            <LanguageIcon sx={{ fontSize: 29, color: (window.location.pathname.startsWith('/startlearning') || window.location.pathname.startsWith('/ko-kr/startlearning') || window.location.pathname === "/" || window.location.pathname === "/ko-kr/") ? 'white' : '#FFFFFF33' }} />
+            <LanguageIcon sx={{ fontSize: 29, color: (window.location.pathname.startsWith('/startlearning') || window.location.pathname.startsWith('/ko-kr/startlearning') || window.location.pathname === "/" || window.location.pathname === "/ko-kr/") ? isMobile ? "#606770" : 'white' : '#FFFFFF33' }} />
           }
           items={items}
         />

@@ -80,7 +80,7 @@ function Feature({ Svg, title, description, rightBorder, sizes }: FeatureItem) {
         rightBorder && [styles.rightBorder]
       )}
     >
-      <div className="flex flex-1 gap-[27px] items-center flex-row md:flex-col p-4 justify-between">
+      <div className="flex flex-1 gap-[27px] items-center flex-col md:flex-col p-4 justify-between">
         <div className={clsx("flex flex-1 justify-between ")}>
           <img
             src={Svg}
@@ -104,7 +104,7 @@ function Feature({ Svg, title, description, rightBorder, sizes }: FeatureItem) {
 
 export default function DiveInto(): JSX.Element {
   return (
-    <section className="h-[900px] md:h-[684px] bg-[#00B2FF] relative flex justify-center items-center px-[16px]">
+    <section className="h-[1200px] md:h-[684px] bg-[#00B2FF] relative flex justify-center items-center px-[16px]">
       <img
         className={styles.ellipsis}
         src={`/img/DiveInto/ellipsis.svg`}
@@ -118,7 +118,7 @@ export default function DiveInto(): JSX.Element {
         sizes="(min-width: 1780px) 308px"
       />
       <div className="max-w-[1180px] h-full flex flex-1 justify-center items-center z-10">
-        <div className="flex flex-col max-[500px]:h-full flex-1 md:gap-[57px]">
+        <div className="flex flex-col max-[700px]:h-full flex-1 md:gap-[57px]">
           <span className="text-[#000000] flex md:flex-1 justify-center font-bold text-[50px] leading-[60px]">
             Dive into XPLA ACADEMY
           </span>
