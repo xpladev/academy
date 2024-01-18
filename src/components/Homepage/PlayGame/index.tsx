@@ -78,7 +78,7 @@ export default function PlayGame({
 
             <CustomTranslation en="Game code on" kr="GitHub에서 소스코드를" />
             <br />
-            <CustomTranslation en="GitHub! ➔" kr="확인하세요" />
+            <CustomTranslation en="GitHub ➔" kr="확인하세요" />
           </Link>
 
           <div className="h-full border-solid border-[0px] border-r-[1.5px]"></div>

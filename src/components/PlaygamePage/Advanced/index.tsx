@@ -23,7 +23,7 @@ const Advanced = () => {
               <span className="font-bold">ADVANCED</span>
               &nbsp;is where the real Web3 game
               <br />
-              a begins.
+              begins.
             </div>
             <div className="mb-[30px] font-medium text-black text-[24px] tracking-[-1%]">
               ADVANCED integrates with Web3 Gaming Ops

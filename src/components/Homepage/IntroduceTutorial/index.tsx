@@ -179,7 +179,10 @@ export default function IntroduceTutorial(): JSX.Element {
             <div className="font-semibold text-[24px] h-[197px]">
               <CustomTranslation en="Learn about" kr="" />
               {i18n.currentLocale === "en" && <br />}
-              <span className="font-bold text-[24px]">
+              <span className={clsx("text-[24px]", {
+                "font-bold" :  i18n.currentLocale === "en",
+                "font-semibold" :  i18n.currentLocale === "ko-kr",
+              })}>
                 Account number{" "}
                 <span className="font-semibold">
                   {" "}
@@ -187,7 +190,10 @@ export default function IntroduceTutorial(): JSX.Element {
                 </span>
               </span>
               <br />
-              <span className="font-bold text-[24px]">
+              <span className={clsx("text-[24px]", {
+                "font-bold" :  i18n.currentLocale === "en",
+                "font-semibold" :  i18n.currentLocale === "ko-kr",
+              })}>
                 {" "}
                 <CustomTranslation en="Sequence!" kr="Sequence" />
               </span>

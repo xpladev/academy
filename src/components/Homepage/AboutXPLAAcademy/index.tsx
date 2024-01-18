@@ -49,10 +49,10 @@ export default function AboutXPLAAcademy(): JSX.Element {
                 kr="단계별 가이드를 따라서 XPLA의 Web3 기능을 구축할 수 있습니다."
               />
             </div>
-            <div className="text-[#46E9FC] text-[40px] leading-[48px] font-bold">
+            <div className="text-[#46E9FC] text-[40px] leading-[48px] font-bold mb-[20px]">
               Try Demo
             </div>
-            <div className="text-white text-[29px] leading-[38px] font-semibold">
+            <div className="text-white text-[29px] leading-[38px] font-semibold mb-[6px]">
               <CustomTranslation
                 en="Interact with the Demo projects."
                 kr="XPLA의 Web3 서비스를 Demo 프로젝트로 체험할 수 있습니다."
@@ -76,7 +76,7 @@ export default function AboutXPLAAcademy(): JSX.Element {
               </span>
               <CustomTranslation
                 en=""
-                kr="를 통해 XPLA의 개발 환경을 확인하세요"
+                kr="를 통해 XPLA의 개발 환경을 확인하세요."
               />
               {
                 i18n.currentLocale==="ko-kr"&&
@@ -85,7 +85,7 @@ export default function AboutXPLAAcademy(): JSX.Element {
               <span className="min-[1676px]:absolute text-[#FAED00] min-[1676px]:mt-[3px] whitespace-nowrap font-normal text-[16px] leading-[34px]">
                 <CustomTranslation
                   en="(A tool for managing Web3 assets)"
-                  kr="(게임 연동 Web3 툴 서비스)."
+                  kr="(게임 연동 Web3 툴 서비스)"
                 />{" "}
               </span>
             </div>
