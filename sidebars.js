@@ -32,7 +32,7 @@ const sidebars = {
         title: `Let's get your Wallet ready!`,
         description: `Just as we carry wallets to keep our cash safe in our everyday routines, in the blockchain world, we need Wallets to hold onto tokens (or any other digital assets). Let's take a closer look by creating a Wallet ourselves.`
       },
-      items: ['settings/create-wallet/create-wallet-with-vault', 'settings/create-wallet/create-wallet-with-js', 'settings/create-wallet/get-testnet-xpla'],
+      items: ['settings/create-wallet/create-wallet-with-vault', 'settings/create-wallet/create-wallet-with-js', 'settings/create-wallet/create-wallet-with-xplad', 'settings/create-wallet/get-testnet-xpla'],
     },
     {
       type: 'category',
@@ -42,7 +42,7 @@ const sidebars = {
         title: 'Time to Make Transactions!',
         description: `Let's use the $XPLA testnet coins to leave a mark in the blockchain!`
       },
-      items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query'],
+      items: ['settings/create-testnet-transaction/send-tx', 'settings/create-testnet-transaction/check-tx-in-explorer', 'settings/create-testnet-transaction/send-query', 'settings/create-testnet-transaction/use-xplad'],
     },
     {
       type: 'html',

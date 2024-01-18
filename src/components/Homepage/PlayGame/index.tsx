@@ -44,7 +44,9 @@ export default function PlayGame({
         <div className="mb-[51px]">
           <BrowserOnly>{() => <Cocosgame />}</BrowserOnly>
         </div>
-        <div className="mb-[42px] text-center text-[29px] leading-[39px] font-medium">
+        <div className={
+          clsx("mb-[42px] text-center text-[29px] leading-[39px] font-medium")
+        }>
           <CustomTranslation en="Play " kr="" />
           <span className="font-bold">XPLA ACADEMY</span>
           <CustomTranslation
@@ -62,10 +64,10 @@ export default function PlayGame({
           <Link
             to="https://github.com/xpladev/academy"
             className={clsx(
-              "font-medium  leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
+              "font-medium   text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
               {
-                "text-[20px]": i18n.currentLocale === "en",
-                "text-[18px]": i18n.currentLocale === "ko-kr",
+                "text-[20px] leading-[24px]": i18n.currentLocale === "en",
+                "text-[18px] leading-[28px]": i18n.currentLocale === "ko-kr",
               }
             )}
           >
@@ -74,6 +76,7 @@ export default function PlayGame({
               alt="githubwhite"
               width="40px"
               height="40px"
+              className="mb-[8px]"
             />
 
             <CustomTranslation en="Game code on" kr="GitHub에서 소스코드를" />
@@ -86,10 +89,10 @@ export default function PlayGame({
           <Link
             to="/playgame#aboutGame"
             className={clsx(
-              "font-medium text-[20px] leading-[24px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
+              "font-medium text-[20px] text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
               {
-                "text-[20px]": i18n.currentLocale === "en",
-                "text-[18px]": i18n.currentLocale === "ko-kr",
+                "text-[20px] leading-[24px]": i18n.currentLocale === "en",
+                "text-[18px] leading-[28px]": i18n.currentLocale === "ko-kr",
               }
             )}
           >
@@ -98,6 +101,7 @@ export default function PlayGame({
               alt="gameAsset"
               width="114px"
               height="40px"
+              className="mb-[8px]"
             />
             <CustomTranslation en="About" kr="Break The Bricks란" />
             <br />
