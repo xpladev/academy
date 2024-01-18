@@ -9,6 +9,7 @@ type FeatureItem = {
   description: JSX.Element;
   rightBorder: boolean;
   sizes: string;
+  className: string;
 };
 
 const FeatureList: FeatureItem[] = [
@@ -30,6 +31,7 @@ const FeatureList: FeatureItem[] = [
     ),
     rightBorder: true,
     sizes: "(max-width: 768px) 100px, 150px",
+    className:"",
   },
   {
     Svg: "/img/DiveInto/freely-moddable.svg",
@@ -49,6 +51,7 @@ const FeatureList: FeatureItem[] = [
     ),
     rightBorder: true,
     sizes: "(max-width: 768px) 121px",
+    className:"",
   },
   {
     Svg: "/img/DiveInto/game-developer-friendly.svg",
@@ -68,6 +71,7 @@ const FeatureList: FeatureItem[] = [
     ),
     rightBorder: false,
     sizes: "(max-width: 768px) 158px",
+    className:"",
   },
 ];
 
