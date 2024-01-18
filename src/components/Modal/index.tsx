@@ -40,7 +40,7 @@ const Modal = () => {
           may be temporarily unavailable.
         </div>
         <img
-          src="/xpla-academy-dev/img/modalimg.svg"
+          src="/img/modalimg.svg"
           alt="modal-img"
           width="127px"
           height="72px"
