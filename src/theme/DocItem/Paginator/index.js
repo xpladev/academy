@@ -20,6 +20,7 @@ export default function DocItemPaginator() {
 }
 
 const considerTranslation = (linkdata) => {
+  if (!linkdata) return linkdata;
   if (i18n.currentLocale === "en") {
     return linkdata
   }
