@@ -79,7 +79,7 @@ const NotLinkErrorModal = () => {
           OK
         </div>
         <Link
-          to="/#playgame"
+          to="/playgame"
           className={clsx(
             styles.smallShadowButton,
             "bg-[#004FFF] font-medium text-white px-[30px] py-[10px] hover:no-underline"
