@@ -342,7 +342,7 @@ export default function IntroduceTutorial(): JSX.Element {
               <span className=" text-[20px]">
                 <CustomTranslation en="to $XPLA with" kr="알아보기" />
                 <span className="font-bold">
-                  <CustomTranslation en="SWAP!" kr="" />
+                  <CustomTranslation en=" SWAP!" kr="" />
                 </span>
               </span>
             </span>
