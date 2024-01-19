@@ -12,7 +12,7 @@ export const GameArchitectureTutorial = () => {
     <div className="flex flex-col justify-center items-center">
       <Link
         target="_blank"
-        to="/#playgame"
+        to="/playgame"
         className={clsx(
           styles.smallShadowButton,
           "px-[10px] py-[10px] bg-[#004FFF] text-[16px] font-semibold hover:no-underline"
@@ -104,7 +104,7 @@ export const GameArchitectureAdvanced = () => {
     <div className="flex flex-col justify-center items-center">
       <Link
         target="_blank"
-        to="/#playgame"
+        to="/playgame"
         className={clsx(
           styles.smallShadowButton,
           "px-[10px] py-[10px] bg-[#004FFF] text-[16px] font-semibold hover:no-underline"

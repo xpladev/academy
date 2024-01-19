@@ -62,7 +62,7 @@ export default function PlayGame({
         </div>
         <div className="flex justify-center items-center gap-[84px]">
           <Link
-            to="https://github.com/xpladev/academy"
+            to="https://github.com/xpladev/academy/tree/main/demo-project"
             className={clsx(
               "font-medium   text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
               {

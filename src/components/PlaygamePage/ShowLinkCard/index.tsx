@@ -13,7 +13,7 @@ const ShowLinkCard = () => {
       <div className="grid grid-cols-3 gap-[30px] w-full max-w-[1170px]">
         <Link
           target="_blank"
-          to="https://github.com/xpladev/academy"
+          to="https://github.com/xpladev/academy/tree/main/demo-project"
           className="relative font-medium text-[24px] leading-[34px] aspect-square max-[996px]:p-[10px] p-[50px] flex flex-col justify-between text-black hover:text-white buttonShadow10px bg-white hover:bg-[#00B2FC] svgHoverWhite max-[996px]:justify-center max-[996px]:items-center"
           style={{ textDecoration: "none" }}
           aria-label={"xpla-academy-github"}

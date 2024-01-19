@@ -207,7 +207,7 @@ const InfoDetail = ({ page }: { page: number }) => {
         <div className="flex flex-1 flex-col gap-[40px] items-center justify-center">
           <Link
             target="_blank"
-            to="https://github.com/xpladev/academy"
+            to="https://github.com/xpladev/academy/tree/main/demo-project"
             className={clsx(
               styles.shadowButton,
               "bg-[#004FFF] px-[22px] py-[12px] flex justify-center items-center gap-[10px] hover:no-underline"

@@ -79,7 +79,7 @@ export default function UserStatus() {
         </div>
       </div>
       <Link
-        to="/#playgame"
+        to="/playgame"
         className={clsx(
           "mt-[20px] font-bold text-[30px] leading-[36px] bg-[#00B2FC] px-[29px] py-[14px] hover:no-underline",
           styles.smallShadowButton

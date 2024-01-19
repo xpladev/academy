@@ -7,18 +7,20 @@ Our content has been meticulously curated just for you:
 <pre>
 
 Overview
-<br/><a href="https://academy.xpla.dev/startlearning/overview/intro">&nbsp;&nbsp;&nbsp;&nbsp;Beginning XPLA ACADEMY</a>
-<br/><a href="https://academy.xpla.dev/startlearning/overview/gameArchitecture">&nbsp;&nbsp;&nbsp;&nbsp;Game Architecture</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/overview/intro">Beginning XPLA ACADEMY</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/overview/demoGameOverview">Demo Game Overview</a>
 <br/>
 <br/>Settings
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Let's get your Wallet ready!
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-wallet/create-wallet-with-vault">Creating a Wallet (Vault)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-wallet/create-wallet-with-js">Creating a Wallet (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-wallet/create-wallet-with-xplad">Creating a Wallet (CLI)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-wallet/get-testnet-xpla">Getting Testnet XPLA Coins</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Time to Make Transactions!
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-testnet-transaction/send-tx">Creating XPLA transfer transactions</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-testnet-transaction/check-tx-in-explorer">Check Transactions (Explorer)</a>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-testnet-transaction/send-query">Check Transactions (Javascript)</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://academy.xpla.dev/startlearning/settings/create-testnet-transaction/use-xplad">Create and Check Transactions (CLI)</a>
 <br/>
 <br/>Code Along Tutorial
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;Utilize Tokens (CW20)
