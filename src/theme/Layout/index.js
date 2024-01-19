@@ -40,6 +40,7 @@ export default function Layout(props) {
           ThemeClassNames.wrapper.main,
           styles.mainWrapper,
           wrapperClassName,
+          "max-[996px]:overflow-x-hidden"
         )}>
         <ErrorBoundary fallback={(params) => <ErrorPageContent {...params} />}>
           {children}
