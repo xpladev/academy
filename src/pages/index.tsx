@@ -165,11 +165,6 @@ export default function Home(): JSX.Element {
         <JoinCommunity />
         <ContactUs />
       </main>
-      <BrowserOnly>
-      {
-        () => <Modal />
-      }
-      </BrowserOnly>
     </Layout>
   );
 }
