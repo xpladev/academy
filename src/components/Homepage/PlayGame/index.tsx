@@ -67,7 +67,7 @@ export default function PlayGame({
               "font-medium   text-black hover:text-[#004FFF] flex flex-col justify-between items-center text-center hover:text-[#004FFF] hover:no-underline",
               {
                 "text-[20px] leading-[24px]": i18n.currentLocale === "en",
-                "text-[18px] leading-[28px]": i18n.currentLocale === "ko-kr",
+                "text-[20px] leading-[28px]": i18n.currentLocale === "ko-kr",
               }
             )}
           >
@@ -81,7 +81,7 @@ export default function PlayGame({
 
             <CustomTranslation en="Game code on" kr="GitHub에서 소스코드를" />
             <br />
-            <CustomTranslation en="GitHub ➔" kr="확인하세요" />
+            <CustomTranslation en="GitHub ➔" kr="확인하세요 ➔" />
           </Link>
 
           <div className="h-full border-solid border-[0px] border-r-[1.5px]"></div>
@@ -106,7 +106,7 @@ export default function PlayGame({
             <CustomTranslation en="About" kr="Break The Bricks란" />
             <br />
 
-            <CustomTranslation en="Break The Bricks ➔" kr="무엇일까요?" />
+            <CustomTranslation en="Break The Bricks ➔" kr="무엇일까요? ➔" />
           </Link>
         </div>
       </div>
