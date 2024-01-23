@@ -20,6 +20,8 @@ import {
 } from "@xpla/wallet-provider";
 import clsx from "clsx";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import { isMobile } from "react-device-detect";
+import { useMediaQuery } from "@mui/material";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig, i18n } = useDocusaurusContext();
@@ -120,6 +122,7 @@ export default function Home(): JSX.Element {
       behavior: "smooth",
     });
   };
+  const widthMobile = useMediaQuery("(max-width:520px)");
 
   const playgameElement = useRef<HTMLDivElement>(null);
   const onMoveToPlaygameElement = () => {
@@ -165,6 +168,7 @@ export default function Home(): JSX.Element {
         <JoinCommunity />
         <ContactUs />
       </main>
+      {isMobile && widthMobile && <Modal />}
     </Layout>
   );
 }

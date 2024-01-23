@@ -3,3 +3,8 @@
     backdrop-filter: blur(10px);
     box-shadow: 20px 25px 70px 0px #00000033;
   }
+
+  .okay-btn {
+    box-shadow: 5px 5px 0px black;
+    border: 1px solid black;
+  }
