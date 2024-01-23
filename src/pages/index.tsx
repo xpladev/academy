@@ -20,6 +20,8 @@ import {
 } from "@xpla/wallet-provider";
 import clsx from "clsx";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import { isMobile } from "react-device-detect";
+import { useMediaQuery } from "@mui/material";
 
 function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
   const { siteConfig, i18n } = useDocusaurusContext();
@@ -35,37 +37,49 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
             width="564px"
             height="55px"
           />
-          <span className={clsx("leading-[36px] mb-[10px]", {
-            "text-[29px] font-semibold" : i18n.currentLocale === "en",
-            "text-[28px] font-bold" : i18n.currentLocale === "ko-kr",
-          })}>
+          <span
+            className={clsx("leading-[36px] mb-[10px]", {
+              "text-[29px] font-semibold": i18n.currentLocale === "en",
+              "text-[28px] font-bold": i18n.currentLocale === "ko-kr",
+            })}
+          >
             <CustomTranslation
               en={siteConfig.tagline}
               kr="XPLA에서 Web3 프로젝트 개발을 시작하세요!"
             />
           </span>
-          <span className={clsx( {
-            "text-[24px] leading-[29px]" : i18n.currentLocale === "en",
-            "tracking-tight text-[20px] font-medium leading-[32px]" : i18n.currentLocale === "ko-kr",
-          })}>
+          <span
+            className={clsx({
+              "text-[24px] leading-[29px]": i18n.currentLocale === "en",
+              "tracking-tight text-[20px] font-medium leading-[32px]":
+                i18n.currentLocale === "ko-kr",
+            })}
+          >
             <CustomTranslation
               en="Educational content related to blockchain development,"
               kr="XPLA ACADEMY는 게임에 특화된 XPLA만의 기술과 노하우를"
             />
           </span>
-          <span className={clsx("font-normal leading-[29px]", {
-            "tracking-tight text-[20px]" : i18n.currentLocale === "ko-kr",
-            "text-[24px]" : i18n.currentLocale === "en"
-          })}>
+          <span
+            className={clsx("font-normal leading-[29px]", {
+              "tracking-tight text-[20px]": i18n.currentLocale === "ko-kr",
+              "text-[24px]": i18n.currentLocale === "en",
+            })}
+          >
             <CustomTranslation
               en="smart contracts, and game tokenomic systems all provided!"
               kr="단계별로 제공합니다. 지금 바로 XPLA의 개발 환경을 확인하세요."
             />
           </span>
-          <div className={clsx("mt-[56px] font-medium text-[24px] leading-[29px] text-[#004FFF]", {
-            "font-medium" : i18n.currentLocale === "en",
-            "font-semibold" : i18n.currentLocale === "ko-kr",
-          })}>
+          <div
+            className={clsx(
+              "mt-[56px] font-medium text-[24px] leading-[29px] text-[#004FFF]",
+              {
+                "font-medium": i18n.currentLocale === "en",
+                "font-semibold": i18n.currentLocale === "ko-kr",
+              }
+            )}
+          >
             <CustomTranslation
               en="Your projects are just a click away!"
               kr="당신의 프로젝트를 간편하게 구축해보세요!"
@@ -89,9 +103,9 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
           </div>
         </div>
         <img
-          className={
-            clsx("hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:absolute 2xl:left-[610px]")
-          }
+          className={clsx(
+            "hidden lg:block max-[1536px]:w-[50%] lg:static 2xl:top-[71px] 2xl:absolute 2xl:left-[610px]"
+          )}
           src={`/img/Homepage/explorer-play.svg`}
           alt="explorer-play"
           sizes="(min-width: 1024px) 674px"
@@ -120,6 +134,7 @@ export default function Home(): JSX.Element {
       behavior: "smooth",
     });
   };
+  const widthMobile = useMediaQuery("(max-width:520px)");
 
   const playgameElement = useRef<HTMLDivElement>(null);
   const onMoveToPlaygameElement = () => {
@@ -165,6 +180,7 @@ export default function Home(): JSX.Element {
         <JoinCommunity />
         <ContactUs />
       </main>
+      {isMobile && widthMobile && <BrowserOnly>{() => <Modal />}</BrowserOnly>}
     </Layout>
   );
 }
