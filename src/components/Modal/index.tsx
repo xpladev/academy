@@ -70,18 +70,18 @@ const Modal = () => {
           </div>
         </div>
         <button
-          disabled={!check}
           onClick={() => {
-            const date = new Date();
-            localStorage.setItem("modal", date.getTime().toString());
+            if (check) {
+              const date = new Date();
+              localStorage.setItem("modal", date.getTime().toString());
+            }
             setModalOpen(false);
           }}
           className={clsx(
-            "okay-btn bg-[#004FFF] text-white font-medium text-center text-[20px] leading-[24px] w-full max-w-[265px] py-[10px]",
-            check ? "bg-[#0080FF]" : "opacity-60"
+            "okay-btn bg-[#004FFF] text-white font-medium text-center text-[20px] leading-[24px] w-full max-w-[265px] py-[10px]"
           )}
         >
-          OK
+          CLOSE
         </button>
       </div>
     </MuiModal>
