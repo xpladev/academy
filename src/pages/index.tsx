@@ -91,14 +91,14 @@ function HomepageHeader({ onMoveToElement }: { onMoveToElement: () => void }) {
               to="/startlearning/overview/intro"
               className="bg-[#C9FF00] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
-              <span className="font-medium text-[20px] ">Start Learning</span>
+              <span className="font-medium text-[20px] leading-[24px] ">Start Learning</span>
             </Link>
             <Link
               aria-label="open-tutorial"
               to="/playgame"
               className=" bg-[#fff] buttonShadow flex items-center justify-center py-[10px] px-[30px] border-[1px] text-[#000000] hover:text-[#000000] hover:no-underline"
             >
-              <span className="font-medium text-[20px]">Play Game</span>
+              <span className="font-medium text-[20px] leading-[24px]">Play Game</span>
             </Link>
           </div>
         </div>
