@@ -168,10 +168,14 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
             Cookie Policy
           </Link>
           <span className="text-[#D9D9D9] text-[15px] ">|</span>
-          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
-            Terms of Use
-          </Link>
         </div> */}
+        <Link 
+        target='_blank'
+        rel='noopener noreferrer'
+        to="/TERMS OF USE_XPLA ACADEMY.pdf"
+        style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
+          Terms of Use
+        </Link>
       </div>
     </footer>
   );

@@ -95,7 +95,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/xpladev',
+            href: 'https://github.com/xpladev/academy',
             className: 'header-github-link',
             position: 'right',
             'aria-label': 'GitHub repository',
