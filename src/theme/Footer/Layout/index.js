@@ -112,9 +112,9 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
                 <div className="flex flex-col gap-3">
                   {
                     LinkSubject.content.map((LinkInfo, infoIdx) => (
-                      <Link 
-                      aria-label="footer-link"
-                      key={infoIdx} to={LinkInfo.link} className="hover:opacity-60 transition-all" style={{ textDecoration: 'none' }}>
+                      <Link
+                        aria-label="footer-link"
+                        key={infoIdx} to={LinkInfo.link} className="hover:opacity-60 transition-all" style={{ textDecoration: 'none' }}>
                         <span className="text-[#D9D9D9] font-bold text-[16px]">{LinkInfo.description}</span>
                       </Link>
                     ))
@@ -125,22 +125,22 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
           }
           {
             !matches &&
-          <div onClick={async () => {
-            if (scrollToTop) {
-              await scrollToTop();
-            } else {
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }
-          }}
-          className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
-            <NorthIcon sx={{ fontSize: 50 }} />
-          </div>
-            }
+            <div onClick={async () => {
+              if (scrollToTop) {
+                await scrollToTop();
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }
+            }}
+              className="bg-[#00b2fc] w-[80px] h-[80px] flex justify-center items-center hover:cursor-pointer hover:opacity-60 transition-all">
+              <NorthIcon sx={{ fontSize: 50 }} />
+            </div>
+          }
         </div>
 
       </div>
       <div className={clsx(styles.footerBorder)} />
-      
+
       <div className="max-w-[1212px] px-4 w-[100%] mt-10 flex justify-between flex-col md:flex-row py-5 md:py-0">
         <div className="flex gap-5 md:gap-[80px] items-start flex-col md:flex-row">
           <Link aria-label='xpla.io' href="https://xpla.io" target="_blank" rel="noopener noreferrer" className={styles.xplalogo} ></Link>
@@ -159,23 +159,31 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
         </div>
 
 
-        {/* <div className="flex gap-[14px]">
-          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] ">
+        <div className="flex gap-[14px] max-[996px]:mt-[20px]">
+          <Link
+            target='_blank'
+            rel='noopener noreferrer'
+            to="/XPLA.io_PRIVACY POLICY_EN_202401_FINAL.pdf"
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
             Privacy Policy
           </Link>
-          <span className="text-[#D9D9D9] text-[15px] ">|</span>
-          <Link style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px]">
+          <span className="text-[#D9D9D9] text-[15px] leading-[18px]">|</span>
+          <Link
+            target='_blank'
+            rel='noopener noreferrer'
+            to="/XPLA.io_COOKIE POLICY_EN_202401_FINAL.pdf"
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
             Cookie Policy
           </Link>
-          <span className="text-[#D9D9D9] text-[15px] ">|</span>
-        </div> */}
-        <Link 
-        target='_blank'
-        rel='noopener noreferrer'
-        to="/TERMS OF USE_XPLA ACADEMY.pdf"
-        style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
-          Terms of Use
-        </Link>
+          <span className="text-[#D9D9D9] text-[15px] leading-[18px]">|</span>
+          <Link
+            target='_blank'
+            rel='noopener noreferrer'
+            to="/TERMS OF USE_XPLA ACADEMY.pdf"
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
+            Terms of Use
+          </Link>
+        </div>
       </div>
     </footer>
   );
