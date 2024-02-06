@@ -1,5 +1,5 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql } from "../../system/mysql";
+import { walletPool, walletMysql } from "../../system/mysql";
 import { URL, chainID, cw20MnemonicKey, cw20_contract, tokenDecimal, unsignedTimeOut, publisherTokenInit, seqMsg, walletLog } from './serverInfo'
 
 var userInfo = require('../server/userInfo');
@@ -62,29 +62,42 @@ module.exports =  async function(req) {
       }
     );
 
-    const serverPubKey = serverKey.publicKey as SimplePublicKey
+    let conn = await walletPool.getConnection()
+    await conn.beginTransaction()
+    let simul_fee
+    let unsignedTx
 
-    const [payerInfo, ] = await walletMysql.connect((con) => con.query(
-      'SELECT sequence FROM publisher_sequence WHERE accAddress = ? FOR UPDATE',
-    [serverWallet.key.accAddress]))()
-    const serverSequence = payerInfo[0].sequence
+    try{
+      const [payerInfo, ] = await walletMysql.connect((con) => con.query( 'SELECT sequence FROM publisher_sequence WHERE accAddress = ? FOR UPDATE', [serverWallet.key.accAddress]))()
+      const serverSequence = payerInfo[0].sequence
+      const serverPubKey = serverKey.publicKey as SimplePublicKey
 
-    const tx_api = new TxAPI(lcd)
-    const simul_fee = await tx_api.estimateFee(
-      [        
-        { sequenceNumber: serverSequence, publicKey: serverPubKey }
-      ],
-      {
-        msgs: [transferMsg],
-        gasAdjustment: 1.5,			
-      }
-    )
-    
-    const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), recipient);
+      const tx_api = new TxAPI(lcd)
+      simul_fee = await tx_api.estimateFee(
+        [        
+          { sequenceNumber: serverSequence, publicKey: serverPubKey }
+        ],
+        {
+          msgs: [transferMsg],
+          gasAdjustment: 1.5,			
+        }
+      )
+      
+      const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), recipient);
 
-    const tx = await lcd.tx.create([], {msgs: [transferMsg], fee } )
-    const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
-  
+      const tx = await lcd.tx.create([], {msgs: [transferMsg], fee } )
+      unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+      await conn.commit(); 
+      conn.release();
+
+    } catch(err) {
+
+      await conn.rollback()
+      conn.release()
+
+      throw err
+    }
+
     setTimeout( waitResult, unsignedTimeOut, tid);
     
     result.returnCode = '0'
