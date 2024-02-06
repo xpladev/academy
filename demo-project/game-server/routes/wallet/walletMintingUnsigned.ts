@@ -1,5 +1,5 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql } from "../../system/mysql";
+import { walletPool, walletMysql } from "../../system/mysql";
 import { URL, chainID, cw20MnemonicKey, cw20_contract, cw721MnemonicKey, cw721_contract,
   tokenDecimal, seqMsg, publisherNftInit, walletLog, 
   ipfsCnf, ipfsPortCnf, ipfsClusterCnf, ipfsClusterPortCnf, ipfsGetUrlCnf } from './serverInfo'
@@ -88,10 +88,6 @@ module.exports =  async function(req) {
     const serverWallet = lcd.wallet(mk);
     const minterMk = new MnemonicKey({ mnemonic: cw721MnemonicKey })
     const minterWallet = lcd.wallet(minterMk);
-
-    const userState = await minterWallet.accountNumberAndSequence()
-    const minterPubKey = minterMk.publicKey
-    const minterSeq = userState.sequence
 
     const sender = wallet    
     const recipient = serverWallet.key.accAddress
@@ -192,22 +188,41 @@ module.exports =  async function(req) {
       {...executeMsg}
     );
     
+    let conn = await walletPool.getConnection()
+    await conn.beginTransaction()
+    let simul_fee
+    let unsignedTx
 
-    const tx_api = new TxAPI(lcd)
-    const simul_fee = await tx_api.estimateFee(
-      [
-        {sequenceNumber: userSeq, publicKey: new SimplePublicKey(userPubKey)},
-        {sequenceNumber: minterSeq, publicKey: minterPubKey},
-      ],
-      {
-        msgs: [transferMsg, mintingExe],
-        gasAdjustment: 1.25,			
-      }
-    )
-    const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+    try{
+      const [data, ] = await conn.query('SELECT sequence FROM publisher_sequence WHERE accAddress = ? FOR UPDATE', [minterWallet.key.accAddress])
+      const minterSeq = data[0].sequence
+      const minterPubKey = minterMk.publicKey    
 
-    const tx = await lcd.tx.create([], {msgs: [transferMsg, mintingExe], fee } )
-    const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+      const tx_api = new TxAPI(lcd)
+      simul_fee = await tx_api.estimateFee(
+        [
+          {sequenceNumber: userSeq, publicKey: new SimplePublicKey(userPubKey)},
+          {sequenceNumber: minterSeq, publicKey: minterPubKey},
+        ],
+        {
+          msgs: [transferMsg, mintingExe],
+          gasAdjustment: 1.25,			
+        }
+      )
+      const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString());
+
+      const tx = await lcd.tx.create([], {msgs: [transferMsg, mintingExe], fee } )
+      unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+      await conn.commit(); 
+      conn.release();
+
+    } catch(err) {
+
+      await conn.rollback()
+      conn.release()
+
+      throw err
+    }
 
     setTimeout( waitResult, 120000, tid);
 

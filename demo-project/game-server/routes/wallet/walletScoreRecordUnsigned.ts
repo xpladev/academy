@@ -1,5 +1,5 @@
 import { LCDClient,  MnemonicKey, MsgExecuteContract, TxAPI, Fee, SimplePublicKey } from "@xpla/xpla.js"
-import { walletMysql } from "../../system/mysql";
+import { walletPool, walletMysql } from "../../system/mysql";
 import { URL, chainID, cw20MnemonicKey, cw20_contract, cw721MnemonicKey, cw20_scoreContract,
   seqMsg, publisherNftInit, walletLog } from './serverInfo'
 
@@ -37,10 +37,6 @@ module.exports =  async function(req) {
     const minterMk = new MnemonicKey({ mnemonic: cw721MnemonicKey })
     const minterWallet = lcd.wallet(minterMk);
 
-    const userState = await minterWallet.accountNumberAndSequence()
-    const minterPubKey = minterMk.publicKey
-    const minterSeq = userState.sequence
-
     const sender = minterWallet.key.accAddress // wallet    
 
     const [db, ] = await walletMysql.connect((con) => con.query(
@@ -68,20 +64,40 @@ module.exports =  async function(req) {
       }
     );
 
-    const tx_api = new TxAPI(lcd)
-    const simul_fee = await tx_api.estimateFee(
-      [
-        {sequenceNumber: minterSeq, publicKey: minterPubKey},
-      ],
-      {
-        msgs: [transferMsg],
-        gasAdjustment: 1.4,			
-      }
-    )
-    const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), wallet);
+    let conn = await walletPool.getConnection()
+    await conn.beginTransaction()
+    let simul_fee
+    let unsignedTx
 
-    const tx = await lcd.tx.create([], {msgs: [transferMsg], fee } )
-    const unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+    try{
+      const [data, ] = await conn.query('SELECT sequence FROM publisher_sequence WHERE accAddress = ? FOR UPDATE', [minterWallet.key.accAddress])
+      const minterSeq = data[0].sequence
+      const minterPubKey = minterMk.publicKey    
+
+      const tx_api = new TxAPI(lcd)
+      simul_fee = await tx_api.estimateFee(
+        [
+          {sequenceNumber: minterSeq, publicKey: minterPubKey},
+        ],
+        {
+          msgs: [transferMsg],
+          gasAdjustment: 1.4,			
+        }
+      )
+      const fee = new Fee(simul_fee.gas_limit, simul_fee.amount.toString(), wallet);
+
+      const tx = await lcd.tx.create([], {msgs: [transferMsg], fee } )
+      unsignedTx = Buffer.from(tx.toBytes()).toString('base64')
+      await conn.commit(); 
+      conn.release();
+
+    } catch(err) {
+
+      await conn.rollback()
+      conn.release()
+
+      throw err
+    }
 
     setTimeout( waitResult, 120000, tid);
 
