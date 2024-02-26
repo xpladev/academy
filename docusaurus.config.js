@@ -90,10 +90,10 @@ const config = {
             position: 'left',
             label: 'Start Learning',
           },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          // },
           {
             href: 'https://github.com/xpladev/academy',
             className: 'header-github-link',
@@ -171,17 +171,17 @@ const config = {
       };
     },
     'docusaurus-node-polyfills',
-    ['@docusaurus/plugin-google-gtag',
-    {
-      trackingID: process.env.GTAG,
-      anonymizeIP: true,
-    }],
-    [
-      '@docusaurus/plugin-google-tag-manager',
-      {
-        containerId: process.env.GTM,
-      },
-    ],
+    // ['@docusaurus/plugin-google-gtag',
+    // {
+    //   trackingID: process.env.GTAG,
+    //   anonymizeIP: true,
+    // }],
+    // [
+    //   '@docusaurus/plugin-google-tag-manager',
+    //   {
+    //     containerId: process.env.GTM,
+    //   },
+    // ],
     [
       "docusaurus2-dotenv",
       {

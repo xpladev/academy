@@ -164,7 +164,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
             target='_blank'
             rel='noopener noreferrer'
             to="/XPLA.io_PRIVACY POLICY_EN_202401_FINAL.pdf"
-            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Privacy Policy
           </Link>
           <span className="text-[#D9D9D9] text-[15px] leading-[18px]">|</span>
@@ -172,7 +172,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
             target='_blank'
             rel='noopener noreferrer'
             to="/XPLA.io_COOKIE POLICY_EN_202401_FINAL.pdf"
-            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Cookie Policy
           </Link>
           <span className="text-[#D9D9D9] text-[15px] leading-[18px]">|</span>
@@ -180,7 +180,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
             target='_blank'
             rel='noopener noreferrer'
             to="/TERMS OF USE_XPLA ACADEMY.pdf"
-            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#D9D9D9] hover:text-[#D9D9D9] hover:cursor-pointer hover:opacity-60 font-bold text-[15px] leading-[18px]">
+            style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Terms of Use
           </Link>
         </div>
