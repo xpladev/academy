@@ -171,17 +171,17 @@ const config = {
       };
     },
     'docusaurus-node-polyfills',
-    ['@docusaurus/plugin-google-gtag',
-    {
-      trackingID: process.env.GTAG,
-      anonymizeIP: true,
-    }],
-    [
-      '@docusaurus/plugin-google-tag-manager',
-      {
-        containerId: process.env.GTM,
-      },
-    ],
+    // ['@docusaurus/plugin-google-gtag',
+    // {
+    //   trackingID: process.env.GTAG,
+    //   anonymizeIP: true,
+    // }],
+    // [
+    //   '@docusaurus/plugin-google-tag-manager',
+    //   {
+    //     containerId: process.env.GTM,
+    //   },
+    // ],
     [
       "docusaurus2-dotenv",
       {
