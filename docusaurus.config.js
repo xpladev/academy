@@ -90,10 +90,10 @@ const config = {
             position: 'left',
             label: 'Start Learning',
           },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          // },
           {
             href: 'https://github.com/xpladev/academy',
             className: 'header-github-link',
