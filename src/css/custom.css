@@ -115,6 +115,19 @@ html[data-theme='dark'] .sidebar-divider {
   transform: translate(5px, 5px);
 }
 
+.buttonShadow12 {
+  box-shadow: 12px 12px 0px black;
+  border: 1px solid black;
+  transition: all 200ms;
+
+}
+
+.buttonShadow12:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: translate(12px, 12px);
+}
+
 .header-github-link {
   content: '';
   width: 24px;

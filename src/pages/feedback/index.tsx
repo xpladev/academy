@@ -9,7 +9,7 @@ export default function Feedback(): JSX.Element {
     >
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSfs7a8PiSM0QaeZYO5hhCOqsrS1DotVHNEpK8jpgh29VXwDZA/viewform?embedded=true"
-        className="w-full h-[1500px] my-[20px]"
+        className="w-full h-[1900px] md:h-[1500px] my-[20px]"
         frameborder="0"
         marginheight="0"
         marginwidth="0"
