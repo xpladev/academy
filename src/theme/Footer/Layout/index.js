@@ -159,7 +159,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
         </div>
 
 
-        <div className="flex gap-[14px] max-[996px]:mt-[20px]">
+        <div className="relative flex gap-[14px] max-[996px]:mt-[20px]">
           <Link
             target='_blank'
             rel='noopener noreferrer'
@@ -183,7 +183,34 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
             style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Terms of Use
           </Link>
+          <Link
+            target='_blank'
+            rel='noopener noreferrer'
+            to="https://www.xpla.io/ko/community/71"
+            className="hidden md:block md:absolute md:top-[56px] md:right-0 hover:cursor-pointer"
+          >
+
+            <img
+              src="/img/Footer/ISAE3000.svg"
+              alt="isae3000"
+              width="92px"
+              height="14px"
+            />
+          </Link>
         </div>
+        <Link
+          target='_blank'
+          rel='noopener noreferrer'
+          className="mt-[20px] md:hidden hover:cursor-pointer"
+          to="https://www.xpla.io/ko/community/71">
+
+          <img
+            src="/img/Footer/ISAE3000.svg"
+            alt="isae3000"
+            width="92px"
+            height="14px"
+          />
+        </Link>
       </div>
     </footer>
   );
