@@ -1,0 +1,68 @@
+[
+    {
+        "date": "2024-04-05",
+        "article": [
+            {
+                "english": {
+                    "content": "Metamagnet's website (“Website”) and its related software, products and services (collectively, the “Services”) use cookies to gather User data to support Website analytics, improve the Website performance and enhance your User experience. This policy (the “Policy”) describes what cookies are and how they're being used by Metamagnet's website (“Website” or “Service”). Please read this Policy and all its terms and conditions carefully. By accessing and using the Website and Services you agree to be bound by this Policy.\n\nYou have the right to choose whether or not to accept cookies. However, please note that if you choose to refuse cookies you may not be able to use the some functionality of our Websites and Services. Please see Section 5 on how to control or delete your cookie settings. Also, for further information on how we use, store, and keep your personal data secure, see our Privacy Policy."
+                }
+            },
+            {
+                "index" : 1,
+                "english": {
+                    "title" : "1. What are Cookies?",
+                    "content" : "Cookies are small text files containing information which are downloaded to your computer or mobile devices when websites are loaded in a browser. Cookies are used to store and receive identifiers and other information on computers, phones, and other devices. Other technologies, including data we store on your web browser or device, identifiers associated with your device, and other software, are used for similar purposes. In this policy, we refer to all of these technologies as “Cookies”. Cookies may be used when you visit websites and apps provided by Metamagnet. Cookies are divided into four types depending on their function. Metamagnet only uses Performance/Analytics Cookies.\n\na. Essential Cookie: Also known as “necessary” cookies. These cookies  are used to operate our site and to identify and prevent security risks.\nb. Performance & Analytics Cookie: We use these cookies to collect information about how you use our site, monitor site performance, and improve our site performance, our services, and your experience. For example, we can use these cookies to learn more about which features are the most popular with our users and which ones might need some tweaks.\nc. Preferences Cookie: These are used to remember your settings and preferences, and to improve your experience on the Website.\nd. Marketing Cookie: These cookies are used to deliver advertisements, to make them more relevant and meaningful to consumers, and to track the efficiency of advertising campaigns, both on services and on other websites or mobile apps."
+                }
+            },
+            {
+                "index" : 2,
+                "english": {
+                    "title" : "2. How do we use Cookies?",
+                    "content" : "We use cookies to:\na. Track Website traffic and usage;\nb. Monitor the performance of the Websites and Services;\nc. Improve our Web-Services"
+                }
+            },
+            {
+                "index" : 3,
+                "english": {
+                    "title" : "3. What Cookies do we use?",
+                    "content" : "Metamagnet uses only Performance/Analytics Cookies, it collects aggregated data to analyze how the Websites and Services are accessed, used, and are performing. Using Performance/Analytics Cookies, all of this helps us to measure and improve the performance of our Services. If you do not allow these cookies we will not receive data about your use of our Services to help us to monitor the performance of our Services."
+                }
+            },
+            {
+                "index" : 4,
+                "english": {
+                    "title" : "4. Which service providers do we use (Third Party Cookies)?",
+                    "contentInnerhtml" : true,
+                    "content" : "We may use third-party Service providers to monitor and analyze the use of our Service\nGoogle Analytics is a web analytics service offered by Google that tracks and reports website traffic. Google uses the data collected to track and monitor the use of our Service.  You can opt-out of having made your activity on the Service available to Google Analytics by installing the Google Analytics opt-out browser add-on. The add-on prevents the Google Analytics JavaScript (ga.js, analytics.js and dc.js) from sharing information with Google Analytics about visits activity. For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page: https://policies.google.com/privacy\nYou can opt-out of cookies from Google Analytics <a target='_blank' rel='noopener noreferrer' href='https://tools.google.com/dlpage/gaoptout'>here</a>."
+                }
+            },
+            {
+                "index" : 5,
+                "english": {
+                    "title" : "5. transfer to third countries outside the European.",
+                    "content" : "In some cases, the use of cookies results in the transfer of your personal data to third countries outside the European Union/European Economic Area (“EU / EEA”). For a list of so-called safe third countries with an adequate level of data protection and for which there is therefore an adequacy decision by the European Commission, see: https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions. The transfer to unsafe third countries may be associated with risks for your personal data, as access to your personal data by the respective authorities cannot be excluded in the event of a transfer. If we transfer your data to other countries outside the EU / EEA based on your consent, we will take measures to ensure that your data protection rights are protected."
+                }
+            },
+            {
+                "index" : 6,
+                "english": {
+                    "title" : "6. How to control or delete cookies.",
+                    "contentInnerhtml" : true,
+                    "content" : "6.1  You can decide whether to accept or reject Cookies other than strictly necessary Cookies. You can exercise your Cookie preferences by clicking on the “Cookies Settings” on our cookie banner.\n6.2  Depending on your web browser, you may refuse the use of cookies in the following ways:\na.   How to set(including delete) cookies if you use Microsoft Edge: <a target='_blank' rel='noopener noreferrer' href='https://support.microsoft.com/en-us/windows/microsoft-edge-browsing-data-and-privacy-bb8174ba-9d73-dcf2-9b4a-c582b4e640dd'>confirm</a>\nb.   How to set(including delete) cookies if you use Safari: <a target='_blank' rel='noopener noreferrer' href='https://support.apple.com/en-us/105082'>confirm</a>\nc.   How to set(including delete) cookies if you use FireFox: <a target='_blank' rel='noopener noreferrer' href='https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox?redirectslug=delete-cookies-remove-info-websites-stored&redirectlocale=en-US'>confirm</a>\nd.   How to set(including delete) cookies if you use Chrome: <a target='_blank' rel='noopener noreferrer' href='https://support.google.com/chrome/answer/95647?hl=en'>confirm</a>"
+                }
+            },
+            {
+                "index" : 7,
+                "english": {
+                    "title" : "7. Changes and Amendments to this Cookie Policy",
+                    "content" : "We reserve the right to modify this Policy or its terms at our discretion. Any updated version of this Policy will be effective immediately upon the posting of the revised Policy unless otherwise specified. We will also post a notice on the Website if we make any material changes in the way we collect, use, or share the information held in the Website Cookies."
+                }
+            },
+            {
+                "english": {
+                    "content" : "If you have any questions, comments, or concerns abou t our processing activities or this Cookie Policy, please contact us via email.\n\nQuestions?\nIf you have any questions regarding our Cookie Policy and/or practices, please email us at contact@metamagnet.org."
+                }
+            }
+        ]
+    }
+]

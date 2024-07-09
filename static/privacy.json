@@ -1,0 +1,575 @@
+[
+    {
+        "date": "2024-07-25",
+        "article": [
+            {
+                "index": 1,
+                "english": {
+                    "title": "1. Introduction and Overview",
+                    "content": "Metamagnet and its subsidiaries and affiliates (“XPLA”, “we”, “our”, and/or “us”), value the privacy of individuals who use XPLA ACADEMY (academy.xpla.dev) (the “Website” and/or “Site”) and its related software, products and services (collectively, the “Services”). This Privacy Policy (“Privacy Policy”) describes how XPLA collects, uses, shares, and discloses information about users and their rights and choices regarding such information. If you have any questions or wish to exercise your rights and options, please contact us in the “Contact Us” section."
+                }
+            },
+            {
+                "index": 2,
+                "english": {
+                    "noborder": true,
+                    "title": "2. Personal Data We Collect",
+                    "content": "XPLA collects certain Personal Information from you when you use the Service. This information is collected and may be stored electronically by us. This information may be provided to us voluntarily by you, collected automatically by us from you, or provided to us from third-party sources.\n\n2.1. Collected Personal Data\n\nWe may collect the following types of Personal Data from you directly in our Services. We may collect Personal Data from points of service that you voluntarily provide or where Personal Data is being collected as follows:"
+                }
+            },
+            {
+                "english": {
+                    "noborder": true,
+                    "table": [
+                        [
+                            {
+                                "content": "Service",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Purpose",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Items",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "paddingLeft": "20px",
+                                    "marginLeft": "20px",
+                                    "lineHeight": "19px"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "For using ACADEMY service and the demo projects provided for educational purposes",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "ID, password, testnet wallet address, gameplay information (including the demo games)",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "XPLA ACADEMY",
+                                "style": {
+                                    "position" : "absolute",
+                                    "top" : "0px",
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "For customer support and to provide and improve services",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "30px 0px 30px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "Email address, project details, GitHub repository link, inquiry details (any information you provide to us when requesting customer support)",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            }
+                        ]
+                    ]
+                }
+            },
+            {
+                "english": {
+                    "content": "2.2. Usage Data Through Automated Means (Including Cookies)\n\nTo enable our systems to recognize your browser or device and to provide and improve XPLA Services, we use cookies and other identifiers. For more information about cookies and how we use them, please read our [Cookie Policy]."
+                }
+            },
+            {
+                "index": 3,
+                "english": {
+                    "title": "3. What We Do With Personal Data We Collect",
+                    "content": "We collect and use information for business purposes in accordance with the practices described in this Privacy Policy. Our business purposes for collecting and using information include.\n● Provide our XPLA games/blockchain related Services and identify you as a user.\n● Carry out marketing tasks such as promoting events such as newsletter subscription.\n● Provide customer support and respond to your requests and inquiries.\n● To operate, maintain, improve, personalize and analyze the Services.\n● We process Personal Data in compliance with applicable law and regulations."
+                }
+            },
+            {
+                "index": 4,
+                "english": {
+                    "noborder": true,
+                    "title": "4. Sharing of Your Information",
+                    "content": "We do not share your Personal Data with third parties unless clearly authorized by you or in the following circumstances. However, within the scope necessary to achieve the purpose of use, the handling of Personal Data may be entrusted to our affiliates or third parties as further detailed below. We manage/supervise so that the information can be safely handled when entrusting Personal Data.\n\n4.1 Third Party Service Providers:\n\nWe may provide your information to third party companies (the “Third Party Service Providers”) that perform services on our behalf, including, without limitation, operation of the services, data analysis, marketing services, promotional events, email campaigns, hosting services, and customer service or support. The Third Party Service Providers may access your Personal Data, but use it solely as directed by us for performing requested services."
+                }
+            },
+            {
+                "english": {
+                    "noborder": true,
+                    "table": [
+                        [
+                            {
+                                "content": "Service",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Third Party Service Providers & Subcontractor",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Purpose",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "paddingLeft": "20px",
+                                    "marginLeft": "20px",
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Retention and Usage Period",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "paddingLeft": "20px",
+                                    "marginLeft": "20px",
+                                    "lineHeight": "19px"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "Com2uS Holdings Corporation",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "width": "280px",
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "30px 0px 30px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "Product management, development, and operation",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "20px 0px 20px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "paddingLeft": "20px"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "XPLA ACADEMY",
+                                "style": {
+                                    "position" : "absolute",
+                                    "top" : "0px",
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "ZENAAD Co., Ltd",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "39.5px 0px 39.5px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "To manage/operate technical infrastructure",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "30px 0px 30px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "Until the end of the contract",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 79px 0px",
+
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            }
+                        ]
+                    ]
+                }
+            },
+
+            {
+                "english": {
+                    "content": "For third-party service providers that use cookies, please read our Cookie Policy.\n\n4.2 Business Partners: In relation to the development and operation of the Services, we have partnerships with our affiliates.\n\n4.3 We provide your information when the provision of data is mandatory by law or when there is a request from a court, investigative agency, or other administrative agency according to a legal procedure.\n\n4.4 If the information is processed into a form that cannot identify a specific individual, it may be provided to a third party."
+                }
+            },
+            {
+                "index": 5,
+                "english": {
+                    "noborder": true,
+                    "title": "5. Retaining and Deleting Personal Data",
+                    "content": "We will only retain your information for as long as is necessary for you to continue to use the Services or to achieve the purposes described in this Privacy Policy. In some cases, you have the right to ask us to delete your information. We may retain some data after your request for termination, as described below, in order to comply with our legal obligations, to resolve disputes, to prevent fraud and abuse, and enforce our Terms of Service or other agreements. If any other purpose has been achieved, the data will be destroyed."
+                }
+            },
+            {
+                "english": {
+                    "noborder": true,
+                    "table": [
+                        [
+                            {
+                                "content": "Service",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Purpose",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "lineHeight": "19px"
+                                }
+                            },
+                            {
+                                "content": "Retention and Usage Period",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 700,
+                                    "paddingLeft": "20px",
+                                    "marginLeft": "20px",
+                                    "lineHeight": "19px"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "For using academy service",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "Until processing of the withdrawal request is complete",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "content": "XPLA ACADEMY",
+                                "style": {
+                                    "position" : "absolute",
+                                    "top" : "-5px",
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 0px 20px"
+                                }
+                            },
+                            {
+                                "content": "",
+                                "style": {
+                                    "width": 280,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "0px 0px 12px 20px"
+                                }
+                            },
+                            {
+                                "content": "Customer Support",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "marginLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            },
+                            {
+                                "content": "3 years",
+                                "style": {
+                                    "display": "flex",
+                                    "flex": 1,
+                                    "color": "#343A3F",
+                                    "fontSize": "16px",
+                                    "fontWeight": 400,
+                                    "lineHeight": "19px",
+                                    "padding": "12px 0px",
+                                    "paddingLeft": "20px",
+                                    "borderBottom": "0.7px solid #DDE1E6"
+                                }
+                            }
+                        ]
+                    ]
+                }
+            },
+            {
+                "english": {
+                    "content": "In addition to the retention periods for each service-specific collected item, we may retain the following information for the specified periods to comply with legal requirements.\n- Records of customer complaints or dispute resolution: 3 years.\n- Computer communication or internet log-in records of computer communication or facts about an internet user’s utilization of telecommunication service: 3 months."
+                }
+            },
+            {
+                "index": 6,
+                "english": {
+                    "title": "6. Transfer of Personal Data to Third Countries",
+                    "contentInnerhtml" : true,
+                    "content": "We store all information in relation to the Services, within the Republic of Korea.\n\nPlease check the Personal Information Protection Act of the Republic of Korea <a target='_blank' rel='noopener noreferrer' href='https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8%EB%B2%95'>here</a>.\n\nHowever, we may transfer your Personal Data to countries or regions where there may not be equivalent data protection standards, if a transfer is necessary to fulfill our obligations to you under our Terms of Service. In all cases, appropriate security measures to protect Personal Data are applied in the country or region in question. However, appropriate security measures to protect Personal Data may vary from the data protection laws of your country of residence. For information about appropriate security measures to protect Personal Data, please read the “7. Security of Your Information” section.\n\nFor information about the company's Information Protection, see the “7. Security of Your Information” section.\n\nBy visiting the Service, providing data to us and agreeing to our Privacy Policy, you acknowledge and agree that your Personal Data may be processed for the purposes set out in our Privacy Policy. Transfer to third parties done under your consent can be withdrawn at any time. However, please understand that in this case, you may not be able to use the Service if your Personal Data cannot be transferred to third countries. We also strive to ensure that appropriate safeguards are implemented, including through standard contractual clauses, when transferring Personal Data to third countries."
+                }
+            },
+            {
+                "index": 7,
+                "english": {
+                    "title": "7. Security of Your Information",
+                    "content": "We take appropriate safeguards in accordance with our security policies and applicable law to protect the data you share and the data we collect and store from unauthorized access or unauthorized alteration, disclosure, or destruction. We cannot guarantee that unauthorized access, hacking, data loss or other violations will not occur. We recommend that you do not share your account password with third parties for any reason. Also, email and messaging systems are not considered secure, thus strongly suggest you not to send your Personal Data through these mediums."
+                }
+            },
+            {
+                "index": 8,
+                "english": {
+                    "title": "8. Our Policy Concerning Children",
+                    "contentInnerhtml" : true,
+                    "content": "Our all services are not directed towards, nor designed to attract the attention of, children. We do not knowingly collect or maintain personal information from any person under the age of sixteen.\n\nIf you are a parent or guardian and you believe we have collected information from your child, please contact us via email (contact@metamagnet.org)."
+                }
+            },
+            {
+                "index": 9,
+                "english": {
+                    "title": "9. Your Privacy Rights",
+                    "contentInnerhtml" : true,
+                    "content": "<b>9.1 Right of Access </b>\nYou have the right to verify whether we process your Personal Data and, if so, access to your Personal Data together with certain additional information. Such additional information includes the purposes of processing, the categories of Personal Data concerned and the recipients of the Personal Data. We will provide you with a copy of your Personal Data without affecting the rights and freedoms of others. You may access your Personal Data by contacting us at contact@metamagnet.org.\n\n<b>9.2 Right to Rectification</b>\nYou are entitled to have any inaccurate Personal Data about you rectified and, taking into account the purposes of the processing, to have any incomplete Personal Data about you completed. You may change your Personal Data by contacting us at contact@metamagnet.org.\n\n<b>9.3 Right to Erasure</b>\nIn some circumstances you are entitled to the erasure of your Personal Data without undue delay. Those circumstances include:\n- The Personal Data are no longer necessary in relation to the purposes for which they were collected or otherwise processed;\n- You withdraw consent to consent-based processing;\n- You object to the processing under certain rules of applicable data protection law; the processing is for direct marketing purposes; and\n- The Personal Data has been unlawfully processed. However, there are exclusions of the right to erasure. The general exclusions include where processing is necessary:\n- For exercising the right of freedom of expression and information;\n- For compliance with a legal obligation; or\n- For the establishment, exercise or defense of legal claims.\n- If you choose to delete your Personal Data, we will immediately delete your Personal Data. Even after your Personal Data is terminated or deleted, some or all of your information may still remain visible to others, including but not limited to any information that has been incorporated into any User contents or copied, stored or disseminated by you or other users.\n\nYou may request erasure of your information by contacting us at contact@metamagnet.org.\n\n<b>9.4 Right to Restrict Processing</b>\nIn some circumstances, you are entitled to restrict the processing of your Personal Data. Those circumstances are:\n- You contest the accuracy of the Personal Data;\n- Processing is unlawful, but you oppose erasure;\n- We no longer need the Personal Data for the purposes of our processing, but you require the Personal Data for the establishment, exercise, or defense of legal claims; and\n- You have objected to processing, pending the verification of that objection.\nWhere processing has been restricted on this basis, we may continue to store your Personal Data. However, we will only otherwise process it:\n- With your consent;\n- For the establishment, exercise, or defense of legal claims;\n- For the protection of the rights of another natural or legal person;\n- For reasons of important public interest. \nYou may request restriction of the processing of your information by contacting us at contact@metamagnet.org.\n\n\n<b>9.5 Right to Object</b>\nYou have the right to object to our processing of your Personal Data on grounds relating to your particular situation, but only to the extent that the legal basis for the processing is that the processing is necessary for: \ni) The performance of a task carried out in the public interest or in the exercise of any official authority vested in us; or\nii) The purposes of the legitimate interests pursued by us or by a third party.\nIf you make such an objection, we will cease to process the Personal Data unless we can demonstrate compelling legitimate grounds for the processing which override your interests, rights, and freedoms, or the processing is for the establishment, exercise, or defense of legal claims. \n\nYou may request restriction of the processing of your information by contacting us at contact@metamagnet.org.\n\n<b>9.6 Right to Object to Processing for Direct Marketing Purposes</b>\nYou have the right to object to our processing of your Personal Data for direct marketing purposes (including profiling for direct marketing purposes). If you raise such an objection, we will stop processing your Personal Data for this purpose. You may object to the processing of your information for direct marketing purposes by contacting us at contact@metamagnet.org.\n\n<b>9.7 Right to Object to Processing for Scientific, Historical, or Statistical Purposes</b>\nYou have the right to object to the processing of your Personal Data for scientific or historical research purposes or for statistical purposes on grounds relevant to your particular situation. You may object to the processing of your information for scientific, historical or statistical purposes by contacting us at contact@metamagnet.org.\n\n<b>9.8 Right to Data Portability</b>\nTo the extent that the legal basis for our processing of your Personal Data is:\n - Consent; or\n - That the processing is necessary for the performance of a contract to which you are party or in order to take steps at your request prior to entering into a contract,\nand such processing is carried out by automated means, you have the right to receive your Personal Data from us in a structured, commonly used and machine-readable format and the right to have your Personal Data transmitted to another controller. However, this right does not apply where it would adversely affect the rights and freedoms of others. You may request to receive your information by contacting us at contact@metamagnet.org.\n\n<b>9.9 Right to Withdraw Consent</b>\nIf the legal basis for the processing of your Personal Data is consent, you have the right to withdraw that consent at any time. Withdrawal does not affect the legality of processing prior to withdrawal. You may exercise your rights in relation to your Personal Data by giving written notice to contact@metamagnet.org.\n\n<b>9.10 Additional Rights</b>\n- European residents have the following rights under the GDPR with respect to their Personal Data including the above rights.\nIf you believe that our processing of Personal Data infringes data protection law, you may file a complaint with the supervisory authority responsible for data protection.\nYou can find out more about your country's oversight bodies by visiting:\n <a target='_blank' rel='noopener noreferrer' href='http://ec.europa.eu/newsroom/article29/item-detail.cfm?item_id=612080'>http://ec.europa.eu/newsroom/article29/item-detail.cfm?item_id=612080</a>\n\n- California residents have certain rights under the California Consumer Privacy Act (CCPA) & California Privacy Rights Act Disclosures\n(CPRA) with respect to their Personal Data in addition to the above rights.\nThis section applies solely to the personal information collected from consumers or users who reside in the State of California (“users” or “you”). \nThe right to request disclosure of Personal Data regarding categories of personal information, categories of sources of collection, purposes, categories of third parties with whom we share the information, and specific personal information we collect about you (Cal. Civ. Code §1799.100, §1799.130)\n\n(a) In the 12 months preceding the date of this Disclosure, we may have collected and disclosed for a business purpose the categories of personal information and shared personal information with the categories of third parties. \nPlease refer to our “Personal Data We Collect” and “Sharing of Your Information” concerning the categories of personal information(including the categories of sources from which the personal information is collected) and shared personal information with the categories of third parties. \nAlso, we disclose the purpose for such collecting. Please refer to our “What We Do With Personal Data We Collect.”\n\n(b) No Sale of Personal Information.\nWe do not sell or share any personal information to third parties for a business or commercial purpose. For the purposes of this Disclosure, “sale of personal information” means the disclosure of personal information for monetary or other valuable consideration.\n(c) Privacy Rights of California Residents.\nYou have the following rights under the CCPA & CPRA.\n\n〮 Right to Request Disclosure of Your Personal Information (Cal. Civ. Code §1798.100, §1798.130)\nYou have the right to request that we disclosed to you any of the following:\n- Whether we collect and use your personal information;\n- The categories of personal information we have collected about you;\n- The business or commercial purpose for collecting personal information;\n- Whether we sell or share your personal information to third parties; \n- The categories of personal information we have disclosed about you for a business purpose;\n- The categories of third parties to whom the personal information was sold, shared, or disclosed for a business purpose; \n- The business or commercial purpose for collecting, sharing, or selling personal information; and \n- The specific pieces of personal information we collected about you. \nIn accordance with applicable law, we are not obligated to provide or delete consumer information that is de-identified in response to a consumer request or to re-identify individual data to verify a consumer request. \n\n〮 Right to Request Deletion (Cal. Civ. Code §1798.105)\nYou have the right to request that we delete your personal information we have collected from you. If you ask us to delete your personal information, we will respect your request and delete your personal information, subject to certain exceptions provided by law, such as (but not limited to) the exercise by another consumer of his or her right to free speech, our compliance requirements resulting from a legal obligation, or any processing that may be required to protect against illegal activities.\n\n〮 Right to Nondiscrimination (Cal. Civ. Code §1798.125)\nWe will not discriminate against you if you exercise your privacy rights\nIf you want to exercise any of your rights, please feel free to contact us by sending an email to contact@metamagnet.org.\nUpon request, please provide sufficient information to reasonably determine that you are the person or authorized representative from whom we collected personal information. If we cannot verify your identity, your request may be denied.\nState in your request the rights you wish to exercise and the scope of your request.\nWe will consider and act on all of the above requests in accordance with applicable law. We also do not discriminate against you for exercising these rights.\n"
+                }
+            },
+            {
+                "index": 10,
+                "english": {
+                    "title": "10. Change/Update to Privacy Policy",
+                    "content": "We may amend, at our discretion, any portion of this Privacy Policy at any time by posting or displaying the amended Privacy Policy within/on XPLA website. You will be deemed to have accepted such amendments by continuing to use the Service. Except as otherwise stated, any such amendments will be automatically effective after they are initially posted. Our policy will be regularly updated. We will notify you of the changes where required by law to do so. This policy was last updated on July 25, 2024"
+                }
+            },
+            {
+                "index": 11,
+                "english": {
+                    "title": "11. Link",
+                    "content": "The Services may contain links to other websites. The fact that the Service links to a website or provides banner advertisements or other types of advertisements does not imply endorsement or endorsement by us of such third parties, nor does it indicate our affiliation with such third parties. We are not responsible for the Privacy Policies of other websites that you choose to access on the Services. It is your responsibility to read the Privacy Policies of these other websites when you exit the Service."
+                }
+            },
+            {
+                "index": 12,
+                "english": {
+                    "title": "12. Data Protection Officer and Representative",
+                    "content": "Our data protection officer can be reached at:\nName : Paul Kim\nEmail : contact@metamagnet.org\nOur representative can be reached at:\nName : VeraSafe Czech Republic s.r.o.\nEmail : article27@VeraSafe.com \nAddress : Klimentská 46 Prague 1, 11002 Czech Republic"
+                }
+            },
+            {
+                "english": {
+                    "contentInnerhtml" : true,
+                    "content": "<b>Questions</b>\nIf you have any questions regarding our Privacy Policy and/or practices, please email us at contact@metamagnet.org."
+                }
+            }
+        ]
+    }
+]
