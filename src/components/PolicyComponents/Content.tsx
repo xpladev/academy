@@ -108,7 +108,7 @@ const getDateFormat = (date: string) => {
 
 const Table = ({ tabledata }: { tabledata: TableData[][] | undefined }) => {
     if (!tabledata) return <></>
-    return <div className="border border-[#878D96]  w-full overflow-auto ">
+    return <div className="border border-[#878D96] border-solid  w-full overflow-auto ">
         <div className="bg-[#F2F4F8] flex px-[20px] min-w-[1080px] py-[12px]">
             {
                 tabledata[0].map((headerData) => {

@@ -6,7 +6,7 @@ const PolicySidebar = () => {
     const location = useLocation();
     const { pathname } = location;
 
-    return <div className="md:mt-0 mt-[60px] flex ">
+    return <div className="md:mt-0 flex ">
         <Link
             className={clsx("text-[16px] font-medium leading-[19px] mr-[12px]",
                 pathname === "/privacy-policy" ? "text-[#00B1FF]" : "text-[#878D96]"
