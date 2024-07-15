@@ -163,7 +163,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
           <Link
             target='_blank'
             rel='noopener noreferrer'
-            to="/XPLA.io_PRIVACY POLICY_EN_202401_FINAL.pdf"
+            to="/privacy-policy"
             style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Privacy Policy
           </Link>
@@ -171,7 +171,7 @@ export default function FooterLayout({ style, links, logo, copyright, scrollToTo
           <Link
             target='_blank'
             rel='noopener noreferrer'
-            to="/XPLA.io_COOKIE POLICY_EN_202401_FINAL.pdf"
+            to="/cookie-policy"
             style={{ textDecoration: 'none' }} className="h-fit transition-all text-[#00B1FF] hover:text-[#004FFF] hover:cursor-pointer font-bold text-[15px] leading-[18px]">
             Cookie Policy
           </Link>
