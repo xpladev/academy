@@ -30,7 +30,7 @@ const LinkList = [
     content: [
       {
         description: 'X',
-        link: 'https://twitter.com/XPLA_Official'
+        link: 'https://x.com/Official_CONX'
       },
       {
         description: 'MEDIUM',
